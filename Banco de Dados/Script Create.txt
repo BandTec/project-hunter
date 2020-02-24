@@ -1,0 +1,41 @@
+Create table gamer(
+idGamer int primary key identity (1,1),
+nome varchar (60),
+cpf char (30),
+email varchar (60),
+senha varchar (20),
+telefone char (11)
+);
+
+
+Create table equipe (
+idEquipe int primary key identity (1,1),
+nomeEquipe varchar (20),
+);
+
+
+Create table jogo(
+idJogo int primary key identity (1,1),
+nomeJogo varchar (100),
+idGamer int references gamer (idGamer),
+idEquipe int references equipe (idEquipe)
+);
+
+
+Create table endereco(
+idEndereco int primary key identity (1,1),
+logradouro varchar (60),
+numero int,
+complemento varchar (20),
+bairro varchar (30),
+cidade varchar (50),
+uf char (2),
+cep int
+);
+
+
+Create table enderecoGamer (
+idEnderecoGamer int identity (1,1),
+idGamer int references gamer (idGamer),
+idEndereco int references endereco (idEndereco)
+);

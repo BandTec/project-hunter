@@ -1,0 +1,18 @@
+insert into gamer values 
+('Vinícius Oliveira', '77777777777', 'vinigamer@gmail.com', '123', '11777777777');
+
+insert equipe values
+('eNergy eSports');
+
+insert into jogo values 
+('Counter-Strike: Global Offensive', 1,1);
+
+insert into endereco values 
+('Rua dos gamers', 777, 'Apto 77', 'Vila Gamer', 'São Paulo', 'SP', '7777777');
+
+
+insert into enderecoGamer values 
+(1,1);
+
+
+select * from gamer,endereco,enderecoGamer,jogo,equipe; (Não recomendado, realizei apenas para teste e vizualização)
