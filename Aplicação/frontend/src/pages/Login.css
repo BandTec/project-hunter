@@ -10,7 +10,14 @@
     max-width: 300px;
     display:flex;
     flex-direction:column;
+    
 }
+
+.react-slidedown.my-dropdown-slidedown {
+    transition-duration: 1.2s;
+    transition-timing-function: cubic-bezier(0.1, 0.7, 1.0, 0.1);
+}
+
 
 .login-container form input{
     margin-top: 20px;
@@ -22,6 +29,45 @@
     color: #666;
 }
 
-.login-container from input ::placeholder{
+.login-container .btLog{
+    margin-top: 15px;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    height: 48px;
+    width : 112px;
+    padding: 0 20px;
+    font-size: 16px;
+    font-style: bold;
+    background-color: #DAD716;
+    color: #000000;
+}
+
+.login-container .btCad{
+    margin-top: 15px;
+    border: 1px solid #DAD716;
+    border-radius: 4px;
+    height: 48px;
+    width : 112px;
+    padding: 0 20px;
+    font-size: 16px;
+    font-style: bold;
+    background-color: #000000;
+    color: #DAD716;
+}
+
+.login-container form div{
+    height: 100%;
+    width: 100%;
+    display:flex;
+    justify-content:space-between;
+    align-items: center;
+}
+
+.login-container form input::placeholder{
 color:#999;
+}
+
+.login-container form a{
+    margin-top: 20px;
+    color: #DAD716;
 }
