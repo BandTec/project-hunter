@@ -1,11 +1,11 @@
 import React from 'react';
-import "./Login.css";
+import "./Cadastro.css";
 import logo from '../logo.svg';
 
 export default function Cadastro(){
     return(
     
-        <div className="login-container">
+        <div className="cadastro-container">
             <form>
         <img src={logo} alt="Hunter"></img>
         <input placeholder="Digite seu nome"/>
@@ -18,7 +18,7 @@ export default function Cadastro(){
         <input type="password" placeholder="Confirmar Senha"/>
         
         <div>
-        <button className="login container btLog" type ="submit"> Voltar</button>
+        <button className="login container btVoltar" type ="submit"> Voltar</button>
         <button className="login container btCad" onClick="Cadastrar()" type ="submit"> Cadastrar</button>
        
         </div>

@@ -1,7 +1,8 @@
 import React from 'react';
 import "./Login.css";
 import logo from '../logo.svg';
-import SlideDown from './React-slidedown.css'
+import Cadastro from './Cadastro';
+import SlideDown from './React-slidedown.css';
  
 export function SlideDropDown(props) {
   return (
@@ -11,8 +12,8 @@ export function SlideDropDown(props) {
   )
 }
 
-function Cadastro(){
-  window.location.href = "./Cadastro.js";
+function abrirCadastro(){
+  window.location.href = <Cadastro/>;
   }
 
 export default function Login(){
@@ -27,7 +28,7 @@ export default function Login(){
         <input type="password" placeholder="Digite Sua Senha"/>
         <a href=""> Esqueceu sua senha?</a>
         <div>
-        <button className="login container btCad" onClick={Cadastro}> Cadastrar</button>
+        <button className="login container btCad" onClick='<Cadastro/>'> Cadastrar</button>
         <button className="login container btLog" type ="submit"> Enviar</button>
        
         </div>
