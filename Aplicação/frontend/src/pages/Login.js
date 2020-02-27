@@ -11,6 +11,10 @@ export function SlideDropDown(props) {
   )
 }
 
+function Cadastro(){
+  window.location.href = "./Cadastro.js";
+  }
+
 export default function Login(){
     return(
     
@@ -23,7 +27,7 @@ export default function Login(){
         <input type="password" placeholder="Digite Sua Senha"/>
         <a href=""> Esqueceu sua senha?</a>
         <div>
-        <button className="login container btCad" type ="submit"> Cadastrar</button>
+        <button className="login container btCad" onClick={Cadastro}> Cadastrar</button>
         <button className="login container btLog" type ="submit"> Enviar</button>
        
         </div>
@@ -31,4 +35,8 @@ export default function Login(){
         </div>    
         
     );
+    
 }
+
+
+
