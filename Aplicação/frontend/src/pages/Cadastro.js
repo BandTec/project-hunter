@@ -26,13 +26,15 @@ class Cadastro extends Component {
 
     chamaLogin = () => {
         this.setState({
-          redirect: true
+          redirect: true 
         })
     }
     render() {
 
         if (this.state.redirect) {
-            return <Redirect to="/Login/" />
+        
+            return <Router><Redirect to="/Login/" /></Router>
+         
         }
         else {
             return (
@@ -47,14 +49,15 @@ class Cadastro extends Component {
                         </select>
                         <input type="password" placeholder="Digite Sua Senha" />
                         <input type="password" placeholder="Confirmar Senha" />
-
+                        <Router>
                         <div>
                             <button className="login container btVoltar" type="submit"
-                                onClick={() => chamaLogin()}> Voltar</button>
+                                onClick={() => this.chamaLogin()}> Voltar</button>
 
                             <button className="login container btCad" onClick="Cadastrar()" type="submit"> Cadastrar</button>
 
                         </div>
+                        </Router>
 
 
                     </form>
