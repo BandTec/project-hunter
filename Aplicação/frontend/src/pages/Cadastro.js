@@ -33,7 +33,7 @@ class Cadastro extends Component {
 
         if (this.state.redirect) {
         
-            return <Router><Redirect to="/Login/" /></Router>
+            return <Router><Redirect to="/Login" /></Router>
          
         }
         else {
