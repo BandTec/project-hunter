@@ -3,6 +3,7 @@ import { Redirect } from 'react-router';
 import "./Login.css";
 import logo from '../logo.svg';
 import Cadastro from './Cadastro';
+import HunterDataService from '../service/HunterDataService';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 
@@ -31,7 +32,10 @@ class Login extends Component {
 
     if (this.state.redirect) {
 
-      return <Router><Redirect to="/Cadastro/" /></Router>
+      HunterDataService.retrieveCadastro()
+                .then(() => this.props.history.push('/Cadastro'))
+
+      return <Router><Redirect to="/Cadastro" /></Router>
 
     } else {
 
