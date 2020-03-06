@@ -1,0 +1,83 @@
+.cadastro-container{
+    height: 100%;
+    display:flex;
+    justify-content:center;
+    align-items: center;
+}
+
+.cadastro-container form{
+    width: 100%;
+    max-width: 300px;
+    display:flex;
+    flex-direction:column;
+    
+}
+
+.react-slidedown.my-dropdown-slidedown {
+    transition-duration: 1.2s;
+    transition-timing-function: cubic-bezier(0.1, 0.7, 1.0, 0.1);
+}
+
+
+.cadastro-container form input{
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    height: 48px;
+    padding: 0 20px;
+    font-size: 16px;
+    color: #666;
+}
+
+.cadastro-container form select{
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    height: 48px;
+    padding: 0 20px;
+    font-size: 16px;
+    color: #666;
+}
+
+.cadastro-container .btVoltar{
+    margin-top: 15px;
+    border: 1px solid #DAD716;
+    border-radius: 4px;
+    height: 48px;
+    width : 112px;
+    padding: 0 20px;
+    font-size: 16px;
+    font-style: bold;
+    background-color: #000000;
+    color: #DAD716;
+}
+
+.cadastro-container .btCad{
+    margin-top: 15px;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    height: 48px;
+    width : 112px;
+    padding: 0 20px;
+    font-size: 16px;
+    font-style: bold;
+    background-color: #DAD716;
+    color: #000000;
+}
+
+.cadastro-container form div{
+    height: 100%;
+    width: 100%;
+    display:flex;
+    justify-content:space-between;
+    align-items: center;
+}
+
+.cadastro-container form input::placeholder{
+color:#999;
+}
+
+.cadastro-container form a{
+    margin-top: 20px;
+    color: #DAD716;
+}
