@@ -3,6 +3,7 @@ package b.rcom.hunter.Hunter;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -68,6 +69,19 @@ public class ConnectURL {
                 "delete from gamer where email = ?", user.getEmail()
         );
     }
+    private List<Gamer> listaUsuarios = new ArrayList<>();
+    public void mostrarUsuarios(Gamer user) {
+
+        List<Map<String, Object>> usuarios = template().queryForList(
+                "select * from gamer"
+        );
+        for (Map<String, Object> row : usuarios){
+            listaUsuarios.add((Gamer)row.get(email));
+        }
+
+    }
+
+
     public JdbcTemplate template() {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
         return jdbcTemplate;
@@ -87,5 +101,9 @@ public class ConnectURL {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public List<Gamer> getListaUsuarios() {
+        return listaUsuarios;
     }
 }
