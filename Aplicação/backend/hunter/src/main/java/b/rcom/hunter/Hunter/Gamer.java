@@ -1,34 +1,67 @@
 package b.rcom.hunter.Hunter;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import java.util.Collection;
 
-@Entity
+
 public class Gamer  {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+
     private String idGamer;
-
     private String nome;
-
     private String cpf;
-
     private String email;
-
     private String senha;
-
     private String telefone;
+    private boolean autenticado;
 
 
-    public void setIdGamer(String idGamer) {
-        this.idGamer = idGamer;
+    public Gamer(String nome, String cpf, String email, String senha, String telefone) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.email = email;
+        this.senha = senha;
+        this.telefone = telefone;
+    }
+
+    public Gamer(String email, String senha) {
+        this.email = email;
+        this.senha = senha;
+    }
+
+    public Gamer() {
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public boolean isAutenticado() {
+        return autenticado;
+    }
+
+    public void setAutentitcado(boolean autenticado) {
+        this.autenticado = autenticado;
     }
 
     public String getEmail() {
@@ -48,27 +81,4 @@ public class Gamer  {
     }
 
 
-   // public Collection<? extends GrantedAuthority> getAuthorities() {
-  //      return null;
-  //  }
-
-
-    public boolean isAccountNonExpired() {
-        return false;
-    }
-
-
-    public boolean isAccountNonLocked() {
-        return false;
-    }
-
-
-    public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
-
-    public boolean isEnabled() {
-        return false;
-    }
 }
