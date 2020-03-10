@@ -4,13 +4,16 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Collection;
 
 @Entity
-public class Gamer implements UserDetails {
+public class Gamer  {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private String idGamer;
 
     private String nome;
@@ -24,37 +27,47 @@ public class Gamer implements UserDetails {
     private String telefone;
 
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+    public void setIdGamer(String idGamer) {
+        this.idGamer = idGamer;
     }
 
-    @Override
-    public String getPassword() {
-        return this.senha;
+    public String getEmail() {
+        return email;
     }
 
-    @Override
-    public String getUsername() {
-        return this.email;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    @Override
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+
+   // public Collection<? extends GrantedAuthority> getAuthorities() {
+  //      return null;
+  //  }
+
+
     public boolean isAccountNonExpired() {
         return false;
     }
 
-    @Override
+
     public boolean isAccountNonLocked() {
         return false;
     }
 
-    @Override
+
     public boolean isCredentialsNonExpired() {
         return false;
     }
 
-    @Override
+
     public boolean isEnabled() {
         return false;
     }
