@@ -28,21 +28,21 @@ class Cadastro extends Component {
         this.setState({
           redirect: true 
         })
-        this.props.history.push("/Login");
+        this.props.history.push("/login");
     }
     render() {
 
         if (this.state.redirect) {
         
-            return (
-                <BrowserRouter>
-                  <Switch>
-                    <Route path="/" exact component={Login} />
-                    <Route path="/Login" exact component={Login} />
-                    <Route path="/Cadastro" component={Cadastro} />
-                  </Switch>
-                </BrowserRouter>
-              )
+            // return (
+            //     <BrowserRouter>
+            //       <Switch>
+            //         <Route path="/" exact component={Login} />
+            //         <Route path="/Login" exact component={Login} />
+            //         <Route path="/Cadastro" component={Cadastro} />
+            //       </Switch>
+            //     </BrowserRouter>
+            //   )
         
          
         }

@@ -1,24 +1,33 @@
 import React, { Component } from 'react';
-//import GamerComponent from './GamerComponent';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-// import CourseComponent from './CourseComponent';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 import Login from "../pages/Login"
 import Cadastro from "../pages/Cadastro"
+import { isAuthenticated } from './auth';
+
+const PrivateRoute = ({ component: Component, ...rest }) => (
+    <Route {...rest} render={props => (
+        isAuthenticated() ? (
+            <Component {...props} />
+        ) : (<Redirect to={{ pathname: '/',state : {from: props.location} }}/>
+            )
+    )} />
+)
 
 
 class InstructorApp extends Component {
     render() {
         return (
-            <Router>
+            <BrowserRouter>
                 <>
-                
+
                     <Switch>
-                        <Route path="/" exact component={Login} />
-                        <Route path="/Login" exact component={Login} />
-                        <Route path="/Cadastro" component={Cadastro} />
+                        <Route exact path="/" component={Login} />
+                        <Route exact path="/login" component={Login} />
+                        <Route exact path="/cadastro" component={Cadastro} />
+                        <PrivateRoute path="/app" component={() => <h1>Você está logado</h1>}/>
                     </Switch>
                 </>
-            </Router>
+            </BrowserRouter>
         )
     }
 }

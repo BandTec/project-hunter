@@ -1,10 +1,7 @@
-import React, { Component, BrowserRouter } from 'react';
-import { Redirect, Switch } from 'react-router';
+import React, { Component} from 'react';
 import "./Login.css";
 import logo from '../logo.svg';
-import Cadastro from './Cadastro';
-import HunterDataService from '../service/HunterDataService';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import InstructorApp from '../component/InstructorApp.jsx';
 
 
 class Login extends Component {
@@ -27,21 +24,22 @@ class Login extends Component {
     this.setState({
       redirect: true
     })
-    this.props.history.push('/Cadastro');
+    this.props.history.push('/cadastro');
   }
   render() {
 
     if (this.state.redirect) {
+      
 
-      return (
-        <BrowserRouter>
-          <Switch>
-            <Route path="/" exact component={Login} />
-            <Route path="/Login" exact component={Login} />
-            <Route path="/Cadastro" component={Cadastro} />
-          </Switch>
-        </BrowserRouter>
-      )
+      // return (
+      //   <BrowserRouter>
+      //     <Switch>
+      //       <Route path="/" exact component={Login} />
+      //       <Route path="/Login" exact component={Login} />
+      //       <Route path="/Cadastro" component={Cadastro} />
+      //     </Switch>
+      //   </BrowserRouter>
+      // )
 
     } else {
 
