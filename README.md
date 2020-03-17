@@ -1,7 +1,7 @@
 # Project-hunter
 
 
-A Hunter foi idealizada como uma de conectar jogadores online de mesmo nível, servindo com uma rede social, para organizar partidas e equipes.
+A Hunter foi idealizada como forma uma de conectar jogadores online de mesmo nível, servindo com uma rede social, para organizar partidas e equipes.
 
 
 ## Objetivos
