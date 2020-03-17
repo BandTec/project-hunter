@@ -1,14 +1,16 @@
 import React from 'react';
-import logo from './logo.svg';
+import logo from './assets/logo.svg';
 import './App.css';
 
-import InstructorApp from './component/InstructorApp';
-import Login from "./pages/Login"
-import Cadastro from "./pages/Cadastro"
+
+
+import Routes from './routes';
+import Login from "./pages/Login/Login"
+import Cadastro from "./pages/Cadastro/Cadastro"
 
 function App() {
   return (
-   <InstructorApp/>
+   <Routes/>
   );
 }
 

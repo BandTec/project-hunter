@@ -1,9 +1,8 @@
-import React, { Component, BrowserRouter } from 'react';
-import { Redirect, Switch } from 'react-router';
+import React, { Component} from 'react';
 import "./Cadastro.css";
-import logo from '../logo.svg';
-import Login from './Login';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import logo from '../../assets/logo.svg';
+import '../../routes.js';
+import { BrowserRouter as Router} from "react-router-dom";
 
 
 class Cadastro extends Component {
