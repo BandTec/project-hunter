@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Redirect } from 'react-router';
+import React, { Component, BrowserRouter } from 'react';
+import { Redirect, Switch } from 'react-router';
 import "./Login.css";
 import logo from '../logo.svg';
 import Cadastro from './Cadastro';
@@ -27,15 +27,21 @@ class Login extends Component {
     this.setState({
       redirect: true
     })
+    this.props.history.push('/Cadastro');
   }
   render() {
 
     if (this.state.redirect) {
 
-      HunterDataService.retrieveCadastro()
-                .then(() => this.props.history.push('/Cadastro'))
-
-      return <Router><Redirect to="/Cadastro" /></Router>
+      return (
+        <BrowserRouter>
+          <Switch>
+            <Route path="/" exact component={Login} />
+            <Route path="/Login" exact component={Login} />
+            <Route path="/Cadastro" component={Cadastro} />
+          </Switch>
+        </BrowserRouter>
+      )
 
     } else {
 
