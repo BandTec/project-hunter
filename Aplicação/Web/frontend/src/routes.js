@@ -4,16 +4,6 @@ import Login from "./pages/Login/Login"
 import Cadastro from "./pages/Cadastro/Cadastro"
 import { isAuthenticated } from './auth';
 
-// function bd(){
-// const connStr = "Server=jdbc:sqlserver://banco01191117.database.windows.net:1433;Database=Banco01191117;User Id=Gustavo01191117;Password=#Gf50422207802;";
-// const sql = require("mssql");
-
-// sql.connect(connStr)
-//    .then(conn => console.log("conectou!"))
-//    .catch(err => console.log("erro! " + err));
-
-   
-// }
 
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
