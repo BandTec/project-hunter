@@ -39,20 +39,8 @@
     color: #666;
 }
 
-.cadastro-container .btVoltar{
-    margin-top: 15px;
-    border: 1px solid #DAD716;
-    border-radius: 4px;
-    height: 48px;
-    width : 112px;
-    padding: 0 20px;
-    font-size: 16px;
-    font-style: bold;
-    background-color: #000000;
-    color: #DAD716;
-}
 
-.cadastro-container .btCad{
+.cadastro-container .btn{
     margin-top: 15px;
     border: 1px solid #000000;
     border-radius: 4px;
@@ -61,9 +49,32 @@
     padding: 0 20px;
     font-size: 16px;
     font-style: bold;
+    cursor: pointer;
+}
+
+
+.cadastro-container .Cad{
+    border: 0;
     background-color: #DAD716;
     color: #000000;
 }
+
+.cadastro-container .Cad:hover{
+    background-color: #a09d10;
+}
+
+.cadastro-container  .Voltar{
+    background-color: #000000;
+    color: #DAD716;
+    
+}
+
+.cadastro-container .Voltar:hover{
+    background-color: #161616;
+}
+
+
+
 
 .cadastro-container form div{
     height: 100%;

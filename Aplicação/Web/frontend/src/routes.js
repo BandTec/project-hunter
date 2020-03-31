@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
-import Login from "./pages/Login/Login"
-import Cadastro from "./pages/Cadastro/Cadastro"
+import Login from "./pages/Login"
+import Cadastro from "./pages/Cadastro"
+import RecSenha from "./pages/RecSenha"
 import { isAuthenticated } from './auth';
 
 
@@ -26,7 +27,8 @@ class routes extends Component {
                         <Route exact path="/" component={Login} />
                         <Route exact path="/login" component={Login} />
                         <Route exact path="/cadastro" component={Cadastro} />
-                        <PrivateRoute path="/app" component={() => <h1>Você está autenticado</h1>}/>
+                        <Route exact path="/recuperar-senha" component={RecSenha} />
+                        <PrivateRoute path="/home" component={() => <h1>Você está autenticado</h1>}/>
                     </Switch>
                 </>
             </BrowserRouter>

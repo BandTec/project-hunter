@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import "./Cadastro.css";
+import "./styles.css";
 import logo from '../../assets/logo.svg';
 import '../../routes.js';
 import { BrowserRouter as Router} from "react-router-dom";
@@ -60,10 +60,13 @@ class Cadastro extends Component {
                         <input type="password" placeholder="Confirmar Senha" />
                         <Router>
                         <div>
-                            <button className="login container btVoltar" type="submit"
+
+                            <button className="cadastro container btn Cad" onClick="Cadastrar()" type="submit"> Cadastrar</button>
+                            
+                            <button className="cadastro container btn Voltar" type="submit"
                                 onClick={() => this.chamaLogin()}> Voltar</button>
 
-                            <button className="login container btCad" onClick="Cadastrar()" type="submit"> Cadastrar</button>
+                           
 
                         </div>
                         </Router>

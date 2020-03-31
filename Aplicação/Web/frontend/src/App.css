@@ -4,13 +4,16 @@
   outline: 0;
   box-sizing: border-box;
 }
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
 
 html, body #root{
   height: 100%;
 }
 body{
   background: #222222;
+  background-size: cover;
+  -webkit-font-smoothing: antialiased !important;
 }
 body, input, button{
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
 }

@@ -1,9 +1,10 @@
 import React, { useState, Component } from 'react';
-import "./Login.css";
+import "./styles.css";
 import logo from '../../assets/logo.svg';
 import '../../routes.js';
 import api from '../../services/api';
 import { login } from "../../auth";      
+import { Link, useHistory } from 'react-router-dom';
 
     class Login extends Component {
 
@@ -40,7 +41,7 @@ import { login } from "../../auth";
           if(email == "henrique@hotmail.com" && password == "123"){
           // const response = await api.post("/sessions", { email, password });
           login(/*response.data.token*/ "@hunter-Token");
-          this.props.history.push("/app");
+          this.props.history.push("/home");
           }else{
             alert("Email ou senha inválidos");
           }
@@ -62,13 +63,14 @@ import { login } from "../../auth";
         <div className="login-container">
           <form onSubmit={this.handleSignIn}>
             <img src={logo} alt="Hunter"></img>
+            
             <input placeholder="Digite seu Email" onChange={e => this.setState({ email: e.target.value })} />
+            
             <input type="password" placeholder="Digite Sua Senha" onChange={e => this.setState({ password: e.target.value })} />
-            <a href=""> Esqueceu sua senha?</a>
-            <div>
-              <button className="login container btCad" onClick={() => this.chamaCadastro()}> Cadastrar</button>
-              <button className="login container btLog" type="submit"> Enviar</button>
-
+            <Link to='/recuperar-senha'><a href=""> Esqueceu sua senha?</a></Link>
+            <div className='login-container formBtn'>
+              <button className="login-container btn Log" type="submit">Enviar</button>
+              <button className="login-container btn Cad" onClick={() => this.chamaCadastro()}>Cadastrar</button>
             </div>
           </form>
         </div>
