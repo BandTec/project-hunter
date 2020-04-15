@@ -3,7 +3,9 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 import Login from "./pages/Login"
 import Cadastro from "./pages/Cadastro"
 import RecSenha from "./pages/RecSenha"
+import Home from "./pages/Home"
 import { isAuthenticated } from './auth';
+
 
 
 
@@ -28,7 +30,7 @@ class routes extends Component {
                         <Route exact path="/login" component={Login} />
                         <Route exact path="/cadastro" component={Cadastro} />
                         <Route exact path="/recuperar-senha" component={RecSenha} />
-                        <PrivateRoute path="/home" component={() => <h1>Você está autenticado</h1>}/>
+                        <PrivateRoute path="/home" component={Home}/>
                     </Switch>
                 </>
             </BrowserRouter>

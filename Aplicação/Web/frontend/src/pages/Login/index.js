@@ -1,6 +1,6 @@
 import React, { useState, Component } from 'react';
 import "./styles.css";
-import logo from '../../assets/logo.svg';
+import logo from '../../assets/testeLogo3.svg';
 import '../../routes.js';
 import api from '../../services/api';
 import { login } from "../../auth";      

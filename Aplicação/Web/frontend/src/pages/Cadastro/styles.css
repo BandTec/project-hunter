@@ -6,16 +6,27 @@
 }
 
 .cadastro-container form{
-    width: 100%;
-    max-width: 300px;
-    display:flex;
-    flex-direction:column;
+
+        margin: 80px auto 0;
+        width: 100%;
+        max-width: 300px;
+        display:flex;
+        flex-direction:column;
+        
+    
     
 }
 
 .react-slidedown.my-dropdown-slidedown {
     transition-duration: 1.2s;
     transition-timing-function: cubic-bezier(0.1, 0.7, 1.0, 0.1);
+}
+
+.cadastro-container form img{
+    height: 250px;
+    width: 100%;
+    display:flex;
+    
 }
 
 
@@ -55,17 +66,17 @@
 
 .cadastro-container .Cad{
     border: 0;
-    background-color: #DAD716;
+    background-color: #00FF00;
     color: #000000;
 }
 
 .cadastro-container .Cad:hover{
-    background-color: #a09d10;
+    background-color: #009e00;
 }
 
 .cadastro-container  .Voltar{
     background-color: #000000;
-    color: #DAD716;
+    color: #00FF00;
     
 }
 
@@ -90,5 +101,5 @@ color:#999;
 
 .cadastro-container form a{
     margin-top: 20px;
-    color: #DAD716;
+    color: #00FF00;
 }
