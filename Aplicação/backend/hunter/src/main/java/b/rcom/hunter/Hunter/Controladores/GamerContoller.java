@@ -18,6 +18,18 @@ public class GamerContoller {
     @Autowired
     public GamerRepository repository;
 
+    @GetMapping("/usuario/{email}/{senha}")
+    public ResponseEntity getUsuarioESenha(@PathVariable("email") String email, @PathVariable("senha") String senha ){
+        List gamer;
+        gamer = repository.findByEmailAndSenha(email, senha);
+        if(gamer.isEmpty()){
+            return ResponseEntity.noContent().build();
+        } else {
+
+            return ResponseEntity.ok(gamer);
+        }
+    }
+
     @GetMapping("/usuario/{email}")
     public ResponseEntity getUsuario(@PathVariable("email") String email){
         List gamer;

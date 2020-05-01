@@ -100,6 +100,32 @@ color:#999;
 }
 
 .cadastro-container form a{
-    margin-top: 20px;
+  
     color: #00FF00;
+}
+
+label#thumbnail{
+     margin-botton: 20px;
+     border: 1px dashed #ddd;
+     background-size: cover;
+     cursor: pointer;
+     height: 160px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+}
+label#thumbnail input {
+    display: none;
+}
+label#thumbnail img {
+    height: 15%;
+    width: 15%;
+}
+
+label#thumbnail.has-thumbnail {
+    border: 0;
+    
+}
+label#thumbnail.has-thumbnail img {
+    display: none;
 }

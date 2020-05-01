@@ -18,6 +18,6 @@ public interface GamerRepository extends JpaRepository<Gamer, Integer> {
 
 
     List<Gamer> findByEmail(String email);
-
+    List<Gamer> findByEmailAndSenha(String email, String senha);
 
 }

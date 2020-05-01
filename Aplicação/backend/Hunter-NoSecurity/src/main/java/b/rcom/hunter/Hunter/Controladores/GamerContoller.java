@@ -26,7 +26,7 @@ public class GamerContoller {
         return ResponseEntity.ok(gamer);
     }
 
-    @GetMapping("/usuario/{email}/{senha}")
+    @GetMapping("/usuario/{email}/{senha}/")
     public ResponseEntity getUsuarioESenha(@PathVariable("email") String email, @PathVariable("senha") String senha ){
         List gamer;
         gamer = repository.findByEmailAndSenha(email, senha);

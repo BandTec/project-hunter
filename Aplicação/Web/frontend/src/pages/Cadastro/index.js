@@ -1,61 +1,64 @@
-import React, { Component} from 'react';
+import React, { Component, useState, useMemo} from 'react';
+import { Link, useHistory } from 'react-router-dom'; 
 import "./styles.css";
 import logo from '../../assets/testeLogo3.svg';
+import camera from '../../assets/camera.svg';
 import '../../routes.js';
 import { BrowserRouter as Router} from "react-router-dom";
 
 
-class Cadastro extends Component {
-    constructor(args) {
-        super(args)
-        this.state = {
-            name: '',
-            region: '',
-            email: '',
-            password: '',
-            redirect: false
-        }
-    }
+export default function Cadastro(){ 
+ 
 
-    onChange(e) {
+    const[thumbnail, setThumbnail] = useState(null);
+    const preview = useMemo(() =>{return thumbnail ? URL.createObjectURL(thumbnail) : null},
+    thumbnail);
+    function onChange(e) {
         this.setState({
             [e.target.name]: e.target.value
         })
     }
 
-    chamaLogin = () => {
-        this.setState({
-          redirect: true 
-        })
-        this.props.history.push("/login");
-    }
-    render() {
-
-        if (this.state.redirect) {
+    const history = useHistory('');
+    function chamaLogin(){
         
-            // return (
-            //     <BrowserRouter>
-            //       <Switch>
-            //         <Route path="/" exact component={Login} />
-            //         <Route path="/Login" exact component={Login} />
-            //         <Route path="/Cadastro" component={Cadastro} />
-            //       </Switch>
-            //     </BrowserRouter>
-            //   )
+        // this.setState({
+        //   redirect: true 
+        // })
+        /* this.props.*/history.push("/login");
+    }
+    // render() {
+
+    //     if (this.state.redirect) {
+        
+    //         // return (
+    //         //     <BrowserRouter>
+    //         //       <Switch>
+    //         //         <Route path="/" exact component={Login} />
+    //         //         <Route path="/Login" exact component={Login} />
+    //         //         <Route path="/Cadastro" component={Cadastro} />
+    //         //       </Switch>
+    //         //     </BrowserRouter>
+    //         //   )
         
          
-        }
-        else {
+    //     }
+    //     else {
             return (
                 <div className="cadastro-container">
                     <form>
                         <img src={logo} alt="Hunter"></img>
+
+                        <label id="thumbnail" 
+                        style={{ backgroundImage : `url(${preview})`}}
+                        className={thumbnail ? 'has-thumbnail' : ''}
+                        >
+                            <input type="file" onChange={event => setThumbnail(event.target.files[0])}/>
+                            <img src={camera} alt="Select your photo"></img>
+                        </label>
                         <input placeholder="Digite seu nome" />
                         <input placeholder="Digite seu e-mail" />
-                        <select id="regiao">
-                            <option value="sp">São Paulo</option>
-                            <option value="rj">Rio de Janeiro</option>
-                        </select>
+                        
                         <input type="password" placeholder="Digite Sua Senha" />
                         <input type="password" placeholder="Confirmar Senha" />
                         <Router>
@@ -63,8 +66,8 @@ class Cadastro extends Component {
 
                             <button className="cadastro container btn Cad" onClick="Cadastrar()" type="submit"> Cadastrar</button>
                             
-                            <button className="cadastro container btn Voltar" type="submit"
-                                onClick={() => this.chamaLogin()}> Voltar</button>
+                           <button className="cadastro container btn Voltar" type="submit"
+                                onClick={chamaLogin}> Voltar</button>
 
                            
 
@@ -78,6 +81,5 @@ class Cadastro extends Component {
             );
 
         }
-    }
-}
-export default Cadastro;
+    //}
+//}

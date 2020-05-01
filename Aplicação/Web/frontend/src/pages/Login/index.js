@@ -3,86 +3,75 @@ import "./styles.css";
 import logo from '../../assets/testeLogo3.svg';
 import '../../routes.js';
 import api from '../../services/api';
-import { login } from "../../auth";      
+import { login } from "../../auth";
 import { Link, useHistory } from 'react-router-dom';
+import { findByAltText } from '@testing-library/react';
 
-    class Login extends Component {
+export default function Login(){ 
 
-     constructor(args) {
-     super(args)
-     this.state = {
-       username: '',
-       password: '',
-     redirect: false
-     }
-    }
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const history = useHistory('');
+
+
+  function chamaCadastro(){
+  
+    history.push('/cadastro');
+  }
+
+
+  async function handleSignIn(e){
+    e.preventDefault();
+
     
-    onChange(e) {
-      this.setState({
-        [e.target.name]: e.target.value
-      })
-    }
+    if (!email || !password) {
+      alert("Preencha e-mail e senha para continuar!");
+    } else {
+      try {
+        
+          //const response = await api.get(`/usuario/${email}/${password}/` /*, { email, password }*/)
+          //.then(login("@hunter-token"));
+           if (email == "henrique@hotmail.com" && password == "123"){
 
-    chamaCadastro = () => {
-      this.setState({
-        redirect: true
-      })
-      this.props.history.push('/cadastro');
-    }
+          
 
-
-    handleSignIn = async e => {
-      e.preventDefault();
-      const { email, password } = this.state;
-      if (!email || !password) {
-        this.setState({ error: "Preencha e-mail e senha para continuar!" });
-      } else {
-        try {
-          if(email == "henrique@hotmail.com" && password == "123"){
-          // const response = await api.post("/sessions", { email, password });
-          login(/*response.data.token*/ "@hunter-Token");
-          this.props.history.push("/home");
+          //if (response.status(200)){
+          history.push("/home");
           }else{
             alert("Email ou senha inválidos");
           }
-        } catch (err) {
-          this.setState({
-            error:
-              "Houve um problema com o login, verifique suas credenciais. T.T"
-          });
-        }
+      } catch (err) {
+        alert("Email ou senha inválidos");
+        
       }
-    };
-
-
-    render() {
-
-      
-      return (
-
-        <div className="login-container">
-          <form onSubmit={this.handleSignIn}>
-            <img src={logo} alt="Hunter"></img>
-            
-            <input placeholder="Digite seu Email" onChange={e => this.setState({ email: e.target.value })} />
-            
-            <input type="password" placeholder="Digite Sua Senha" onChange={e => this.setState({ password: e.target.value })} />
-            <Link to='/recuperar-senha'><a href=""> Esqueceu sua senha?</a></Link>
-            <div className='login-container formBtn'>
-              <button className="login-container btn Log" type="submit">Enviar</button>
-              <button className="login-container btn Cad" onClick={() => this.chamaCadastro()}>Cadastrar</button>
-            </div>
-          </form>
-        </div>
-
-      );
-
     }
+  };
+
+  return (
+
+      <div className="login-container">
+        <form onSubmit={handleSignIn}>
+          <img src={logo} alt="Hunter"></img>
+
+          <input placeholder="Digite seu Email" onChange={e => setEmail( e.target.value)} />
+
+          <input type="password" placeholder="Digite Sua Senha" onChange={e => setPassword(e.target.value)} />
+          <Link to='/recuperar-senha'><a href=""> Esqueceu sua senha?</a></Link>
+          <div className='login-container formBtn'>
+            <button className="login-container btn Log" type="submit">Enviar</button>
+          
+           <button className="login-container btn Cad" onClick={chamaCadastro}>Cadastrar</button>
+            
+
+          </div>
+        </form>
+      </div>
+
+    );
+
   }
-
-  
-export default Login;
-
 
 
 

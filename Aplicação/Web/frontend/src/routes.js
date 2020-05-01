@@ -4,6 +4,8 @@ import Login from "./pages/Login"
 import Cadastro from "./pages/Cadastro"
 import RecSenha from "./pages/RecSenha"
 import Home from "./pages/Home"
+import Profile from "./pages/Profile"
+
 import { isAuthenticated } from './auth';
 
 
@@ -31,6 +33,7 @@ class routes extends Component {
                         <Route exact path="/cadastro" component={Cadastro} />
                         <Route exact path="/recuperar-senha" component={RecSenha} />
                         <PrivateRoute path="/home" component={Home}/>
+                        <PrivateRoute exact path="/profile" component={Profile}/>
                     </Switch>
                 </>
             </BrowserRouter>

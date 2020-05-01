@@ -105,6 +105,10 @@ export default function Home(){
 
       
     // }
+    function handleProfile(){
+      
+      history.push('/profile');
+  }
     function handleLogout(){
         localStorage.clear();
         history.push('/');
@@ -141,7 +145,7 @@ export default function Home(){
               <Paper className={classes.root} >
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                    <MenuItem onClick={handleClose}>Perfil</MenuItem>
+                    <MenuItem onClick={handleProfile}>Perfil</MenuItem>
                     <MenuItem onClick={handleClose}>Equipes</MenuItem>
                     <MenuItem onClick={handleClose}>Agendamentos</MenuItem>
                     <MenuItem onClick={handleLogout}>Logout</MenuItem>
