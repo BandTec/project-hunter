@@ -1,9 +1,8 @@
-package b.rcom.hunter.Hunter.Controladores;
+package br.com.hunter.Controladores;
 
-import b.rcom.hunter.Hunter.Modelos.Gamer;
-import b.rcom.hunter.Hunter.Repositorios.GamerRepository;
+import br.com.hunter.Modelos.Gamer;
+import br.com.hunter.Repositorios.GamerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +17,8 @@ public class GamerContoller {
     @Autowired
     public GamerRepository repository;
 
+    private boolean logado = false;
+
     @GetMapping("/usuario/{email}")
     public ResponseEntity getUsuario(@PathVariable("email") String email){
         List gamer;
@@ -29,12 +30,26 @@ public class GamerContoller {
     @GetMapping("/usuario/{email}/{senha}")
     public ResponseEntity getUsuarioESenha(@PathVariable("email") String email, @PathVariable("senha") String senha ){
         List gamer;
-        gamer = repository.findByEmailAndSenha(email, senha);
-        if(gamer.isEmpty()){
-            return ResponseEntity.noContent().build();
+        gamer = repository.findOneByEmailAndSenha(email, senha);
+        if(!logado) {
+            if (gamer.isEmpty()) {
+                return ResponseEntity.noContent().build();
+            } else {
+                logado = true;
+                return ResponseEntity.ok("login realizado com sucesso");
+            }
         } else {
+            return ResponseEntity.ok("ja está logado");
+        }
+    }
 
-            return ResponseEntity.ok(gamer);
+    @PostMapping("/usuario/logoff")
+    public ResponseEntity logoff() {
+        if(logado) {
+            logado = false;
+            return ResponseEntity.ok("Você foi deslogado");
+        } else {
+            return ResponseEntity.ok("Não existe usuario logado");
         }
     }
 

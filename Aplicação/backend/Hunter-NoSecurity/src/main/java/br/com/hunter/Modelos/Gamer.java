@@ -1,4 +1,4 @@
-package b.rcom.hunter.Hunter.Modelos;
+package br.com.hunter.Modelos;
 
 
 

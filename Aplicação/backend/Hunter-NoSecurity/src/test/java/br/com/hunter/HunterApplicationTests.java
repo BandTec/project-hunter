@@ -1,4 +1,4 @@
-package b.rcom.hunter.Hunter;
+package br.com.hunter;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
