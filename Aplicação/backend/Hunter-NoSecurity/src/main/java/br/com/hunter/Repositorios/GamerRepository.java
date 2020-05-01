@@ -1,12 +1,9 @@
-package b.rcom.hunter.Hunter.Repositorios;
+package br.com.hunter.Repositorios;
 
-import b.rcom.hunter.Hunter.Modelos.Gamer;
+import br.com.hunter.Modelos.Gamer;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.List;
 
 @Repository
@@ -18,7 +15,7 @@ public interface GamerRepository extends JpaRepository<Gamer, Integer> {
 
 
     List<Gamer> findByEmail(String email);
-    List<Gamer> findByEmailAndSenha(String email, String senha);
+    List<Gamer> findOneByEmailAndSenha(String email, String senha);
 
 
 }
