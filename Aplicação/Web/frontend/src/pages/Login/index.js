@@ -31,14 +31,15 @@ export default function Login(){
     } else {
       try {
         
-          //const response = await api.get(`/usuario/${email}/${password}/` /*, { email, password }*/)
-          //.then(login("@hunter-token"));
-           if (email == "henrique@hotmail.com" && password == "123"){
-
+          const response = await api.get(`/usuario/${email}/${password}/`);
+          console.log(response.status);
+          if (response.status == 200){
           
-
-          //if (response.status(200)){
+          login("@hunter-token");
+          
+          localStorage.setItem('email', email);
           history.push("/home");
+          
           }else{
             alert("Email ou senha inválidos");
           }

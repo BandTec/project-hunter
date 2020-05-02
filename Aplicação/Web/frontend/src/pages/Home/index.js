@@ -35,6 +35,13 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 export default function Home(){
+
+    const [nome, setNome] = useState('');
+    console.log(localStorage);
+    console.log(nome);
+
+    
+
    // Botão Usuário 
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
@@ -72,22 +79,25 @@ export default function Home(){
 
     // Botão Usuário 
 
-
+      
 
      const [matches, setMatches] = useState([]);
 
     const history = useHistory('');
+    
+    const email = localStorage.getItem('email');
+    
     // const userId = localStorage.getItem('userId');
-    // const userName = localStorage.getItem('userName');
-    // useEffect(() => {
-    //     api.get('profile', {
+    //const userName = localStorage.getItem('userName');
+     useEffect(() => {
+         api.get(`/usuario/${email}/` //{
     //         headers : {
     //             Authorization: userId,
-    //         }
-    //     }).then(response =>{
-    //         setMatches(response.data);
-    //     })
-    // }, [userId]);
+             //}
+         ).then(response =>{
+             setNome(response.data);
+         })
+     }, [email]);
 
 
     // async function handleDeleteMatch(id){
@@ -109,9 +119,19 @@ export default function Home(){
       
       history.push('/profile');
   }
-    function handleLogout(){
-        localStorage.clear();
-        history.push('/');
+    async function handleLogout(){
+        try{
+          const response = await api.post('/usuario/logoff');
+         if (response.status == 200){
+          localStorage.clear();
+          history.push('/');
+         }else{
+          alert('Estamos encontrando problemas na conexão com o servidor'); 
+         }
+        }catch(err){
+          alert('Estamos encontrando problemas na conexão com o servidor');
+        }
+        
     }
     return(
         <div className= "home-container">
@@ -161,7 +181,7 @@ export default function Home(){
             </header>
         
             
-            <p className="bem-vindo">Bem vindo, Henrique.</p>
+          <p className="bem-vindo">Bem vindo, {email}.</p>
 
             <h1>Hoje:</h1>
 

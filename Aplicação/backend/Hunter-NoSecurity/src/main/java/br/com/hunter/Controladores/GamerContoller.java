@@ -5,6 +5,7 @@ import br.com.hunter.Repositorios.GamerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 
 @Controller
+@CrossOrigin(origins = "http://localhost:3000")
 public class GamerContoller {
 
     @Autowired
@@ -27,7 +29,8 @@ public class GamerContoller {
         return ResponseEntity.ok(gamer);
     }
 
-    @GetMapping("/usuario/{email}/{senha}/")
+
+    @GetMapping("/usuario/{email}/{senha}")
     public ResponseEntity getUsuarioESenha(@PathVariable("email") String email, @PathVariable("senha") String senha ){
         List gamer;
         gamer = repository.findOneByEmailAndSenha(email, senha);
@@ -42,6 +45,7 @@ public class GamerContoller {
             return ResponseEntity.ok("ja está logado");
         }
     }
+
 
     @PostMapping("/usuario/logoff")
     public ResponseEntity logoff() {

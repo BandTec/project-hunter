@@ -7,7 +7,11 @@ import { getToken } from "../auth";
 // const auth = Buffer.from(`${username}:${password}`, 'utf8').toString('base64')
 
 const api = axios.create({
-    baseURL: "http://localhost:8080/"
+    baseURL: "http://localhost:8080",
+    mode: 'cors',
+    headers:{
+        'Access-Control-Allow-Origin':'*'
+    },
   });
 
   // api.interceptors.request.use(async config => {
