@@ -26,18 +26,6 @@ public class Gamer {
     private String telefone;
 
 
-    public Gamer(){
-
-    }
-
-    public Gamer(String idGamer, String nome, String cpf, String email, String senha, String telefone) {
-        this.nome = nome;
-        this.cpf = cpf;
-        this.email = email;
-        this.senha = senha;
-        this.telefone = telefone;
-    }
-
     public void setEmail(String email) {
         this.email = email;
     }
