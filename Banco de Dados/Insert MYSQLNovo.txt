@@ -1,0 +1,37 @@
+insert into gamer(nome,cpf,email,senha,telefone) values 
+('Vinícius Oliveira', '77777777777', 'vinigamer@gmail.com', '123', '11777777777');
+
+insert equipe(nomeEquipe) values
+('eNergy eSports');
+
+insert into jogo(nomeJogo,qtdPlayers) values 
+('Counter-Strike: Global Offensive', 8);
+
+insert into dadosPartida(Data,Horário, vencedor) values
+("2020-07-07", "19:00:00",true);
+
+
+Insert into tipoInfracao(tipoInfracao) values 
+('Ofensas');
+
+
+insert into partida(fkEquipe,fkJogo,fkGamer) values 
+(1,1,1);
+
+insert into endereco(logradouro,numero,complemento,bairro,cidade,uf,cep,fkGamer) values 
+('Rua dos gamers', 777, 'Apto 77', 'Vila Gamer', 'São Paulo', 'SP', '7777777',1);
+
+insert into infracoes(fkgamer,fkpartida,fkinfracao)values 
+(1,1,1);
+
+insert into statusSolicitacao(status) values 
+("aprovado"),
+("negado"),
+("pendente");
+
+insert into equipe_tem_gamer values
+(1,1,1);
+
+
+
+

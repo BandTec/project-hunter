@@ -1,0 +1,84 @@
+Create table gamer(
+idGamer int primary key AUTO_INCREMENT,
+nome varchar (60),
+cpf char (30),
+email varchar (60),
+senha varchar (20),
+telefone char (11)
+);
+
+Create table endereco(
+idEndereco int primary key AUTO_INCREMENT,
+logradouro varchar (60),
+numero int,
+complemento varchar (20),
+bairro varchar (30),
+cidade varchar (50),
+uf char (2),
+cep int,
+fkGamer int references gamer (idGamer)
+);
+
+Create table jogo(
+idJogo int primary key AUTO_INCREMENT,
+nomeJogo varchar (100),
+qtdPlayers int (3)
+);
+
+Create table equipe (
+idEquipe int primary key AUTO_INCREMENT,
+nomeEquipe varchar (20)
+);
+
+Create table tipoInfracao (
+idTipoInfracao int primary key AUTO_INCREMENT,
+tipoInfracao varchar (50)
+);
+
+
+create table partida (
+idPartida int primary key AUTO_INCREMENT,
+fkEquipe int references equipe (idEquipe),
+fkJogo int references jogo (idJogo),
+fkGamer int references gamer (idGamer)
+);
+
+
+
+
+Create Table dadosPartida(
+idDadosPartida int primary key AUTO_INCREMENT,
+Data DATE, 
+Horário TIME,
+vencedor BOOLEAN,
+fkPartida int references partida(idPartida)
+);
+
+
+create table Infracoes (
+idInfracoes int primary key auto_increment,
+fkGamer int references gamer (idGamer),
+fkPartida int references partida (idPartida),
+fkInfracao int references tipoInfrecao(idTIpoInfracao)
+);
+
+
+Create table statusSolicitacao(
+idStatus int primary key auto_increment,
+status varchar(15)
+);
+
+
+create table Equipe_tem_Gamer(
+idEquipe int references equipe(idEquipe),
+idGamer int references gamer(idGamer),
+fkStatus int references statusSolicitacao(idStatus),
+PRIMARY KEY(idEquipe,idGamer)
+);
+
+
+
+
+
+
+
