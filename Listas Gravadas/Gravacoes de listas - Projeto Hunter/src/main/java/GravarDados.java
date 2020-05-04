@@ -16,10 +16,10 @@ public class GravarDados {
 
 
     public static void gravaLista(ListaObj<Gamer>lista, boolean isCSV) {
-            FileWriter arq =null;
-            Formatter saida= null;
-            boolean erroNoSistema = false;
-            String ArquivoNome;
+        FileWriter arq =null;
+        Formatter saida= null;
+        boolean erroNoSistema = false;
+        String ArquivoNome;
 
         if (isCSV){
             ArquivoNome = "Gamer.csv";
@@ -31,7 +31,7 @@ public class GravarDados {
             arq = new FileWriter(ArquivoNome, true);
             saida = new Formatter(arq);
         }
-            catch (IOException erro){
+        catch (IOException erro){
             System.err.println("Erro na abertura do arquivo");
             System.exit(1);
         }
@@ -40,11 +40,11 @@ public class GravarDados {
                 Gamer g = lista.getElemento(i);
 
                 if (isCSV){
-                    saida.format("%d;%s;%.2f%n", g.getApelido(),
-                            g.getNome(), g.getEmail(), g.getSenha(), g.getSenha());
+                    saida.format("%s;%s;%s;%s%n", g.getApelido(),
+                            g.getNome(), g.getEmail(), g.getJogo());
                 } else{
-                    saida.format("%d;%s;%.2f%n", g.getApelido(),
-                            g.getNome(), g.getEmail(), g.getSenha(), g.getSenha());
+                    saida.format("%s %s %s %s %n", g.getApelido(),
+                            g.getNome(), g.getEmail(),  g.getJogo());
                 }
             }
         }
@@ -56,7 +56,7 @@ public class GravarDados {
             saida.close();
             try {
                 arq.close();
-        }
+            }
             catch (IOException erro){
                 System.err.println("Falha ao fechar o arquivo");
                 erroNoSistema = true;
@@ -97,16 +97,15 @@ public class GravarDados {
         }
 
         try {
-            System.out.printf("%-8s%-10s%7s\n","NOME","APELIDO","EMAIL","SENHA","JOGO");
+            System.out.printf("%-50s %-20s %-50s %20s\n","NOME","APELIDO","EMAIL","JOGO");
 
             while (entrada.hasNext()){
                 String nome = entrada.next();
                 String apelido = entrada.next();
                 String email = entrada.next();
-                String senha = entrada.next();
                 String jogo = entrada.next();
 
-                System.out.printf("%-8d%-10s%7.2f\n", nome, apelido, email, senha, jogo);
+                System.out.printf("%-50s %-20s %-50s %20s\n", nome, apelido, email, jogo);
             }
         }
         catch (NoSuchElementException erro){
@@ -136,7 +135,6 @@ public class GravarDados {
         String nome;
         String apelido;
         String email;
-        String senha;
         String jogo;
         int selecao;
 
@@ -166,13 +164,10 @@ public class GravarDados {
                     System.out.println("Digite seu email");
                     email = leitor.next();
 
-                    System.out.println("Digite sua senha");
-                    senha = leitor.next();
-
                     System.out.println("Digite seu jogo");
                     jogo = leitor.next();
 
-                    Gamer gamer = new Gamer(nome, email, senha, jogo, apelido);
+                    Gamer gamer = new Gamer(nome, email, jogo, apelido);
 
                     lista.adiciona(gamer);
                     break;
@@ -189,7 +184,7 @@ public class GravarDados {
 
                 case 3:
                     if (lista.getTamanho() == 0) {
-                        System.out.println("Lista vazia. Não há o uqe gravar");
+                        System.out.println("Lista vazia. Não há o que gravar");
                     } else {
                         gravaLista(lista, false);
                         lista.limpa();
