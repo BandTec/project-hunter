@@ -38,6 +38,7 @@ export default function Home(){
 
     const [nome, setNome] = useState('');
     console.log(localStorage);
+    console.log(localStorage.getItem('nome'));
     console.log(nome);
 
     
@@ -90,15 +91,38 @@ export default function Home(){
     // const userId = localStorage.getItem('userId');
     //const userName = localStorage.getItem('userName');
      useEffect(() => {
-         api.get(`/usuario/${email}/` //{
-    //         headers : {
-    //             Authorization: userId,
-             //}
-         ).then(response =>{
-             setNome(response.data);
-         })
-     }, [email]);
+      async function dadosPerfil() {
+        const response = await api.get(`/usuario/${email}/`); //{
+           
+           
+            //  setNome(response.data.nome);
+         
 
+
+     let dados = response.data;
+
+     let temp = [];
+
+     dados.forEach( item => {
+       temp.push(
+         criaDados(
+           item.idGamer,
+           item.nome
+         )
+       );
+     });
+     
+     setNome(temp[0].nome);
+     localStorage.setItem('nome', temp[0].nome);
+   }
+
+   dadosPerfil();
+ }, []);
+ 
+ 
+ function criaDados(id, nome){
+   return {id, nome}
+ }
 
     // async function handleDeleteMatch(id){
     //     try{
@@ -181,7 +205,7 @@ export default function Home(){
             </header>
         
             
-          <p className="bem-vindo">Bem vindo, {email}.</p>
+          <p className="bem-vindo">Bem vindo, {nome}.</p>
 
             <h1>Hoje:</h1>
 

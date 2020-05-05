@@ -84,7 +84,7 @@ export default function Profile() {
 
     const history = useHistory('');
     // const userId = localStorage.getItem('userId');
-    // const userName = localStorage.getItem('userName');
+    const userName = localStorage.getItem('nome');
     // useEffect(() => {
     //     api.get('profile', {
     //         headers : {
@@ -168,7 +168,7 @@ export default function Profile() {
 
             <div className="div-profile">
                 <img className="profile-pic" src={UserPicture} alt="Foto de Perfil"></img>
-                <h1 className="profile-nic">Fernando</h1>
+                    <h1 className="profile-nic">{userName}</h1>
                 <h1 className="profile-rate"> <FiStar size={48} color="#F1DA07" />  4.96</h1>
             </div>
 
@@ -184,7 +184,7 @@ export default function Profile() {
                             <p>League of Legends </p>
                         </div>
                         <div>
-                            <img src={Overwatch} alt="League Of Legends" ></img>
+                            <img src={Overwatch} alt="Overwatch" ></img>
                             <p>Overwhatch</p>
                         </div>
                     </div>
@@ -205,10 +205,10 @@ export default function Profile() {
                         <p>Jogo</p>   
                         <p>Resultado</p>
                         
-                        <div><p>League of Legends</p></div> 
-                        <div><p>Derrota</p></div>
-                        <div><p>League of Legends</p></div> 
-                        <div><p>Vitória</p></div>
+                        <div><p> <img src={Lol} alt="League Of Legends" style={{ width : '20px', height: '20px'}} ></img> League of Legends</p></div> 
+                        <div><p className="derrota">Derrota</p></div>
+                        <div><p> <img src={Lol} alt="League Of Legends" style={{ width : '20px', height: '20px'}} ></img> League of Legends</p></div> 
+                        <div><p className="vitoria">Vitória</p></div>
 
 
                     </div>

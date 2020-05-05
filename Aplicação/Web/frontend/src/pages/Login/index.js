@@ -38,6 +38,7 @@ export default function Login(){
           login("@hunter-token");
           
           localStorage.setItem('email', email);
+          
           history.push("/home");
           
           }else{

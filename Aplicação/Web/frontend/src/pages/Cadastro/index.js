@@ -57,7 +57,9 @@ export default function Cadastro(){
                             <img src={camera} alt="Select your photo"></img>
                         </label>
                         <input placeholder="Digite seu nome" />
+                        <input placeholder="Digite seu CPF (123.456.78-90)" />
                         <input placeholder="Digite seu e-mail" />
+                        <input placeholder="Digite seu telefone (11 99999-9999)" />
                         
                         <input type="password" placeholder="Digite Sua Senha" />
                         <input type="password" placeholder="Confirmar Senha" />
