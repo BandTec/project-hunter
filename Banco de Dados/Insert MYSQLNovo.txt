@@ -1,8 +1,8 @@
 insert into gamer(nome,cpf,email,senha,telefone) values 
 ('Vinícius Oliveira', '77777777777', 'vinigamer@gmail.com', '123', '11777777777');
 
-insert equipe(nomeEquipe) values
-('eNergy eSports');
+insert equipe(nome_equipe, pais, regiao) values
+('eNergy eSports','brasil','sp');
 
 insert into jogo(nomeJogo,qtdPlayers) values 
 ('Counter-Strike: Global Offensive', 8);

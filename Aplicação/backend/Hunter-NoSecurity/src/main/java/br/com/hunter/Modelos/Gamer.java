@@ -2,10 +2,7 @@ package br.com.hunter.Modelos;
 
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
@@ -13,7 +10,8 @@ public class Gamer {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private String idGamer;
+    @Column(name = "idGamer")
+    private Integer idGamer;
 
     private String nome;
 
@@ -33,11 +31,11 @@ public class Gamer {
         return email;
     }
 
-    public String getIdGamer() {
+    public Integer getIdGamer() {
         return idGamer;
     }
 
-    public void setIdGamer(String idGamer) {
+    public void setIdGamer(Integer idGamer) {
         this.idGamer = idGamer;
     }
 

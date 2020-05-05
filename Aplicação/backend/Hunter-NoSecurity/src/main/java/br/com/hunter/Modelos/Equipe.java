@@ -12,16 +12,16 @@ public class Equipe {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer idEquipe;
 
-    private String nomeEquipe;
+    private String nome_equipe;
 
     private String pais;
 
     private String regiao;
 
-    public Equipe(Integer idEquipe, String nomeEquipe) {
-        this.idEquipe = idEquipe;
-        this.nomeEquipe = nomeEquipe;
-    }
+//    public Equipe(Integer idEquipe, String nomeEquipe) {
+//        this.idEquipe = idEquipe;
+//        this.nomeEquipe = nomeEquipe;
+//    }
 
     public Integer getIdEquipe() {
         return idEquipe;
@@ -32,11 +32,11 @@ public class Equipe {
     }
 
     public String getNomeEquipe() {
-        return nomeEquipe;
+        return nome_equipe;
     }
 
     public void setNomeEquipe(String nomeEquipe) {
-        this.nomeEquipe = nomeEquipe;
+        this.nome_equipe = nomeEquipe;
     }
 
     public String getPais() {

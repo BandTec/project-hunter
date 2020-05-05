@@ -27,7 +27,9 @@ qtdPlayers int (3)
 
 Create table equipe (
 idEquipe int primary key AUTO_INCREMENT,
-nomeEquipe varchar (20)
+nome_equipe varchar(20),
+pais varchar(30),
+regiao varchar(10)
 );
 
 Create table tipoInfracao (

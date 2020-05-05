@@ -1,9 +1,6 @@
 package br.com.hunter.Modelos;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Infracoes {
@@ -12,10 +9,13 @@ public class Infracoes {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer idInfracoes;
 
+    @ManyToOne
     private Gamer fkGamer;
 
+    @ManyToOne
     private DadosPartida fkPartida;
 
+    @ManyToOne
     private TipoInfracao fkTipo;
 
     public Integer getIdInfracoes() {
