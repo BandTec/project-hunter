@@ -146,7 +146,7 @@ export default function Home(){
     async function handleLogout(){
         try{
           const response = await api.post('/usuario/logoff');
-         if (response.status == 200){
+         if (response.status === 200){
           localStorage.clear();
           history.push('/');
          }else{
@@ -192,6 +192,7 @@ export default function Home(){
                     <MenuItem onClick={handleProfile}>Perfil</MenuItem>
                     <MenuItem onClick={handleClose}>Equipes</MenuItem>
                     <MenuItem onClick={handleClose}>Agendamentos</MenuItem>
+                    <MenuItem onClick={handleClose}>Configurações</MenuItem>
                     <MenuItem onClick={handleLogout}>Logout</MenuItem>
                   </MenuList>
                 </ClickAwayListener>

@@ -62,18 +62,7 @@ public class GamerContoller {
         }
     }
 
-    @PostMapping("/usuario/salvar")
-    public ResponseEntity salvarUsuario() {
-        Gamer gamer = new Gamer();
-        gamer.setNome("jose");
-        gamer.setCpf("123456789");
-        gamer.setEmail("jose@gmail.com");
-        gamer.setSenha("1234");
-        gamer.setTelefone("945632156");
-        //"jose","123549","jose@gmail.com", "senha", "944445"
-        this.repository.save(gamer);
-        return ResponseEntity.ok(gamer);
-    }
+
 //    @GetMapping("/usuario-teste/{email}")
 //    public ResponseEntity<Gamer> getUsuarioTeste(@PathVariable("email") String email){
 //        Gamer gamer = repository.findByEmail(email);

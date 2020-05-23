@@ -1,4 +1,4 @@
-import React, { useState, Component } from 'react';
+import React, { useState } from 'react';
 import "./styles.css";
 import logo from '../../assets/testeLogo3.svg';
 import '../../routes.js';
@@ -33,7 +33,7 @@ export default function Login(){
         
           const response = await api.get(`/usuario/${email}/${password}/`);
           console.log(response.status);
-          if (response.status == 200){
+          if (response.status === 200){
           
           login("@hunter-token");
           
