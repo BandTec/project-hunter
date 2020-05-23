@@ -1,6 +1,7 @@
 Create table gamer (
 idGamer int primary key identity (1,1),
 nome varchar (60) not null,
+usuario varchar (60) not null,
 cpf char (30) not null,
 email varchar (60) not null,
 senha varchar (20) not null,
@@ -79,7 +80,7 @@ idEquipe int foreign key references equipe (idEquipe),
 idGamer int foreign key references gamer (idGamer),
 idPosicao int foreign key references posicao (idPosicao),
 idInfracao int foreign key references infracao (idInfracao) null,
-data DATE, 
+data DATE,
 hora TIME,
 winner bit null
 );

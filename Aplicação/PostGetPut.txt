@@ -1,0 +1,55 @@
+Cadastro:
+-POST usuario (tabela gamer)
+-POST nome (tabela gamer)
+-POST email (tabela gamer)
+-POST CPF (tabela gamer)
+-POST telefone (tabela gamer)
+-POST senha (tabela gamer)
+-POST idJogo (tabela gamerinfo)
+-POST idPosição (tabela gamerinfo)
+
+Login:
+-GET email (tabela gamer)
+-GET senha (tabela gamer)
+
+Esqueceu senha:
+-GET senha (tabela gamer)
+
+Home:
+-GET nome (tabela gamer)
+-GET jogo (tabela jogo com where na tabela partida)
+-GET posicao (tabela posicao com where na tabela partida) 
+-GET data (tabela partida)
+-GET hora (tabela partida)
+
+Buscar:
+-GET nome (tabela gamer)
+-GET usuário (tabela gamer)
+-GET nome jogo (tabela jogo)
+-GET nome equipe (tabela equipe)
+
+Perfil:
+-GET nome (tabela gamer)
+-GET usuario (tabela gamer)
+-GET jogo (tabela jogo) (na tabela gamerinfo fazer where idGamer = x)
+-GET equipe (tabela equipe) (na tabela equipeGamer fazer where idGamer = x)
+-GET partidas (utimas 5/10 partidas) + nome do jogo (tabela partida)
+-GET winner (diz se o jogador ganhou ou perdeu) (tabela partida)
+
+Perfil da Equipe:
+-GET idGamer (contagem de idGamer where idEquipe = x e where idStatusSolicitacao = 1) (tabela equipeGamer)
+-GET nomeJogo (na tabela equipeJogo tem a idJogo que leva a tabela jogo)
+-GET partidas (utimas 5/10 partidas) + nome do jogo (tabela partida)
+-GET winner (diz se o jogador ganhou ou perdeu) (tabela partida)
+-GET usuario (where idStatus = 3) (tabela gamer)
+-POST idStatus (tabela equipeGamer)
+-PUT idStatus (tabela equipeGamer)
+
+Criar Partida:
+-POST idPartida (tabela partida)
+-POST idJogo (tabela partida)
+-POST idEquipe (tabela partida)
+-POST idGamer (tabela partida)
+-POST idPosicao (tabela partida)
+-POST data (tabela partida)
+-POST hora (tabela partida)
