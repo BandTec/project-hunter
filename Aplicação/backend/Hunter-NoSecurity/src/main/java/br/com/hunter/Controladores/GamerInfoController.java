@@ -1,8 +1,7 @@
 package br.com.hunter.Controladores;
 
 import br.com.hunter.Modelos.GamerInfo;
-import br.com.hunter.Modelos.Jogo;
-import br.com.hunter.Repositorios.JogoRepository;
+import br.com.hunter.Repositorios.GamerInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,23 +10,21 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-import static org.springframework.http.ResponseEntity.*;
-
 @RestController
-@RequestMapping("/jogo")
-public class JogoController {
+@RequestMapping("/gamerinfo")
+public class GamerInfoController {
 
     @Autowired
-    private JogoRepository repository;
+    private GamerInfoRepository repository;
 
     @GetMapping
     public ResponseEntity listarTodos() {
-        List<Jogo> lista = repository.findAll();
-        return lista.isEmpty() ? ResponseEntity.noContent ().build() : ResponseEntity.ok(lista);
+        List<GamerInfo> lista = repository.findAll();
+        return lista.isEmpty() ? ResponseEntity.noContent ().build() : ResponseEntity.ok ( lista );
     }
     @GetMapping ( "/{id}" )
     public ResponseEntity recuperar( @PathVariable( "id" ) int id ) {
-        Optional<Jogo> registro = repository.findById( id );
+        Optional<GamerInfo> registro = repository .findById( id );
         return registro.isPresent()? ResponseEntity.ok(registro.get()) : ResponseEntity.notFound().build();
     }
     @DeleteMapping( "/{id}" )
@@ -40,16 +37,16 @@ public class JogoController {
         }
     }
     @PostMapping
-    public ResponseEntity criar( @RequestBody Jogo jogo ) {
-        this.repository.save(jogo);
+    public ResponseEntity criar( @RequestBody GamerInfo gamerinfo ) {
+        this.repository.save(gamerinfo);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
     @PutMapping ( "/{id}" )
     public ResponseEntity atualizar(
-            @PathVariable("id") int id, @RequestBody Jogo JogoAlterado ) {
+            @PathVariable("id") int id, @RequestBody GamerInfo gamerInfoAlterado ) {
         if(repository.existsById(id)) {
-            JogoAlterado.setIdJogo(id);
-            repository.save(JogoAlterado);
+            gamerInfoAlterado.setIdGamerInfo(id);
+            repository.save(gamerInfoAlterado);
             return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.notFound().build();

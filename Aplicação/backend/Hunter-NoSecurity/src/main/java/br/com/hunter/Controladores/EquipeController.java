@@ -11,7 +11,7 @@ import java.util.Optional;
 import static org.springframework.http.ResponseEntity.*;
 
 @RestController
-@RequestMapping("/team")
+@RequestMapping("/equipe")
 public class EquipeController {
 
     @Autowired
@@ -42,8 +42,6 @@ public class EquipeController {
 
         if (searchEquipe.isPresent()) {
             equipe.setNomeEquipe(equipeUpdated.getNomeEquipe());
-            equipe.setPais(equipeUpdated.getPais());
-            equipe.setRegiao(equipeUpdated.getRegiao());
 
             this.repositoryEquipe.save(equipe);
             return ok(equipe);

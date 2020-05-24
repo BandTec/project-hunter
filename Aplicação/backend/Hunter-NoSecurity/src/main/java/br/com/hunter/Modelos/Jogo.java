@@ -1,37 +1,29 @@
 package br.com.hunter.Modelos;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+@DynamicUpdate
 @Entity
 public class Jogo {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer idjogo;
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private Integer idJogo;
 
     private String nomeJogo;
 
-    private Integer atdPlayers;
+    private Integer qtdePlayers;
 
-    public String getTipo() {
-        return tipo;
+    public Integer getIdJogo() {
+        return idJogo;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    private String tipo;
-
-    public Integer getIdjogo() {
-        return idjogo;
-    }
-
-    public void setIdjogo(Integer idjogo) {
-        this.idjogo = idjogo;
+    public void setIdJogo(Integer idjogo) {
+        this.idJogo = idjogo;
     }
 
     public String getNomeJogo() {
@@ -42,11 +34,11 @@ public class Jogo {
         this.nomeJogo = nomeJogo;
     }
 
-    public Integer getAtdPlayers() {
-        return atdPlayers;
+    public Integer getQtdePlayers() {
+        return qtdePlayers;
     }
 
-    public void setAtdPlayers(Integer atdPlayers) {
-        this.atdPlayers = atdPlayers;
+    public void setQtdePlayers(Integer qtdPlayers) {
+        this.qtdePlayers = qtdPlayers;
     }
 }

@@ -1,27 +1,21 @@
 package br.com.hunter.Modelos;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.annotations.DynamicUpdate;
+
+import javax.persistence.*;
 
 @Entity
+@DynamicUpdate
 public class Equipe {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name = "idEquipe")
     private Integer idEquipe;
 
-    private String nome_equipe;
+    private String nomeEquipe;
 
-    private String pais;
 
-    private String regiao;
-
-//    public Equipe(Integer idEquipe, String nomeEquipe) {
-//        this.idEquipe = idEquipe;
-//        this.nomeEquipe = nomeEquipe;
-//    }
 
     public Integer getIdEquipe() {
         return idEquipe;
@@ -32,26 +26,12 @@ public class Equipe {
     }
 
     public String getNomeEquipe() {
-        return nome_equipe;
+        return nomeEquipe;
     }
 
     public void setNomeEquipe(String nomeEquipe) {
-        this.nome_equipe = nomeEquipe;
+        this.nomeEquipe = nomeEquipe;
     }
 
-    public String getPais() {
-        return pais;
-    }
 
-    public void setPais(String pais) {
-        this.pais = pais;
-    }
-
-    public String getRegiao() {
-        return regiao;
-    }
-
-    public void setRegiao(String regiao) {
-        this.regiao = regiao;
-    }
 }

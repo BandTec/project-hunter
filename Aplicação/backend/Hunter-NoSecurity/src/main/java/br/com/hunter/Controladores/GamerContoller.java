@@ -5,11 +5,12 @@ import br.com.hunter.Repositorios.GamerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static org.springframework.http.ResponseEntity.created;
+import static org.springframework.http.ResponseEntity.*;
 
 @Controller
 @CrossOrigin(origins = "http://localhost:3000")
@@ -62,15 +63,13 @@ public class GamerContoller {
         }
     }
 
-
-//    @GetMapping("/usuario-teste/{email}")
-//    public ResponseEntity<Gamer> getUsuarioTeste(@PathVariable("email") String email){
-//        Gamer gamer = repository.findByEmail(email);
-//        System.out.println(gamer.getUsername());
-//        System.out.println(gamer.getNome());
-//        return new ResponseEntity<>(HttpStatus.OK);
-//    }
-
-
+    @GetMapping("/usuario")
+    public ResponseEntity todos() {
+        if (this.repository.count() > 0) {
+            return ok(this.repository.findAll());
+        } else {
+            return noContent().build();
+        }
+    }
 
 }
