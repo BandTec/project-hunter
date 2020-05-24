@@ -97,7 +97,7 @@ export default function Cadastro() {
                     <img src={camera} alt="Select your photo"></img>
                 </label>
                 <input placeholder="Digite seu nome completo" onChange={e => setNome(e.target.value)} />
-                <input placeholder="Digite seu nome de usuário (nickname)" onChange={e => setUsuario(e.target.value)} />
+                <input placeholder="Digite seu usuário (nickname)" onChange={e => setUsuario(e.target.value)} />
                 <input placeholder="Digite seu CPF (1234567890)" onChange={e => setCpf(e.target.value)} />
                 <input placeholder="Digite seu e-mail" onChange={e => setEmail(e.target.value)} />
                 <input placeholder="Digite seu telefone (11999999999)" onChange={e => setTelefone(e.target.value)} />
