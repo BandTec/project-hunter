@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- logo aba<link rel="shotcut icon" href="img/loguinho.png" > icone da pag-->
+    <title>Hunter - Recuperação de Senha</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<body>
+
+    <style>
+        body{
+            background: #1b1b1c;
+        }
+        .fp{
+            width: 400px;
+            height: 250px;
+            padding: 30px;
+        }           
+        .logo
+            {
+                margin-top: 7%;
+                height: 115px;
+            }
+        </style>
+        <!-- LOGO <center><img class="logo" src="img/loguinhov.png"></center> -->
+        <br>
+    <center>
+    <h4 style="color: #ffffff;">Recuperação de senha</h4>
+    <div class="fp">
+        <a style="color: #ffffff;"> Insira seu endereço de email e enviaremos as instruções para recuperação de senha.</a><br><br>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="E-mail"><br>
+        <center><button type="submit" class="btn btn-primary" style="background-color:#DAD716;border-color: #DAD716; color: black;" onclick="recuperar()">Recuperar senha</button></center>
+    </div>
+    </center>
+</body>
+</html>
+<script>
+        function recuperar() {
+        alert('Consulte seu email com a nova senha!');
+    }
+</script>
