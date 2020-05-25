@@ -17,8 +17,8 @@ export default function Configurações() {
     const [cpf, setCpf] = useState('');
     const [email, setEmail] = useState('');
     const [telefone, setTelefone] = useState('');
-    const [telefone, setJogo] = useState('');
-    const [telefone, setPosicao] = useState('');
+    const [jogo, setJogo] = useState('');
+    const [posicao, setPosicao] = useState('');
     const [senha, setSenha] = useState('');
     const [confirmarSenha, setConfirmarSenha] = useState('');
 
@@ -105,8 +105,19 @@ export default function Configurações() {
                 <input placeholder="Digite seu jogo principal" onChange={e => setJogo(e.target.value)} />
                 <input placeholder="Digite sua posição" onChange={e => setPosicao(e.target.value)} />
                 <input type="password" placeholder="Digite Sua Senha" onChange={e => setSenha(e.target.value)} />
-                <input type="password" placeholder="Confirmar Senha" onChange={e => setConfirmarSenha(e.target.value)} />
-                <input placeholder="Digite seu jogo principal" onChange={e => setJogo(e.target.value)} />
+                <select placeholder="Digite seu jogo principal" onChange={e => setJogo(e.target.value)}>
+                <option value='0'>Selecione o jogo</option>
+                <option value='1'>Counter-Strike: Global Offensive</option>
+                <option value='2'>Valorant</option>
+                <option value='3'>League of Legends</option>
+                <option value='4'>Fortnite</option>
+                <option value='5'>DOTA 2</option>
+                <option value='6'>Call of Duty: Warzone</option>
+                <option value='7'>PlayerUnkown's Battlegrounds</option>
+
+                </select>
+
+
                 <input placeholder="Digite sua posição" onChange={e => setPosicao(e.target.value)} />
                 <Router>
                     <div>

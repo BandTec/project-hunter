@@ -1,11 +1,11 @@
-.cadastro-container{
+.configuracao-container{
     height: 100%;
     display:flex;
     justify-content:center;
     align-items: center;
 }
 
-.cadastro-container form{
+.configuracao-container form{
 
         margin: 80px auto 0;
         width: 100%;
@@ -22,7 +22,7 @@
     transition-timing-function: cubic-bezier(0.1, 0.7, 1.0, 0.1);
 }
 
-.cadastro-container form img{
+.configuracao-container form img{
     height: 250px;
     width: 100%;
     display:flex;
@@ -30,7 +30,7 @@
 }
 
 
-.cadastro-container form input{
+.configuracao-container form input{
     margin-top: 20px;
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -40,7 +40,7 @@
     color: #666;
 }
 
-.cadastro-container form select{
+.configuracao-container form select{
     margin-top: 20px;
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -51,7 +51,7 @@
 }
 
 
-.cadastro-container .btn{
+.configuracao-container .btn{
     margin-top: 15px;
     border: 1px solid #000000;
     border-radius: 4px;
@@ -64,30 +64,30 @@
 }
 
 
-.cadastro-container .Cad{
+.configuracao-container .Cad{
     border: 0;
     background-color: #00FF00;
     color: #000000;
 }
 
-.cadastro-container .Cad:hover{
+.configuracao-container .Cad:hover{
     background-color: #009e00;
 }
 
-.cadastro-container  .Voltar{
+.configuracao-container  .Cas{
     background-color: #000000;
     color: #00FF00;
     
 }
 
-.cadastro-container .Voltar:hover{
+.configuracao-container .Cas:hover{
     background-color: #161616;
 }
 
 
 
 
-.cadastro-container form div{
+.configuracao-container form div{
     height: 100%;
     width: 100%;
     display:flex;
@@ -95,11 +95,11 @@
     align-items: center;
 }
 
-.cadastro-container form input::placeholder{
+.configuracao-container form input::placeholder{
 color:#999;
 }
 
-.cadastro-container form a{
+.configuracao-container form a{
   
     color: #00FF00;
 }

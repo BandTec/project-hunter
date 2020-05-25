@@ -143,6 +143,11 @@ export default function Home(){
       
       history.push('/profile');
   }
+
+  function handleConfig(){
+      
+    history.push('/config');
+}
     async function handleLogout(){
         try{
           const response = await api.post('/usuario/logoff');
@@ -192,7 +197,7 @@ export default function Home(){
                     <MenuItem onClick={handleProfile}>Perfil</MenuItem>
                     <MenuItem onClick={handleClose}>Equipes</MenuItem>
                     <MenuItem onClick={handleClose}>Agendamentos</MenuItem>
-                    <MenuItem onClick={handleClose}>Configurações</MenuItem>
+                    <MenuItem onClick={handleConfig}>Configurações</MenuItem>
                     <MenuItem onClick={handleLogout}>Logout</MenuItem>
                   </MenuList>
                 </ClickAwayListener>
