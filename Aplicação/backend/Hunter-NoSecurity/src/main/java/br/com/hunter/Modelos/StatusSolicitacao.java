@@ -13,16 +13,16 @@ public class StatusSolicitacao {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Integer idStatus;
+    private Integer idStatusSolicitacao;
 
     private String status;
 
-    public Integer getIdStatus() {
-        return idStatus;
+    public Integer getIdStatusSolicitacao() {
+        return idStatusSolicitacao;
     }
 
-    public void setIdStatus(Integer idStatus) {
-        this.idStatus = idStatus;
+    public void setIdStatusSolicitacao(Integer idStatus) {
+        this.idStatusSolicitacao = idStatus;
     }
 
     public String getStatus() {
