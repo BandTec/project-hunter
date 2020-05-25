@@ -32,6 +32,13 @@ public class PartidaController {
         Optional<Partida> registro = repository.findById( id );
         return registro.isPresent()? ResponseEntity.ok(registro.get()) : ResponseEntity.notFound().build();
     }
+
+    @GetMapping("/gamer/{id}")
+    public  ResponseEntity listarPorGamer(@PathVariable("id") Integer id) {
+        List<Partida> lista = repository.findByIdGamer_IdGamer(id);
+        return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
+    }
+    
     @DeleteMapping( "/{id}" )
     public ResponseEntity excluir(@PathVariable("id") int id) {
         if (repository.existsById(id)) {
