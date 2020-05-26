@@ -1,6 +1,7 @@
 package br.com.hunter.Controladores;
 
 import br.com.hunter.Modelos.Gamer;
+import br.com.hunter.Modelos.GamerInfo;
 import br.com.hunter.Repositorios.GamerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +38,18 @@ public class GamerContoller {
     public ResponseEntity createGamer(@RequestBody Gamer newGamer){
         this.repository.save(newGamer);
         return created(null).build();
+    }
+
+    @PutMapping ( "/gamer/{id}" )
+    public ResponseEntity atualizar(
+            @PathVariable("id") int id, @RequestBody Gamer gamerAlterado ) {
+        if(repository.existsById(id)) {
+            gamerAlterado.setIdGamer(id);
+            repository.save(gamerAlterado);
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/gamer/{email}")
