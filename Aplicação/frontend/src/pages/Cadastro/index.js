@@ -46,7 +46,7 @@ export default function Cadastro() {
             };
 
             try {
-                const response = await api.post('/usuario/criar', data);
+                const response = await api.post('/gamer/criar', data);
                 //alert(`Seu ID de Acesso ${response.data.id}`);
                 if (response.status === 200){
                 history.push('/DefinicaoCadPerfil');

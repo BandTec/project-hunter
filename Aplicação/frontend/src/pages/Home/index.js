@@ -91,13 +91,11 @@ export default function Home(){
     const email = localStorage.getItem('email');
     const id = localStorage.getItem('idGamer');
     
-    // const userId = localStorage.getItem('userId');
-    //const userName = localStorage.getItem('userName');
+ 
      React.useEffect(() => {
       async function dadosPerfil() {
-        const response = await api.get(`/usuario/${email}/`); //{
-           
-            //  setNome(response.data.nome);
+        const response = await api.get(`/gamer/${email}/`); //{
+ 
       
      let dados = response.data;
 
@@ -119,6 +117,18 @@ export default function Home(){
    }
    dadosPerfil();
  }, []);
+
+
+
+
+  useEffect(() => {
+    api.get(`/partida/gamer/${id}/`
+    
+    ).then(response =>{
+        setMatches(response.data);
+    })
+}, [id]);
+
 
     React.useEffect(() => {
       async function dadosPartida() {
@@ -196,6 +206,12 @@ console.log(tempPartida[0]);
         }
         
     }
+
+    async function handleConfig(){
+      history.push('/config');
+    }
+
+
     return(
         <div className= "home-container">
             
@@ -231,7 +247,7 @@ console.log(tempPartida[0]);
                     <MenuItem onClick={handleProfile}>Perfil</MenuItem>
                     <MenuItem onClick={handleClose}>Equipes</MenuItem>
                     <MenuItem onClick={handleClose}>Agendamentos</MenuItem>
-                    <MenuItem onClick={handleClose}>Configurações</MenuItem>
+                    <MenuItem onClick={handleConfig}>Configurações</MenuItem>
                     <MenuItem onClick={handleLogout}>Logout</MenuItem>
                   </MenuList>
                 </ClickAwayListener>
@@ -250,76 +266,21 @@ console.log(tempPartida[0]);
             <h1>Hoje:</h1>
 
             <ul className="matches">
-                <li>
-                    <strong>{nomeJogo}</strong>
-                    <p>Posição : {posicao}</p>
+
+                 {matches.map(match => ( 
+                    <li key={match.idPartida}>
+                    <strong>{match.idJogo.nomeJogo}</strong>
+                    <p>Posição : {match.idPosicao.posicao}</p>
 
                     <strong>Horário: </strong>
-                    <p><b>{hora}</b></p>
+                    <p><b>{match.hora}</b></p>
 
                     <strong>Duração Estimada: </strong>
                     <p>1 Hora</p>
 
                     <button type="button"> <FiTrash2 size={20} color="#a8a8b3"/></button>
-                </li>
-
-                <li>
-                    <strong>Overwatch</strong>
-                    <p>Posição : Tanque</p>
-
-                    <strong>Horário: </strong>
-                    <p><b>20:30</b></p>
-
-                    <strong>Duração Estimada: </strong>
-                    <p>1 Hora</p>
-
-                    <button type="button"> <FiTrash2 size={20} color="#a8a8b3"/></button>
-                </li>
-                <li>
-                    <strong>Overwatch</strong>
-                    <p>Posição : Tanque</p>
-
-                    <strong>Horário: </strong>
-                    <p><b>21:00</b></p>
-
-                    <strong>Duração Estimada: </strong>
-                    <p>1 Hora</p>
-
-                    <button type="button"> <FiTrash2 size={20} color="#a8a8b3"/></button>
-                </li>
-                <li>
-                    <strong>Counter Strike: Global Offensive</strong>
-                    <p>Posição : Capitão</p>
-
-                    <strong>Horário: </strong>
-                    <p><b>22:30</b></p>
-
-                    <strong>Duração Estimada: </strong>
-                    <p>30 min.</p>
-
-                    <button type="button"> <FiTrash2 size={20} color="#a8a8b3"/></button>
-                </li>
-
-                <li>
-                    <strong>Adicionar Partida</strong>
-                    
-                    <button className="btn-adicionar"> <FiPlusCircle size={64} color="#000000"/></button>
-                </li>
-
-                {/* {matches.map(match => ( */}
-                    {/* <li key={match.id}>
-                    <strong>CASO: </strong>
-                    <p>{match.title}</p>
-
-                    <strong>DESCRIÇÂO: </strong>
-                    <p>{match.description}</p>
-
-                    <strong>VALOR: </strong>
-                    <p>{Intl.NumberFormat('pt-BR', { style : 'currency', currency: 'BRL'}).format(match.value)}</p>
-
-                    <button type="button" onClick={() => handleDeleteMatch(match.id)} > <FiTrash2 size={20} color="#a8a8b3"/></button>
-                </li> */}
-                {/* // ))} */}
+                </li> 
+                 ))}
             </ul>
       
         </div>   

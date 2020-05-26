@@ -31,7 +31,7 @@ export default function Login(){
     } else {
       try {
         
-          const response = await api.get(`/usuario/${email}/${password}/`);
+          const response = await api.get(`/gamer/${email}/${password}/`);
           console.log(response.status);
           if (response.status === 200){
           
