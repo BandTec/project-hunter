@@ -38,11 +38,10 @@ export default function Home(){
 
     const [nome, setNome] = useState('');
     const [idGamer, setIdGamer] = useState('');
-    const [data, setData] = useState('');
-    const [hora, setHora] = useState('');
     const [nomeJogo, setJogo] = useState('');
     const [posicao, setPosicao] = useState('');
-    const [idJogo, setIdJogo] = useState('');
+    const [data, setData] = useState('');
+    const [hora, setHora] = useState('');
 
     console.log(localStorage);    
 
@@ -94,15 +93,12 @@ export default function Home(){
     
     // const userId = localStorage.getItem('userId');
     //const userName = localStorage.getItem('userName');
-     useEffect(() => {
+     React.useEffect(() => {
       async function dadosPerfil() {
         const response = await api.get(`/usuario/${email}/`); //{
            
-           
             //  setNome(response.data.nome);
-         
-
-
+      
      let dados = response.data;
 
      let temp = [];
@@ -121,11 +117,10 @@ export default function Home(){
      localStorage.setItem('nome', temp[0].nome);
      localStorage.setItem('idGamer', temp[0].idGamer);
    }
-
    dadosPerfil();
  }, []);
- 
-      useEffect(() => {
+
+    React.useEffect(() => {
       async function dadosPartida() {
         const responsePartida = await api.get(`/partida/gamer/${id}/`);    
 
@@ -133,41 +128,29 @@ export default function Home(){
 
      let tempPartida = [];
 
-     let dadosJogo = responsePartida.data;
-
-     let tempJogo = [];
-
      dadosPartida.forEach( item => {
        tempPartida.push(
          criaDadosPartida(
-           item.posicao,
+           item.idJogo.nomeJogo,
+           item.idPosicao.posicao,
            item.data,
            item.hora
          )
        );
-     
-      //  dadosJogo.forEach( item => {
-      //    tempJogo.push(
-      //      criaDadosJogo(
-      //        item.nomeJogo,
-      //        item.idJogo
-      //      )
-      //    )
-      //  })
-
       });
+console.log(tempPartida[0]);
      
-    //  setJogo(tempJogo[0].nomeJogo);
+
      setData(tempPartida[0].data);
      setHora(tempPartida[0].hora);
+     setJogo(tempPartida[0].nomeJogo);
      setPosicao(tempPartida[0].posicao);
-    //  setIdJogo(tempJogo[0].idPartida);
+     
 
-    //  localStorage.setItem('nomeJogo', tempJogo[0].nomeJogo);
      localStorage.setItem('data', tempPartida[0].data);
      localStorage.setItem('hora', tempPartida[0].hora);
+     localStorage.setItem('nomeJogo', tempPartida[0].nomeJogo);
      localStorage.setItem('posicao', tempPartida[0].posicao);
-    //  localStorage.setItem('idJogo', tempJogo[0].idJogo);
    }
 
    dadosPartida();
@@ -177,26 +160,8 @@ export default function Home(){
    return {idGamer, nome}
  }
 
- function criaDadosPartida(posicao, data, hora){
-  return {posicao, data, hora}
-}
-
-// type ComponentProps = {
-//   nomeJogo : nomeJogo;
-//   posicao : posicao;
-// }
-// function PropsDescription(props: ComponentProps): JSX.Element {
-//   return {props.nomeJogo}
-// }
-// function criarDadosJogo(props: {
-//   idJogo : idJogo;
-//   nomeJogo : nomeJogo;
-// }) : JSX.Element {
-//   return {props.nomeJogo}
-// }
-
-function criaDadosJogo(idJogo, nomeJogo){
-  return {idJogo, nomeJogo}
+ function criaDadosPartida(nomeJogo, posicao, data, hora){
+  return {data, hora,nomeJogo, posicao}
 }
 
     // async function handleDeleteMatch(id){
@@ -211,9 +176,8 @@ function criaDadosJogo(idJogo, nomeJogo){
     //     }catch(err){
     //         alert('Erro ao deletar o partida, tente novamente');
     //     }
-
-      
     // }
+
     function handleProfile(){
       
       history.push('/profile');
