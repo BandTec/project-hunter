@@ -37,11 +37,14 @@ const useStyles = makeStyles((theme) => ({
 export default function Home(){
 
     const [nome, setNome] = useState('');
-    console.log(localStorage);
-    console.log(localStorage.getItem('nome'));
-    console.log(nome);
+    const [idGamer, setIdGamer] = useState('');
+    const [data, setData] = useState('');
+    const [hora, setHora] = useState('');
+    const [nomeJogo, setJogo] = useState('');
+    const [posicao, setPosicao] = useState('');
+    const [idJogo, setIdJogo] = useState('');
 
-    
+    console.log(localStorage);    
 
    // Botão Usuário 
     const classes = useStyles();
@@ -87,6 +90,7 @@ export default function Home(){
     const history = useHistory('');
     
     const email = localStorage.getItem('email');
+    const id = localStorage.getItem('idGamer');
     
     // const userId = localStorage.getItem('userId');
     //const userName = localStorage.getItem('userName');
@@ -113,16 +117,87 @@ export default function Home(){
      });
      
      setNome(temp[0].nome);
+     setIdGamer(temp[0].idGamer);
      localStorage.setItem('nome', temp[0].nome);
+     localStorage.setItem('idGamer', temp[0].idGamer);
    }
 
    dadosPerfil();
  }, []);
  
+      useEffect(() => {
+      async function dadosPartida() {
+        const responsePartida = await api.get(`/partida/gamer/${id}/`);    
+
+     let dadosPartida = responsePartida.data;
+
+     let tempPartida = [];
+
+     let dadosJogo = responsePartida.data;
+
+     let tempJogo = [];
+
+     dadosPartida.forEach( item => {
+       tempPartida.push(
+         criaDadosPartida(
+           item.posicao,
+           item.data,
+           item.hora
+         )
+       );
+     
+      //  dadosJogo.forEach( item => {
+      //    tempJogo.push(
+      //      criaDadosJogo(
+      //        item.nomeJogo,
+      //        item.idJogo
+      //      )
+      //    )
+      //  })
+
+      });
+     
+    //  setJogo(tempJogo[0].nomeJogo);
+     setData(tempPartida[0].data);
+     setHora(tempPartida[0].hora);
+     setPosicao(tempPartida[0].posicao);
+    //  setIdJogo(tempJogo[0].idPartida);
+
+    //  localStorage.setItem('nomeJogo', tempJogo[0].nomeJogo);
+     localStorage.setItem('data', tempPartida[0].data);
+     localStorage.setItem('hora', tempPartida[0].hora);
+     localStorage.setItem('posicao', tempPartida[0].posicao);
+    //  localStorage.setItem('idJogo', tempJogo[0].idJogo);
+   }
+
+   dadosPartida();
+ }, []);
  
- function criaDados(id, nome){
-   return {id, nome}
+ function criaDados(idGamer, nome){
+   return {idGamer, nome}
  }
+
+ function criaDadosPartida(posicao, data, hora){
+  return {posicao, data, hora}
+}
+
+// type ComponentProps = {
+//   nomeJogo : nomeJogo;
+//   posicao : posicao;
+// }
+// function PropsDescription(props: ComponentProps): JSX.Element {
+//   return {props.nomeJogo}
+// }
+// function criarDadosJogo(props: {
+//   idJogo : idJogo;
+//   nomeJogo : nomeJogo;
+// }) : JSX.Element {
+//   return {props.nomeJogo}
+// }
+
+function criaDadosJogo(idJogo, nomeJogo){
+  return {idJogo, nomeJogo}
+}
 
     // async function handleDeleteMatch(id){
     //     try{
@@ -143,11 +218,6 @@ export default function Home(){
       
       history.push('/profile');
   }
-
-  function handleConfig(){
-      
-    history.push('/config');
-}
     async function handleLogout(){
         try{
           const response = await api.post('/usuario/logoff');
@@ -197,7 +267,7 @@ export default function Home(){
                     <MenuItem onClick={handleProfile}>Perfil</MenuItem>
                     <MenuItem onClick={handleClose}>Equipes</MenuItem>
                     <MenuItem onClick={handleClose}>Agendamentos</MenuItem>
-                    <MenuItem onClick={handleConfig}>Configurações</MenuItem>
+                    <MenuItem onClick={handleClose}>Configurações</MenuItem>
                     <MenuItem onClick={handleLogout}>Logout</MenuItem>
                   </MenuList>
                 </ClickAwayListener>
@@ -217,11 +287,11 @@ export default function Home(){
 
             <ul className="matches">
                 <li>
-                    <strong>League of Legends</strong>
-                    <p>Posição : Atirador</p>
+                    <strong>{nomeJogo}</strong>
+                    <p>Posição : {posicao}</p>
 
                     <strong>Horário: </strong>
-                    <p><b>19:00</b></p>
+                    <p><b>{hora}</b></p>
 
                     <strong>Duração Estimada: </strong>
                     <p>1 Hora</p>

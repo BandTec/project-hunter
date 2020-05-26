@@ -114,11 +114,19 @@ export default function Configurações() {
                 <option value='5'>DOTA 2</option>
                 <option value='6'>Call of Duty: Warzone</option>
                 <option value='7'>PlayerUnkown's Battlegrounds</option>
-
                 </select>
-
-
-                <input placeholder="Digite sua posição" onChange={e => setPosicao(e.target.value)} />
+                <select placeholder="Digite seu jogo principal" onChange={e => setJogo(e.target.value)}>
+                <option value='0'>Selecione a sua posição</option>
+                <option value='2'>Atirador</option>
+                <option value='3'>Suporte</option>
+                <option value='4'>Jungle</option>
+                <option value='5'>Top</option>
+                <option value='6'>Mid</option>
+                <option value='7'>Entry Fragger</option>
+                <option value='8'>Lurker</option>
+                <option value ='9'>Capitão</option>
+                <option value ='10'>Sniper</option>
+                </select>
                 <Router>
                     <div>
                         <button className="configuracao container btn Cas" type= "submit">Editar</button>
