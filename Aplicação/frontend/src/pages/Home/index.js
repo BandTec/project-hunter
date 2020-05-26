@@ -130,49 +130,12 @@ export default function Home(){
 }, [id]);
 
 
-    React.useEffect(() => {
-      async function dadosPartida() {
-        const responsePartida = await api.get(`/partida/gamer/${id}/`);    
-
-     let dadosPartida = responsePartida.data;
-
-     let tempPartida = [];
-
-     dadosPartida.forEach( item => {
-       tempPartida.push(
-         criaDadosPartida(
-           item.idJogo.nomeJogo,
-           item.idPosicao.posicao,
-           item.data,
-           item.hora
-         )
-       );
-      });
-console.log(tempPartida[0]);
-     
-
-     setData(tempPartida[0].data);
-     setHora(tempPartida[0].hora);
-     setJogo(tempPartida[0].nomeJogo);
-     setPosicao(tempPartida[0].posicao);
-     
-
-     localStorage.setItem('data', tempPartida[0].data);
-     localStorage.setItem('hora', tempPartida[0].hora);
-     localStorage.setItem('nomeJogo', tempPartida[0].nomeJogo);
-     localStorage.setItem('posicao', tempPartida[0].posicao);
-   }
-
-   dadosPartida();
- }, []);
  
  function criaDados(idGamer, nome){
    return {idGamer, nome}
  }
 
- function criaDadosPartida(nomeJogo, posicao, data, hora){
-  return {data, hora,nomeJogo, posicao}
-}
+
 
     // async function handleDeleteMatch(id){
     //     try{
@@ -217,7 +180,7 @@ console.log(tempPartida[0]);
             
             <header>
             <img src = {Logo} alt="HunterProject"></img>
-            {/* <span>Bem vindo, {userName}</span> */}
+            
             
            <div className="input-pesquisa">
              <input type="text" placeholder="Busque por jogos, equipes..."></input>
