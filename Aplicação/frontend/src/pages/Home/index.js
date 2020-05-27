@@ -13,6 +13,7 @@ import Popper from '@material-ui/core/Popper';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
+import Modal from '@material-ui/core/Modal';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,7 +35,44 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+function rand() {
+  return Math.round(Math.random() * 20) - 10;
+}
+function getModalStyle() {
+  const top = 50 + rand();
+  const left = 50 + rand();
+
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
+  };
+}
+
 export default function Home() {
+
+  const [modalStyle] = React.useState(getModalStyle);
+  const [openModal, setOpenModal] = React.useState(false);
+  const handleOpen = () => {
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
+
+  const body = (
+    <div>
+      <h2 >Text in a modal</h2>
+      <p>
+        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+      </p>
+      <Home />
+    </div>
+  );
+
+
+
 
   const [nome, setNome] = useState('');
   const [idGamer, setIdGamer] = useState('');
@@ -44,6 +82,7 @@ export default function Home() {
   const [hora, setHora] = useState('');
 
   console.log(localStorage);
+
 
   // Botão Usuário 
   const classes = useStyles();
@@ -248,7 +287,17 @@ export default function Home() {
         <li>
           <strong>Adicionar Partida</strong>
 
-          <button className="btn-adicionar"> <FiPlusCircle size={64} color="#000000" /></button>
+          <button className="btn-adicionar" onClick={handleOpen}> <FiPlusCircle size={64} color="#000000" /></button>
+          <Modal
+            open={open}
+            onClose={handleCloseModal}
+            // aria-labelledby="simple-modal-title"
+            // aria-describedby="simple-modal-description"
+          >
+            {body}
+          </Modal>
+
+          
         </li>
       </ul>
 
