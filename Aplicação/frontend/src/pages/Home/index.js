@@ -35,6 +35,88 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+const useStyles2 = makeStyles((theme) => ({
+  paper: {
+    position: 'absolute',
+    
+    backgroundColor: '#000',
+    font: 'Roboto, Arial, Helvetica, sans-serif',
+    color: '#fff',
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+
+
+  },
+
+  divAbove: {
+    display: 'grid',
+    gridTemplateColumns:  'repeat(2, 1fr)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  divOpcional: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    
+  },
+
+  comboOpcional:{
+    marginLeft: '5px'
+  },
+
+  buttonClose: {
+    backgroundColor: '#000',
+    color: '#00FF00',
+    marginTop: '15px',
+    border: '1px solid #00FF00',
+    borderRadius: '4px',
+    height: '48px',
+    width: '112px',
+    padding: '0 20px',
+    fontSize: '16px',
+    fontStyle: 'bold',
+    cursor: 'pointer',
+  },
+  buttonCreate: {
+    backgroundColor: '#00FF00',
+    color: '#000',
+    marginTop: '15px',
+    marginLeft: '30px',
+    border: '1px solid #000',
+    borderRadius: '4px',
+    height: '48px',
+    width: '112px',
+    padding: '0 20px',
+    fontSize: '16px',
+    fontStyle: 'bold',
+    cursor: 'pointer',
+  },
+  select: {
+    marginTop: '10px',
+    marginBottom: '10px',
+    border: '1px solid #ddd',
+    borderRadius: '4px',
+    height: '48px',
+    padding: '0 20px',
+    fontSize: '16px',
+    color: '#666',
+  },
+  input: {
+    marginTop: '10px',
+    marginBottom: '10px',
+    border: '1px solid #ddd',
+    borderRadius: '4px',
+    height: '48px',
+    padding: '0 20px',
+    fontSize: '16px',
+    color: '#666',
+  }
+}));
+
+
 function rand() {
   return Math.round(Math.random() * 20) - 10;
 }
@@ -51,29 +133,6 @@ function getModalStyle() {
 
 export default function Home() {
 
-  const [modalStyle] = React.useState(getModalStyle);
-  const [openModal, setOpenModal] = React.useState(false);
-  const handleOpen = () => {
-    setOpenModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setOpenModal(false);
-  };
-
-  const body = (
-    <div>
-      <h2 >Text in a modal</h2>
-      <p>
-        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-      </p>
-      <Home />
-    </div>
-  );
-
-
-
-
   const [nome, setNome] = useState('');
   const [idGamer, setIdGamer] = useState('');
   const [nomeJogo, setJogo] = useState('');
@@ -82,6 +141,90 @@ export default function Home() {
   const [hora, setHora] = useState('');
 
   console.log(localStorage);
+
+
+  const classes2 = useStyles2();
+  const [modalStyle] = React.useState(getModalStyle);
+  const [openModal, setOpenModal] = React.useState(false);
+
+  const handleOpenModal = () => {
+    setOpenModal(true);
+
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
+
+  const body = (
+    <div style={modalStyle} className={classes2.paper}>
+      <h2 >Organizar uma partida</h2>
+      <div className={classes2.divAbove}>
+        <p>
+          Selecione um jogo :
+      </p>
+        
+        <select className={classes2.select}>
+          <option value='0'>Selecione o jogo</option>
+          <option value='1'>Counter-Strike: Global Offensive</option>
+          <option value='2'>Valorant</option>
+          <option value='3'>League of Legends</option>
+          <option value='4'>Fortnite</option>
+          <option value='5'>DOTA 2</option>
+          <option value='6'>Call of Duty: Warzone</option>
+          <option value='7'>PlayerUnkown's Battlegrounds</option>
+        </select>
+        <p>
+          Selecione uma posição :
+      </p>
+        <select className={classes2.select}>
+          <option value='0'>Selecione a sua posição</option>
+          <option value='2'>Atirador</option>
+          <option value='3'>Suporte</option>
+          <option value='4'>Jungle</option>
+          <option value='5'>Top</option>
+          <option value='6'>Mid</option>
+          <option value='7'>Entry Fragger</option>
+          <option value='8'>Lurker</option>
+          <option value='9'>Capitão</option>
+          <option value='10'>Sniper</option>
+        </select>
+        <p>
+          Outros jogadores :
+      </p>
+      <div className={classes2.divOpcional}>
+        <input placeholder="Nome do jogador(Opicional)" className={classes2.input} />
+        <div className={classes2.comboOpcional}>
+        <select className={classes2.select}>
+          <option value='0'>Posição</option>
+          <option value='2'>Atirador</option>
+          <option value='3'>Suporte</option>
+          <option value='4'>Jungle</option>
+          <option value='5'>Top</option>
+          <option value='6'>Mid</option>
+          <option value='7'>Entry Fragger</option>
+          <option value='8'>Lurker</option>
+          <option value='9'>Capitão</option>
+          <option value='10'>Sniper</option>
+        </select>
+        </div>
+        </div>
+        <p>
+          Selecione um horário :
+      </p>
+        <input placeholder="Horario" className={classes2.input} />
+        <p>
+          Selecione uma data :
+      </p>
+        <input placeholder="Data" className={classes2.input} />
+
+        <p>
+          <button className={classes2.buttonClose}>Fechar</button>
+          <button className={classes2.buttonCreate}>Criar</button>
+        </p>
+      </div>
+    </div>
+  );
 
 
   // Botão Usuário 
@@ -196,7 +339,7 @@ export default function Home() {
   }
   async function handleLogout() {
     try {
-      const response = await api.post('/usuario/logoff');
+      const response = await api.post('/gamer/logoff');
       if (response.status === 200) {
         localStorage.clear();
         history.push('/');
@@ -287,17 +430,17 @@ export default function Home() {
         <li>
           <strong>Adicionar Partida</strong>
 
-          <button className="btn-adicionar" onClick={handleOpen}> <FiPlusCircle size={64} color="#000000" /></button>
+          <button className="btn-adicionar" onClick={handleOpenModal}> <FiPlusCircle size={64} color="#000000" /></button>
           <Modal
-            open={open}
+            open={openModal}
             onClose={handleCloseModal}
-            // aria-labelledby="simple-modal-title"
-            // aria-describedby="simple-modal-description"
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
           >
             {body}
           </Modal>
 
-          
+
         </li>
       </ul>
 
