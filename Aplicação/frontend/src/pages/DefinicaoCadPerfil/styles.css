@@ -1,0 +1,114 @@
+
+.contCadastro-container .findGame{
+    display: grid;
+    grid-template-columns:  repeat(2, 1fr);
+    grid-gap: 24px;
+    list-style: none;
+    justify-content: center;
+    align-items: center;
+    margin-left: 180px;
+}
+
+.contCadastro-container .findGame li{
+    background: #ffffff98;
+    padding : 24px;
+    border-radius: 8px;
+    position: relative;
+    height: 200px;
+    width: 300px;
+    margin-top: 2%;
+    
+}
+.contCadastro-container .findGame li p {
+    color: #737380;
+    line-height: 21px;
+    font-size: 16px;
+    margin-top:20px;
+}
+.contCadastro-container .findGame li p b {
+    color: #000000;
+    line-height: 21px;
+    font-size: 15px;
+    
+}
+
+.contCadastro-container .findGame li input{
+    position: absolute;
+    right: 24px;
+    top: 24px;
+    border: 0;
+    width: 20px;
+    height: 20px;
+    
+}
+
+figure {
+    float: left;
+    margin: 0;
+    padding: 0;
+    position: static;
+}
+figure img{
+    border-radius: 7px;
+}
+
+.contCadastro-container header{
+    align-items: center;
+    justify-content: left;
+    padding: 0 auto;
+    height: 100%;
+    display:flex;
+    margin-bottom: 50px;
+    
+}
+
+.contCadastro-container .voltar{
+    font-weight: normal;
+    font-style: normal;
+    color: #ffff;
+    margin-left: 10%;
+    margin-top: 2%;
+}
+
+.contCadastro-container .voltar:hover{
+    filter: brightness(90%);
+}
+
+.contCadastro-container header .trilha{
+    display: block;
+    /* margin-bottom: 1px; */
+    color: #fff;
+    font-size: 16px;
+    position: relative;
+    margin-left: 1%;
+    margin-top: 2%;
+}
+.contCadastro-container .titulo{
+    display:block;
+    position: absolute;
+    color: #fff;
+    max-width: 100%;
+    margin-left:13%;
+    margin-top: 4%;
+    margin-bottom: 10%;
+
+}
+
+.contCadastro-container .confirm{
+    margin-top: 15px;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    height: 48px;
+    width : 112px;
+    padding: 0 20px;
+    font-size: 16px;
+    font-style: bold;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    border: 0;
+    background-color: #00FF00;
+    color: #000000;
+    margin-top: 2%;
+ 
+}
