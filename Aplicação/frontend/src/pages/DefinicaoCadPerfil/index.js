@@ -56,7 +56,7 @@ export default function ContCadastro() {
             <header>
                 <img src={Logo} alt="HunterProject" onClick = {handleVoltar}></img>
 
-                <p className="trilha">Cadastro/ Background Jogador</p>
+                <p className="trilha">/Cadastro/ Background do Jogador</p>
                 <br></br>
                 <br></br>
                 <h2 className="titulo">Agora selecione seu jogo favorito:</h2>

@@ -12,6 +12,10 @@ export default function Register() {
 
     const history = useHistory();
 
+    function handleVoltar(){
+        history.push('/')
+    }
+
     async function handlePassRecover(e) {
         e.preventDefault();
 
@@ -31,7 +35,9 @@ export default function Register() {
     return (
         <div className="rec-senha-container">
             <header>
-                <Link className="voltar" to='/'><FiArrowLeft className="voltar" size={30} ></FiArrowLeft> </Link>
+                <img src={Logo} alt="HunterProject" onClick = {handleVoltar}></img>
+
+                <p className="trilha">/Recuperação de Senha</p>
             </header>
             <div >
 

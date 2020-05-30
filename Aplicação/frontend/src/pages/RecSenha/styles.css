@@ -1,12 +1,24 @@
-.rec-senha-container{
-    height: 100%;
-    display:flex;
-    justify-content:center;
+.rec-senha-container header .trilha{
+    display: block;
+    color: #fff;
+    font-size: 16px;
+    position: fixed;
+    margin-left:11%;
+    margin-top: 1%;
+}
+.rec-senha-container header {
+    display: flex;
     align-items: center;
-
+    justify-content: center;
+    background-color: #000000;
+    
 }
 
-
+.rec-senha-container header img {
+    height: 64px;
+    margin-left: 4.6%;
+    cursor: pointer;
+}
 
 .rec-senha-container form{
     

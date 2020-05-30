@@ -85,7 +85,7 @@ export default function Cadastro() {
 
 <header>
         <img src={Logo} alt="HunterProject" ></img>
-        <p className="trilha">Cadastro</p>
+        <p className="trilha">/Cadastro</p>
 </header>
 
             <form onSubmit={handleSignUp}>
