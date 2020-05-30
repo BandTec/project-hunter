@@ -76,6 +76,7 @@
     min-width: 50px;
     text-align: center;
     border-style: none;
+    cursor: pointer;
 }
 
 .home-container .bem-vindo{

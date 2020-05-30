@@ -22,6 +22,7 @@
 .profile-container header img {
     height: 64px;
     margin-right: 150px;
+    cursor: pointer;
 }
 .profile-container header input{
    
@@ -78,6 +79,7 @@
     min-width: 50px;
     text-align: center;
     border-style: none;
+    cursor: pointer;
 }
 
 .profile-container .div-profile{

@@ -1,6 +1,25 @@
+.campo{
+    color: #dcdce6;
+    margin-top: 5%;
+    margin-bottom: -5%;
+}
+
+.cadastro-container header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000000;
+    
+}
+
+
+.cadastro-container header img {
+    height: 64px;
+    margin-right: 1420px;
+}
+
 .cadastro-container{
     height: 100%;
-    display:flex;
     justify-content:center;
     align-items: center;
 }

@@ -126,6 +126,23 @@ export default function MyTeam() {
 
 
     // }
+    function handleAgendamento(){
+    history.push('/agendamento');
+    }
+
+    function handleProfile() {
+
+        history.push('/profile');
+      }
+
+    async function handleConfig() {
+        history.push('/config');
+      }
+    
+    async function handleEquipe() {
+        history.push('/equipe');
+      }
+
     function handleLogout() {
         localStorage.clear();
         history.push('/');
@@ -166,10 +183,11 @@ export default function MyTeam() {
                             <Paper className={classes.root} >
                                 <ClickAwayListener onClickAway={handleClose}>
                                     <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                                        <MenuItem onClick={handleClose}>Perfil</MenuItem>
-                                        <MenuItem onClick={handleClose}>Equipes</MenuItem>
-                                        <MenuItem onClick={handleClose}>Agendamentos</MenuItem>
-                                        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                                    <MenuItem onClick={handleProfile}>Perfil</MenuItem>
+                                    <MenuItem onClick={handleEquipe}>Equipes</MenuItem>
+                                    <MenuItem onClick={handleAgendamento}>Agendamentos</MenuItem>
+                                    <MenuItem onClick={handleConfig}>Configurações</MenuItem>
+                                    <MenuItem onClick={handleLogout}>Logout</MenuItem>
                                     </MenuList>
                                 </ClickAwayListener>
                             </Paper>
