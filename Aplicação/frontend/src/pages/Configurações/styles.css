@@ -1,6 +1,95 @@
+.campo{
+    color: #dcdce6;
+    margin-top: 5%;
+    margin-bottom: -5%;
+}
+
+.configuracao-container{
+    width:100%;
+    /* max-width: 800px; */
+    padding: 30px;
+    /* margin: 32px auto; */
+    display: contents;
+    
+    
+}
+
+.configuracao-container header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000000;
+    
+}
+
+
+.configuracao-container header img {
+    height: 64px;
+    margin-right: 150px;
+    cursor: pointer;
+}
+.configuracao-container header input{
+   
+    
+    
+    border-style: hidden;
+    border-radius: 4px;
+    height: 48px;
+    width: 600px;
+    padding: 0 20px;
+    font-size: 14px;
+    color: #666;
+    
+}
+
+
+.configuracao-container header a {
+    width: 260px;
+    margin-left: auto;
+    margin-top: 0;
+}
+.configuracao-container header button {
+    height: 60px;
+    width: 60px;
+    border-radius: 4px;
+    border: 1px solid #dcdce6;
+    background: transparent;
+    /* margin-left: 300px; */
+    transition : border-color 0.2s;
+    
+}
+
+.configuracao-container header button:hover{
+    border-color: #999;
+    
+
+}
+
+.configuracao-container .input-pesquisa{
+    display: flex;
+    width: 600px;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin-left: 200px;
+
+
+}
+
+.configuracao-container .btn-pesquisa{
+    padding: 10px;
+    height: 100%;
+    color: white;
+    min-width: 50px;
+    text-align: center;
+    border-style: none;
+}
+
+
 .configuracao-container{
     height: 100%;
-    display:flex;
+    /* display:flex; */
     justify-content:center;
     align-items: center;
 }
@@ -12,8 +101,6 @@
         max-width: 300px;
         display:flex;
         flex-direction:column;
-        
-    
     
 }
 
@@ -26,7 +113,6 @@
     height: 250px;
     width: 100%;
     display:flex;
-    
 }
 
 
@@ -61,6 +147,7 @@
     font-size: 16px;
     font-style: bold;
     cursor: pointer;
+    margin-left: 28%;
 }
 
 
@@ -109,7 +196,8 @@ label#thumbnail{
      border: 1px dashed #ddd;
      background-size: cover;
      cursor: pointer;
-     height: 160px;
+     height: 120px;
+     width: 130px;
      display: flex;
      justify-content: center;
      align-items: center;

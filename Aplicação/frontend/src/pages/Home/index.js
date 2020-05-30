@@ -357,15 +357,15 @@ export default function Home() {
 
 
 
-  async function handleDeleteMatch(id){
-      try{
-          await api.delete(`partida/${id}`);
+  // async function handleDeleteMatch(id){
+  //     try{
+  //         await api.delete(`partida/${id}`);
 
-          setMatches(matches.filter(matches => matches.id !== id));
-      }catch(err){
-          alert('Erro ao deletar o partida, tente novamente');
-      }
-  }
+  //         setMatches(matches.filter(matches => matches.id !== id));
+  //     }catch(err){
+  //         alert('Erro ao deletar o partida, tente novamente');
+  //     }
+  // }
 
   function handleProfile() {
 
@@ -457,7 +457,7 @@ export default function Home() {
             <strong>Duração Estimada: </strong>
             <p>1 Hora</p>
 
-            <button type="button" onClick={handleDeleteMatch(match.idPartida)} > <FiTrash2 size={20} color="#a8a8b3" /></button>
+            {/* <button type="button" onClick={handleDeleteMatch(match.idPartida)} > <FiTrash2 size={20} color="#a8a8b3" /></button> */}
           </li>
         ))}
 
