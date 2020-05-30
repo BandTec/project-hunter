@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 const useStyles2 = makeStyles((theme) => ({
   paper: {
     position: 'absolute',
-    
+
     backgroundColor: '#000',
     font: 'Roboto, Arial, Helvetica, sans-serif',
     color: '#fff',
@@ -51,7 +51,7 @@ const useStyles2 = makeStyles((theme) => ({
 
   divAbove: {
     display: 'grid',
-    gridTemplateColumns:  'repeat(2, 1fr)',
+    gridTemplateColumns: 'repeat(2, 1fr)',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -60,10 +60,10 @@ const useStyles2 = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    
+
   },
 
-  comboOpcional:{
+  comboOpcional: {
     marginLeft: '5px'
   },
 
@@ -142,6 +142,14 @@ export default function Home() {
 
   console.log(localStorage);
 
+  const [jogoPt, setJogoPt] = useState('');
+  const [posicaoPt, setPosicaoPt] = useState('');
+
+  const [nomeJogadorOpPt, setNomeJogadorOpPt] = useState('');
+  const [posicaoOpcionalPt, setPosicaoOpcionalPt] = useState('');
+  const [horarioPt, setHorarioPt] = useState('');
+  const [dataPt, setDataPt] = useState('');
+
 
   const classes2 = useStyles2();
   const [modalStyle] = React.useState(getModalStyle);
@@ -156,6 +164,33 @@ export default function Home() {
     setOpenModal(false);
   };
 
+  
+    async function envioDadosPartida() {
+
+      const data = {
+        jogoPt,
+        idGamer,
+        posicaoPt,
+        horarioPt,
+        dataPt
+
+      };
+      try {
+        const response = await api.post(`/partida/`, data); //{
+          if (response.status === 200){
+            alert('Partida Criada com Sucesso!');
+          }else{
+            alert('Erro ao criar partida');
+          }  
+
+      } catch (err) {
+        alert('Erro ao criar partida ou conectar-se ao servidor');
+      }
+
+    }
+    
+
+
   const body = (
     <div style={modalStyle} className={classes2.paper}>
       <h2 >Organizar uma partida</h2>
@@ -163,8 +198,8 @@ export default function Home() {
         <p>
           Selecione um jogo :
       </p>
-        
-        <select className={classes2.select}>
+
+        <select className={classes2.select} onChange={e => setJogoPt(e.target.value)}>
           <option value='0'>Selecione o jogo</option>
           <option value='1'>Counter-Strike: Global Offensive</option>
           <option value='2'>Valorant</option>
@@ -177,7 +212,7 @@ export default function Home() {
         <p>
           Selecione uma posição :
       </p>
-        <select className={classes2.select}>
+        <select className={classes2.select} onChange={e => setPosicaoPt(e.target.value)}>
           <option value='0'>Selecione a sua posição</option>
           <option value='2'>Atirador</option>
           <option value='3'>Suporte</option>
@@ -192,35 +227,38 @@ export default function Home() {
         <p>
           Outros jogadores :
       </p>
-      <div className={classes2.divOpcional}>
-        <input placeholder="Nome do jogador(Opicional)" className={classes2.input} />
-        <div className={classes2.comboOpcional}>
-        <select className={classes2.select}>
-          <option value='0'>Posição</option>
-          <option value='2'>Atirador</option>
-          <option value='3'>Suporte</option>
-          <option value='4'>Jungle</option>
-          <option value='5'>Top</option>
-          <option value='6'>Mid</option>
-          <option value='7'>Entry Fragger</option>
-          <option value='8'>Lurker</option>
-          <option value='9'>Capitão</option>
-          <option value='10'>Sniper</option>
-        </select>
-        </div>
+        <div className={classes2.divOpcional}>
+          <input placeholder="Nome do jogador(Opicional)"
+            className={classes2.input}
+            onChange={e => setNomeJogadorOpPt(e.target.value)}
+          />
+          <div className={classes2.comboOpcional}>
+            <select className={classes2.select} onChange={e => setPosicaoOpcionalPt(e.target.value)}>
+              <option value='0'>Posição</option>
+              <option value='2'>Atirador</option>
+              <option value='3'>Suporte</option>
+              <option value='4'>Jungle</option>
+              <option value='5'>Top</option>
+              <option value='6'>Mid</option>
+              <option value='7'>Entry Fragger</option>
+              <option value='8'>Lurker</option>
+              <option value='9'>Capitão</option>
+              <option value='10'>Sniper</option>
+            </select>
+          </div>
         </div>
         <p>
           Selecione um horário :
       </p>
-        <input placeholder="Horario" className={classes2.input} />
+        <input placeholder="Horario" className={classes2.input} onChange={e => setHorarioPt(e.target.value)} />
         <p>
           Selecione uma data :
       </p>
-        <input placeholder="Data" className={classes2.input} />
+        <input placeholder="Data" className={classes2.input} onChange={e => setDataPt(e.target.value)} />
 
         <p>
-          <button className={classes2.buttonClose}>Fechar</button>
-          <button className={classes2.buttonCreate}>Criar</button>
+          <button className={classes2.buttonClose} onClick={handleCloseModal}>Fechar</button>
+          <button className={classes2.buttonCreate} onClick={envioDadosPartida}>Criar</button>
         </p>
       </div>
     </div>
@@ -319,19 +357,15 @@ export default function Home() {
 
 
 
-  // async function handleDeleteMatch(id){
-  //     try{
-  //         await api.delete(`matches/${id}`, {
-  //             headers: {
-  //                 Authorization: userId, 
-  //             }
-  //         });
+  async function handleDeleteMatch(id){
+      try{
+          await api.delete(`partida/${id}`);
 
-  //         setMatches(matches.filter(matches => matches.id !== id));
-  //     }catch(err){
-  //         alert('Erro ao deletar o partida, tente novamente');
-  //     }
-  // }
+          setMatches(matches.filter(matches => matches.id !== id));
+      }catch(err){
+          alert('Erro ao deletar o partida, tente novamente');
+      }
+  }
 
   function handleProfile() {
 
@@ -423,7 +457,7 @@ export default function Home() {
             <strong>Duração Estimada: </strong>
             <p>1 Hora</p>
 
-            <button type="button"> <FiTrash2 size={20} color="#a8a8b3" /></button>
+            <button type="button" onClick={handleDeleteMatch(match.idPartida)} > <FiTrash2 size={20} color="#a8a8b3" /></button>
           </li>
         ))}
 
@@ -434,8 +468,7 @@ export default function Home() {
           <Modal
             open={openModal}
             onClose={handleCloseModal}
-            aria-labelledby="simple-modal-title"
-            aria-describedby="simple-modal-description"
+
           >
             {body}
           </Modal>

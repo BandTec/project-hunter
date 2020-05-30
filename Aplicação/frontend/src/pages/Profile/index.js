@@ -83,34 +83,22 @@ export default function Profile() {
     const [matches, setMatches] = useState([]);
 
     const history = useHistory('');
-    // const userId = localStorage.getItem('userId');
+   
     const userName = localStorage.getItem('nome');
-    // useEffect(() => {
-    //     api.get('profile', {
-    //         headers : {
-    //             Authorization: userId,
-    //         }
-    //     }).then(response =>{
-    //         setMatches(response.data);
-    //     })
-    // }, [userId]);
+    const equipe = "Equipe E";
+    
+    useEffect(() => {
+        api.get(`/gamer/nome/${userName}`,).then(response =>{
+            setMatches(response.data);
+        })
+    }, [userName]);
 
 
-    // async function handleDeleteMatch(id){
-    //     try{
-    //         await api.delete(`matches/${id}`, {
-    //             headers: {
-    //                 Authorization: userId, 
-    //             }
-    //         });
+    function handleTeamPage(){
+        localStorage.setItem('nomeEquipe', equipe);
+        history.push('/equipe');
+    }
 
-    //         setMatches(matches.filter(matches => matches.id !== id));
-    //     }catch(err){
-    //         alert('Erro ao deletar o partida, tente novamente');
-    //     }
-
-
-    // }
     function handleLogout() {
         localStorage.clear();
         history.push('/');
@@ -192,8 +180,8 @@ export default function Profile() {
                     <h2>Equipes Atuais:</h2>
                     <div className="current-teams">
 
-                        <img src={Team} alt="Team-Icon" ></img>
-                        <p>Equipe E</p>
+                        <img src={Team} alt="Team-Icon"  onClick={handleTeamPage}></img>
+                        <p onClick={handleTeamPage}>Equipe E</p>
                     </div>
                 </div>
 

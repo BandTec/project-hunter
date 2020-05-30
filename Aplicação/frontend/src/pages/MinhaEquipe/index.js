@@ -4,9 +4,9 @@ import Logo from "../../assets/testeLogo3.png";
 
 import Lol from "../../assets/lol-icon.svg";
 import Overwatch from "../../assets/overwatch-icon.svg";
-import Team from "../../assets/team-icon.svg"
+import User from "../../assets/user1.jpg"
 
-import UserPicture from "../../assets/user1.jpg";
+import TeamPicture from "../../assets/team-icon.svg";
 import { FiArrowLeft, FiStar, FiTrash2, FiSearch, FiUser, FiPlusCircle } from 'react-icons/fi'
 import { Link, useHistory } from 'react-router-dom';
 import api from '../../services/api';
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function Profile() {
+export default function MyTeam() {
     // Botão Usuário 
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
@@ -78,6 +78,21 @@ export default function Profile() {
 
     // Botão Usuário 
 
+
+
+    const [nomeEquipe, setNomeEquipe] = useState('');
+    
+
+    useEffect(() => {
+        setNomeEquipe(localStorage.getItem('nomeEquipe'));
+        api.get(`/equipe/nome/${nomeEquipe}/`
+    
+        ).then(response => {
+          setMatches(response.data);
+        })
+      }, [nomeEquipe]);
+
+    
 
 
     const [matches, setMatches] = useState([]);
@@ -167,21 +182,22 @@ export default function Profile() {
             </header>
 
             <div className="div-profile">
-                    <h1>Equipe A</h1>
-                <h1 className="profile-rate"> <FiStar size={48} color="#F1DA07" />  5.00</h1>
-                <h1 className="profile-rate"> <FiStar size={20} color="#00ff00" />  Editar</h1>
+                <img className="profile-pic" src={TeamPicture} alt="Foto de Perfil"></img>
+                    <h1 className="profile-nic">{nomeEquipe}</h1>
+                <h1 className="profile-rate"> <FiStar size={48} color="#F1DA07" />  4.96</h1>
             </div>
 
 
-            <body>   
-                    <h2>Membros: 4</h2>
-                    <div className="current-teams">
+            <body>
+                <div>
 
-                        <img src={Team} alt="Team-Icon" ></img>
-                        <p>Equipe E</p>
+                    <h2>Jogadores:</h2>
+                    <div className="current-members">
+
+                        <img src={User} alt="User-Icon" ></img>
+                        <p>Fernando C.</p>
                     </div>
 
-                <div>
                     <h2>Jogos Atuais:</h2>
                     <div className="current-games">
 
@@ -195,7 +211,7 @@ export default function Profile() {
                             <p>Overwhatch</p>
                         </div>
                     </div>
-                    
+
                 </div>
 
                 <div>
@@ -203,12 +219,12 @@ export default function Profile() {
                     <div className="last-games">
 
 
-                        <p>Jogo</p>   
+                        <p>Jogo</p>
                         <p>Resultado</p>
-                        
-                        <div><p> <img src={Lol} alt="League Of Legends" style={{ width : '20px', height: '20px'}} ></img> League of Legends</p></div> 
+
+                        <div><p> <img src={Lol} alt="League Of Legends" style={{ width: '20px', height: '20px' }} ></img> League of Legends</p></div>
                         <div><p className="derrota">Derrota</p></div>
-                        <div><p> <img src={Lol} alt="League Of Legends" style={{ width : '20px', height: '20px'}} ></img> League of Legends</p></div> 
+                        <div><p> <img src={Lol} alt="League Of Legends" style={{ width: '20px', height: '20px' }} ></img> League of Legends</p></div>
                         <div><p className="vitoria">Vitória</p></div>
 
 

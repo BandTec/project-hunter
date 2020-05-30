@@ -6,6 +6,7 @@ import RecSenha from "./pages/RecSenha"
 import Home from "./pages/Home"
 import Profile from "./pages/Profile"
 import Configurações from './pages/Configurações';
+import MinhaEquipe from './pages/MinhaEquipe';
 import { isAuthenticated } from './auth';
 
 
@@ -36,6 +37,7 @@ class routes extends Component {
                         <PrivateRoute path="/home" component={Home}/>
                         <PrivateRoute exact path="/profile" component={Profile}/>
                         <PrivateRoute exact path="/config" component={Configurações}/>
+                        <PrivateRoute exact path="/equipe/" component={MinhaEquipe}/>
                     </Switch>
                 </>
             </BrowserRouter>
