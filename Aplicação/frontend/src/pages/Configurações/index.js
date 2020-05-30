@@ -271,7 +271,7 @@ function criaDados(nome, usuario, cpf, email, senha, telefone){
             telefone,
             posicao,
             jogo,
-            senha,
+            senha
         };
 
         const id = localStorage.getItem('idGamer');

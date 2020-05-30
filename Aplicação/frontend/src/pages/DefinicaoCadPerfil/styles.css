@@ -1,4 +1,3 @@
-
 .contCadastro-container .findGame{
     display: grid;
     grid-template-columns:  repeat(2, 1fr);
@@ -7,6 +6,29 @@
     justify-content: center;
     align-items: center;
     margin-left: 180px;
+}
+
+.contCadastro-container header .trilha{
+    display: block;
+    /* margin-bottom: 1px; */
+    color: #fff;
+    font-size: 16px;
+    position: fixed;
+    margin-left: -31%;
+    margin-top: 1%;
+}
+.contCadastro-container header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000000;
+    
+}
+
+.contCadastro-container header img {
+    height: 64px;
+    margin-right: 1331px;
+    cursor: pointer;
 }
 
 .contCadastro-container .findGame li{
@@ -52,43 +74,12 @@ figure img{
     border-radius: 7px;
 }
 
-.contCadastro-container header{
-    align-items: center;
-    justify-content: left;
-    padding: 0 auto;
-    height: 100%;
-    display:flex;
-    margin-bottom: 50px;
-    
-}
-
-.contCadastro-container .voltar{
-    font-weight: normal;
-    font-style: normal;
-    color: #ffff;
-    margin-left: 10%;
-    margin-top: 2%;
-}
-
-.contCadastro-container .voltar:hover{
-    filter: brightness(90%);
-}
-
-.contCadastro-container header .trilha{
-    display: block;
-    /* margin-bottom: 1px; */
-    color: #fff;
-    font-size: 16px;
-    position: relative;
-    margin-left: 1%;
-    margin-top: 2%;
-}
 .contCadastro-container .titulo{
     display:block;
     position: absolute;
     color: #fff;
     max-width: 100%;
-    margin-left:13%;
+    margin-left:-26%;
     margin-top: 4%;
     margin-bottom: 10%;
 

@@ -49,7 +49,7 @@ export default function Cadastro() {
                 const response = await api.post('/gamer/criar', data);
                 //alert(`Seu ID de Acesso ${response.data.id}`);
                 if (response.status === 200){
-                history.push('/DefinicaoCadPerfil');
+                history.push('/continuacaocadastro');
                 }else{
                     alert('Erro no cadastro, tente novamente');
                 }

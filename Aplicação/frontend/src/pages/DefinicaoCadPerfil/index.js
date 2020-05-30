@@ -16,39 +16,18 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 export default function ContCadastro() {
 
+    const [jogo, setJogo] = useState('');
+    const [posicao, setPosicao] = useState('');
 
-
-    const [thumbnail, setThumbnail] = useState(null);
-    const [nome, setNome] = useState('');
-    const [usuario, setUsuario] = useState('');
-    const [cpf, setCpf] = useState('');
-    const [email, setEmail] = useState('');
-    const [telefone, setTelefone] = useState('');
-    const [senha, setSenha] = useState('');
-    const [confirmarSenha, setConfirmarSenha] = useState('');
-
-
-    const preview = useMemo(() => { return thumbnail ? URL.createObjectURL(thumbnail) : null },
-        thumbnail);
-    function onChange(e) {
-        this.setState({
-            [e.target.name]: e.target.value
-        })
+    function handleVoltar(){
+        history.push('/')
     }
 
     async function handleSignUp(e) {
         e.preventDefault();
-        if (senha != confirmarSenha) {
-            alert('Os campos senha e confirmação de senha estão diferentes');
-        } else {
-
-            const data = {
-                nome,
-                usuario,
-                cpf,
-                email,
-                telefone,
-                senha,
+                const data = {
+                jogo,
+                posicao
             };
 
             try {
@@ -62,53 +41,30 @@ export default function ContCadastro() {
             } catch (err) {
                 alert('Erro no cadastro, tente novamente');
             }
-        }
+        
     }
 
     const history = useHistory('');
     function chamaLogin() {
 
-        // this.setState({
-        //   redirect: true 
-        // })
-        /* this.props.*/history.push("/login");
+        history.push("/login");
     }
-    // render() {
 
-    //     if (this.state.redirect) {
-
-    //         // return (
-    //         //     <BrowserRouter>
-    //         //       <Switch>
-    //         //         <Route path="/" exact component={Login} />
-    //         //         <Route path="/Login" exact component={Login} />
-    //         //         <Route path="/Cadastro" component={Cadastro} />
-    //         //       </Switch>
-    //         //     </BrowserRouter>
-    //         //   )
-
-
-    //     }
-    //     else {
     return (
         <div className="contCadastro-container">
 
             <header>
-                    {/* <img src = {Logo} alt="HunterProject"></img> */}
-                    {/* <span>Bem vindo, {userName}</span> */}
-                    
-                {/* <div className="input-pesquisa"> */}
-                    {/* <input type="text" placeholder="Busque por jogos, equipes..."></input> */}
-                    {/* <button className="btn-pesquisa"><FiSearch size={18} color="#000000"/></button> */}
-                {/* </div> */}
-
-                <Link className="voltar" to='/'><FiArrowLeft className="voltar" size={30} ></FiArrowLeft></Link>
+                <img src={Logo} alt="HunterProject" onClick = {handleVoltar}></img>
 
                 <p className="trilha">Cadastro/ Background Jogador</p>
                 <br></br>
-                <h2 className="titulo">Agora selecione seus jogos favoritos do momento:</h2>
+                <br></br>
+                <h2 className="titulo">Agora selecione seu jogo favorito:</h2>
             </header>
-
+<br></br>
+<br></br>
+<br></br>
+<br></br>
              <ul className="findGame">
                 <li>
                     <center>
@@ -179,5 +135,3 @@ export default function ContCadastro() {
     );
 
 }
-    //}
-//}
