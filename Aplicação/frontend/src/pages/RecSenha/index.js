@@ -19,18 +19,31 @@ export default function Register() {
     async function handlePassRecover(e) {
         e.preventDefault();
 
-        const data = {
-            email,
-        };
+    
+    if (!email) {
+      alert("Por favor, digite seu e-mail para continuar!");
+    } else {
+      try {
+        
+          const response = await api.get(`/email/${email}/`);
+          console.log(response.status);
+          if (response.status === 200){
+          
+          localStorage.setItem('email', email);
+          
+          alert('As instruções de recuperação de senha enviadas para seu email!');
 
-        try {
-            const response = await api.post('senha', data);
-            alert(`Seu ID de Acesso ${response.data.id}`);
-            history.push('/');
-        } catch (err) {
-            alert('Erro na recuperação, tente novamente');
-        }
+          history.push("/");
+          
+          }else{
+            alert("Email inválido");
+          }
+      } catch (err) {
+        alert("Email inválido");
+        
+      }
     }
+  };
 
     return (
         <div className="rec-senha-container">
@@ -40,15 +53,12 @@ export default function Register() {
                 <p className="trilha">/Recuperação de Senha</p>
             </header>
             <div >
-
-
                 <form onSubmit={handlePassRecover}>
-                    <h1>Digite seu email para poder recuperar a senha:</h1>
-                    <input type="email" placeholder="E-mail" value={email} onChange={e => setEmail(e.target.value)} />
+                    <h1>Digite seu email:</h1>
+                    <input type="email" value={email} onChange={e => setEmail(e.target.value)} />
 
                     <div>
                         <button className="btn env" type="submit">Enviar</button>
-
                     </div>
                 </form>
             </div>
