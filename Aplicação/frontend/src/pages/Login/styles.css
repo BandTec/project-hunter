@@ -1,15 +1,12 @@
 .login-container{
-    /* width: 100%;
-    max-width: 1120px;
-    margin : 0 auto;
-
-    display: flex;
-    align-items : center;
-    justify-content: space-between; */
     height: 100%;
     display:flex;
     justify-content:center;
     align-items: center;
+}
+
+.campo{
+    color: #dcdce6;
 }
 
 .login-container form img{

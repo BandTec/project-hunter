@@ -42,7 +42,7 @@ export default function Cadastro() {
                 cpf,
                 email,
                 telefone,
-                senha,
+                senha
             };
 
             try {
