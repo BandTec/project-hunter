@@ -66,16 +66,22 @@ export default function ContCadastro() {
 <br></br>
 <br></br>
              <ul className="findGame">
-                <li>
+                <li className="clol">
                     <center>
                     <figure>
-                    <img src = {lol} alt="League of Legends" width="250"></img>
+                        <img src = {lol} alt="League of Legends" width="250"></img>
                     </figure>
                     <br></br>
-                    <p><b>League of Legends</b></p>
+                        <p><b>League of Legends</b></p>
                     </center>
                     <input type="checkbox" value="0" id="campo-checkbox1" />
-                    
+                    <div className="lista">
+                        <p>Atirador</p><input type="checkbox" />
+                        <p>Tanque</p><input type="checkbox" />
+                        <p>Suporte</p><input type="checkbox" />
+                        <p>Caçador</p><input type="checkbox" />
+                        <p>Meio (Mid laner)</p><input type="checkbox" />
+                    </div>
                 </li>
 
                 {/* <li>

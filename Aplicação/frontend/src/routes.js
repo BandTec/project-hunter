@@ -9,6 +9,7 @@ import Configurações from './pages/Configurações';
 import MinhaEquipe from './pages/MinhaEquipe';
 import DefinicaoCadPerfil from './pages/DefinicaoCadPerfil';
 import { isAuthenticated } from './auth';
+import ContCadastro from './pages/DefinicaoCadPerfil';
 
 
 
@@ -34,7 +35,8 @@ class routes extends Component {
                         <Route exact path="/" component={Login} />
                         <Route exact path="/login" component={Login} />
                         <Route exact path="/cadastro" component={Cadastro} />
-                        <PrivateRoute exact path="/continuacaocadastro" component={DefinicaoCadPerfil} />
+                        <Route exact path="/contcad" component={ContCadastro} />
+                        <Route exact path="/continuacaocadastro" component={DefinicaoCadPerfil} />
                         <Route exact path="/recuperar-senha" component={RecSenha} />
                         <PrivateRoute path="/home" component={Home}/>
                         <PrivateRoute exact path="/profile" component={Profile}/>
