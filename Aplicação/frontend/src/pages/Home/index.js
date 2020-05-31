@@ -133,6 +133,7 @@ function getModalStyle() {
 
 export default function Home() {
 
+  const [matches, setMatches] = useState([]);
   const [nome, setNome] = useState('');
   const [idGamer, setIdGamer] = useState('');
   const [nomeJogo, setJogo] = useState('');
@@ -304,7 +305,7 @@ export default function Home() {
 
 
 
-  const [matches, setMatches] = useState([]);
+  
 
   const history = useHistory('');
 
@@ -345,7 +346,11 @@ export default function Home() {
     api.get(`/partida/gamer/${id}/`
 
     ).then(response => {
-      setMatches(response.data);
+      
+      const { data = [] } = response || {};
+      // verify response.data is an array
+      const isArray = Array.isArray(data)
+      isArray && setMatches(data);
     })
   }, [id]);
 
@@ -451,7 +456,7 @@ export default function Home() {
 
       <h1>Hoje:</h1>
 
-      <ul className="matches">
+      <ul className="partidas">
 
         {matches.map(match => (
           <li key={match.idPartida}>
@@ -464,7 +469,7 @@ export default function Home() {
             <strong>Duração Estimada: </strong>
             <p>1 Hora</p>
 
-            {/* <button type="button" onClick={handleDeleteMatch(match.idPartida)} > <FiTrash2 size={20} color="#a8a8b3" /></button> */}
+            <button type="button" > <FiTrash2 size={20} color="#a8a8b3" /></button>
           </li>
         ))}
 
