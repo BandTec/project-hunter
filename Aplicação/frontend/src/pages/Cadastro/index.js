@@ -32,7 +32,7 @@ export default function Cadastro() {
 
     async function handleSignUp(e) {
         e.preventDefault();
-        if (senha != confirmarSenha) {
+        if (senha != confirmarSenha || senha == "" ) {
             alert('Os campos senha e confirmação de senha estão diferentes');
         } else {
 
@@ -48,13 +48,16 @@ export default function Cadastro() {
             try {
                 const response = await api.post('/gamer/criar', data);
                 //alert(`Seu ID de Acesso ${response.data.id}`);
+                console.log(response);
                 if (response.status === 200){
                 history.push('/continuacaocadastro');
+                
                 }else{
                     alert('Erro no cadastro, tente novamente');
                 }
             } catch (err) {
                 alert('Erro no cadastro, tente novamente');
+                
             }
         }
     }
@@ -96,19 +99,19 @@ export default function Cadastro() {
                     <input type="file" onChange={event => setThumbnail(event.target.files[0])} />
                     <img src={camera} alt="Select your photo"></img>
                 </label>
-                <p class = "campo">Nome:</p>
+                <p className = "campo">Nome:</p>
                 <input onChange={e => setNome(e.target.value)} />
-                <p class = "campo">Usuário:</p>
+                <p className = "campo">Usuário:</p>
                 <input onChange={e => setUsuario(e.target.value)} />
-                <p class = "campo">CPF:</p>
+                <p className = "campo">CPF:</p>
                 <input onChange={e => setCpf(e.target.value)} />
-                <p class = "campo">Telefone:</p>
+                <p className = "campo">Telefone:</p>
                 <input onChange={e => setTelefone(e.target.value)} />
-                <p class = "campo">E-mail:</p>
+                <p className = "campo">E-mail:</p>
                 <input onChange={e => setEmail(e.target.value)} />
-                <p class = "campo">Senha:</p>
+                <p className = "campo">Senha:</p>
                 <input type="password" onChange={e => setSenha(e.target.value)} />
-                <p class = "campo">Confirme seua senha:</p>
+                <p className = "campo">Confirme seua senha:</p>
                 <input type="password" onChange={e => setConfirmarSenha(e.target.value)} />
                 <Router>
                     <div>
