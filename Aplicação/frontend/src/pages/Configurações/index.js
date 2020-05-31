@@ -180,9 +180,11 @@ function onChange(e) {
 
   const history = useHistory('');
 
+  const emailSelect = localStorage.getItem('email')
+
   React.useEffect(() => {
     async function dadosPerfil() {
-      const response = await api.get(`/gamer/${email}/`); //{
+      const response = await api.get(`/gamer/${emailSelect}/`); //{
     
    let dados = response.data;
 

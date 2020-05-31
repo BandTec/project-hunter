@@ -5,7 +5,6 @@ import '../../routes.js';
 import api from '../../services/api';
 import { login } from "../../auth";
 import { Link, useHistory } from 'react-router-dom';
-import { findByAltText } from '@testing-library/react';
 
 export default function Login(){ 
 
@@ -51,21 +50,29 @@ export default function Login(){
     }
   };
 
+  // function handleKeyPress(e) {
+  //   if (e.key === 'Enter') {
+  //     this.setState({value:e.target.value})
+  //   }
+  // }
+
   return (
 
       <div className="login-container">
         <form onSubmit={handleSignIn}>
           <img src={logo} alt="Hunter"></img>
-
-          <input placeholder="Digite seu Email" onChange={e => setEmail( e.target.value)} />
-
-          <input type="password" placeholder="Digite Sua Senha" onChange={e => setPassword(e.target.value)} />
+          <p className = "campo" >Email:</p>
+          <br></br>
+          <input onChange={e => setEmail( e.target.value)} />
+          <p className = "campo">Senha:</p>
+          <br></br>
+          <input type="password" onChange={e => setPassword(e.target.value)} />
           <Link to='/recuperar-senha'><a href=""> Esqueceu sua senha?</a></Link>
           <div className='login-container formBtn'>
-            
+          
           
            <button className="login-container btn Cad" onClick={chamaCadastro}>Cadastrar</button>
-
+           
            <button className="login-container btn Log" type="submit">Enviar</button>
             
 
