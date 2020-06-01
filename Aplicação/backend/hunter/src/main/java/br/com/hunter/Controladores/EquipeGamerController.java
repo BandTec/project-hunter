@@ -43,7 +43,7 @@ public class EquipeGamerController {
     }
 
     @GetMapping("/equipe/{nome}")
-    private ResponseEntity BuscaPorNomeEquipe(@PathVariable("gamer") String nome) {
+    private ResponseEntity BuscaPorNomeEquipe(@PathVariable("nome") String nome) {
         List<EquipeGamer> lista = repository.findByIdEquipe_NomeEquipe(nome);
         return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
     }
