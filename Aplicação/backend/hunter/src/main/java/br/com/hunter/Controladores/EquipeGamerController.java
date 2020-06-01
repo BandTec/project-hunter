@@ -42,6 +42,12 @@ public class EquipeGamerController {
         return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
     }
 
+    @GetMapping("/equipe/{nome}")
+    private ResponseEntity BuscaPorNomeEquipe(@PathVariable("gamer") String nome) {
+        List<EquipeGamer> lista = repository.findByIdEquipe_NomeEquipe(nome);
+        return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
+    }
+
     @GetMapping("/aprovado/{equipe}")
     private ResponseEntity BuscaPorStatusAprovado(@PathVariable("equipe")  Integer equipe) {
         List<EquipeGamer> lista = repository.findByIdStatus_IdStatusAndIdEquipe_IdEquipe(1 , equipe);
