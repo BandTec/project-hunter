@@ -132,7 +132,9 @@
     margin-top: 10px;
     color: #fff;
     background-color: #000000;
-  
+    display: grid;
+    grid-template-columns:  repeat(2, 1fr);
+
 }
 
 .profile-container .current-members img{
@@ -141,6 +143,7 @@
     border-radius: 100%;
     object-fit:cover;
    object-position:50% 50%;
+   
 }
 
 .profile-container  .last-games{

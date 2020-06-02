@@ -81,21 +81,81 @@ export default function MyTeam() {
 
 
     const [nomeEquipe, setNomeEquipe] = useState('');
+    const [idEquipe, setIdEquipe] = useState('');
     
-
+    localStorage.setItem('nomeEquipe', "Keyd");
     useEffect(() => {
         setNomeEquipe(localStorage.getItem('nomeEquipe'));
-        api.get(`/equipe/nome/${nomeEquipe}/`
+        api.get(`/equipegamer/equipe/${nomeEquipe}/`
     
         ).then(response => {
-          setMatches(response.data);
+          setTeam(response.data);
+          console.log(team);
+          
+          let dados = response.data;
+
+          let temp = [];
+    
+          dados.forEach(item => {
+            temp.push(
+              criaDados(
+                item.idEquipeGamer
+                
+              )
+            );
+          });
+    
+          setIdEquipe(temp[0].idEquipeGamer);
+          console.log(temp[0].idEquipeGamer);
+
+
+          
         })
+
+        api.get(`/equipejogo/equipe/${idEquipe}/`
+
+        ).then(response => {
+            setTeamGames(response.data);
+            console.log(teamGames);
+        });
+
+        // api.get(`/equipejogo/equipe/${idEquipe}/`
+    
+        // ).then(response => {
+        //   setTeamGames(response.data);
+        // })
+
       }, [nomeEquipe]);
+
+      function criaDados(idEquipeGamer) {
+        return { idEquipeGamer }
+      }
+
+    //   useEffect(() => {
+        
+    //     api.get(`/equipejogo/nome/${team.IdEquipeGamer}/`
+    
+    //     ).then(response => {
+    //       setTeamGames(response.data);
+    //     })
+    //   }, [team]);
+
+    //   useEffect(() => {
+        
+    //     api.get(`/equipejogo/nome/${team.IdEquipeGamer}/`
+    
+    //     ).then(response => {
+    //       setTeamGames(response.data);
+    //     })
+    //   }, [team]);
 
     
 
 
-    const [matches, setMatches] = useState([]);
+    const [team, setTeam] = useState([]);
+    const [teamGames, setTeamGames] = useState([]);
+    const [teamGamers, setTeamGamers] = useState([]);
+    const [teamHistory, setTeamHistory] = useState([]);
 
     const history = useHistory('');
     // const userId = localStorage.getItem('userId');
@@ -111,37 +171,6 @@ export default function MyTeam() {
     // }, [userId]);
 
 
-    // async function handleDeleteMatch(id){
-    //     try{
-    //         await api.delete(`matches/${id}`, {
-    //             headers: {
-    //                 Authorization: userId, 
-    //             }
-    //         });
-
-    //         setMatches(matches.filter(matches => matches.id !== id));
-    //     }catch(err){
-    //         alert('Erro ao deletar o partida, tente novamente');
-    //     }
-
-
-    // }
-    function handleAgendamento(){
-    history.push('/agendamento');
-    }
-
-    function handleProfile() {
-
-        history.push('/profile');
-      }
-
-    async function handleConfig() {
-        history.push('/config');
-      }
-    
-    async function handleEquipe() {
-        history.push('/equipe');
-      }
 
     function handleLogout() {
         localStorage.clear();
@@ -183,11 +212,10 @@ export default function MyTeam() {
                             <Paper className={classes.root} >
                                 <ClickAwayListener onClickAway={handleClose}>
                                     <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                                    <MenuItem onClick={handleProfile}>Perfil</MenuItem>
-                                    <MenuItem onClick={handleEquipe}>Equipes</MenuItem>
-                                    <MenuItem onClick={handleAgendamento}>Agendamentos</MenuItem>
-                                    <MenuItem onClick={handleConfig}>Configurações</MenuItem>
-                                    <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                                        <MenuItem onClick={handleClose}>Perfil</MenuItem>
+                                        <MenuItem onClick={handleClose}>Equipes</MenuItem>
+                                        <MenuItem onClick={handleClose}>Agendamentos</MenuItem>
+                                        <MenuItem onClick={handleLogout}>Logout</MenuItem>
                                     </MenuList>
                                 </ClickAwayListener>
                             </Paper>
@@ -211,19 +239,24 @@ export default function MyTeam() {
 
                     <h2>Jogadores:</h2>
                     <div className="current-members">
-
-                        <img src={User} alt="User-Icon" ></img>
-                        <p>Fernando C.</p>
+                     {team.map(team => (
+                        <div key={team.idGamer.idGamer}>
+                            <img src={User} alt="User-Icon" ></img>
+                            <p>{team.idGamer.nome}</p>
+                        </div>
+                       ))}
+                        
                     </div>
 
                     <h2>Jogos Atuais:</h2>
                     <div className="current-games">
 
-
-                        <div >
+                    {teamGames.map(team => (
+                        <div key={team.idEquipe.idEquipe} >
                             <img src={Lol} alt="League Of Legends" ></img>
-                            <p>League of Legends </p>
+                            <p>{teamGames.idJogo.nomeJogo} </p>
                         </div>
+                         ))}
                         <div>
                             <img src={Overwatch} alt="Overwatch" ></img>
                             <p>Overwhatch</p>

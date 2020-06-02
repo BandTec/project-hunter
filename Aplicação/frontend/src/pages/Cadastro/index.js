@@ -51,7 +51,6 @@ export default function Cadastro() {
                 console.log(response);
                 if (response.status === 200){
                 history.push('/continuacaocadastro');
-                
                 }else{
                     alert('Erro no cadastro, tente novamente');
                 }
