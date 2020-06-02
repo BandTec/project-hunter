@@ -45,9 +45,11 @@ public class EmailController {
         if(!gamer.isEmpty()){
             Gamer gamerUnico = gamerRepository.findOneByEmail(email);
             sendEmail(email,gamerUnico.getSenha());
-            return ResponseEntity.noContent().build();
+
+            return ResponseEntity.ok("email enviado");
+
         } else {
-           return ResponseEntity.ok("email enviado");
+            return ResponseEntity.noContent().build();
         }
 
 
