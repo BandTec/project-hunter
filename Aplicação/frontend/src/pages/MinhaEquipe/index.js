@@ -3,8 +3,9 @@ import './styles.css'
 import Logo from "../../assets/testeLogo3.png";
 
 import Lol from "../../assets/lol-icon.svg";
+import CSGO from "../../assets/csgo-icon.svg";
 import Overwatch from "../../assets/overwatch-icon.svg";
-import User from "../../assets/user1.jpg"
+import User from "../../assets/default-user.png"
 
 import TeamPicture from "../../assets/team-icon.svg";
 import { FiArrowLeft, FiStar, FiTrash2, FiSearch, FiUser, FiPlusCircle } from 'react-icons/fi'
@@ -112,20 +113,24 @@ export default function MyTeam() {
           
         })
 
-        api.get(`/equipejogo/equipe/${idEquipe}/`
-
-        ).then(response => {
-            setTeamGames(response.data);
-            console.log(teamGames);
-        });
-
-        // api.get(`/equipejogo/equipe/${idEquipe}/`
-    
-        // ).then(response => {
-        //   setTeamGames(response.data);
-        // })
-
       }, [nomeEquipe]);
+
+      useEffect(() => {
+      api.get(`/equipejogo/equipe/${idEquipe}/`
+
+      ).then(response => {
+          setTeamGames(response.data);
+          console.log(teamGames);
+      });
+    }, [idEquipe]);
+
+      // api.get(`/equipejogo/equipe/${idEquipe}/`
+  
+      // ).then(response => {
+      //   setTeamGames(response.data);
+      // })
+
+
 
       function criaDados(idEquipeGamer) {
         return { idEquipeGamer }
@@ -252,15 +257,13 @@ export default function MyTeam() {
                     <div className="current-games">
 
                     {teamGames.map(team => (
-                        <div key={team.idEquipe.idEquipe} >
-                            <img src={Lol} alt="League Of Legends" ></img>
-                            <p>{teamGames.idJogo.nomeJogo} </p>
+                        <div key={team.idJogo.idJogo} >
+                            <img src={CSGO} alt="League Of Legends" ></img>
+                            <p>{team.idJogo.nomeJogo}</p>
+                            
                         </div>
                          ))}
-                        <div>
-                            <img src={Overwatch} alt="Overwatch" ></img>
-                            <p>Overwhatch</p>
-                        </div>
+                       
                     </div>
 
                 </div>

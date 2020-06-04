@@ -114,18 +114,26 @@
     color: #fff;
     display: flex;
     
+    display: grid;
+    grid-template-columns:  repeat(2, 1fr);
+
     margin-bottom: 100px;
     margin-top: 10px;
    
 }
 
 .profile-container .current-games div{
-    margin-right: 100px;
+    margin-right: 50px;
 }
 
 .profile-container .current-games img{
     height: 50px;
     width: 50px;
+}
+
+.profile-container .current-games p{
+
+    width: 150px;
 }
 
 .profile-container  .current-members{
