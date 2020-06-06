@@ -22,7 +22,7 @@ public class Partida {
     private Jogo idJogo;
 
     @ManyToOne
-    @JoinColumn(name="idEquipe")
+    @JoinColumn(name="idEquipe", nullable = true)
     private Equipe idEquipe;
 
     @ManyToOne
@@ -42,6 +42,7 @@ public class Partida {
     private LocalTime hora;
 
     @Type(type = "numeric_boolean")
+    @Column(columnDefinition = "default 0")
     private boolean winner;
 
     public Integer getIdPK() {

@@ -40,11 +40,11 @@ public class PartidaController {
         return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
     }
 
-//    @GetMapping("/gamer/{email}")
-//    public  ResponseEntity listarUltimas10PorGamer(@PathVariable("email") String email) {
-//        List<Partida> lista = repository.orderByIdPartidaDescFindFirst10ByIdGamer_Email(email);
-//        return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
-//    }
+    @GetMapping("/equipe/{id}")
+    public  ResponseEntity listarPorEquipe(@PathVariable("id") Integer id) {
+        List<Partida> lista = repository.findByIdEquipe_IdEquipe(id);
+        return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
+    }
 
     @DeleteMapping( "/{id}" )
     public ResponseEntity excluir(@PathVariable("id") int id) {
@@ -56,8 +56,15 @@ public class PartidaController {
         }
     }
     @PostMapping
-    public ResponseEntity criar(@RequestBody Partida Partida) {
-        this.repository.save(Partida);
+    public ResponseEntity criar(@RequestBody Partida partida) {
+        this.repository.save(partida);
+        return ResponseEntity.status(HttpStatus.CREATED).body(partida.getIdPartida());
+    }
+
+    @PostMapping("/{id}")
+    public ResponseEntity criarPorId(@RequestBody Partida partida, @PathVariable("id") Integer id) {
+        partida.setIdPartida(id);
+        this.repository.save(partida);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
     @PutMapping ( "/{id}" )
