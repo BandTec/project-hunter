@@ -7,6 +7,7 @@ import CSGO from "../../assets/csgo-icon.svg";
 import Overwatch from "../../assets/overwatch-icon.svg";
 import User from "../../assets/default-user.png"
 
+
 import TeamPicture from "../../assets/team-icon.svg";
 import { FiArrowLeft, FiStar, FiTrash2, FiSearch, FiUser, FiPlusCircle } from 'react-icons/fi'
 import { Link, useHistory } from 'react-router-dom';
@@ -82,6 +83,7 @@ export default function MyTeam() {
 
 
     const [nomeEquipe, setNomeEquipe] = useState('');
+    const [fotoEquipe, setFotoEquipe] = useState('');
     const [idEquipe, setIdEquipe] = useState('');
     
     localStorage.setItem('nomeEquipe', "Keyd");
@@ -100,13 +102,15 @@ export default function MyTeam() {
           dados.forEach(item => {
             temp.push(
               criaDados(
-                item.idEquipeGamer
+                item.idEquipeGamer,
+                item.idEquipe.fotoEquipe,
                 
               )
             );
           });
     
           setIdEquipe(temp[0].idEquipeGamer);
+          setFotoEquipe(temp[0].fotoEquipe);
           console.log(temp[0].idEquipeGamer);
 
 
@@ -132,8 +136,8 @@ export default function MyTeam() {
 
 
 
-      function criaDados(idEquipeGamer) {
-        return { idEquipeGamer }
+      function criaDados(idEquipeGamer, fotoEquipe) {
+        return { idEquipeGamer, fotoEquipe }
       }
 
     //   useEffect(() => {
@@ -165,22 +169,36 @@ export default function MyTeam() {
     const history = useHistory('');
     // const userId = localStorage.getItem('userId');
     const userName = localStorage.getItem('nome');
-    // useEffect(() => {
-    //     api.get('profile', {
-    //         headers : {
-    //             Authorization: userId,
-    //         }
-    //     }).then(response =>{
-    //         setMatches(response.data);
-    //     })
-    // }, [userId]);
 
 
+    function handleProfile() {
 
-    function handleLogout() {
-        localStorage.clear();
-        history.push('/');
-    }
+        history.push('/profile');
+      }
+      async function handleLogout() {
+        try {
+          const response = await api.post('/gamer/logoff');
+          if (response.status === 200) {
+            localStorage.clear();
+            history.push('/');
+          } else {
+            alert('Estamos encontrando problemas na conexão com o servidor');
+          }
+        } catch (err) {
+          alert('Estamos encontrando problemas na conexão com o servidor');
+        }
+    
+      }
+    
+      async function handleConfig() {
+        history.push('/config');
+      }
+    
+      async function handleEquipe() {
+        history.push('/equipe');
+      }
+    
+
     function handleHome() {
 
         history.push('/home');
@@ -217,9 +235,9 @@ export default function MyTeam() {
                             <Paper className={classes.root} >
                                 <ClickAwayListener onClickAway={handleClose}>
                                     <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                                        <MenuItem onClick={handleClose}>Perfil</MenuItem>
-                                        <MenuItem onClick={handleClose}>Equipes</MenuItem>
-                                        <MenuItem onClick={handleClose}>Agendamentos</MenuItem>
+                                        <MenuItem onClick={handleProfile}>Perfil</MenuItem>
+                                        <MenuItem onClick={handleEquipe}>Minha Equipe</MenuItem>
+                                        <MenuItem onClick={handleConfig}>Configurações</MenuItem>
                                         <MenuItem onClick={handleLogout}>Logout</MenuItem>
                                     </MenuList>
                                 </ClickAwayListener>
@@ -233,7 +251,7 @@ export default function MyTeam() {
             </header>
 
             <div className="div-profile">
-                <img className="profile-pic" src={TeamPicture} alt="Foto de Perfil"></img>
+                <img className="profile-pic" src={fotoEquipe} alt="Foto de Perfil"></img>
                     <h1 className="profile-nic">{nomeEquipe}</h1>
                 <h1 className="profile-rate"> <FiStar size={48} color="#F1DA07" />  4.96</h1>
             </div>
@@ -258,7 +276,8 @@ export default function MyTeam() {
 
                     {teamGames.map(team => (
                         <div key={team.idJogo.idJogo} >
-                            <img src={CSGO} alt="League Of Legends" ></img>
+                          
+                            <img src = {require(`../../assets/${team.idJogo.fotoJogo}`)} alt="Icone Jogo" ></img>
                             <p>{team.idJogo.nomeJogo}</p>
                             
                         </div>
