@@ -65,6 +65,11 @@ export default function Cadastro() {
     function chamaLogin() {
         history.push("/login");
     }
+
+    function handleHome() {
+
+        history.push('/home');
+    }
     // render() {
 
     //     if (this.state.redirect) {
@@ -86,7 +91,7 @@ export default function Cadastro() {
         <div className="cadastro-container">
 
 <header>
-        <img src={Logo} alt="HunterProject" ></img>
+        <img src={Logo} alt="HunterProject" onClick={handleHome}></img>
         <p className="trilha">/Cadastro</p>
 </header>
 

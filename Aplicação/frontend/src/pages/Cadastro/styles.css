@@ -25,6 +25,7 @@
 .cadastro-container header img {
     height: 64px;
     margin-right: 1315px;
+    cursor: pointer;
 }
 
 .cadastro-container{

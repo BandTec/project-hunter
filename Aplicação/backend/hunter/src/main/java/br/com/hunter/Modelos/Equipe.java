@@ -15,7 +15,16 @@ public class Equipe {
 
     private String nomeEquipe;
 
+    private String fotoEquipe;
 
+
+    public String getFotoEquipe() {
+        return fotoEquipe;
+    }
+
+    public void setFotoEquipe(String fotoEquipe) {
+        this.fotoEquipe = fotoEquipe;
+    }
 
     public Integer getIdEquipe() {
         return idEquipe;

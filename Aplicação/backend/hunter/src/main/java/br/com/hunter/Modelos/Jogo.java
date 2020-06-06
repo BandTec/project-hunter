@@ -18,6 +18,16 @@ public class Jogo {
 
     private Integer qtdePlayers;
 
+    private String fotoJogo;
+
+    public String getFotoJogo() {
+        return fotoJogo;
+    }
+
+    public void setFotoJogo(String fotoJogo) {
+        this.fotoJogo = fotoJogo;
+    }
+
     public Integer getIdJogo() {
         return idJogo;
     }

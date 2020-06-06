@@ -26,16 +26,16 @@ public class Gamer {
 
     private String telefone;
 
-    private String foto;
+    private String fotoGamer;
 
     private String usuario;
 
-    public String getFoto() {
-        return foto;
+    public String getFotoGamer() {
+        return fotoGamer;
     }
 
-    public void setFoto(String foto) {
-        this.foto = foto;
+    public void setFotoGamer(String fotoGamer) {
+        this.fotoGamer = fotoGamer;
     }
 
     public void setEmail(String email) {
