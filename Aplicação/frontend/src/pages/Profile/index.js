@@ -79,15 +79,10 @@ export default function Profile() {
     // Botão Usuário 
 
     const history = useHistory('');
-    const [nome] = localStorage.getItem('nome');
-    const [email] = localStorage.getItem('email');
-    const [idEquipe, setIdEquipe] = useState('');
+    const nome = localStorage.getItem('nome');
+    const email = localStorage.getItem('email');
+    const idEquipe = useState('');
     
-    // useEffect(() => {
-    //     api.get(`/gamer/nome/${userName}`,).then(response =>{
-    //         setMatches(response.data);
-    //     })
-    // }, [userName]);
     useEffect(() => {
     api.get(`/equipegamer/gamer/${email}/`
     
@@ -126,8 +121,7 @@ export default function Profile() {
 
     const [team, setTeam] = useState([]);
     const [userGames, setUserGames] = useState([]);
-    const [teamGamers, setTeamGamers] = useState([]);
-    const [teamHistory, setTeamHistory] = useState([]);
+
     const nomeEquipe = localStorage.getItem('nomeEquipe');
 
 
@@ -234,13 +228,12 @@ export default function Profile() {
 
                     <h2>Equipes:</h2>
                     <div className="current-teams">
-
-                    {team.map(team => (
+                    {/* {team.map(team => (
                         <div key={team.idEquipe.idEquipe}>
                             <img src={User} alt="User-Icon" ></img>
                             <p>{team.idEquipe.nomeEquipe}</p>
                         </div>
-                       ))}
+                       ))} */}
 {/* 
                         <img src={Team} alt="Team-Icon"  onClick={handleTeamPage}></img>
                         <p onClick={handleTeamPage}>Equipe E</p> */}
