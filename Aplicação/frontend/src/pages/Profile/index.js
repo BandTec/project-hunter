@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './styles.css'
 import Logo from "../../assets/testeLogo3.png";
-
 import Lol from "../../assets/lol-icon.svg";
 import Overwatch from "../../assets/overwatch-icon.svg";
 import Team from "../../assets/team-icon.svg"
-
 import UserPicture from "../../assets/user1.jpg";
 import { FiArrowLeft, FiStar, FiTrash2, FiSearch, FiUser, FiPlusCircle } from 'react-icons/fi'
 import { Link, useHistory } from 'react-router-dom';
@@ -18,6 +16,8 @@ import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import User from "../../assets/default-user.png"
+import CSGO from "../../assets/csgo-icon.svg";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -78,27 +78,60 @@ export default function Profile() {
 
     // Botão Usuário 
 
-
-
-    const [matches, setMatches] = useState([]);
-
     const history = useHistory('');
-   
-    const userName = localStorage.getItem('nome');
-    const equipe = "Equipe E";
+    const [nome] = localStorage.getItem('nome');
+    const [email] = localStorage.getItem('email');
+    const [idEquipe, setIdEquipe] = useState('');
     
+    // useEffect(() => {
+    //     api.get(`/gamer/nome/${userName}`,).then(response =>{
+    //         setMatches(response.data);
+    //     })
+    // }, [userName]);
     useEffect(() => {
-        api.get(`/gamer/nome/${userName}`,).then(response =>{
-            setMatches(response.data);
-        })
-    }, [userName]);
+    api.get(`/equipegamer/gamer/${email}/`
+    
+        ).then(response => {
 
-    function handleAgendamento(){
-        history.push('/agendamento');
-    }
+            const { data = [] } = response || {};
+            // verify response.data is an array
+            const isArray = Array.isArray(data)
+            isArray && setTeam(data);
+
+            if (isArray){
+            setTeam(data);
+}          
+        })
+
+      }, [nome]);
+
+      useEffect(() => {
+        api.get(`/gamerinfo/gamer/${email}/`
+  
+        ).then(response => {
+
+            const { data = [] } = response || {};
+            // verify response.data is an array
+            const isArray = Array.isArray(data)
+            isArray && setTeam(data);
+
+            if (isArray){
+            setUserGames(data);
+}
+
+            // setUserGames(response.data);
+            console.log(userGames);
+        });
+      }, [idEquipe]);
+
+    const [team, setTeam] = useState([]);
+    const [userGames, setUserGames] = useState([]);
+    const [teamGamers, setTeamGamers] = useState([]);
+    const [teamHistory, setTeamHistory] = useState([]);
+    const nomeEquipe = localStorage.getItem('nomeEquipe');
+
 
     function handleTeamPage(){
-        localStorage.setItem('nomeEquipe', equipe);
         history.push('/equipe');
     }
 
@@ -171,32 +204,46 @@ export default function Profile() {
 
             <div className="div-profile">
                 <img className="profile-pic" src={UserPicture} alt="Foto de Perfil"></img>
-                    <h1 className="profile-nic">{userName}</h1>
+                    <h1 className="profile-nic">{nome}</h1>
                 <h1 className="profile-rate"> <FiStar size={48} color="#F1DA07" />  4.96</h1>
             </div>
 
 
             <body>
                 <div>
-                    <h2>Jogos Atuais:</h2>
+                    <h2>Jogos:</h2>
                     <div className="current-games">
 
+                        {userGames.map(team => (
+                            <div key={team.idJogo.idJogo} >
+                                <img src={CSGO} alt="League Of Legends" ></img>
+                                <p>{team.idJogo.nomeJogo}</p>
+                                
+                            </div>
+                            ))}
 
-                        <div >
+                         {/* <div >
                             <img src={Lol} alt="League Of Legends" ></img>
                             <p>League of Legends </p>
                         </div>
                         <div>
                             <img src={Overwatch} alt="Overwatch" ></img>
                             <p>Overwhatch</p>
-                        </div>
+                        </div>  */}
                     </div>
 
-                    <h2>Equipes Atuais:</h2>
+                    <h2>Equipes:</h2>
                     <div className="current-teams">
 
+                    {team.map(team => (
+                        <div key={team.idEquipe.idEquipe}>
+                            <img src={User} alt="User-Icon" ></img>
+                            <p>{team.idEquipe.nomeEquipe}</p>
+                        </div>
+                       ))}
+{/* 
                         <img src={Team} alt="Team-Icon"  onClick={handleTeamPage}></img>
-                        <p onClick={handleTeamPage}>Equipe E</p>
+                        <p onClick={handleTeamPage}>Equipe E</p> */}
                     </div>
                 </div>
 
