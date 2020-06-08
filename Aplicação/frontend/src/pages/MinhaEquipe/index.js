@@ -87,6 +87,9 @@ export default function MyTeam() {
     const [idEquipe, setIdEquipe] = useState('');
     
     localStorage.setItem('nomeEquipe', "Keyd");
+
+     
+
     useEffect(() => {
         setNomeEquipe(localStorage.getItem('nomeEquipe'));
         api.get(`/equipegamer/equipe/${nomeEquipe}/`
@@ -110,8 +113,11 @@ export default function MyTeam() {
           });
     
           setIdEquipe(temp[0].idEquipeGamer);
-          setFotoEquipe(temp[0].fotoEquipe);
+          setFotoEquipe(`../../assets/${temp[0].fotoEquipe}`);
+          console.log(temp[0].fotoEquipe);
           console.log(temp[0].idEquipeGamer);
+
+          
 
 
           
@@ -123,7 +129,11 @@ export default function MyTeam() {
       api.get(`/equipejogo/equipe/${idEquipe}/`
 
       ).then(response => {
-          setTeamGames(response.data);
+          //setTeamGames(response.data);
+          const { data = [] } = response || {};
+          // verify response.data is an array
+          const isArray = Array.isArray(data)
+          isArray && setTeamGames(data);
           console.log(teamGames);
       });
     }, [idEquipe]);
@@ -165,6 +175,7 @@ export default function MyTeam() {
     const [teamGames, setTeamGames] = useState([]);
     const [teamGamers, setTeamGamers] = useState([]);
     const [teamHistory, setTeamHistory] = useState([]);
+
 
     const history = useHistory('');
     // const userId = localStorage.getItem('userId');
@@ -251,7 +262,9 @@ export default function MyTeam() {
             </header>
 
             <div className="div-profile">
-                <img className="profile-pic" src={fotoEquipe} alt="Foto de Perfil"></img>
+           
+                <img className="profile-pic" src = {require(`../../assets/${localStorage.getItem('nomeEquipe')}-icon.png`)} alt="Foto de Perfil"></img>
+               
                     <h1 className="profile-nic">{nomeEquipe}</h1>
                 <h1 className="profile-rate"> <FiStar size={48} color="#F1DA07" />  4.96</h1>
             </div>

@@ -150,6 +150,7 @@ export default function Home() {
   const [posicaoOpcionalPt, setPosicaoOpcionalPt] = useState('');
   const [horarioPt, setHorarioPt] = useState('');
   const [dataPt, setDataPt] = useState('');
+  const [infracao, setInfracao] = useState('');
 
 
   const classes2 = useStyles2();
@@ -168,16 +169,18 @@ export default function Home() {
   
     async function envioDadosPartida() {
 
+      setInfracao(false);
       const data = {
         jogoPt,
         idGamer,
         posicaoPt,
+        infracao,
         horarioPt,
         dataPt
 
       };
       try {
-        const response = await api.post(`/partida/`, data); //{
+        const response = await api.post(`/partida/${idGamer}`, data); //{
           if (response.status === 200){
             alert('Partida Criada com Sucesso!');
           }else{
@@ -436,8 +439,7 @@ export default function Home() {
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
                     <MenuItem onClick={handleProfile}>Perfil</MenuItem>
-                    <MenuItem onClick={handleEquipe}>Equipes</MenuItem>
-                    <MenuItem onClick={handleAgendamento}>Agendamentos</MenuItem>
+                    <MenuItem onClick={handleEquipe}>Minha Equipe</MenuItem>                    
                     <MenuItem onClick={handleConfig}>Configurações</MenuItem>
                     <MenuItem onClick={handleLogout}>Logout</MenuItem>
                   </MenuList>
