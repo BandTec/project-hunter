@@ -63,9 +63,60 @@ const useStyles2 = makeStyles((theme) => ({
 
   },
 
+  datas: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(3, 1fr)',
+    justifyContent: 'space-between',
+    
+    
+
+  },
+
+
+
+  dataStyle:{
+    width: '140px',
+    height: '48px',
+    marginTop: '10px',
+    marginBottom: '10px',
+    marginRight: '5px',
+    border: '1px solid #ddd',
+    borderRadius: '4px',
+    
+    padding: '0 20px',
+    fontSize: '16px',
+    color: '#666',
+
+  },
+
+  hora: {
+    
+    gridTemplateColumns: 'repeat(2, 1fr)',
+    justifyContent: 'right',
+    alignContent: 'right'
+  },
+
+  horaStyle: {
+    width: '220px',
+    height: '48px',
+    marginTop: '10px',
+    marginBottom: '10px',
+ 
+    border: '1px solid #ddd',
+    borderRadius: '4px',
+    
+    padding: '0 20px',
+    fontSize: '16px',
+    color: '#666',
+ 
+  },
+
+
   comboOpcional: {
     marginLeft: '5px'
   },
+
+
 
   buttonClose: {
     backgroundColor: '#000',
@@ -105,6 +156,7 @@ const useStyles2 = makeStyles((theme) => ({
     color: '#666',
   },
   input: {
+    width: '280px',
     marginTop: '10px',
     marginBottom: '10px',
     border: '1px solid #ddd',
@@ -149,8 +201,18 @@ export default function Home() {
   const [nomeJogadorOpPt, setNomeJogadorOpPt] = useState('');
   const [posicaoOpcionalPt, setPosicaoOpcionalPt] = useState('');
   const [horarioPt, setHorarioPt] = useState('');
+  const [minutoPt, setMinutoPt] = useState('');
+
   const [dataPt, setDataPt] = useState('');
+
+  const [anoPt, setAnoPt] = useState('');
+  const [mesPt, setMesPt] = useState('');
+  const [diaPt, setDiaPt] = useState('');
+
+
   const [infracao, setInfracao] = useState('');
+
+  const [idPartida, setIdPartida] = useState('');
 
 
   const classes2 = useStyles2();
@@ -166,43 +228,79 @@ export default function Home() {
     setOpenModal(false);
   };
 
-  
-    async function envioDadosPartida() {
 
-      setInfracao(false);
+  async function envioDadosPartida() {
+    setDataPt(anoPt + "-" + mesPt + "-" + diaPt);
+      setHorarioPt(horarioPt+':'+minutoPt+':00');
+
+    setInfracao(false);
+
+    if (!jogoPt || !idGamer || !posicaoPt || !horarioPt || !dataPt) {
+
+      alert("Preencha os dados necessários");
+
+    } else {
+
       
-     
+
 
       const data = {
-       
-        idJogo : {
-          jogoPt
+
+        'idJogo': {
+          'idJogo': jogoPt
         },
-        idGamer : {
-          idGamer
+        'idGamer': {
+          'idGamer': idGamer
         },
-        idPosicao : {
-          posicaoPt
+        'idPosicao': {
+          'idPosicao': posicaoPt
         },
-        
-        horarioPt,
-        dataPt
+        'data': dataPt,
+        'hora': horarioPt
+
 
       };
       try {
-        const response = await api.post(`/partida/${idGamer}`, data); //{
-          if (response.status === 200){
-            alert('Partida Criada com Sucesso!');
+
+        const response = await api.post(`/partida/`, data); //{
+        if (response.status === 201) {
+          alert('Partida Criada com Sucesso!');
+          let dados = response.data;
+
+          let temp = [];
+
+          dados.forEach(item => {
+            temp.push(
+              criaDadosPt(
+                item.idPartida,
+              )
+            );
+          });
+
+          setIdPartida(temp[0].idPartida);
+
+          console.log(idPartida);
+          if (!nomeJogadorOpPt || !posicaoOpcionalPt) {
+            return;
           }else{
-            alert('Erro ao criar partida');
-          }  
+          //   envioDadosPartidaAgregados(nomeJogadorOpPt, posicaoOpcionalPt);
+            return;
+          }
+
+        } else {
+          alert('Erro ao criar partida');
+        }
 
       } catch (err) {
         alert('Erro ao criar partida ou conectar-se ao servidor');
       }
-
     }
-    
+
+  }
+  function criaDadosPt(idPartida) {
+    return { idPartida }
+  }
+
 
 
   const body = (
@@ -264,13 +362,20 @@ export default function Home() {
         <p>
           Selecione um horário :
       </p>
-        <input placeholder="Horario" className={classes2.input} onChange={e => setHorarioPt(e.target.value)} />
+      <div className={classes2.hora}>
+        <input placeholder="Hora (ex: 12)" className={classes2.horaStyle} onChange={e => setHorarioPt(e.target.value)} />
+        
+        <input placeholder="Min. (ex: 05)" className={classes2.horaStyle} onChange={e => setMinutoPt(e.target.value)} />
+        </div>
         <p>
           Selecione uma data :
       </p>
-        <input placeholder="Data" className={classes2.input} onChange={e => setDataPt(e.target.value)} />
-
-        <p>
+        <div className={classes2.datas}>
+          <input className={classes2.dataStyle} placeholder="Dia (ex: 01)"  onChange={e => setDiaPt(e.target.value)} />
+          <input className={classes2.dataStyle} placeholder="Mês (ex: 01)"  onChange={e => setMesPt(e.target.value)} />
+          <input className={classes2.dataStyle} placeholder="Ano(ex: 2020)"  onChange={e => setAnoPt(e.target.value)} />
+        </div>
+        <p style={{width: '300px'}}>
           <button className={classes2.buttonClose} onClick={handleCloseModal}>Fechar</button>
           <button className={classes2.buttonCreate} onClick={envioDadosPartida}>Criar</button>
         </p>
@@ -318,7 +423,7 @@ export default function Home() {
 
 
 
-  
+
 
   const history = useHistory('');
 
@@ -359,7 +464,7 @@ export default function Home() {
     api.get(`/partida/gamer/${id}/`
 
     ).then(response => {
-      
+
       const { data = [] } = response || {};
       // verify response.data is an array
       const isArray = Array.isArray(data)
@@ -385,7 +490,7 @@ export default function Home() {
   //     }
   // }
 
-  function handleAgendamento(){
+  function handleAgendamento() {
     history.push('/agendamento');
   }
 
@@ -449,7 +554,7 @@ export default function Home() {
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
                     <MenuItem onClick={handleProfile}>Perfil</MenuItem>
-                    <MenuItem onClick={handleEquipe}>Minha Equipe</MenuItem>                    
+                    <MenuItem onClick={handleEquipe}>Minha Equipe</MenuItem>
                     <MenuItem onClick={handleConfig}>Configurações</MenuItem>
                     <MenuItem onClick={handleLogout}>Logout</MenuItem>
                   </MenuList>
@@ -466,7 +571,7 @@ export default function Home() {
 
       <p className="bem-vindo">Bem vindo, {nome}.</p>
 
-      <h1>Hoje:</h1>
+      <h1>Partidas Agendadas:</h1>
 
       <ul className="partidas">
 
