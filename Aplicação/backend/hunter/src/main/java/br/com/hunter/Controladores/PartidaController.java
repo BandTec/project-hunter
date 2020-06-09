@@ -57,8 +57,15 @@ public class PartidaController {
     }
     @PostMapping
     public ResponseEntity criar(@RequestBody Partida partida) {
-        this.repository.save(partida);
-        return ResponseEntity.status(HttpStatus.CREATED).body(partida.getIdPartida());
+        if (partida == null) {
+            return ResponseEntity.badRequest().build();
+        } else {
+            Partida partidaLastId = repository.findFirstByOrderByIdPartidaDesc();
+            Integer lastId = partidaLastId.getIdPartida();
+            partida.setIdPartida(lastId + 1);
+            this.repository.save(partida);
+            return ResponseEntity.status(HttpStatus.CREATED).body(partida.getIdPartida());
+        }
     }
 
     @PostMapping("/{id}")
