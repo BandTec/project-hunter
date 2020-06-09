@@ -64,7 +64,7 @@ public class PartidaController {
             Integer lastId = partidaLastId.getIdPartida();
             partida.setIdPartida(lastId + 1);
             this.repository.save(partida);
-            return ResponseEntity.status(HttpStatus.CREATED).body(partida.getIdPartida());
+            return ResponseEntity.status(HttpStatus.CREATED).body(partida);
         }
     }
 
