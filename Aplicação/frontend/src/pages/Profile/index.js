@@ -212,7 +212,7 @@ export default function Profile() {
                     <div className="current-teams">
                     {equipes.map(team => (
                         <div key={team.idEquipe.idEquipe}>
-                            <img src = {require(`../../assets/${team.idEquipe.fotoEquipe}`)} alt="Icone Jogo" ></img>
+                            <img src = {require(`../../assets/${team.idEquipe.fotoEquipe}`)} alt="Icone Jogo"></img>
                             <p>{team.idEquipe.nomeEquipe}</p>
                         </div>
                        ))}

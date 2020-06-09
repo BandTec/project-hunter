@@ -132,7 +132,15 @@
     margin-top: 10px;
     color: #fff;
     background-color: #000000;
-  
+}
+
+.profile-container .current-teams div p{
+    margin-left: 9.7px;
+}
+
+.profile-container .current-teams img{
+    height: 55px;
+    width: 55px;
 }
 
 .profile-container  .last-games{

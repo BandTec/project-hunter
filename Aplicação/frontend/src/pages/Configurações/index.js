@@ -342,14 +342,16 @@ history.push("/login");
           )}
         </Popper>
       </header>
-
+<div className="formulario">
       <form onSubmit={handleSignUp}>
                 <label id="thumbnail"
                     style={{ backgroundImage: `url(${preview})` }}
                     className={thumbnail ? 'has-thumbnail' : ''}
                 >
+                   {/* <img className="profile-pic" src = {require(`../../assets/${localStorage.getItem('nome')}-icon.jpg`)} alt="Foto de Perfil"></img> */}
                     <input type="file" onChange={event => setThumbnail(event.target.files[0])} />
                     <img src={camera} alt="Select your photo"></img>
+                    
                 </label>
                 <p class = "campo">Nome:</p>
                 <input value={nome} onChange={e => setNome(e.target.value)} />
@@ -397,7 +399,7 @@ history.push("/login");
 
 
             </form>
-
+            </div>
     </div>
   );
 }
