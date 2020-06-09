@@ -17,7 +17,7 @@
     /* margin-bottom: 1px; */
     color: #fff;
     font-size: 16px;
-    position: fixed;
+    position: absolute;
     margin-left: -37%;
     margin-top: 1%;
 }
@@ -25,7 +25,6 @@
 .cadastro-container header img {
     height: 64px;
     margin-right: 1315px;
-    cursor: pointer;
 }
 
 .cadastro-container{
@@ -157,4 +156,14 @@ label#thumbnail.has-thumbnail {
 }
 label#thumbnail.has-thumbnail img {
     display: none;
+}
+
+.cadastro-container .campos{
+    display: grid;
+    grid-template-columns:  repeat(4, 5fr);
+    grid-gap: 24px;
+    list-style: none;
+    justify-content: right;
+    align-items: left;
+    margin-left: 180px;
 }

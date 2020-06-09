@@ -344,7 +344,7 @@ history.push("/login");
       </header>
 <div className="formulario">
       <form onSubmit={handleSignUp}>
-                <label id="thumbnail"
+               <center> <label id="thumbnail"
                     style={{ backgroundImage: `url(${preview})` }}
                     className={thumbnail ? 'has-thumbnail' : ''}
                 >
@@ -352,7 +352,8 @@ history.push("/login");
                     <input type="file" onChange={event => setThumbnail(event.target.files[0])} />
                     <img src={camera} alt="Select your photo"></img>
                     
-                </label>
+                </label></center><br></br>
+                <div className="campos">
                 <p class = "campo">Nome:</p>
                 <input value={nome} onChange={e => setNome(e.target.value)} />
                 <p class = "campo">Usuário:</p>
@@ -361,7 +362,7 @@ history.push("/login");
                 <input value={cpf} onChange={e => setCpf(e.target.value)} />
                 <p class = "campo">Telefone:</p>
                 <input value={telefone} onChange={e => setTelefone(e.target.value)} />
-                <p class = "campo">E-mail:</p>
+                <p class = "campo">Email:</p>
                 <input value={email} onChange={e => setEmail(e.target.value)} />
                 <p class = "campo">Senha:</p>
                 <input type = "password" value={senha} onChange={e => setSenha(e.target.value)} />
@@ -389,6 +390,7 @@ history.push("/login");
                 <option value ='9'>Capitão</option>
                 <option value ='10'>Sniper</option>
                 </select>
+                </div><br></br>
                 <Router>
                     <div>
 

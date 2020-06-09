@@ -32,7 +32,7 @@ export default function Cadastro() {
 
     async function handleSignUp(e) {
         e.preventDefault();
-        if (senha != confirmarSenha || senha == "" ) {
+        if (senha != confirmarSenha) {
             alert('Os campos senha e confirmação de senha estão diferentes');
         } else {
 
@@ -42,13 +42,12 @@ export default function Cadastro() {
                 cpf,
                 email,
                 telefone,
-                senha
+                senha,
             };
 
             try {
                 const response = await api.post('/gamer/criar', data);
                 //alert(`Seu ID de Acesso ${response.data.id}`);
-                console.log(response);
                 if (response.status === 200){
                 history.push('/continuacaocadastro');
                 }else{
@@ -56,7 +55,6 @@ export default function Cadastro() {
                 }
             } catch (err) {
                 alert('Erro no cadastro, tente novamente');
-                
             }
         }
     }
@@ -64,11 +62,6 @@ export default function Cadastro() {
     const history = useHistory('');
     function chamaLogin() {
         history.push("/login");
-    }
-
-    function handleHome() {
-
-        history.push('/home');
     }
     // render() {
 
@@ -91,32 +84,35 @@ export default function Cadastro() {
         <div className="cadastro-container">
 
 <header>
-        <img src={Logo} alt="HunterProject" onClick={handleHome}></img>
+        <img src={Logo} alt="HunterProject" ></img>
         <p className="trilha">/Cadastro</p>
 </header>
 
             <form onSubmit={handleSignUp}>
-                <label id="thumbnail"
+               <center><label id="thumbnail"
                     style={{ backgroundImage: `url(${preview})` }}
                     className={thumbnail ? 'has-thumbnail' : ''}
                 >
                     <input type="file" onChange={event => setThumbnail(event.target.files[0])} />
                     <img src={camera} alt="Select your photo"></img>
-                </label>
-                <p className = "campo">Nome:</p>
+                </label></center>
+                <div className="campos">
+                <p class = "campo">Nome:</p>
                 <input onChange={e => setNome(e.target.value)} />
-                <p className = "campo">Usuário:</p>
+                <p class = "campo">Usuário:</p>
                 <input onChange={e => setUsuario(e.target.value)} />
-                <p className = "campo">CPF:</p>
+                <p class = "campo">CPF:</p>
                 <input onChange={e => setCpf(e.target.value)} />
-                <p className = "campo">Telefone:</p>
+                <p class = "campo">Telefone:</p>
                 <input onChange={e => setTelefone(e.target.value)} />
-                <p className = "campo">E-mail:</p>
+                <p class = "campo">Email:</p>
                 <input onChange={e => setEmail(e.target.value)} />
-                <p className = "campo">Senha:</p>
+                <p class = "campo">Senha:</p>
                 <input type="password" onChange={e => setSenha(e.target.value)} />
-                <p className = "campo">Confirme seua senha:</p>
+                </div>
+                <p class = "campo">Confirme seua senha:</p>
                 <input type="password" onChange={e => setConfirmarSenha(e.target.value)} />
+                <br></br>
                 <Router>
                     <div>
 

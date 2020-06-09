@@ -2,6 +2,7 @@
     color: #dcdce6;
     margin-top: 5%;
     margin-bottom: -5%;
+    
 }
 
 .configuracao-container{
@@ -127,6 +128,7 @@
     padding: 0 20px;
     font-size: 16px;
     color: #666;
+    
 }
 
 .configuracao-container form select{
@@ -183,6 +185,7 @@
     display:flex;
     justify-content:space-between;
     align-items: center;
+    
 }
 
 .configuracao-container form input::placeholder{
@@ -195,7 +198,7 @@ color:#999;
 }
 
 label#thumbnail{
-     margin-botton: 20px;
+     margin-bottom: 20px;
      border: 1px dashed #ddd;
      background-size: cover;
      cursor: pointer;
@@ -219,4 +222,13 @@ label#thumbnail.has-thumbnail {
 }
 label#thumbnail.has-thumbnail img {
     display: none;
+}
+.configuracao-container .campos{
+    display: grid;
+    grid-template-columns:  repeat(4, 5fr);
+    grid-gap: 24px;
+    list-style: none;
+    justify-content: right;
+    align-items: left;
+    margin-left: 180px;
 }
