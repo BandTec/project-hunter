@@ -83,10 +83,10 @@ export default function MyTeam() {
 
 
     const [nomeEquipe, setNomeEquipe] = useState('');
-    const [fotoEquipe, setFotoEquipe] = useState('');
+    const [fotoEquipe, setFotoEquipe] = useState([]);
     const [idEquipe, setIdEquipe] = useState('');
     
-    localStorage.setItem('nomeEquipe', "Keyd");
+    localStorage.setItem('nomeEquipe', "Pain Gaming");
 
      
 
@@ -98,45 +98,53 @@ export default function MyTeam() {
           setTeam(response.data);
           console.log(team);
           
-          let dados = response.data;
+        })
+
+      }, [nomeEquipe]);
+
+    useEffect(() => {
+        api.get(`/equipe/nome/${nomeEquipe}/`
+  
+        ).then(response => {
+            //setTeamGames(response.data);
+            const { data = [] } = response || {};
+            // verify response.data is an array
+            const isArray = Array.isArray(data)
+            isArray && setFotoEquipe(data);
+
+
+            let dados = response.data;
 
           let temp = [];
     
           dados.forEach(item => {
             temp.push(
               criaDados(
-                item.idEquipeGamer,
-                item.idEquipe.fotoEquipe,
-                
+                item.idEquipeGamer
               )
             );
           });
-    
-          setIdEquipe(temp[0].idEquipeGamer);
-          setFotoEquipe(`../../assets/${temp[0].fotoEquipe}`);
-          console.log(temp[0].fotoEquipe);
-          console.log(temp[0].idEquipeGamer);
 
-          
-
-
-          
-        })
-
+            setIdEquipe(temp[0].idEquipeGamer);
+            
+            console.log(fotoEquipe);
+        });
       }, [nomeEquipe]);
 
       useEffect(() => {
-      api.get(`/equipejogo/equipe/${idEquipe}/`
+        api.get(`/equipejogo/equipe/${idEquipe}/`
+  
+        ).then(response => {
+            //setTeamGames(response.data);
+            const { data = [] } = response || {};
+            // verify response.data is an array
+            const isArray = Array.isArray(data)
+            isArray && setTeamGames(data);
+            
+            console.log(teamGames);
+        });
+      }, [idEquipe]);
 
-      ).then(response => {
-          //setTeamGames(response.data);
-          const { data = [] } = response || {};
-          // verify response.data is an array
-          const isArray = Array.isArray(data)
-          isArray && setTeamGames(data);
-          console.log(teamGames);
-      });
-    }, [idEquipe]);
 
       // api.get(`/equipejogo/equipe/${idEquipe}/`
   
@@ -146,8 +154,8 @@ export default function MyTeam() {
 
 
 
-      function criaDados(idEquipeGamer, fotoEquipe) {
-        return { idEquipeGamer, fotoEquipe }
+      function criaDados(idEquipeGamer ) {
+        return { idEquipeGamer }
       }
 
     //   useEffect(() => {
@@ -262,9 +270,9 @@ export default function MyTeam() {
             </header>
 
             <div className="div-profile">
-           
-                <img className="profile-pic" src = {require(`../../assets/${localStorage.getItem('nomeEquipe')}-icon.png`)} alt="Foto de Perfil"></img>
-               
+            {fotoEquipe.map(team => (
+                <img className="profile-pic" src = {require(`../../assets/${team.fotoEquipe}`)} alt="Foto de Perfil"></img>
+                ))}  
                     <h1 className="profile-nic">{nomeEquipe}</h1>
                 <h1 className="profile-rate"> <FiStar size={48} color="#F1DA07" />  4.96</h1>
             </div>

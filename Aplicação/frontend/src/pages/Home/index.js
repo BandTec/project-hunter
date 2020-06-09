@@ -170,11 +170,21 @@ export default function Home() {
     async function envioDadosPartida() {
 
       setInfracao(false);
+      
+     
+
       const data = {
-        jogoPt,
-        idGamer,
-        posicaoPt,
-        infracao,
+       
+        idJogo : {
+          jogoPt
+        },
+        idGamer : {
+          idGamer
+        },
+        idPosicao : {
+          posicaoPt
+        },
+        
         horarioPt,
         dataPt
 
