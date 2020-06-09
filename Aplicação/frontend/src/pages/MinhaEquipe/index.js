@@ -85,26 +85,26 @@ export default function MyTeam() {
     const [nomeEquipe, setNomeEquipe] = useState('');
     const [fotoEquipe, setFotoEquipe] = useState([]);
     const [idEquipe, setIdEquipe] = useState('');
-    
-    localStorage.setItem('nomeEquipe', "Pain Gaming");
 
-     
+    localStorage.setItem('nomeEquipe', "keyd");
+
+
 
     useEffect(() => {
         setNomeEquipe(localStorage.getItem('nomeEquipe'));
         api.get(`/equipegamer/equipe/${nomeEquipe}/`
-    
+
         ).then(response => {
-          setTeam(response.data);
-          console.log(team);
-          
+            setTeam(response.data);
+            console.log(team);
+
         })
 
-      }, [nomeEquipe]);
+    }, [nomeEquipe]);
 
     useEffect(() => {
         api.get(`/equipe/nome/${nomeEquipe}/`
-  
+
         ).then(response => {
             //setTeamGames(response.data);
             const { data = [] } = response || {};
@@ -115,68 +115,56 @@ export default function MyTeam() {
 
             let dados = response.data;
 
-          let temp = [];
-    
-          dados.forEach(item => {
-            temp.push(
-              criaDados(
-                item.idEquipeGamer
-              )
-            );
-          });
+            let temp = [];
 
-            setIdEquipe(temp[0].idEquipeGamer);
-            
+            dados.forEach(item => {
+                temp.push(
+                    criaDados(
+                        item.idEquipe
+                    )
+                );
+            });
+
+            setIdEquipe(temp[0].idEquipe);
+
             console.log(fotoEquipe);
         });
-      }, [nomeEquipe]);
+    }, [nomeEquipe]);
 
-      useEffect(() => {
+    useEffect(() => {
         api.get(`/equipejogo/equipe/${idEquipe}/`
-  
+
         ).then(response => {
             //setTeamGames(response.data);
             const { data = [] } = response || {};
             // verify response.data is an array
             const isArray = Array.isArray(data)
             isArray && setTeamGames(data);
-            
+
             console.log(teamGames);
         });
-      }, [idEquipe]);
+    }, [idEquipe]);
+
+    useEffect(() => {
+        api.get(`/partida/equipe/${idEquipe}/`
+
+        ).then(response => {
+            //setTeamGames(response.data);
+            const { data = [] } = response || {};
+            // verify response.data is an array
+            const isArray = Array.isArray(data)
+            isArray && setTeamHistory(data);
+
+            console.log(teamHistory);
+        });
+    }, [idEquipe]);
 
 
-      // api.get(`/equipejogo/equipe/${idEquipe}/`
-  
-      // ).then(response => {
-      //   setTeamGames(response.data);
-      // })
 
 
-
-      function criaDados(idEquipeGamer ) {
-        return { idEquipeGamer }
-      }
-
-    //   useEffect(() => {
-        
-    //     api.get(`/equipejogo/nome/${team.IdEquipeGamer}/`
-    
-    //     ).then(response => {
-    //       setTeamGames(response.data);
-    //     })
-    //   }, [team]);
-
-    //   useEffect(() => {
-        
-    //     api.get(`/equipejogo/nome/${team.IdEquipeGamer}/`
-    
-    //     ).then(response => {
-    //       setTeamGames(response.data);
-    //     })
-    //   }, [team]);
-
-    
+    function criaDados(idEquipe) {
+        return { idEquipe }
+    }
 
 
     const [team, setTeam] = useState([]);
@@ -193,30 +181,30 @@ export default function MyTeam() {
     function handleProfile() {
 
         history.push('/profile');
-      }
-      async function handleLogout() {
+    }
+    async function handleLogout() {
         try {
-          const response = await api.post('/gamer/logoff');
-          if (response.status === 200) {
-            localStorage.clear();
-            history.push('/');
-          } else {
-            alert('Estamos encontrando problemas na conexão com o servidor');
-          }
+            const response = await api.post('/gamer/logoff');
+            if (response.status === 200) {
+                localStorage.clear();
+                history.push('/');
+            } else {
+                alert('Estamos encontrando problemas na conexão com o servidor');
+            }
         } catch (err) {
-          alert('Estamos encontrando problemas na conexão com o servidor');
+            alert('Estamos encontrando problemas na conexão com o servidor');
         }
-    
-      }
-    
-      async function handleConfig() {
+
+    }
+
+    async function handleConfig() {
         history.push('/config');
-      }
-    
-      async function handleEquipe() {
+    }
+
+    async function handleEquipe() {
         history.push('/equipe');
-      }
-    
+    }
+
 
     function handleHome() {
 
@@ -270,10 +258,10 @@ export default function MyTeam() {
             </header>
 
             <div className="div-profile">
-            {fotoEquipe.map(team => (
-                <img className="profile-pic" src = {require(`../../assets/${team.fotoEquipe}`)} alt="Foto de Perfil"></img>
-                ))}  
-                    <h1 className="profile-nic">{nomeEquipe}</h1>
+                {fotoEquipe.map(team => (
+                    <img className="profile-pic" src={require(`../../assets/${team.fotoEquipe}`)} alt="Foto de Perfil"></img>
+                ))}
+                <h1 className="profile-nic">{nomeEquipe}</h1>
                 <h1 className="profile-rate"> <FiStar size={48} color="#F1DA07" />  4.96</h1>
             </div>
 
@@ -283,27 +271,27 @@ export default function MyTeam() {
 
                     <h2>Jogadores:</h2>
                     <div className="current-members">
-                     {team.map(team => (
-                        <div key={team.idGamer.idGamer}>
-                            <img src={User} alt="User-Icon" ></img>
-                            <p>{team.idGamer.nome}</p>
-                        </div>
-                       ))}
-                        
+                        {team.map(team => (
+                            <div key={team.idGamer.idGamer}>
+                                <img src={User} alt="User-Icon" ></img>
+                                <p>{team.idGamer.nome}</p>
+                            </div>
+                        ))}
+
                     </div>
 
                     <h2>Jogos Atuais:</h2>
                     <div className="current-games">
 
-                    {teamGames.map(team => (
-                        <div key={team.idJogo.idJogo} >
-                          
-                            <img src = {require(`../../assets/${team.idJogo.fotoJogo}`)} alt="Icone Jogo" ></img>
-                            <p>{team.idJogo.nomeJogo}</p>
-                            
-                        </div>
-                         ))}
-                       
+                        {teamGames.map(team => (
+                            <div key={team.idJogo.idJogo} >
+
+                                <img src={require(`../../assets/${team.idJogo.fotoJogo}`)} alt="Icone Jogo" ></img>
+                                <p>{team.idJogo.nomeJogo}</p>
+
+                            </div>
+                        ))}
+
                     </div>
 
                 </div>
@@ -316,10 +304,19 @@ export default function MyTeam() {
                         <p>Jogo</p>
                         <p>Resultado</p>
 
-                        <div><p> <img src={Lol} alt="League Of Legends" style={{ width: '20px', height: '20px' }} ></img> League of Legends</p></div>
-                        <div><p className="derrota">Derrota</p></div>
-                        <div><p> <img src={Lol} alt="League Of Legends" style={{ width: '20px', height: '20px' }} ></img> League of Legends</p></div>
-                        <div><p className="vitoria">Vitória</p></div>
+                        {teamHistory.map(history => (
+                            <>
+                            <div key={history.idJogo.idJogo} ><p> <img src={require(`../../assets/${history.idJogo.fotoJogo}`)} alt="League Of Legends" style={{ width: '20px', height: '20px' }} ></img>{history.idJogo.nomeJogo}</p></div>
+                        
+                        
+                            <div><p className={ history.winner == false ? "derrota" : "vitoria"}>Vitória</p></div>
+                            </>
+                        ))}
+
+
+
+                        {/* <div><p> <img src={Lol} alt="League Of Legends" style={{ width: '20px', height: '20px' }} ></img> League of Legends</p></div>
+                        <div><p className="vitoria">Vitória</p></div> */}
 
 
                     </div>
