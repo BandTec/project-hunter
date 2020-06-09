@@ -81,24 +81,19 @@ export default function Profile() {
     const history = useHistory('');
     const nome = localStorage.getItem('nome');
     const email = localStorage.getItem('email');
-    const idEquipe = useState('');
-    
+    const [equipes, setEquipes] = useState([]);
+
     useEffect(() => {
-    api.get(`/equipegamer/gamer/${email}/`
+        api.get(`/equipegamer/gamer/${email}/`
     
         ).then(response => {
-
-            const { data = [] } = response || {};
-            // verify response.data is an array
-            const isArray = Array.isArray(data)
-            isArray && setTeam(data);
-
-            if (isArray){
-            setTeam(data);
-}          
+          
+          const { data = [] } = response || {};
+          // verify response.data is an array
+          const isArray = Array.isArray(data)
+          isArray && setEquipes(data);
         })
-
-      }, [nome]);
+      }, [email]);     
 
       useEffect(() => {
         api.get(`/gamerinfo/gamer/${email}/`
@@ -117,12 +112,12 @@ export default function Profile() {
             // setUserGames(response.data);
             console.log(userGames);
         });
-      }, [idEquipe]);
+      }, []);
 
     const [team, setTeam] = useState([]);
     const [userGames, setUserGames] = useState([]);
 
-    const nomeEquipe = localStorage.getItem('nomeEquipe');
+    
 
 
     function handleTeamPage(){
@@ -191,13 +186,10 @@ export default function Profile() {
                         </Grow>
                     )}
                 </Popper>
-
-
-
             </header>
 
             <div className="div-profile">
-                <img className="profile-pic" src={UserPicture} alt="Foto de Perfil"></img>
+            <img className="profile-pic" src = {require(`../../assets/${localStorage.getItem('nome')}-icon.jpg`)} alt="Foto de Perfil"></img>
                     <h1 className="profile-nic">{nome}</h1>
                 <h1 className="profile-rate"> <FiStar size={48} color="#F1DA07" />  4.96</h1>
             </div>
@@ -210,33 +202,20 @@ export default function Profile() {
 
                         {userGames.map(team => (
                             <div key={team.idJogo.idJogo} >
-                                <img src={CSGO} alt="League Of Legends" ></img>
+                                <img src = {require(`../../assets/${team.idJogo.fotoJogo}`)} alt="Icone Jogo" ></img>
                                 <p>{team.idJogo.nomeJogo}</p>
-                                
                             </div>
                             ))}
-
-                         {/* <div >
-                            <img src={Lol} alt="League Of Legends" ></img>
-                            <p>League of Legends </p>
-                        </div>
-                        <div>
-                            <img src={Overwatch} alt="Overwatch" ></img>
-                            <p>Overwhatch</p>
-                        </div>  */}
                     </div>
 
                     <h2>Equipes:</h2>
                     <div className="current-teams">
-                    {/* {team.map(team => (
+                    {equipes.map(team => (
                         <div key={team.idEquipe.idEquipe}>
-                            <img src={User} alt="User-Icon" ></img>
+                            <img src = {require(`../../assets/${team.idEquipe.fotoEquipe}`)} alt="Icone Jogo" ></img>
                             <p>{team.idEquipe.nomeEquipe}</p>
                         </div>
-                       ))} */}
-{/* 
-                        <img src={Team} alt="Team-Icon"  onClick={handleTeamPage}></img>
-                        <p onClick={handleTeamPage}>Equipe E</p> */}
+                       ))}
                     </div>
                 </div>
 
