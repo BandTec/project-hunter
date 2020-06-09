@@ -13,7 +13,7 @@ import java.util.List;
 
 import static org.springframework.http.ResponseEntity.*;
 
-@Controller
+@Controller("/gamer")
 @CrossOrigin(origins = "http://localhost:3000")
 public class GamerContoller {
 
@@ -22,25 +22,25 @@ public class GamerContoller {
 
     private boolean logado = false;
 
-    @GetMapping("/gamer/nome/{nome}")
+    @GetMapping("/nome/{nome}")
     private ResponseEntity BuscaPorNome(@PathVariable("nome") String nome) {
         List<Gamer> lista = repository.findByNome(nome);
         return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
     }
 
-    @GetMapping("/gamer/usuario/{usuario}")
+    @GetMapping("/usuario/{usuario}")
     private ResponseEntity BuscaPorUsuario(@PathVariable("usuario") String usuario) {
         List<Gamer> lista = repository.findByUsuario(usuario);
         return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
     }
 
-    @PostMapping("/gamer/criar")
+    @PostMapping("/criar")
     public ResponseEntity createGamer(@RequestBody Gamer newGamer){
         this.repository.save(newGamer);
         return created(null).build();
     }
 
-    @PutMapping ( "/gamer/{id}" )
+    @PutMapping("/{id}")
     public ResponseEntity atualizar(
             @PathVariable("id") int id, @RequestBody Gamer gamerAlterado ) {
         if(repository.existsById(id)) {
@@ -52,7 +52,7 @@ public class GamerContoller {
         }
     }
 
-    @GetMapping("/gamer/{email}")
+    @GetMapping("/{email}")
     public ResponseEntity getUsuario(@PathVariable("email") String email){
         List gamer;
         gamer = repository.findByEmail(email);
@@ -61,7 +61,7 @@ public class GamerContoller {
     }
 
 
-    @GetMapping("/gamer/{email}/{senha}")
+    @GetMapping("/{email}/{senha}")
     public ResponseEntity getUsuarioESenha(@PathVariable("email") String email, @PathVariable("senha") String senha ){
         List gamer;
         gamer = repository.findOneByEmailAndSenha(email, senha);
@@ -78,7 +78,7 @@ public class GamerContoller {
     }
 
 
-    @PostMapping("/gamer/logoff")
+    @PostMapping("/logoff")
     public ResponseEntity logoff() {
         if(logado) {
             logado = false;
@@ -88,7 +88,7 @@ public class GamerContoller {
         }
     }
 
-    @GetMapping("/gamer")
+    @GetMapping
     public ResponseEntity todos() {
         if (this.repository.count() > 0) {
             return ok(this.repository.findAll());

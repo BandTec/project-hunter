@@ -1,7 +1,11 @@
 package br.com.hunter.Controladores;
 
+import br.com.hunter.Modelos.Gamer;
 import br.com.hunter.Modelos.Partida;
+import br.com.hunter.Modelos.Posicao;
+import br.com.hunter.Repositorios.GamerRepository;
 import br.com.hunter.Repositorios.PartidaRepository;
+import br.com.hunter.Repositorios.PosicaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +26,12 @@ public class PartidaController {
 
     @Autowired
     private PartidaRepository repository;
+
+    @Autowired
+    private GamerRepository gamerRepository;
+
+    @Autowired
+    private PosicaoRepository posicaoRepository;
 
     @GetMapping
     public ResponseEntity listarTodos() {
@@ -68,9 +78,21 @@ public class PartidaController {
         }
     }
 
-    @PostMapping("/{id}")
-    public ResponseEntity criarPorId(@RequestBody Partida partida, @PathVariable("id") Integer id) {
+    @PostMapping("/{usuario}/{posicao}/{id}")
+    public ResponseEntity criarPorId(@RequestBody Partida partida,
+                                     @PathVariable("id") Integer id,
+                                     @PathVariable("usuario") String usuario,
+                                     @PathVariable("posicao") Integer posicao) {
+
+
+        Gamer gamerPorNome = gamerRepository.findOneByUsuario(usuario);
+        partida.setIdGamer(gamerPorNome);
+
+        Posicao posicaoPorId = posicaoRepository.getOne(posicao);
+        partida.setIdPosicao(posicaoPorId);
+
         partida.setIdPartida(id);
+
         this.repository.save(partida);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

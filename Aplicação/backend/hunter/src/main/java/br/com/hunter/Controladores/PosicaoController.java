@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,7 +47,8 @@ public class PosicaoController {
         this.repository.save(Posicao);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-    @PutMapping ( "/{id}" )
+
+    @PutMapping("/atualizar/{id}")
     public ResponseEntity atualizar(
             @PathVariable("id") int id, @RequestBody Posicao PosicaoAlterada ) {
         if(repository.existsById(id)) {
