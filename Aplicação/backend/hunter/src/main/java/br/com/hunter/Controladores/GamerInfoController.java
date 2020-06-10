@@ -1,8 +1,10 @@
 package br.com.hunter.Controladores;
 
 import br.com.hunter.Modelos.Equipe;
+import br.com.hunter.Modelos.Gamer;
 import br.com.hunter.Modelos.GamerInfo;
 import br.com.hunter.Repositorios.GamerInfoRepository;
+import br.com.hunter.Repositorios.GamerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,9 @@ public class GamerInfoController {
 
     @Autowired
     private GamerInfoRepository repository;
+
+    @Autowired
+    private GamerRepository gamerRepository;
 
     @GetMapping
     public ResponseEntity listarTodos() {
@@ -46,6 +51,14 @@ public class GamerInfoController {
     }
     @PostMapping
     public ResponseEntity criar( @RequestBody GamerInfo gamerinfo ) {
+        this.repository.save(gamerinfo);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PostMapping("/{email}")
+    public ResponseEntity criarPorEmail( @RequestBody GamerInfo gamerinfo, @PathVariable("email") String email ) {
+        Gamer gamer = gamerRepository.findOneByEmail(email);
+        gamerinfo.setIdGamer(gamer);
         this.repository.save(gamerinfo);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
