@@ -13,5 +13,7 @@ public interface PartidaRepository extends  JpaRepository<Partida, Integer> {
     Partida findFirstByOrderByIdPartidaDesc();
     long deleteByIdPartida(int id);
     boolean existsByIdPartida(int id);
+    List<Partida> findFirstByIdEquipe_IdEquipeAndIdPartida(int idEquipe, int Idpartida);
+    Partida findFirstByIdEquipe_IdEquipeOrderByIdPartidaDesc(int idEquipe);
 
 }

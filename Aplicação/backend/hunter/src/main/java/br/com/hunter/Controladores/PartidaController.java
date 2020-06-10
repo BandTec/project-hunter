@@ -52,13 +52,24 @@ public class PartidaController {
     }
 
     @GetMapping("/equipe/{id}")
-    public  ResponseEntity listarPorIdPartida(@PathVariable("id") Integer id) {
-        List<Partida> lista = repository.findByIdEquipe_IdEquipe(id);
+    public  ResponseEntity listarPorEquipe(@PathVariable("id") Integer id) {
+        Partida ultima = repository.findFirstByIdEquipe_IdEquipeOrderByIdPartidaDesc(id);
+        int max = ultima.getIdPartida();
+        List<Partida> lista = repository.findFirstByIdEquipe_IdEquipeAndIdPartida(id,0);
+        for (int i = 0; i <= max ; i++) {
+            List<Partida> atual = repository.findFirstByIdEquipe_IdEquipeAndIdPartida(id,i);
+            if (atual.isEmpty()) {
+
+            } else{
+                lista.add(repository.findFirstByIdEquipe_IdEquipeAndIdPartida(id,i).get(0));
+            }
+        }
+
         return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
     }
 
     @GetMapping("/idpartida/{id}")
-    public  ResponseEntity listarPorEquipe(@PathVariable("id") Integer id) {
+    public  ResponseEntity listarIdPartida(@PathVariable("id") Integer id) {
         List<Partida> lista = repository.findByIdPartida(id);
         return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
     }
