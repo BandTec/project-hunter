@@ -9,6 +9,7 @@ import br.com.hunter.Repositorios.PosicaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Part;
@@ -60,6 +61,16 @@ public class PartidaController {
     public ResponseEntity excluir(@PathVariable("id") int id) {
         if (repository.existsById(id)) {
             repository.deleteById(id);
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @Transactional
+    @DeleteMapping( "/partida/{id}" )
+    public ResponseEntity excluirIdPartida(@PathVariable("id") int id) {
+        if (repository.existsByIdPartida(id)) {
+            repository.deleteByIdPartida(id);
             return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.notFound().build();
