@@ -10,8 +10,6 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 export default function Cadastro() {
 
-
-
     const [thumbnail, setThumbnail] = useState(null);
     const [nome, setNome] = useState('');
     const [usuario, setUsuario] = useState('');
@@ -21,8 +19,7 @@ export default function Cadastro() {
     const [senha, setSenha] = useState('');
     const [confirmarSenha, setConfirmarSenha] = useState('');
     const [idJogo,setIdJogo] = useState('');
-    const [idPosicao,setIdPosicao] = useState('')
-    const [idGamer, setIdGamer] = useState('');
+    const [idPosicao,setIdPosicao] = useState('');
 
     const preview = useMemo(() => { return thumbnail ? URL.createObjectURL(thumbnail) : null },
         thumbnail);
@@ -48,9 +45,9 @@ export default function Cadastro() {
             };
 
             try {
-                const response = await api.post('/gamer/criar', data);
+                const response = await api.post(`/gamer/criar`, data);
                 //alert(`Seu ID de Acesso ${response.data.id}`);
-                if (response.status === 200){
+                if (response.status === 201){
                 handleSignUp2();
                 }else{
                     alert('Erro no cadastro, tente novamente');
@@ -61,22 +58,25 @@ export default function Cadastro() {
         }
     }
 
-    async function handleSignUp2(e) {
-        e.preventDefault();
+    async function handleSignUp2() {
         if (idJogo === "" || idPosicao === "") {
             alert('Preencha seu jogo e posição!');
         } else {
 
-            const data = {
-                idJogo,
-                idPosicao,
-            };
+            const data2 = {
+                'idJogo': {
+                    'idJogo': idJogo
+                  },
+                  'idPosicao': {
+                    'idPosicao': idPosicao
+                  }
+                };
 
             try {
-                const response = await api.post('/gamerinfo', data);
+                const response = await api.post(`/gamerinfo/${email}`, data2);
                 //alert(`Seu ID de Acesso ${response.data.id}`);
-                if (response.status === 200){
-                history.push('/home');
+                if (response.status === 201){
+                history.push('/login');
                 }else{
                     alert('Erro no cadastro de seu jogo favorito e/ou posição, tente novamente!');
                 }
@@ -93,10 +93,8 @@ export default function Cadastro() {
     
     return (
         <div className="cadastro-container">
-
 <header>
         <img src={Logo} alt="HunterProject" ></img>
-        
 </header>
 
             <form onSubmit={handleSignUp}>
@@ -108,23 +106,23 @@ export default function Cadastro() {
                     <img src={camera} alt="Select your photo"></img>
                 </label></center>
                 <div className="campos">
-                <p class = "campo">Nome:</p>
+                <p className = "campo">Nome:</p>
                 <input onChange={e => setNome(e.target.value)} />
-                <p class = "campo">Usuário:</p>
+                <p className = "campo">Usuário:</p>
                 <input onChange={e => setUsuario(e.target.value)} />
-                <p class = "campo">CPF:</p>
+                <p className = "campo">CPF:</p>
                 <input onChange={e => setCpf(e.target.value)} />
-                <p class = "campo">Telefone:</p>
+                <p className = "campo">Telefone:</p>
                 <input onChange={e => setTelefone(e.target.value)} />
-                <p class = "campo">Email:</p>
+                <p className = "campo">Email:</p>
                 <input onChange={e => setEmail(e.target.value)} />
                 
-                <p class = "campo">Senha:</p>
+                <p className = "campo">Senha:</p>
                 <input type="password" onChange={e => setSenha(e.target.value)} />
                 
-                <p class = "campo">Confirme sua senha:</p>
+                <p className = "campo">Confirme sua senha:</p>
                 <input type="password" onChange={e => setConfirmarSenha(e.target.value)} />
-                <p class = "campo">Jogo:</p>
+                <p className = "campo">Jogo:</p>
                 <select onChange={e => setIdJogo(e.target.value)}>
                 <option value='0'>Selecione o jogo</option>
                 <option value='1'>Counter-Strike: Global Offensive</option>
@@ -135,7 +133,7 @@ export default function Cadastro() {
                 <option value='6'>Call of Duty: Warzone</option>
                 <option value='7'>PlayerUnkown's Battlegrounds</option>
                 </select>
-                <p class = "campo">Posição:</p>
+                <p className = "campo">Posição:</p>
                 <select onChange={e => setIdPosicao(e.target.value)}>
                 <option value='0'>Selecione a sua posição</option>
                 <option value='2'>Atirador</option>
@@ -152,14 +150,9 @@ export default function Cadastro() {
                 <br></br>
                 <Router>
                     <div>
-
-                        
-
                         <button className="cadastro container btn Voltar" type="submit"
                             onClick={chamaLogin}> Voltar</button>
-
                         <button className="cadastro container btn Cad"  type="submit"> Cadastrar</button>
-
                     </div>
                 </Router>
 
