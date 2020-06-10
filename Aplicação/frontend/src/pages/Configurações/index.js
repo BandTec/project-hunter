@@ -279,8 +279,8 @@ function criaDados(nome, usuario, cpf, email, senha, telefone){
         const id = localStorage.getItem('idGamer');
 
         try {
-            const response = await api.post(`/gamer/${id}}`, data);
-            //alert(`Seu ID de Acesso ${response.data.id}`);
+            const response = await api.put(`/gamer/${id}}`, data);
+            //alert(`Seu ID de Acesso ${response.data.id}`);  
             if (response.status === 200){
                 alert('Dados alterados com sucesso!');
                 history.push('/Home');
@@ -352,7 +352,7 @@ history.push("/login");
                     <input type="file" onChange={event => setThumbnail(event.target.files[0])} />
                     <img src={camera} alt="Select your photo"></img>
                     
-                </label></center><br></br>
+                </label><br></br>
                 <div className="campos">
                 <p class = "campo">Nome:</p>
                 <input value={nome} onChange={e => setNome(e.target.value)} />
@@ -392,14 +392,10 @@ history.push("/login");
                 </select>
                 </div><br></br>
                 <Router>
-                    <div>
-
                         <button className="configuracao container btn Cad"  type="submit">Salvar</button>
-
-                    </div>
                 </Router>
 
-
+                </center>
             </form>
             </div>
     </div>

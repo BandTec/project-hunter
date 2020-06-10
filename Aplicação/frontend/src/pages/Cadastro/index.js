@@ -20,7 +20,9 @@ export default function Cadastro() {
     const [telefone, setTelefone] = useState('');
     const [senha, setSenha] = useState('');
     const [confirmarSenha, setConfirmarSenha] = useState('');
-
+    const [idJogo,setIdJogo] = useState('');
+    const [idPosicao,setIdPosicao] = useState('')
+    const [idGamer, setIdGamer] = useState('');
 
     const preview = useMemo(() => { return thumbnail ? URL.createObjectURL(thumbnail) : null },
         thumbnail);
@@ -49,7 +51,7 @@ export default function Cadastro() {
                 const response = await api.post('/gamer/criar', data);
                 //alert(`Seu ID de Acesso ${response.data.id}`);
                 if (response.status === 200){
-                history.push('/continuacaocadastro');
+                handleSignUp2();
                 }else{
                     alert('Erro no cadastro, tente novamente');
                 }
@@ -59,33 +61,42 @@ export default function Cadastro() {
         }
     }
 
+    async function handleSignUp2(e) {
+        e.preventDefault();
+        if (idJogo === "" || idPosicao === "") {
+            alert('Preencha seu jogo e posição!');
+        } else {
+
+            const data = {
+                idJogo,
+                idPosicao,
+            };
+
+            try {
+                const response = await api.post('/gamerinfo', data);
+                //alert(`Seu ID de Acesso ${response.data.id}`);
+                if (response.status === 200){
+                history.push('/home');
+                }else{
+                    alert('Erro no cadastro de seu jogo favorito e/ou posição, tente novamente!');
+                }
+            } catch (err) {
+                alert('Erro no cadastro de seu jogo favorito e/ou posição, tente novamente!');
+            }
+        }
+    }
+
     const history = useHistory('');
     function chamaLogin() {
         history.push("/login");
     }
-    // render() {
-
-    //     if (this.state.redirect) {
-
-    //         // return (
-    //         //     <BrowserRouter>
-    //         //       <Switch>
-    //         //         <Route path="/" exact component={Login} />
-    //         //         <Route path="/Login" exact component={Login} />
-    //         //         <Route path="/Cadastro" component={Cadastro} />
-    //         //       </Switch>
-    //         //     </BrowserRouter>
-    //         //   )
-
-
-    //     }
-    //     else {
+    
     return (
         <div className="cadastro-container">
 
 <header>
         <img src={Logo} alt="HunterProject" ></img>
-        <p className="trilha">/Cadastro</p>
+        
 </header>
 
             <form onSubmit={handleSignUp}>
@@ -107,11 +118,37 @@ export default function Cadastro() {
                 <input onChange={e => setTelefone(e.target.value)} />
                 <p class = "campo">Email:</p>
                 <input onChange={e => setEmail(e.target.value)} />
+                
                 <p class = "campo">Senha:</p>
                 <input type="password" onChange={e => setSenha(e.target.value)} />
-                </div>
-                <p class = "campo">Confirme seua senha:</p>
+                
+                <p class = "campo">Confirme sua senha:</p>
                 <input type="password" onChange={e => setConfirmarSenha(e.target.value)} />
+                <p class = "campo">Jogo:</p>
+                <select onChange={e => setIdJogo(e.target.value)}>
+                <option value='0'>Selecione o jogo</option>
+                <option value='1'>Counter-Strike: Global Offensive</option>
+                <option value='2'>Valorant</option>
+                <option value='3'>League of Legends</option>
+                <option value='4'>Fortnite</option>
+                <option value='5'>DOTA 2</option>
+                <option value='6'>Call of Duty: Warzone</option>
+                <option value='7'>PlayerUnkown's Battlegrounds</option>
+                </select>
+                <p class = "campo">Posição:</p>
+                <select onChange={e => setIdPosicao(e.target.value)}>
+                <option value='0'>Selecione a sua posição</option>
+                <option value='2'>Atirador</option>
+                <option value='3'>Suporte</option>
+                <option value='4'>Jungle</option>
+                <option value='5'>Top</option>
+                <option value='6'>Mid</option>
+                <option value='7'>Entry Fragger</option>
+                <option value='8'>Lurker</option>
+                <option value ='9'>Capitão</option>
+                <option value ='10'>Sniper</option>
+                </select>
+                </div>
                 <br></br>
                 <Router>
                     <div>

@@ -1,8 +1,6 @@
-.campo{
-    color: #dcdce6;
-    margin-top: 5%;
-    margin-bottom: -5%;
-    
+.configuracao-container form p{
+    color: #dcdce6;  
+    float: right;
 }
 
 .configuracao-container{
@@ -55,7 +53,6 @@
     border-radius: 4px;
     border: 1px solid #dcdce6;
     background: transparent;
-    /* margin-left: 300px; */
     transition : border-color 0.2s;
     
 }
@@ -105,7 +102,8 @@
         max-width: 300px;
         display:flex;
         flex-direction:column;
-    
+        justify-content: center;
+        align-items: center;
 }
 
 .react-slidedown.my-dropdown-slidedown {
@@ -125,6 +123,7 @@
     border: 1px solid #ddd;
     border-radius: 4px;
     height: 48px;
+    width: 300px;
     padding: 0 20px;
     font-size: 16px;
     color: #666;
@@ -143,7 +142,6 @@
 
 
 .configuracao-container .btn{
-    margin-top: 15px;
     border: 1px solid #000000;
     border-radius: 4px;
     height: 48px;
@@ -152,7 +150,7 @@
     font-size: 16px;
     font-style: bold;
     cursor: pointer;
-    margin-left: 28%;
+    margin-top: 1%;
 }
 
 
@@ -198,7 +196,7 @@ color:#999;
 }
 
 label#thumbnail{
-     margin-bottom: 20px;
+    margin-top: -5%;
      border: 1px dashed #ddd;
      background-size: cover;
      cursor: pointer;
@@ -229,6 +227,6 @@ label#thumbnail.has-thumbnail img {
     grid-gap: 24px;
     list-style: none;
     justify-content: right;
-    align-items: left;
-    margin-left: 180px;
+    align-items: center;
+    
 }
