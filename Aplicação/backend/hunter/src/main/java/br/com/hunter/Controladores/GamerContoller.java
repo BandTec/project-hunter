@@ -13,7 +13,8 @@ import java.util.List;
 
 import static org.springframework.http.ResponseEntity.*;
 
-@Controller("/gamer")
+@RestController
+@RequestMapping("/gamer")
 @CrossOrigin(origins = "http://localhost:3000")
 public class GamerContoller {
 
