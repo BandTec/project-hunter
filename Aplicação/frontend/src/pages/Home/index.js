@@ -481,7 +481,7 @@ export default function Home() {
 
   async function handleDeleteMatch(id){
       try{
-          await api.delete(`/partida/${id}`);
+          await api.delete(`/partida/partida/${id}`);
 
           setMatches(matches.filter(matches => matches.id !== id));
       }catch(err){
