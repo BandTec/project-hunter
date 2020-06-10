@@ -18,6 +18,7 @@ export default function Cadastro() {
     const [telefone, setTelefone] = useState('');
     const [senha, setSenha] = useState('');
     const [confirmarSenha, setConfirmarSenha] = useState('');
+    const [confirmarEmail, setConfirmarEmail] = useState('');
     const [idJogo,setIdJogo] = useState('');
     const [idPosicao,setIdPosicao] = useState('');
 
@@ -31,10 +32,13 @@ export default function Cadastro() {
 
     async function handleSignUp(e) {
         e.preventDefault();
-        if (senha != confirmarSenha) {
-            alert('Os campos senha e confirmação de senha estão diferentes');
-        } else {
-
+        if (email != confirmarEmail) {
+            alert('Digite seu email corretamente!');
+        } else if (senha != confirmarSenha) {
+                alert('Digite sua senha corretamente!')
+        }
+                else
+                {
             const data = {
                 nome,
                 usuario,
@@ -50,13 +54,19 @@ export default function Cadastro() {
                 if (response.status === 201){
                 handleSignUp2();
                 }else{
-                    alert('Erro no cadastro, tente novamente');
+                    alert('Erro no cadastro de seus dados, tente novamente');
                 }
             } catch (err) {
-                alert('Erro no cadastro, tente novamente');
+                alert('Erro no cadastro de seus dados, tente novamente');
             }
         }
     }
+
+    function handleKeyPress (event) {
+        if(event.key === 'Enter'){
+          console.log('enter press here! ')
+        }
+      }
 
     async function handleSignUp2() {
         if (idJogo === "" || idPosicao === "") {
@@ -78,10 +88,10 @@ export default function Cadastro() {
                 if (response.status === 201){
                 history.push('/login');
                 }else{
-                    alert('Erro no cadastro de seu jogo favorito e/ou posição, tente novamente!');
+                    alert('Erro no cadastro de seu jogo e/ou posição, tente novamente!');
                 }
             } catch (err) {
-                alert('Erro no cadastro de seu jogo favorito e/ou posição, tente novamente!');
+                alert('Erro no cadastro de seu jogo e/ou posição, tente novamente!');
             }
         }
     }
@@ -90,11 +100,15 @@ export default function Cadastro() {
     function chamaLogin() {
         history.push("/login");
     }
+
+    function handleVoltar(){
+        history.push('/')
+    }
     
     return (
         <div className="cadastro-container">
 <header>
-        <img src={Logo} alt="HunterProject" ></img>
+        <img src={Logo} alt="HunterProject" onClick = {handleVoltar}></img>
 </header>
 
             <form onSubmit={handleSignUp}>
@@ -116,10 +130,10 @@ export default function Cadastro() {
                 <input onChange={e => setTelefone(e.target.value)} />
                 <p className = "campo">Email:</p>
                 <input onChange={e => setEmail(e.target.value)} />
-                
+                <p className = "campo">Confirme seu email:</p>
+                <input onChange={e => setConfirmarEmail(e.target.value)} />
                 <p className = "campo">Senha:</p>
                 <input type="password" onChange={e => setSenha(e.target.value)} />
-                
                 <p className = "campo">Confirme sua senha:</p>
                 <input type="password" onChange={e => setConfirmarSenha(e.target.value)} />
                 <p className = "campo">Jogo:</p>
@@ -152,7 +166,7 @@ export default function Cadastro() {
                     <div>
                         <button className="cadastro container btn Voltar" type="submit"
                             onClick={chamaLogin}> Voltar</button>
-                        <button className="cadastro container btn Cad"  type="submit"> Cadastrar</button>
+                        <button className="cadastro container btn Cad"  type="submit" onKeyPress={handleKeyPress}> Cadastrar</button>
                     </div>
                 </Router>
 

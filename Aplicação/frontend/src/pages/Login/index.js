@@ -20,7 +20,6 @@ export default function Login(){
     history.push('/cadastro');
   }
 
-
   async function handleSignIn(e){
     e.preventDefault();
 
@@ -49,12 +48,6 @@ export default function Login(){
       }
     }
   };
-
-  // function handleKeyPress(e) {
-  //   if (e.key === 'Enter') {
-  //     this.setState({value:e.target.value})
-  //   }
-  // }
 
   return (
 

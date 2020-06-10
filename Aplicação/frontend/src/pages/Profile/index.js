@@ -177,7 +177,7 @@ export default function Profile() {
                                 <ClickAwayListener onClickAway={handleClose}>
                                     <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
                                     <MenuItem onClick={handleProfile}>Perfil</MenuItem>
-                                    <MenuItem onClick={handleEquipe}>Equipes</MenuItem>
+                                    <MenuItem onClick={handleEquipe}>Minha Equipe</MenuItem>
                                     <MenuItem onClick={handleConfig}>Configurações</MenuItem>
                                     <MenuItem onClick={handleLogout}>Logout</MenuItem>
                                     </MenuList>

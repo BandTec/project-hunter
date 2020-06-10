@@ -7,22 +7,12 @@
     align-items: center;
     justify-content: center;
     background-color: #000000;
-    
-}
-
-.cadastro-container header .trilha{
-    display: block;
-    /* margin-bottom: 1px; */
-    color: #fff;
-    font-size: 16px;
-    position: absolute;
-    margin-left: -37%;
-    margin-top: 1%;
 }
 
 .cadastro-container header img {
     height: 64px;
     margin-right: 1315px;
+    cursor: pointer;
 }
 
 .cadastro-container{
@@ -33,17 +23,13 @@
 }
 
 .cadastro-container form{
-
-        margin: 80px auto 0;
+        margin: 20px auto 0;
         width: 100%;
         max-width: 300px;
         display:flex;
         flex-direction:column;
         justify-content: center;
         align-items: center;
-        
-    
-    
 }
 
 .react-slidedown.my-dropdown-slidedown {

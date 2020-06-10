@@ -49,8 +49,6 @@ export default function Register() {
         <div className="rec-senha-container">
             <header>
                 <img src={Logo} alt="HunterProject" onClick = {handleVoltar}></img>
-
-                <p className="trilha">/Recuperação de Senha</p>
             </header>
             <div >
                 <form onSubmit={handlePassRecover}>
