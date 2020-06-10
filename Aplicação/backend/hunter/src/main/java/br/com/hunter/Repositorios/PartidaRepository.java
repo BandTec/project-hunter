@@ -9,6 +9,7 @@ public interface PartidaRepository extends  JpaRepository<Partida, Integer> {
 
     List<Partida> findByIdGamer_IdGamer(int idGamer);
     List<Partida> findByIdEquipe_IdEquipe(int IdEquipe);
+    List<Partida> findByIdPartida(int idPartida);
     Partida findFirstByOrderByIdPartidaDesc();
     long deleteByIdPartida(int id);
     boolean existsByIdPartida(int id);

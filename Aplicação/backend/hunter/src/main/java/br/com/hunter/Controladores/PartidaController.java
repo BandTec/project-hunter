@@ -52,8 +52,14 @@ public class PartidaController {
     }
 
     @GetMapping("/equipe/{id}")
-    public  ResponseEntity listarPorEquipe(@PathVariable("id") Integer id) {
+    public  ResponseEntity listarPorIdPartida(@PathVariable("id") Integer id) {
         List<Partida> lista = repository.findByIdEquipe_IdEquipe(id);
+        return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
+    }
+
+    @GetMapping("/idpartida/{id}")
+    public  ResponseEntity listarPorEquipe(@PathVariable("id") Integer id) {
+        List<Partida> lista = repository.findByIdPartida(id);
         return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
     }
 
