@@ -304,7 +304,7 @@ export default function MyTeam() {
                         <p>Jogo</p>
                         <p>Resultado</p>
 
-                        {teamHistory.find(history => (
+                        {teamHistory.map(history => (
                             <>
                             <div key={history.idJogo.idJogo} ><p> <img src={require(`../../assets/${history.idJogo.fotoJogo}`)} alt="League Of Legends" style={{ width: '20px', height: '20px' }} ></img>{history.idJogo.nomeJogo}</p></div>
                         
