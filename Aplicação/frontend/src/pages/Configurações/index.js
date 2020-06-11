@@ -353,19 +353,19 @@ history.push("/login");
                     
                 </label><br></br>
                 <div className="campos">
-                <p class = "campo">Nome:</p>
+                <p className = "campo">Nome:</p>
                 <input value={nome} onChange={e => setNome(e.target.value)} />
-                <p class = "campo">Usuário:</p>
+                <p className = "campo">Usuário:</p>
                 <input value = {usuario} onChange={e => setUsuario(e.target.value)} />
-                <p class = "campo">CPF:</p>
+                <p className = "campo">CPF:</p>
                 <input value={cpf} onChange={e => setCpf(e.target.value)} />
-                <p class = "campo">Telefone:</p>
+                <p className = "campo">Telefone:</p>
                 <input value={telefone} onChange={e => setTelefone(e.target.value)} />
-                <p class = "campo">Email:</p>
+                <p className = "campo">Email:</p>
                 <input value={email} onChange={e => setEmail(e.target.value)} />
-                <p class = "campo">Senha:</p>
+                <p className = "campo">Senha:</p>
                 <input type = "password" value={senha} onChange={e => setSenha(e.target.value)} />
-                <p class = "campo">Jogo:</p>
+                <p className = "campo">Jogo:</p>
                 <select onChange={e => setJogo(e.target.value)}>
                 <option value='0'>Selecione o jogo</option>
                 <option value='1'>Counter-Strike: Global Offensive</option>
@@ -376,7 +376,7 @@ history.push("/login");
                 <option value='6'>Call of Duty: Warzone</option>
                 <option value='7'>PlayerUnkown's Battlegrounds</option>
                 </select>
-                <p class = "campo">Posição:</p>
+                <p className = "campo">Posição:</p>
                 <select onChange={e => setPosicao(e.target.value)}>
                 <option value='0'>Selecione a sua posição</option>
                 <option value='2'>Atirador</option>
