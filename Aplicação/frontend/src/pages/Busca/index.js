@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./styles.css";
 import Logo from "../../assets/testeLogo3.png";
+import User from "../../assets/default-user.png";
 import {
   FiArrowLeft,
   FiPower,
@@ -175,7 +176,8 @@ function getModalStyle() {
   };
 }
 
-export default function Home() {
+export default function Busca({ dataResponse }) {
+  console.log(dataResponse);
   const [matches, setMatches] = useState([]);
   const [nome, setNome] = useState("");
   const [idGamer, setIdGamer] = useState("");
@@ -183,10 +185,6 @@ export default function Home() {
   const [posicao, setPosicao] = useState("");
   const [data, setData] = useState("");
   const [hora, setHora] = useState("");
-  const [pesquisa, setPesquisa] = useState("");
-  const [resultado, setResultado] = useState([]);
-
-  console.log(localStorage);
 
   const [jogoPt, setJogoPt] = useState("");
   const [posicaoPt, setPosicaoPt] = useState("");
@@ -209,8 +207,10 @@ export default function Home() {
   const classes2 = useStyles2();
   const [modalStyle] = React.useState(getModalStyle);
   const [openModal, setOpenModal] = React.useState(false);
-  const [page, setPage] = useState(0);
-  const [metadata, setMetadata] = useState([]);
+  const [games, setGames] = useState(dataResponse);
+  const [equipes, setEquipes] = useState(dataResponse);
+  const [nomeEquipe, setNomeEquipe] = useState([]);
+  const [team, setTeam] = useState([]);
 
   const handleOpenModal = () => {
     setOpenModal(true);
@@ -256,7 +256,6 @@ export default function Home() {
 
           setIdPartida(temp[0].idPartida);
 
-          console.log(idPartida);
           if (!nomeJogadorOpPt || !posicaoOpcionalPt) {
             return;
           } else {
@@ -448,16 +447,30 @@ export default function Home() {
       isArray && setMatches(data);
     });
   }, [id]);
-
   useEffect(() => {
-    api.get(`/pesquisa/busca/${pesquisa}/`).then((response) => {
-      const { data = [] } = response || {};
-      console.log(data);
-      const isArray = Array.isArray(data);
-      isArray && setResultado(data);
-      history.push("/busca", data);
+    dataResponse.forEach((values) => {
+      api.get(`/jogo/${values.id}/`).then((response) => {
+        const { data = [] } = response || {};
+        const isArray = Array.isArray(data);
+        isArray && setGames(data);
+      });
     });
-  }, [history, pesquisa]);
+  }, [dataResponse]);
+  useEffect(() => {
+    data.forEach((values) => {
+      api.get(`/equipe/${values.id}`).then((response) => {
+        const { data = [] } = response || {};
+        const isArray = Array.isArray(data);
+        isArray && setEquipes(data);
+      });
+    });
+  }, [data, dataResponse]);
+  useEffect(() => {
+    setNomeEquipe(localStorage.getItem("nomeEquipe"));
+    api.get(`/equipegamer/equipe/${nomeEquipe}/`).then((response) => {
+      setTeam(response.data);
+    });
+  }, [nomeEquipe, team]);
 
   function criaDados(idGamer, nome) {
     return { idGamer, nome };
@@ -508,11 +521,7 @@ export default function Home() {
         <img src={Logo} alt="HunterProject"></img>
 
         <div className="input-pesquisa">
-          <input
-            type="text"
-            placeholder="Busque por jogos, equipes..."
-            onChange={(e) => setPesquisa(e.target.value)}
-          ></input>
+          <input type="text" placeholder="Busque por jogos, equipes..."></input>
           <button className="btn-pesquisa">
             <FiSearch size={18} color="#000000" />
           </button>
@@ -561,47 +570,59 @@ export default function Home() {
         </Popper>
       </header>
 
-      <p className="bem-vindo">Bem vindo, {nome}.</p>
+      <div>
+        <p className="type-name">Jogos</p>
+        {games
+          ? games.map((game) => (
+              <>
+                <img
+                  src={
+                    game.fotoJogo
+                      ? require(`../../assets/${game.fotoJogo}`)
+                      : game.fotoJogo
+                  }
+                  alt=""
+                  className="jogo-imagem"
+                ></img>
+                <p className="jogo-nome">{game.nomeJogo}</p>
+              </>
+            ))
+          : games}
+      </div>
 
-      <h1>Partidas Agendadas:</h1>
+      <div className="barras">
+        <p className="barra-menor"></p>
+        <p className="barra-maior"></p>
+      </div>
 
-      <ul className="partidas">
-        {matches.map((match) => (
-          <li key={match.idPartida}>
-            <strong>{match.idJogo.nomeJogo}</strong>
-            <p>Posição : {match.idPosicao.posicao}</p>
-
-            <strong>Horário: </strong>
-            <p>
-              <b>{match.hora}</b>
-            </p>
-
-            <strong>Duração Estimada: </strong>
-            <p>1 Hora</p>
-
-            <button type="button">
-              {" "}
-              <FiTrash2
-                size={20}
-                color="#a8a8b3"
-                onClick={() => handleDeleteMatch(match.idPartida)}
-              />
-            </button>
-          </li>
-        ))}
-
-        <li>
-          <strong>Adicionar Partida</strong>
-
-          <button className="btn-adicionar" onClick={handleOpenModal}>
-            {" "}
-            <FiPlusCircle size={64} color="#000000" />
-          </button>
-          <Modal open={openModal} onClose={handleCloseModal}>
-            {body}
-          </Modal>
-        </li>
-      </ul>
+      <div>
+        <p className="type-name">Equipes</p>
+        {equipes
+          ? equipes.map((equipe) => (
+              <>
+                <img
+                  src={
+                    equipe.fotoEquipe
+                      ? require(`../../assets/${equipe.fotoEquipe}`)
+                      : equipe.fotoEquipe
+                  }
+                  alt=""
+                  className="jogo-imagem"
+                ></img>
+                <p className="jogo-nome">{equipe.nomeEquipe}</p>
+                <h2>Jogadores:</h2>
+                <div className="current-members">
+                  {team.map((team) => (
+                    <div key={team.idGamer.idGamer} className="membros-imagem">
+                      <img src={User} alt="User-Icon"></img>
+                      <p>{team.idGamer.nome}</p>
+                    </div>
+                  ))}
+                </div>
+              </>
+            ))
+          : equipes}
+      </div>
     </div>
   );
 }
