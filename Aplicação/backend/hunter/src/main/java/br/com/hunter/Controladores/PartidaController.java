@@ -6,6 +6,7 @@ import br.com.hunter.Modelos.Posicao;
 import br.com.hunter.Repositorios.GamerRepository;
 import br.com.hunter.Repositorios.PartidaRepository;
 import br.com.hunter.Repositorios.PosicaoRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Part;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,17 +53,48 @@ public class PartidaController {
         return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
     }
 
-    @GetMapping("/equipe/{id}")
-    public  ResponseEntity listarPorEquipe(@PathVariable("id") Integer id) {
+    @GetMapping("/gamer/antes/{id}")
+    public  ResponseEntity listarPorGamerAntes(@PathVariable("id") Integer id) {
+        List<Partida> lista = repository.findByIdGamer_IdGamerAndDataBefore(id, LocalDate.now());
+        return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
+    }
+
+    @GetMapping("/gamer/depois/{id}")
+    public  ResponseEntity listarPorGamerDepois(@PathVariable("id") Integer id) {
+        List<Partida> lista = repository.findByIdGamer_IdGamerAndDataAfter(id, LocalDate.now());
+        return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
+    }
+
+    @GetMapping("/equipe/antes/{id}")
+    public  ResponseEntity listarPorEquipeAntes(@PathVariable("id") Integer id) {
         Partida ultima = repository.findFirstByIdEquipe_IdEquipeOrderByIdPartidaDesc(id);
         int max = ultima.getIdPartida();
         List<Partida> lista = repository.findFirstByIdEquipe_IdEquipeAndIdPartida(id,0);
         for (int i = 0; i <= max ; i++) {
             List<Partida> atual = repository.findFirstByIdEquipe_IdEquipeAndIdPartida(id,i);
-            if (atual.isEmpty()) {
-
-            } else{
+            ;
+            if (!atual.isEmpty() && atual.get(0).getData().isBefore(LocalDate.now())) {
                 lista.add(repository.findFirstByIdEquipe_IdEquipeAndIdPartida(id,i).get(0));
+            } else {
+
+            }
+        }
+
+        return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
+    }
+
+    @GetMapping("/equipe/depois/{id}")
+    public  ResponseEntity listarPorEquipeDepois(@PathVariable("id") Integer id) {
+        Partida ultima = repository.findFirstByIdEquipe_IdEquipeOrderByIdPartidaDesc(id);
+        int max = ultima.getIdPartida();
+        List<Partida> lista = repository.findFirstByIdEquipe_IdEquipeAndIdPartida(id,0);
+        for (int i = 0; i <= max ; i++) {
+            List<Partida> atual = repository.findFirstByIdEquipe_IdEquipeAndIdPartida(id,i);
+            ;
+            if (!atual.isEmpty() && atual.get(0).getData().isAfter(LocalDate.now())) {
+                lista.add(repository.findFirstByIdEquipe_IdEquipeAndIdPartida(id,i).get(0));
+            } else {
+
             }
         }
 
