@@ -114,11 +114,23 @@ export default function Profile() {
         });
       }, []);
 
+    //   useEffect(() => {
+    //     api.get(`/partida/equipe/${idGamer}/`
+
+    //     ).then(response => {
+    //         //setTeamGames(response.data);
+    //         const { data = [] } = response || {};
+    //         // verify response.data is an array
+    //         const isArray = Array.isArray(data)
+    //         isArray && setTeamHistory(data);
+
+    //         console.log(teamHistory);
+    //     });
+    // }, [idGamer]);
+
     const [team, setTeam] = useState([]);
     const [userGames, setUserGames] = useState([]);
-
-    
-
+    const [teamHistory, setTeamHistory] = useState([]);
 
     function handleTeamPage(){
         history.push('/equipe');
@@ -227,10 +239,19 @@ export default function Profile() {
                         <p>Jogo</p>   
                         <p>Resultado</p>
                         
-                        <div><p> <img src={Lol} alt="League Of Legends" style={{ width : '20px', height: '20px'}} ></img> League of Legends</p></div> 
-                        <div><p className="derrota">Derrota</p></div>
-                        <div><p> <img src={Lol} alt="League Of Legends" style={{ width : '20px', height: '20px'}} ></img> League of Legends</p></div> 
-                        <div><p className="vitoria">Vitória</p></div>
+                        {/* {teamHistory.map(history => (
+                            <>
+                                <div key={history.idPartida} ><p> <img src={require(`../../assets/${history.idJogo.fotoJogo}`)} alt="League Of Legends" style={{ width: '20px', height: '20px' }} ></img>{history.idJogo.nomeJogo}</p></div>
+                                <div>
+                                    <p
+                                        className={history.winner == false ? "derrota" : "vitoria"}
+                                        value={history.winner == false ? "Derrota" : "Vitória"}
+                                    >
+                                        Resultado
+                                    </p>
+                                </div>
+                            </>
+                        ))} */}
 
 
                     </div>
