@@ -1,0 +1,108 @@
+.profile-container{
+    width:100%;
+    /* max-width: 800px; */
+    padding: 30px;
+    /* margin: 32px auto; */
+    display: contents;
+    justify-content: center;
+    align-items: center;
+    
+    
+}
+
+.profile-container header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000000;
+    
+}
+
+
+.profile-container header img {
+    height: 64px;
+    margin-right: 150px;
+    cursor: pointer;
+}
+.profile-container header input{
+   
+    
+    
+    border-style: hidden;
+    border-radius: 4px;
+    height: 48px;
+    width: 600px;
+    padding: 0 20px;
+    font-size: 14px;
+    color: #666;
+    
+}
+
+
+.profile-container header a {
+    width: 260px;
+    margin-left: auto;
+    margin-top: 0;
+}
+.profile-container header button {
+    height: 60px;
+    width: 60px;
+    border-radius: 4px;
+    border: 1px solid #dcdce6;
+    background: transparent;
+    /* margin-left: 300px; */
+    transition : border-color 0.2s;
+    
+}
+
+.profile-container header button:hover{
+    border-color: #999;
+    
+
+}
+
+.profile-container .input-pesquisa{
+    display: flex;
+    width: 600px;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin-left: 200px;
+
+
+}
+.profile-container .btn-pesquisa{
+    padding: 10px;
+    height: 100%;
+    color: white;
+    min-width: 50px;
+    text-align: center;
+    border-style: none;
+    cursor: pointer;
+}
+
+.profile-container .div-principal{
+    display: grid;
+    grid-template-columns:  repeat(3, 1fr);
+    grid-gap: 24px;
+}
+
+.profile-container  .div-equipes{
+    margin-top: 40px;
+    color: #fff;
+    background-color: #000000;
+    width: 200px;
+    margin-left: 60px;
+    text-align: center;
+    border-radius: 10px;    
+}
+
+.profile-container .div-equipes div p{
+    margin-left: 9px;
+}
+
+.profile-container .div-equipes img{
+    height: 130px;
+    width: 180px;
+}

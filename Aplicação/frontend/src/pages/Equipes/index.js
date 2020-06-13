@@ -2,12 +2,6 @@ import React, { useEffect, useState } from 'react';
 import './styles.css'
 import Logo from "../../assets/testeLogo3.png";
 
-import Lol from "../../assets/lol-icon.svg";
-import CSGO from "../../assets/csgo-icon.svg";
-import Overwatch from "../../assets/overwatch-icon.svg";
-import User from "../../assets/default-user.png"
-
-
 import TeamPicture from "../../assets/team-icon.svg";
 import { FiArrowLeft, FiStar, FiTrash2, FiSearch, FiUser, FiPlusCircle } from 'react-icons/fi'
 import { Link, useHistory } from 'react-router-dom';
@@ -86,91 +80,25 @@ export default function MyTeam() {
     const [fotoEquipe, setFotoEquipe] = useState([]);
     const [idEquipe, setIdEquipe] = useState('');
 
-    //localStorage.setItem('nomeEquipe', "keyd");
+    localStorage.setItem('nomeEquipe', "keyd");
 
-
+    const email = localStorage.getItem('email');
+    const [equipes, setEquipes] = useState([]);
 
     useEffect(() => {
-        setNomeEquipe(localStorage.getItem('nomeEquipe'));
-        api.get(`/equipegamer/equipe/${nomeEquipe}/`
+        api.get(`/equipegamer/gamer/${email}/`
 
         ).then(response => {
-            setTeam(response.data);
-            console.log(team);
 
+            const { data = [] } = response || {};
+            // verify response.data is an array
+            const isArray = Array.isArray(data)
+            isArray && setEquipes(data);
         })
-
-    }, [nomeEquipe]);
-
-    useEffect(() => {
-        api.get(`/equipe/nome/${nomeEquipe}/`
-
-        ).then(response => {
-            //setTeamGames(response.data);
-            const { data = [] } = response || {};
-            // verify response.data is an array
-            const isArray = Array.isArray(data)
-            isArray && setFotoEquipe(data);
-
-
-            let dados = response.data;
-
-            let temp = [];
-
-            dados.forEach(item => {
-                temp.push(
-                    criaDados(
-                        item.idEquipe
-                    )
-                );
-            });
-
-            setIdEquipe(temp[0].idEquipe);
-
-            console.log(fotoEquipe);
-        });
-    }, [nomeEquipe]);
-
-    useEffect(() => {
-        api.get(`/equipejogo/equipe/${idEquipe}/`
-
-        ).then(response => {
-            //setTeamGames(response.data);
-            const { data = [] } = response || {};
-            // verify response.data is an array
-            const isArray = Array.isArray(data)
-            isArray && setTeamGames(data);
-
-            console.log(teamGames);
-        });
-    }, [idEquipe]);
-
-    useEffect(() => {
-        api.get(`/partida/equipe/${idEquipe}/`
-
-        ).then(response => {
-            //setTeamGames(response.data);
-            const { data = [] } = response || {};
-            // verify response.data is an array
-            const isArray = Array.isArray(data)
-            isArray && setTeamHistory(data);
-
-            console.log(teamHistory);
-        });
-    }, [idEquipe]);
+    }, [email]);
 
 
 
-
-    function criaDados(idEquipe) {
-        return { idEquipe }
-    }
-
-
-    const [team, setTeam] = useState([]);
-    const [teamGames, setTeamGames] = useState([]);
-    const [teamGamers, setTeamGamers] = useState([]);
-    const [teamHistory, setTeamHistory] = useState([]);
 
 
     const history = useHistory('');
@@ -202,7 +130,7 @@ export default function MyTeam() {
     }
 
     async function handleEquipe() {
-        history.push('/equipe');
+        history.push('/equipes');
     }
 
 
@@ -210,6 +138,12 @@ export default function MyTeam() {
 
         history.push('/home');
     }
+
+    function handleTeamProfile(name) {
+        localStorage.setItem('nomeEquipe', name);
+        history.push('/equipe');
+    }
+
     return (
         <div className="profile-container">
 
@@ -243,7 +177,7 @@ export default function MyTeam() {
                                 <ClickAwayListener onClickAway={handleClose}>
                                     <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
                                         <MenuItem onClick={handleProfile}>Perfil</MenuItem>
-                                        <MenuItem onClick={handleEquipe}>Minha Equipe</MenuItem>
+                                        <MenuItem onClick={handleEquipe}>Minhas Equipes</MenuItem>
                                         <MenuItem onClick={handleConfig}>Configurações</MenuItem>
                                         <MenuItem onClick={handleLogout}>Logout</MenuItem>
                                     </MenuList>
@@ -257,78 +191,28 @@ export default function MyTeam() {
 
             </header>
 
-            <div className="div-profile">
-                {fotoEquipe.map(team => (
-                    <img className="profile-pic" src={require(`../../assets/${team.fotoEquipe}`)} alt="Foto de Perfil"></img>
+            <div className="div-principal">
+                {equipes.map(team => (
+                    <div key={team.idEquipe.idEquipe} className="div-equipes">
+                        <img src={require(`../../assets/${team.idEquipe.fotoEquipe}`)} onClick={() => handleTeamProfile(team.idEquipe.nomeEquipe)} alt="Icone Equipe"></img>
+                        <p onClick={() => handleTeamProfile(team.idEquipe.nomeEquipe)}>{team.idEquipe.nomeEquipe}</p>
+                    </div>
                 ))}
-                <h1 className="profile-nic">{nomeEquipe}</h1>
-                <h1 className="profile-rate"> <FiStar size={48} color="#F1DA07" />  4.96</h1>
+
+
+
+                
             </div>
 
-
-            <body>
-                <div>
-
-                    <h2>Jogadores:</h2>
-                    <div className="current-members">
-                        {team.map(team => (
-                            <div key={team.idGamer.idGamer}>
-                                <img src={User} alt="User-Icon" ></img>
-                                <p>{team.idGamer.nome}</p>
-                            </div>
-                        ))}
-
-                    </div>
-
-                    <h2>Jogos Atuais:</h2>
-                    <div className="current-games">
-
-                        {teamGames.map(team => (
-                            <div key={team.idJogo.idJogo} >
-
-                                <img src={require(`../../assets/${team.idJogo.fotoJogo}`)} alt="Icone Jogo" ></img>
-                                <p>{team.idJogo.nomeJogo}</p>
-
-                            </div>
-                        ))}
-
-                    </div>
-
-                </div>
-
-                <div>
-                    <h3>Ultimas Partidas:</h3>
-                    <div className="last-games">
-
-
-                        <p>Jogo</p>
-                        <p>Resultado</p>
-
-                        {teamHistory.map(history => (
-                            <>
-                                <div key={history.idPartida} ><p> <img src={require(`../../assets/${history.idJogo.fotoJogo}`)} alt="League Of Legends" style={{ width: '20px', height: '20px' }} ></img>{history.idJogo.nomeJogo}</p></div>
-
-
-                                <div>
-                                    <p
-                                        className={history.winner == false ? "derrota" : "vitoria"}
-                                        value={history.winner == false ? "Derrota" : "Vitória"}
-                                    >
-                                        Resultado
-                                    </p>
-                                </div>
-                            </>
-                        ))}
-
-
-
-                        {/* <div><p> <img src={Lol} alt="League Of Legends" style={{ width: '20px', height: '20px' }} ></img> League of Legends</p></div>
-                        <div><p className="vitoria">Vitória</p></div> */}
-
-
-                    </div>
-                </div>
-            </body>
         </div>
     );
 }
+
+//<div className='div-criar-equipe'>
+  //                  <button className="btn-criar" /*onClick={handleOpenModal}*/> <FiPlusCircle size={64} color="#000000" /> Criar Equipe</button>
+//
+  //              </div>
+    //            <div className='div-entrar-equipe'>
+      //              <button className="btn-criar" /*onClick={handleOpenModal}*/>  Entrar em Equipe </button>
+//
+  //              </div>
