@@ -146,7 +146,7 @@ export default function MyTeam() {
     }, [idEquipe]);
 
     useEffect(() => {
-        api.get(`/partida/equipe/${idEquipe}/`
+        api.get(`/partida/equipe/antes/${idEquipe}/`
 
         ).then(response => {
             //setTeamGames(response.data);

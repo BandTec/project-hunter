@@ -155,7 +155,7 @@ export default function Profile() {
       }
     
     async function handleEquipe() {
-        history.push('/equipes');
+        history.push('/equipe');
       }
     return (
         <div className="profile-container">
