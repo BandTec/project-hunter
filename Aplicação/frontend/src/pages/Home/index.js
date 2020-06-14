@@ -441,7 +441,7 @@ export default function Home() {
   }, [email]);
 
   useEffect(() => {
-    api.get(`/partida/gamer/${id}/`).then((response) => {
+    api.get(`/partida/gamer/depois/${id}/`).then((response) => {
       const { data = [] } = response || {};
       // verify response.data is an array
       const isArray = Array.isArray(data);
@@ -571,13 +571,18 @@ export default function Home() {
             <strong>{match.idJogo.nomeJogo}</strong>
             <p>Posição : {match.idPosicao.posicao}</p>
 
+            <strong>Data: </strong>
+            <p>
+              <b>{match.data}</b>
+            </p>
+
             <strong>Horário: </strong>
             <p>
               <b>{match.hora}</b>
             </p>
 
-            <strong>Duração Estimada: </strong>
-            <p>1 Hora</p>
+            {/* <strong>Duração Estimada: </strong>
+            <p>1 Hora</p> */}
 
             <button type="button">
               {" "}

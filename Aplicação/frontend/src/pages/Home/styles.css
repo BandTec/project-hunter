@@ -119,6 +119,7 @@
     right: 24px;
     top: 24px;
     border: 0;
+    cursor: pointer;
 }
 
 .home-container .partidas li button:hover{
