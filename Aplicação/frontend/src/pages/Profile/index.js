@@ -54,7 +54,6 @@ export default function Profile() {
         if (anchorRef.current && anchorRef.current.contains(event.target)) {
             return;
         }
-
         setOpen(false);
     };
 
@@ -133,10 +132,6 @@ export default function Profile() {
     const [userGames, setUserGames] = useState([]);
     const [teamHistory, setTeamHistory] = useState([]);
 
-    function handleTeamPage(){
-        history.push('/equipe');
-    }
-
     function handleLogout() {
         localStorage.clear();
         history.push('/');
@@ -162,13 +157,10 @@ export default function Profile() {
 
             <header>
                 <img src={Logo} alt="HunterProject" onClick={handleHome}></img>
-                {/* <span>Bem vindo, {userName}</span> */}
-
-                <div className="input-pesquisa">
-                    <input type="text" placeholder="Busque por jogos, equipes..."></input>
-                    <button className="btn-pesquisa"><FiSearch size={18} color="#000000" /></button>
-                </div>
-
+                    <div className="input-pesquisa">
+                        <input type="text" placeholder="Busque por jogos, equipes..."></input>
+                        <button className="btn-pesquisa"><FiSearch size={18} color="#000000" /></button>
+                    </div>
 
                 <Button
                     ref={anchorRef}
@@ -176,10 +168,10 @@ export default function Profile() {
                     aria-haspopup="true"
                     onClick={handleToggle}
                     className={classes.button}
-
                 >
                     <FiUser size={36} color="#FFFFFF" />
                 </Button>
+
                 <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal >
                     {({ TransitionProps, placement }) => (
                         <Grow
@@ -202,11 +194,10 @@ export default function Profile() {
             </header>
 
             <div className="div-profile">
-            <img className="profile-pic" src = {require(`../../assets/${localStorage.getItem('nome')}-icon.jpg`)} alt="Foto de Perfil"></img>
-                    <h1 className="profile-nic">{nome}</h1>
+                <img className="profile-pic" src = {require(`../../assets/${localStorage.getItem('nome')}-icon.jpg`)} alt="Foto de Perfil"></img>
+                <h1 className="profile-nic">{nome}</h1>
                 <h1 className="profile-rate"> <FiStar size={48} color="#F1DA07" />  4.96</h1>
             </div>
-
 
             <body>
                 <div>
@@ -239,7 +230,6 @@ export default function Profile() {
 
                         <p>Jogo</p>   
                         <p>Resultado</p>
-                        
                         {teamHistory.map(history => (
                             <>
                                 <div key={history.idPartida} ><p> <img src={require(`../../assets/${history.idJogo.fotoJogo}`)} alt="League Of Legends" style={{ width: '20px', height: '20px' }} ></img>{history.idJogo.nomeJogo}</p></div>
@@ -253,8 +243,6 @@ export default function Profile() {
                                 </div>
                             </>
                         ))}
-
-
                     </div>
                 </div>
             </body>
