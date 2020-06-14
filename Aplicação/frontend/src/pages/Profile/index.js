@@ -81,6 +81,7 @@ export default function Profile() {
     const history = useHistory('');
     const nome = localStorage.getItem('nome');
     const email = localStorage.getItem('email');
+    const idGamer = localStorage.getItem('idGamer');
     const [equipes, setEquipes] = useState([]);
 
     useEffect(() => {
@@ -114,19 +115,19 @@ export default function Profile() {
         });
       }, []);
 
-    //   useEffect(() => {
-    //     api.get(`/partida/equipe/${idGamer}/`
+      useEffect(() => {
+        api.get(`/partida/gamer/antes/${idGamer}/`
 
-    //     ).then(response => {
-    //         //setTeamGames(response.data);
-    //         const { data = [] } = response || {};
-    //         // verify response.data is an array
-    //         const isArray = Array.isArray(data)
-    //         isArray && setTeamHistory(data);
+        ).then(response => {
+            //setTeamGames(response.data);
+            const { data = [] } = response || {};
+            // verify response.data is an array
+            const isArray = Array.isArray(data)
+            isArray && setTeamHistory(data);
 
-    //         console.log(teamHistory);
-    //     });
-    // }, [idGamer]);
+            console.log(teamHistory);
+        });
+    }, [idGamer]);
 
     const [team, setTeam] = useState([]);
     const [userGames, setUserGames] = useState([]);
@@ -239,7 +240,7 @@ export default function Profile() {
                         <p>Jogo</p>   
                         <p>Resultado</p>
                         
-                        {/* {teamHistory.map(history => (
+                        {teamHistory.map(history => (
                             <>
                                 <div key={history.idPartida} ><p> <img src={require(`../../assets/${history.idJogo.fotoJogo}`)} alt="League Of Legends" style={{ width: '20px', height: '20px' }} ></img>{history.idJogo.nomeJogo}</p></div>
                                 <div>
@@ -251,7 +252,7 @@ export default function Profile() {
                                     </p>
                                 </div>
                             </>
-                        ))} */}
+                        ))}
 
 
                     </div>
