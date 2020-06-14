@@ -233,7 +233,7 @@ export default function Profile() {
                 </div>
 
                 <div>
-                    <h3>Ultimas Partidas:</h3>
+                    <h3>Últimas Partidas:</h3>
                     <div className="last-games">
 
 
