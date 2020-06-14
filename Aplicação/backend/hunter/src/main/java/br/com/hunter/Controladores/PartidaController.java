@@ -13,13 +13,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Part;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.springframework.http.ResponseEntity.noContent;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
@@ -61,7 +61,15 @@ public class PartidaController {
 
     @GetMapping("/gamer/depois/{id}")
     public  ResponseEntity listarPorGamerDepois(@PathVariable("id") Integer id) {
-        List<Partida> lista = repository.findByIdGamer_IdGamerAndDataAfter(id, LocalDate.now());
+        List<Partida> base = repository.findByIdGamer_IdGamerAndDataAfter(id, LocalDate.now().minusDays(1));
+        List<Partida> lista = new ArrayList<Partida>();
+        // repository.findByIdGamer_IdGamerAndDataAfter(id, LocalDate.now().minusDays(1))
+        for (int i = 0; i < base.size(); i++)
+        if (base.get(i).getHora().isAfter(LocalTime.now())) {
+            lista.add(base.get(i));
+        } else {
+
+        }
         return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
     }
 
@@ -91,7 +99,8 @@ public class PartidaController {
         for (int i = 0; i <= max ; i++) {
             List<Partida> atual = repository.findFirstByIdEquipe_IdEquipeAndIdPartida(id,i);
             ;
-            if (!atual.isEmpty() && atual.get(0).getData().isAfter(LocalDate.now())) {
+            if (!atual.isEmpty() && atual.get(0).getData().isAfter(LocalDate.now().minusDays(1))
+                                 && atual.get(0).getHora().isAfter(LocalTime.now())) {
                 lista.add(repository.findFirstByIdEquipe_IdEquipeAndIdPartida(id,i).get(0));
             } else {
 
