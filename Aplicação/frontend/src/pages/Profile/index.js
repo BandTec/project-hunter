@@ -248,7 +248,7 @@ export default function Profile() {
                                         className={history.winner == false ? "derrota" : "vitoria"}
                                         value={history.winner == false ? "Derrota" : "Vitória"}
                                     >
-                                        Resultado
+                                        {history.winner == false ? "Derrota" : "Vitória"}
                                     </p>
                                 </div>
                             </>
