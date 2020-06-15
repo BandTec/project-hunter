@@ -11,6 +11,7 @@ import DefinicaoCadPerfil from "./pages/DefinicaoCadPerfil";
 import { isAuthenticated } from "./auth";
 import ContCadastro from "./pages/DefinicaoCadPerfil";
 import Busca from "./pages/Busca";
+import Equipes from "./pages/Equipes";
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -44,8 +45,8 @@ class routes extends Component {
             <PrivateRoute path="/home" component={Home} />
             <PrivateRoute exact path="/profile" component={Profile} />
             <PrivateRoute exact path="/config" component={Configurações} />
-            <PrivateRoute exact path="/equipe/" component={MinhaEquipe} />
-            <PrivateRoute exact path="/busca/" component={Busca} />
+            <PrivateRoute exact path="/perfil-equipe/" component={MinhaEquipe} />
+            <PrivateRoute exact path="/equipes/" component={Equipes} />
           </Switch>
         </>
       </BrowserRouter>

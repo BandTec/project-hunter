@@ -499,7 +499,7 @@ export default function Home() {
   }
 
   async function handleEquipe() {
-    history.push("/equipe");
+    history.push("/equipes");
   }
 
   return (
@@ -550,7 +550,7 @@ export default function Home() {
                     onKeyDown={handleListKeyDown}
                   >
                     <MenuItem onClick={handleProfile}>Perfil</MenuItem>
-                    <MenuItem onClick={handleEquipe}>Minha Equipe</MenuItem>
+                    <MenuItem onClick={handleEquipe}>Minhas Equipes</MenuItem>
                     <MenuItem onClick={handleConfig}>Configurações</MenuItem>
                     <MenuItem onClick={handleLogout}>Logout</MenuItem>
                   </MenuList>

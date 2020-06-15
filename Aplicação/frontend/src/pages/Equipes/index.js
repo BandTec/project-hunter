@@ -141,7 +141,7 @@ export default function MyTeam() {
 
     function handleTeamProfile(name) {
         localStorage.setItem('nomeEquipe', name);
-        history.push('/equipe');
+        history.push('/perfil-equipe');
     }
 
     return (

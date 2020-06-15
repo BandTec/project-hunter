@@ -229,7 +229,7 @@ function criaDados(nome, usuario, cpf, email, senha, telefone){
   }
 
   async function handleEquipe() {
-    history.push('/equipe');
+    history.push('/equipes');
   }
 
   function handleAgendamento(){
@@ -331,7 +331,7 @@ history.push("/login");
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
                   <MenuItem onClick={handleProfile}>Perfil</MenuItem>
-                                    <MenuItem onClick={handleEquipe}>Minha Equipe</MenuItem>
+                                    <MenuItem onClick={handleEquipe}>Minhas Equipes</MenuItem>
                                     <MenuItem onClick={handleConfig}>Configurações</MenuItem>
                                     <MenuItem onClick={handleLogout}>Logout</MenuItem>
                   </MenuList>
