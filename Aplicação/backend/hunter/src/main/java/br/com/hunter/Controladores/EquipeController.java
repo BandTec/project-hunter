@@ -23,7 +23,7 @@ public class EquipeController {
     @PostMapping
     public ResponseEntity createEquipe(@RequestBody Equipe newEquipe){
         this.repository.save(newEquipe);
-        return created(null).body(newEquipe.getIdEquipe());
+        return created(null).body(newEquipe);
     }
 
     @GetMapping
