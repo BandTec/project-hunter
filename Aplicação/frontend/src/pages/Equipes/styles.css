@@ -101,6 +101,12 @@
 .profile-container .div-equipes div p{
     margin-left: 9px;
 }
+.profile-container .div-principal .div-equipes  button{
+   
+    background: transparent;
+    border:transparent;
+    cursor: pointer;
+}
 
 .profile-container .div-equipes img{
     height: 130px;
