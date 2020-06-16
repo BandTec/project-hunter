@@ -8,7 +8,7 @@ public class LerArquivo {
         BufferedReader entrada = null;
         String dados;
         String tipoDados;
-        String nome, posicao, nomeJogo;
+        String nome, nivel, posicao, nomeJogo;
         int contDados = 0;
 
         try {
@@ -40,14 +40,15 @@ public class LerArquivo {
                     else if (tipoDados.equals("02")){
                         if (contDados == 0){
                             System.out.println();
-                            System.out.printf("%-25s %-15s %-18s\n", "nome", "posicao", "nomeJogo");
+                            System.out.printf("%-25s %-15s %-15s %-25s\n", "nome", "nivel", "posicao", "nomeJogo");
                         }
 
                         nome = dados.substring(2, 27);
-                        posicao = dados.substring(27, 42);
-                        nomeJogo = dados.substring(42, 60);
+                        nivel = dados.substring(27, 42);
+                        posicao = dados.substring(42, 57);
+                        nomeJogo = dados.substring(57, 82);
 
-                    System.out.printf("%-25s %-15s %-18s\n", nome, posicao, nomeJogo);
+                    System.out.printf("%-25s %-15s %-15s %-25s\n", nome, nivel, posicao, nomeJogo);
                     contDados++;
                 }
                     else {

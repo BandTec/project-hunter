@@ -40,8 +40,9 @@ public class GravarArquivo {
 
         corpo += "02";
         corpo += String.format("%-25s", "Vinicius de Oliveira");
+        corpo += String.format("%-15s", "10");
         corpo += String.format("%-15s", "Atacante");
-        corpo += String.format("%-18s","EA SPORTS FIFA");
+        corpo += String.format("%-25s","EA SPORTS FIFA");
 
         contadorDeDados++;
 
@@ -49,9 +50,64 @@ public class GravarArquivo {
 
 
         corpo = "02";
-        corpo += String.format("%-25s", "Alex Barreira");
-        corpo += String.format("%-15s", "Zagueiro");
-        corpo += String.format("%-18s","EA SPORTS FIFA");
+        corpo += String.format("%-25s", "Fernando Correia");
+        corpo += String.format("%-15s", "8");
+        corpo += String.format("%-15s", "Suporte");
+        corpo += String.format("%-25s","Counter Strike:Global Offensive");
+
+        contadorDeDados++;
+
+        gravarRegistro(nomeArq, corpo);
+
+
+        corpo = "02";
+        corpo += String.format("%-25s", "Gustavo Henrique");
+        corpo += String.format("%-15s", "7");
+        corpo += String.format("%-15s", "Meio campo");
+        corpo += String.format("%-25s","EA SPORTS FIFA");
+
+        contadorDeDados++;
+
+
+        gravarRegistro(nomeArq, corpo);
+
+        corpo = "02";
+        corpo += String.format("%-25s", "Gustavo Uesso");
+        corpo += String.format("%-15s", "8");
+        corpo += String.format("%-15s", "Top Laner");
+        corpo += String.format("%-25s","League of Legends");
+
+        contadorDeDados++;
+
+
+        gravarRegistro(nomeArq, corpo);
+
+        corpo = "02";
+        corpo += String.format("%-25s", "Henrique Matos");
+        corpo += String.format("%-15s", "9");
+        corpo += String.format("%-15s", "Jungler");
+        corpo += String.format("%-25s","League of Legends");
+
+        contadorDeDados++;
+
+        gravarRegistro(nomeArq, corpo);
+
+        corpo = "02";
+        corpo += String.format("%-25s", "Henrique Souza");
+        corpo += String.format("%-15s", "9");
+        corpo += String.format("%-15s", "Yrden");
+        corpo += String.format("%-25s","The witcher");
+
+        contadorDeDados++;
+
+
+        gravarRegistro(nomeArq, corpo);
+
+        corpo = "02";
+        corpo += String.format("%-25s", "Oscar Althausen");
+        corpo += String.format("%-15s", "10");
+        corpo += String.format("%-15s", "Suporte");
+        corpo += String.format("%-25s","Overwatch");
 
         contadorDeDados++;
 
