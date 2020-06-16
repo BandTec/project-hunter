@@ -8,5 +8,7 @@ import java.util.List;
 public interface GamerInfoRepository extends JpaRepository<GamerInfo, Integer> {
 
     List<GamerInfo> findByIdGamer_Email(String email);
+    GamerInfo findOneByIdGamer_IdGamer(Integer id);
+
 
 }
