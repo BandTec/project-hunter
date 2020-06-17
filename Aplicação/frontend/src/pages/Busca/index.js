@@ -182,7 +182,7 @@ export default function Busca({ dataResponse }) {
   const [nome, setNome] = useState("");
   const [idGamer, setIdGamer] = useState("");
 
-  const[gamer, setGamer] = useState("");
+  const[gamer, setGamer] = useState([]);
   const [nomeJogo, setJogo] = useState("");
   const [posicao, setPosicao] = useState("");
   const [data, setData] = useState("");
@@ -303,6 +303,14 @@ export default function Busca({ dataResponse }) {
       // verify response.data is an array
       const isArray = Array.isArray(data);
       isArray && setEquipes(data);
+      
+      let dados = response.data;
+
+      let temp = [];
+
+      dados.forEach((item) => {
+        getGamer(item.idEquipe.nomeEquipe)
+      });
     });
   }, [dataResponse]);
 
@@ -343,6 +351,9 @@ async function getGamer(nomeEquipe){
 
   function criaDados(idGamer, nome) {
     return { idGamer, nome };
+  }
+  function criaDadosEquipe(fotoGamer){
+    return {fotoGamer};
   }
 
   async function handleDeleteMatch(id) {
@@ -461,16 +472,20 @@ async function getGamer(nomeEquipe){
                 <p className="jogo-nome">{equipe.idEquipe.nomeEquipe}</p>
                 
                 <div className="current-members-team">
-                  {equipes.map((equipe) => (
-                    <div key={equipe.idEquipe.nomeEquipe} onClick={getGamer(equipe.idEquipe.nomeEquipe)} className="membros-imagem">
-                      {gamer.map((jogador) => (
-                      <>
-                      <img src={jogador.idGamer.fotoGamer} alt="User-Icon"></img>
-                      <p>{jogador.idGamer.nome}</p>
-                      </>
-                      ))}
+                  {team.map((team) => (
+                    <div key={team.idGamer.idGamer} className="membros-imagem">
+                      <img src={User} alt="User-Icon"></img>
+                      <p>{team.idGamer.nome}</p>
                     </div>
                   ))}
+                </div>
+
+                <div>
+                  <p className="div-integrantes"> 5/50 </p>
+                </div>
+
+                <div>
+                  <button className="btnJuntar-se"> Juntar-se</button>
                 </div>
               </div>
             ))

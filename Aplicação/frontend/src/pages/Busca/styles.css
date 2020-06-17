@@ -149,7 +149,7 @@
   width: 100px;
   height: 42px;
   margin-left: 90px;
-  margin-top: 244px;
+  margin-top: 100px;
 
   font-family: Roboto;
   font-style: normal;
@@ -161,13 +161,13 @@
 }
 
 .div-principal .div-equipes-busca{
-  margin-top: 200px;
+  margin-top: 100px;
   
 }
 
 .div-principal .div-equipes-busca .div-organizacao-equipes{
   display: grid;
-  grid-template-columns:  repeat(3, 150px);
+  grid-template-columns:  repeat(5, 150px);
   width: 100px;
   
 }
@@ -183,7 +183,7 @@
   height: 42px;
 
   font-weight: bold;
-  font-size: 12px;
+  font-size: 15px;
   line-height: 42px;
 
   color: #ffffff;
@@ -193,6 +193,28 @@
   width: 100px;
   height: 100px;
 }
+
+.btnJuntar-se{
+ 
+    border: 0;
+    background-color: #00FF00;
+    color: #000000;
+    border: 2px solid #000000;
+    height: 30px;
+    width: 100px;
+    border-radius: 4px;
+    
+    
+}
+
+.btnJuntar-se:hover{
+    background-color: #009e00;
+}
+.div-integrantes{
+  color: #fff;
+  font-size: 18px;
+}
+
 
 /* .profile-container .current-members {
   margin-top: 10px;
