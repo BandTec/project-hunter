@@ -85,6 +85,8 @@
     border: 0;
     background-color: #00FF00;
     color: #000000;
+    position: absolute;
+    margin-left: 9%;    
 }
 
 .cadastro-container .Cad:hover{
@@ -94,8 +96,15 @@
 .cadastro-container  .Voltar{
     background-color: #000000;
     color: #00FF00;
-    
+    position: absolute;
+    margin-left: -4%;
 }
+.cadastro-container .btns{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
 
 .cadastro-container .Voltar:hover{
     background-color: #161616;
@@ -164,4 +173,3 @@ label#thumbnail.has-thumbnail img {
     list-style: none;
     margin-left: 10%;    
 }
-
