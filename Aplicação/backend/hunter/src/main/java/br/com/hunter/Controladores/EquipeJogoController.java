@@ -1,9 +1,7 @@
 package br.com.hunter.Controladores;
 
 
-import br.com.hunter.Modelos.Equipe;
 import br.com.hunter.Modelos.EquipeJogo;
-import br.com.hunter.Modelos.StatusSolicitacao;
 import br.com.hunter.Repositorios.EquipeJogoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-import static org.springframework.http.ResponseEntity.noContent;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
@@ -38,6 +35,12 @@ public class EquipeJogoController {
     @GetMapping("/equipe/{equipe}")
     private ResponseEntity BuscaPorJogo(@PathVariable("equipe") Integer equipe) {
         List<EquipeJogo> lista = repository.findByIdEquipe_IdEquipe(equipe);
+        return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
+    }
+
+    @GetMapping("/jogo/{jogo}")
+    private ResponseEntity BuscaPorJogo(@PathVariable("jogo") String jogo) {
+        List<EquipeJogo> lista = repository.findByIdJogo_NomeJogoContaining(jogo);
         return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
     }
     @DeleteMapping( "/{id}" )
