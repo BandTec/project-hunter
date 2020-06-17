@@ -154,6 +154,7 @@
     border: 0;
     background-color: #00FF00;
     color: #000000;
+    margin-top: 2%
 }
 
 .configuracao-container .Cad:hover{
@@ -222,7 +223,7 @@ label#thumbnail.has-thumbnail img {
     grid-template-rows:  repeat(1, 5fr);
     grid-gap: 12px;
     list-style: none;
-    margin-left: 90
+    margin-left: -5%;
 }
 
 .configuracao-container .campos2{

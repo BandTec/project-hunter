@@ -344,7 +344,7 @@ history.push("/login");
       </header>
 <div className="formulario">
       <form onSubmit={handleSignUp}>
-               <center> <label id="thumbnail"
+                <label id="thumbnail"
                     style={{ backgroundImage: `url(${preview})` }}
                     className={thumbnail ? 'has-thumbnail' : ''}
                 >
@@ -375,7 +375,6 @@ history.push("/login");
                 <option value='7'>PlayerUnkown's Battlegrounds</option>
                 </select> 
                 </div>
-
                 <div className="campos2">
                 <p className = "campo">Usuário:</p>
                 <input value = {usuario} onChange={e => setUsuario(e.target.value)} />              
@@ -399,12 +398,15 @@ history.push("/login");
                 </div> 
                 </div>
                 </rows>
+                </form>
+
                 <Router>
+                  <center>
                         <button className="configuracao container btn Cad"  type="submit">Salvar</button>
+                        </center>
                 </Router>
 
-                </center>
-            </form>
+                
             </div>
     </div>
   );
