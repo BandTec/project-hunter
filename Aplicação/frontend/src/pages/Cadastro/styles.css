@@ -3,7 +3,7 @@
 }
 
 .cadastro-container header {
-    display: flex;
+    display: grid;
     align-items: center;
     justify-content: center;
     background-color: #000000;
@@ -148,22 +148,26 @@ label#thumbnail.has-thumbnail img {
     display: none;
 }
 
+
 .cadastro-container .campos{
     display: grid;
-    grid-template-columns:  repeat(1    , 1fr);
-    grid-gap: 10px;
+    grid-template-rows:  repeat(1, 5fr);
+    grid-gap: 12px;
     list-style: none;
     justify-content: center;
     align-items: center;
-    margin-left: 25%;
+    
 }
 .cadastro-container .campos2{
     display: grid;
-    grid-template-columns:  repeat(1    , 5fr);
-    grid-gap: 10px;
+    grid-template-columns:  repeat(1, 5);
+    grid-gap: 12px;
     list-style: none;
     justify-content: center;
     align-items: center;
-    margin-left: 300%;
+    margin-left: 5%;
+   
+    
 }
+
 

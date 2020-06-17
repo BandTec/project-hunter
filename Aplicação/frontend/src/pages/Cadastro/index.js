@@ -120,6 +120,8 @@ export default function Cadastro() {
                     <img src={camera} alt="Select your photo"></img>
                 </label></center>
                 <rows>
+                <br></br>
+                    <div className = "campos3">
                 <div className="campos">
                 <p className = "campo">Nome:</p>
                 <input onChange={e => setNome(e.target.value)} />
@@ -163,10 +165,11 @@ export default function Cadastro() {
                 <option value ='9'>Capitão</option>
                 <option value ='10'>Sniper</option>
                 </select>
-                </div> </rows>
-                <br></br>
+                </div> 
+                </div> </rows>  
+                
                 <Router>
-                    <div>
+                    <div> 
                         <button className="cadastro container btn Voltar" type="submit"
                             onClick={chamaLogin}> Voltar</button>
                         <button className="cadastro container btn Cad"  type="submit" onKeyPress={handleKeyPress}> Cadastrar</button>
