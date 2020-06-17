@@ -196,12 +196,12 @@ export default function Profile() {
             <div className="div-profile">
                 <img className="profile-pic" src = {require(`../../assets/${localStorage.getItem('nome')}-icon.jpg`)} alt="Foto de Perfil"></img>
                 <h1 className="profile-nic">{nome}</h1>
-                <h1 className="profile-rate"> <FiStar size={48} color="#F1DA07" />  4.96</h1>
+                {/* <h1 className="profile-rate"> <FiStar size={48} color="#F1DA07" />  4.96</h1> */}
             </div>
 
             <body>
                 <div>
-                    <h2>Jogos:</h2>
+                    <h3>Jogos:</h3>
                     <div className="current-games">
 
                         {userGames.map(team => (
@@ -212,7 +212,7 @@ export default function Profile() {
                             ))}
                     </div>
 
-                    <h2>Equipes:</h2>
+                    <h3>Equipes:</h3>
                     <div className="current-teams">
                     {equipes.map(team => (
                         <div key={team.idEquipe.idEquipe}>
