@@ -15,4 +15,6 @@ public interface EquipeGamerRepository extends JpaRepository<EquipeGamer, Intege
 
     List<EquipeGamer> findByIdGamer_IdGamer(int id);
 
+    EquipeGamer findByIdEquipeGamer(int id);
+
 }
