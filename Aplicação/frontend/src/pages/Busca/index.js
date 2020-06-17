@@ -181,6 +181,8 @@ export default function Busca({ dataResponse }) {
   const [matches, setMatches] = useState([]);
   const [nome, setNome] = useState("");
   const [idGamer, setIdGamer] = useState("");
+
+  const[gamer, setGamer] = useState("");
   const [nomeJogo, setJogo] = useState("");
   const [posicao, setPosicao] = useState("");
   const [data, setData] = useState("");
@@ -304,7 +306,14 @@ export default function Busca({ dataResponse }) {
     });
   }, [dataResponse]);
 
-
+async function getGamer(nomeEquipe){
+  api.get(`/equipegamer/equipe/${nomeEquipe}/`).then((response) => {
+    const { data = [] } = response || {};
+    // verify response.data is an array
+    const isArray = Array.isArray(data);
+    isArray && setGamer(data);
+  });
+}
   // useEffect(() => {
   //   dataResponse.forEach((values) => {
   //     api.get(`/jogo/${values.id}/`).then((response) => {
@@ -324,7 +333,7 @@ export default function Busca({ dataResponse }) {
   //     });
   //   });
   // }, [data, dataResponse]);
-  
+
   // useEffect(() => {
   //   setNomeEquipe(localStorage.getItem("nomeEquipe"));
   //   api.get(`/equipegamer/equipe/${nomeEquipe}/`).then((response) => {
@@ -430,60 +439,45 @@ export default function Busca({ dataResponse }) {
         </Popper>
       </header>
 
-      <div>
-        {/* <p className="type-name">Jogos</p>
-        {games
-          ? games.map((game) => (
-            <>
-              <img
-                src={
-                  game.fotoJogo
-                    ? require(`../../assets/${game.fotoJogo}`)
-                    : game.fotoJogo
-                }
-                alt=""
-                className="jogo-imagem"
-              ></img>
-              <p className="jogo-nome">{game.nomeJogo}</p>
-            </>
-          ))
-          : games}
-       */}  
-       </div>
-       
-      {/* <div className="barras">
-        <p className="barra-menor"></p>
-        <p className="barra-maior"></p>
-      </div> */}
+      <div className="div-principal">
+        <div className="div-equipes">
+          <p>Equipes</p>
+        </div>
 
-      <div>
-        <p className="type-name">Equipes</p>
-        {equipes
-          ? equipes.map((equipe) => (
-            <>
-              <img
-                src={
+        <div className="div-equipes-busca">
+
+          {equipes
+            ? equipes.map((equipe) => (
+              <div className="div-organizacao-equipes">
+                <img src={
                   equipe.idEquipe.fotoEquipe
                     ? require(`../../assets/${equipe.idEquipe.fotoEquipe}`)
                     : equipe.fotoEquipe
                 }
-                alt=""
-                className="jogo-imagem"
-              ></img>
-              <p className="jogo-nome">{equipe.idEquipe.nomeEquipe}</p>
-              <h2>Jogadores:</h2>
-              <div className="current-members">
-                {team.map((team) => (
-                  <div key={team.idGamer.idGamer} className="membros-imagem">
-                    <img src={User} alt="User-Icon"></img>
-                    <p>{team.idGamer.nome}</p>
-                  </div>
-                ))}
+                  alt=""
+                  className="jogo-imagem"
+                ></img>
+                
+                <p className="jogo-nome">{equipe.idEquipe.nomeEquipe}</p>
+                
+                <div className="current-members-team">
+                  {equipes.map((equipe) => (
+                    <div key={equipe.idEquipe.nomeEquipe} onClick={getGamer(equipe.idEquipe.nomeEquipe)} className="membros-imagem">
+                      {gamer.map((jogador) => (
+                      <>
+                      <img src={jogador.idGamer.fotoGamer} alt="User-Icon"></img>
+                      <p>{jogador.idGamer.nome}</p>
+                      </>
+                      ))}
+                    </div>
+                  ))}
+                </div>
               </div>
-            </>
-          ))
-          : equipes}
+            ))
+            : equipes}
+        </div>
       </div>
+
     </div>
   );
 }
