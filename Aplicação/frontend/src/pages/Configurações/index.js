@@ -355,10 +355,10 @@ history.push("/login");
                 <div className="campos">
                 <p className = "campo">Nome:</p>
                 <input value={nome} onChange={e => setNome(e.target.value)} />
-                <p className = "campo">Usuário:</p>
-                <input value = {usuario} onChange={e => setUsuario(e.target.value)} />
                 <p className = "campo">CPF:</p>
                 <input value={cpf} onChange={e => setCpf(e.target.value)} />
+                <p className = "campo">Usuário:</p>
+                <input value = {usuario} onChange={e => setUsuario(e.target.value)} />
                 <p className = "campo">Telefone:</p>
                 <input value={telefone} onChange={e => setTelefone(e.target.value)} />
                 <p className = "campo">Email:</p>

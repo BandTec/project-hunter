@@ -125,22 +125,12 @@ export default function Cadastro() {
                 <div className="campos">
                 <p className = "campo">Nome:</p>
                 <input onChange={e => setNome(e.target.value)} />
-                <p className = "campo">Usuário:</p>
-                <input onChange={e => setUsuario(e.target.value)} />
                 <p className = "campo">CPF:</p>
                 <input onChange={e => setCpf(e.target.value)} />
-                <p className = "campo">Telefone:</p>
-                <input onChange={e => setTelefone(e.target.value)} />
                 <p className = "campo">Email:</p>
                 <input onChange={e => setEmail(e.target.value)} />
-                </div>
-                <div className="campos2">
-                <p className = "campo">Confirme seu email:</p>
-                <input onChange={e => setConfirmarEmail(e.target.value)} />
                 <p className = "campo">Senha:</p>
                 <input type="password" onChange={e => setSenha(e.target.value)} />
-                <p className = "campo">Confirme sua senha:</p>
-                <input type="password" onChange={e => setConfirmarSenha(e.target.value)} />
                 <p className = "campo">Jogo:</p>
                 <select onChange={e => setIdJogo(e.target.value)}>
                 <option value='0'>Selecione o jogo</option>
@@ -151,7 +141,17 @@ export default function Cadastro() {
                 <option value='5'>DOTA 2</option>
                 <option value='6'>Call of Duty: Warzone</option>
                 <option value='7'>PlayerUnkown's Battlegrounds</option>
-                </select>  
+                </select>
+                </div>
+                <div className="campos2">
+                <p className = "campo">Usuário:</p>
+                <input onChange={e => setUsuario(e.target.value)} />
+                <p className = "campo">Telefone:</p>
+                <input onChange={e => setTelefone(e.target.value)} />
+                <p className = "campo">Confirme seu email:</p>
+                <input onChange={e => setConfirmarEmail(e.target.value)} />
+                <p className = "campo">Confirme sua senha:</p>
+                <input type="password" onChange={e => setConfirmarSenha(e.target.value)} />  
                 <p className = "campo">Posição:</p>
                 <select onChange={e => setIdPosicao(e.target.value)}>
                 <option value='0'>Selecione a sua posição</option>
@@ -169,7 +169,7 @@ export default function Cadastro() {
                 </div> </rows>  
                 
                 <Router>
-                    <div> 
+                    <div>
                         <button className="cadastro container btn Voltar" type="submit"
                             onClick={chamaLogin}> Voltar</button>
                         <button className="cadastro container btn Cad"  type="submit" onKeyPress={handleKeyPress}> Cadastrar</button>

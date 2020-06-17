@@ -40,7 +40,7 @@
 .cadastro-container form img{
     height: 250px;
     width: 100%;
-    display:flex;
+    display:fle;
     
 }
 
@@ -154,8 +154,7 @@ label#thumbnail.has-thumbnail img {
     grid-template-rows:  repeat(1, 5fr);
     grid-gap: 12px;
     list-style: none;
-    justify-content: center;
-    align-items: center;
+    margin-left: 90
     
 }
 .cadastro-container .campos2{
@@ -163,11 +162,6 @@ label#thumbnail.has-thumbnail img {
     grid-template-columns:  repeat(1, 5);
     grid-gap: 12px;
     list-style: none;
-    justify-content: center;
-    align-items: center;
-    margin-left: 5%;
-   
-    
+    margin-left: 10%;    
 }
-
 
