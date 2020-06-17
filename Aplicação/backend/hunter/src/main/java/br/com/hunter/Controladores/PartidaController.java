@@ -1,5 +1,6 @@
 package br.com.hunter.Controladores;
 
+import br.com.hunter.FilaObj;
 import br.com.hunter.Modelos.Gamer;
 import br.com.hunter.Modelos.Partida;
 import br.com.hunter.Modelos.Posicao;
@@ -95,16 +96,19 @@ public class PartidaController {
     public  ResponseEntity listarPorEquipeDepois(@PathVariable("id") Integer id) {
         Partida ultima = repository.findFirstByIdEquipe_IdEquipeOrderByIdPartidaDesc(id);
         int max = ultima.getIdPartida();
+        FilaObj<Partida> fila = new FilaObj<>(10);
         List<Partida> lista = repository.findFirstByIdEquipe_IdEquipeAndIdPartida(id,0);
+        int contador = 0;
         for (int i = 0; i <= max ; i++) {
             List<Partida> atual = repository.findFirstByIdEquipe_IdEquipeAndIdPartida(id,i);
-            ;
-            if (!atual.isEmpty() && atual.get(0).getData().isAfter(LocalDate.now().minusDays(1))
-                                 && atual.get(0).getHora().isAfter(LocalTime.now())) {
-                lista.add(repository.findFirstByIdEquipe_IdEquipeAndIdPartida(id,i).get(0));
+
+            if (!atual.isEmpty() && atual.get(0).getData().isAfter(LocalDate.now())) {
+                fila.insert(repository.findFirstByIdEquipe_IdEquipeAndIdPartida(id,i).get(0));
+                lista.add(contador++,fila.poll());
             } else {
 
             }
+
         }
 
         return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
