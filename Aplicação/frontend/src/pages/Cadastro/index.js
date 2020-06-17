@@ -168,16 +168,15 @@ export default function Cadastro() {
                 </div> 
                 </div> </rows>  
                 
-                <Router>
-                    <div>
+            </form>
+
+            <Router>
+                    <div className="btns">
                         <button className="cadastro container btn Voltar" type="submit"
                             onClick={chamaLogin}> Voltar</button>
                         <button className="cadastro container btn Cad"  type="submit" onKeyPress={handleKeyPress}> Cadastrar</button>
                     </div>
                 </Router>
-
-
-            </form>
         </div>
 
     );

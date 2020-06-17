@@ -1,6 +1,5 @@
-.configuracao-container form p{
-    color: #dcdce6;  
-    float: right;
+.campo{
+    color: #dcdce6;
 }
 
 .configuracao-container{
@@ -8,9 +7,7 @@
     /* max-width: 800px; */
     padding: 30px;
     /* margin: 32px auto; */
-    display: contents;
-    
-    
+    display: contents;   
 }
 
 .configuracao-container header {
@@ -88,15 +85,14 @@
 
 .configuracao-container{
     height: 100%;
-    /* display:flex; */
     justify-content:center;
     align-items: center;
+    display: contents;
     
 }
 
 
 .configuracao-container form{
-
         margin: 80px auto 0;
         width: 100%;
         max-width: 300px;
@@ -234,5 +230,5 @@ label#thumbnail.has-thumbnail img {
     grid-template-columns:  repeat(1, 5);
     grid-gap: 12px;
     list-style: none;
-    margin-left: 10%;    
+    margin-left: 10%; 
 }

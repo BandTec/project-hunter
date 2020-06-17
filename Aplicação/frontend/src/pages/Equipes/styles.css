@@ -1,4 +1,4 @@
-.profile-container{
+.equipes-container{
     width:100%;
     /* max-width: 800px; */
     padding: 30px;
@@ -10,7 +10,7 @@
     
 }
 
-.profile-container header {
+.equipes-container header {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -19,12 +19,12 @@
 }
 
 
-.profile-container header img {
+.equipes-container header img {
     height: 64px;
     margin-right: 150px;
     cursor: pointer;
 }
-.profile-container header input{
+.equipes-container header input{
    
     
     
@@ -39,12 +39,12 @@
 }
 
 
-.profile-container header a {
+.equipes-container header a {
     width: 260px;
     margin-left: auto;
     margin-top: 0;
 }
-.profile-container header button {
+.equipes-container header button {
     height: 60px;
     width: 60px;
     border-radius: 4px;
@@ -55,13 +55,13 @@
     
 }
 
-.profile-container header button:hover{
+.equipes-container header button:hover{
     border-color: #999;
     
 
 }
 
-.profile-container .input-pesquisa{
+.equipes-container .input-pesquisa{
     display: flex;
     width: 600px;
     justify-content: center;
@@ -72,7 +72,7 @@
 
 
 }
-.profile-container .btn-pesquisa{
+.equipes-container .btn-pesquisa{
     padding: 10px;
     height: 100%;
     color: white;
@@ -82,13 +82,13 @@
     cursor: pointer;
 }
 
-.profile-container .div-principal{
+.equipes-container .div-principal{
     display: grid;
     grid-template-columns:  repeat(3, 1fr);
     grid-gap: 24px;
 }
 
-.profile-container  .div-equipes{
+.equipes-container  .div-equipes{
     margin-top: 40px;
     color: #fff;
     background-color: #000000;
@@ -98,17 +98,18 @@
     border-radius: 10px;    
 }
 
-.profile-container .div-equipes div p{
+.equipes-container .div-equipes div p{
     margin-left: 9px;
 }
-.profile-container .div-principal .div-equipes  button{
+.equipes-container .div-principal .div-equipes  button{
    
     background: transparent;
     border:transparent;
     cursor: pointer;
 }
 
-.profile-container .div-equipes img{
+.equipes-container .div-equipes img{
     height: 130px;
     width: 180px;
+    cursor: pointer;
 }

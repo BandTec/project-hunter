@@ -16,6 +16,7 @@ import camera from '../../assets/camera.svg';
 import '../../routes.js';
 import { BrowserRouter as Router } from "react-router-dom";
 import Modal from '@material-ui/core/Modal';
+import { rows } from 'mssql';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -351,20 +352,17 @@ history.push("/login");
                     <input type="file" onChange={event => setThumbnail(event.target.files[0])} />
                     <img src={camera} alt="Select your photo"></img>
                     
-                </label><br></br>
+                </label>
+                <rows>
+                <br></br>
+                <div className = "campos3">
                 <div className="campos">
                 <p className = "campo">Nome:</p>
                 <input value={nome} onChange={e => setNome(e.target.value)} />
                 <p className = "campo">CPF:</p>
                 <input value={cpf} onChange={e => setCpf(e.target.value)} />
-                <p className = "campo">Usuário:</p>
-                <input value = {usuario} onChange={e => setUsuario(e.target.value)} />
-                <p className = "campo">Telefone:</p>
-                <input value={telefone} onChange={e => setTelefone(e.target.value)} />
                 <p className = "campo">Email:</p>
                 <input value={email} onChange={e => setEmail(e.target.value)} />
-                <p className = "campo">Senha:</p>
-                <input type = "password" value={senha} onChange={e => setSenha(e.target.value)} />
                 <p className = "campo">Jogo:</p>
                 <select onChange={e => setJogo(e.target.value)}>
                 <option value='0'>Selecione o jogo</option>
@@ -375,7 +373,16 @@ history.push("/login");
                 <option value='5'>DOTA 2</option>
                 <option value='6'>Call of Duty: Warzone</option>
                 <option value='7'>PlayerUnkown's Battlegrounds</option>
-                </select>
+                </select> 
+                </div>
+
+                <div className="campos2">
+                <p className = "campo">Usuário:</p>
+                <input value = {usuario} onChange={e => setUsuario(e.target.value)} />              
+                <p className = "campo">Telefone:</p>
+                <input value={telefone} onChange={e => setTelefone(e.target.value)} />                                          
+                <p className = "campo">Senha:</p>
+                <input type = "password" value={senha} onChange={e => setSenha(e.target.value)} />
                 <p className = "campo">Posição:</p>
                 <select onChange={e => setPosicao(e.target.value)}>
                 <option value='0'>Selecione a sua posição</option>
@@ -389,7 +396,9 @@ history.push("/login");
                 <option value ='9'>Capitão</option>
                 <option value ='10'>Sniper</option>
                 </select>
-                </div><br></br>
+                </div> 
+                </div>
+                </rows>
                 <Router>
                         <button className="configuracao container btn Cad"  type="submit">Salvar</button>
                 </Router>
