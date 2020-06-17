@@ -407,7 +407,7 @@ export default function Teams() {
     }
 
     function handleScreenFind(){
-        history.push('/buscar');
+        history.push('/busca');
     }
 
     function handleTeamProfile(name) {
@@ -477,7 +477,7 @@ export default function Teams() {
 
                 <div className="div-equipes">
                     <button> <FiSearch size={64} color="#FFF" /> </button>
-                    <p onClick={() => handleScreenFind}>Entrar em equipe</p>
+                    <p onClick={handleScreenFind}>Entrar em equipe</p>
                 </div>
 
             </div>
@@ -497,11 +497,4 @@ export default function Teams() {
     );
 }
 
-//<div className='div-criar-equipe'>
-  //                  <button className="btn-criar" /*onClick={handleOpenModal}*/> <FiPlusCircle size={64} color="#000000" /> Criar Equipe</button>
-//
-  //              </div>
-    //            <div className='div-entrar-equipe'>
-      //              <button className="btn-criar" /*onClick={handleOpenModal}*/>  Entrar em Equipe </button>
-//
-  //              </div>
+

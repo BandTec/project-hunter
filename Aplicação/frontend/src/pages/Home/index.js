@@ -449,15 +449,11 @@ export default function Home() {
     });
   }, [id]);
 
-  useEffect(() => {
-    api.get(`/pesquisa/busca/${pesquisa}/`).then((response) => {
-      const { data = [] } = response || {};
-      console.log(data);
-      const isArray = Array.isArray(data);
-      isArray && setResultado(data);
-      history.push("/busca", data);
-    });
-  }, [history, pesquisa]);
+  async function handlePesquisa () {
+      localStorage.setItem('pesquisa', pesquisa);
+      history.push("/busca", pesquisa);
+    }
+  
 
   function criaDados(idGamer, nome) {
     return { idGamer, nome };
@@ -513,7 +509,7 @@ export default function Home() {
             placeholder="Busque por jogos, equipes..."
             onChange={(e) => setPesquisa(e.target.value)}
           ></input>
-          <button className="btn-pesquisa">
+          <button className="btn-pesquisa" onClick={handlePesquisa}>
             <FiSearch size={18} color="#000000" />
           </button>
         </div>

@@ -47,7 +47,7 @@ class routes extends Component {
             <PrivateRoute exact path="/config" component={Configurações} />
             <PrivateRoute exact path="/perfil-equipe/" component={MinhaEquipe} />
             <PrivateRoute exact path="/equipes/" component={Equipes} />
-            <PrivateRoute exact path="/buscar/" component={Buscar} />
+            <PrivateRoute exact path="/busca" component={Buscar} />
           </Switch>
         </>
       </BrowserRouter>
