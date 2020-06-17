@@ -119,6 +119,7 @@ export default function Cadastro() {
                     <input type="file" onChange={event => setThumbnail(event.target.files[0])} />
                     <img src={camera} alt="Select your photo"></img>
                 </label></center>
+                <rows>
                 <div className="campos">
                 <p className = "campo">Nome:</p>
                 <input onChange={e => setNome(e.target.value)} />
@@ -130,6 +131,8 @@ export default function Cadastro() {
                 <input onChange={e => setTelefone(e.target.value)} />
                 <p className = "campo">Email:</p>
                 <input onChange={e => setEmail(e.target.value)} />
+                </div>
+                <div className="campos2">
                 <p className = "campo">Confirme seu email:</p>
                 <input onChange={e => setConfirmarEmail(e.target.value)} />
                 <p className = "campo">Senha:</p>
@@ -146,7 +149,7 @@ export default function Cadastro() {
                 <option value='5'>DOTA 2</option>
                 <option value='6'>Call of Duty: Warzone</option>
                 <option value='7'>PlayerUnkown's Battlegrounds</option>
-                </select>
+                </select>  
                 <p className = "campo">Posição:</p>
                 <select onChange={e => setIdPosicao(e.target.value)}>
                 <option value='0'>Selecione a sua posição</option>
@@ -160,7 +163,7 @@ export default function Cadastro() {
                 <option value ='9'>Capitão</option>
                 <option value ='10'>Sniper</option>
                 </select>
-                </div>
+                </div> </rows>
                 <br></br>
                 <Router>
                     <div>

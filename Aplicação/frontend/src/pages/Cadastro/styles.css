@@ -150,9 +150,20 @@ label#thumbnail.has-thumbnail img {
 
 .cadastro-container .campos{
     display: grid;
-    grid-template-columns:  repeat(4, 5fr);
-    grid-gap: 24px;
+    grid-template-columns:  repeat(1    , 1fr);
+    grid-gap: 10px;
     list-style: none;
     justify-content: center;
     align-items: center;
+    margin-left: 25%;
 }
+.cadastro-container .campos2{
+    display: grid;
+    grid-template-columns:  repeat(1    , 5fr);
+    grid-gap: 10px;
+    list-style: none;
+    justify-content: center;
+    align-items: center;
+    margin-left: 300%;
+}
+

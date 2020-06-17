@@ -221,12 +221,3 @@ label#thumbnail.has-thumbnail {
 label#thumbnail.has-thumbnail img {
     display: none;
 }
-.configuracao-container .campos{
-    display: grid;
-    grid-template-columns:  repeat(4, 5fr);
-    grid-gap: 24px;
-    list-style: none;
-    justify-content: right;
-    align-items: center;
-    
-}
