@@ -45,6 +45,14 @@ public class EquipeGamerController {
         return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
     }
 
+    @GetMapping("/capitao/{idGamer}/{idEquipe}")
+    private  ResponseEntity capitao(@PathVariable("idGamer") int idGamer,
+                                    @PathVariable("idEquipe") int idEquipe) {
+
+        EquipeGamer capitao = repository.findByIdEquipe_IdEquipeAndIdGamer_IdGamerAndCapitao(idEquipe, idGamer, true);
+
+        return capitao == null ? ResponseEntity.noContent().build() : ResponseEntity.ok().build();
+    }
     @GetMapping("/equipe/{nome}")
     private ResponseEntity BuscaPorNomeEquipe(@PathVariable("nome") String nome) {
         List<EquipeGamer> lista = repository.findByIdEquipe_NomeEquipeAndIdStatus_IdStatus(nome, 1);

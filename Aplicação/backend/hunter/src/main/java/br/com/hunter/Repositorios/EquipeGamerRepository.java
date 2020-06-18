@@ -1,5 +1,6 @@
 package br.com.hunter.Repositorios;
 
+import br.com.hunter.Modelos.Equipe;
 import br.com.hunter.Modelos.EquipeGamer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -22,5 +23,7 @@ public interface EquipeGamerRepository extends JpaRepository<EquipeGamer, Intege
     EquipeGamer findByIdEquipeGamer(int id);
 
     Integer countByIdEquipe_IdEquipeAndIdStatus_IdStatus(int id, int id2);
+
+    EquipeGamer findByIdEquipe_IdEquipeAndIdGamer_IdGamerAndCapitao(int equipe, int gamer, boolean capitao);
 
 }
