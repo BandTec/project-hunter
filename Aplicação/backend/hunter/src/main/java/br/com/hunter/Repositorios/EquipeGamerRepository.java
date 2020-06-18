@@ -21,6 +21,6 @@ public interface EquipeGamerRepository extends JpaRepository<EquipeGamer, Intege
 
     EquipeGamer findByIdEquipeGamer(int id);
 
-    Integer countByIdEquipe_IdEquipe(int id);
+    Integer countByIdEquipe_IdEquipeAndIdStatus_IdStatus(int id, int id2);
 
 }

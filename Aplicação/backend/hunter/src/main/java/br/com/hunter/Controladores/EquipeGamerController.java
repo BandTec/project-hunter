@@ -48,12 +48,29 @@ public class EquipeGamerController {
     @GetMapping("/equipe/{nome}")
     private ResponseEntity BuscaPorNomeEquipe(@PathVariable("nome") String nome) {
         List<EquipeGamer> lista = repository.findByIdEquipe_NomeEquipeAndIdStatus_IdStatus(nome, 1);
-        HttpHeaders responseHeaders = new HttpHeaders();
-        Integer qtdGamers = repository.countByIdEquipe_IdEquipe(lista.get(0).getIdEquipe().getIdEquipe());
-        responseHeaders.set("qtdGamers", String.valueOf(qtdGamers));
+        if(!lista.isEmpty()) {
+            HttpHeaders responseHeaders = new HttpHeaders();
+            Integer qtdGamers = repository.countByIdEquipe_IdEquipeAndIdStatus_IdStatus(lista.get(0).getIdEquipe().getIdEquipe(),1 );
+            responseHeaders.set("qtdGamers", String.valueOf(qtdGamers));
+            return ResponseEntity.ok().headers(responseHeaders).body(lista);
+        } else {
+           return ResponseEntity.noContent().build();
+        }
 
-        return lista.isEmpty() ? ResponseEntity.noContent().build() :
-                                 ResponseEntity.ok().headers(responseHeaders).body(lista);
+
+    }
+
+    @GetMapping("/equipe/qtd/{nome}")
+    private ResponseEntity BuscaPorNomeEquipeqtd(@PathVariable("nome") String nome) {
+        List<EquipeGamer> lista = repository.findByIdEquipe_NomeEquipeAndIdStatus_IdStatus(nome, 1);
+        if (!lista.isEmpty()) {
+            Integer qtdGamers = repository.countByIdEquipe_IdEquipeAndIdStatus_IdStatus(lista.get(0).getIdEquipe().getIdEquipe(), 1);
+            return ResponseEntity.ok().body(qtdGamers);
+        } else {
+            return ResponseEntity.noContent().build();
+        }
+
+
     }
 
     @GetMapping("/aprovado/{equipe}")
