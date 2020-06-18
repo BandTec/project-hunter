@@ -54,10 +54,10 @@ export default function Cadastro() {
                 if (response.status === 201){
                 handleSignUp2();
                 }else{
-                    alert('Erro no cadastro de seus dados, tente novamente');
+                    alert('Erro no cadastro de seus dados, tente novamente!');
                 }
             } catch (err) {
-                alert('Erro no cadastro de seus dados, tente novamente');
+                alert('Erro no cadastro de seus dados, tente novamente!');
             }
         }
     }
@@ -86,7 +86,8 @@ export default function Cadastro() {
                 const response = await api.post(`/gamerinfo/${email}`, data2);
                 //alert(`Seu ID de Acesso ${response.data.id}`);
                 if (response.status === 201){
-                history.push('/login');
+                    alert('Dados alterados com sucesso!');
+                    history.push('/login');
                 }else{
                     alert('Erro no cadastro de seu jogo e/ou posição, tente novamente!');
                 }
