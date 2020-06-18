@@ -41,7 +41,7 @@ public class EquipeGamerController {
 
     @GetMapping("/gamer/{gamer}")
     private ResponseEntity BuscaPorGamer(@PathVariable("gamer") String gamer) {
-        List<EquipeGamer> lista = repository.findByIdGamer_Email(gamer);
+        List<EquipeGamer> lista = repository.findByIdGamer_EmailAndIdStatus_IdStatus(gamer, 1);
         return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
     }
 
