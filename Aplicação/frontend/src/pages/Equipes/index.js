@@ -165,6 +165,7 @@ export default function Teams() {
     const [metadata, setMetadata] = useState([]);
     const [thumbnail, setThumbnail] = useState(null);
     const classes2 = useStyles2();
+    const [pesquisa, setPesquisa] = useState("");
 
 
     const preview = useMemo(() => { return thumbnail ? URL.createObjectURL(thumbnail) : null },
@@ -211,8 +212,8 @@ export default function Teams() {
                         <img src={camera} alt="Select your photo"></img>
                     </label>
                 </div>
-                
-                <p style={{ width: "300px" }}>
+                <center className="btn-modal">
+                <p style={{ width: "300px"}}>
                     <button className={classes2.buttonClose} onClick={handleCloseModal}>
                         Fechar
               </button>
@@ -220,6 +221,7 @@ export default function Teams() {
                         Criar
               </button>
                 </p>
+                </center>
             </div>
         </div>
     );
@@ -389,6 +391,11 @@ export default function Teams() {
 
     }
 
+    async function handlePesquisa () {
+        localStorage.setItem('pesquisa', pesquisa);
+        history.push("/busca", pesquisa);
+      }
+
     async function handleConfig() {
         history.push('/config');
     }
@@ -421,7 +428,9 @@ export default function Teams() {
 
                 <div className="input-pesquisa">
                     <input type="text" placeholder="Busque por jogos, equipes..."></input>
-                    <button className="btn-pesquisa"><FiSearch size={18} color="#000000" /></button>
+                    <button className="btn-pesquisa" onClick={handlePesquisa}>
+            <FiSearch size={18} color="#000000" />
+          </button>
                 </div>
 
 
@@ -460,17 +469,16 @@ export default function Teams() {
             </header>
             <div className="div-principal-btn">
                 <div className="div-equipes-btn">
+                    <button onClick={handleScreenFind}> <FiSearch size={64} color="#FFF" /> </button>
+                    <p onClick={handleScreenFind}>Entrar em equipe</p>
+                </div>
+                <div className="div-equipes-btn">
                     <button onClick={handleOpenModal}> <FiPlusCircle size={64} color="#FFF" /> </button>
                     <p onClick={handleOpenModal}>Criar equipe</p>
                 </div>
                 <Modal open={openModal} onClose={handleCloseModal}>
                     {body}
                 </Modal>
-
-                <div className="div-equipes-btn">
-                    <button> <FiSearch size={64} color="#FFF" /> </button>
-                    <p onClick={handleScreenFind}>Entrar em equipe</p>
-                </div>
             </div>
             
             <div className="div-principal">
