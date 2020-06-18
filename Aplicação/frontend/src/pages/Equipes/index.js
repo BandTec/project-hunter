@@ -212,7 +212,7 @@ export default function Teams() {
                         <img src={camera} alt="Select your photo"></img>
                     </label>
                 </div>
-                <center className="btn-modal">
+                <center className="btn-modal-criarEquipe">
                 <p style={{ width: "300px"}}>
                     <button className={classes2.buttonClose} onClick={handleCloseModal}>
                         Fechar
