@@ -9,6 +9,7 @@ import {
   FiSearch,
   FiUser,
   FiPlusCircle,
+
 } from "react-icons/fi";
 import { Link, useHistory } from "react-router-dom";
 import api from "../../services/api";
@@ -45,105 +46,105 @@ const useStyles = makeStyles((theme) => ({
 
 const useStyles2 = makeStyles((theme) => ({
   paper: {
-      position: "absolute",
+    position: "absolute",
 
-      backgroundColor: "#000",
-      font: "Roboto, Arial, Helvetica, sans-serif",
-      color: "#fff",
-      border: "2px solid #000",
-      boxShadow: theme.shadows[5],
-      padding: theme.spacing(2, 4, 3),
+    backgroundColor: "#000",
+    font: "Roboto, Arial, Helvetica, sans-serif",
+    color: "#fff",
+    border: "2px solid #000",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
   },
 
   divAbove: {
-      display: "grid",
-      gridTemplateColumns: "repeat(2, 1fr)",
-      alignItems: "center",
-      justifyContent: "center",
+    display: "grid",
+    gridTemplateColumns: "repeat(2, 1fr)",
+    alignItems: "center",
+    justifyContent: "center",
   },
 
 
 
   nome: {
-      display: "grid",
-      gridTemplateColumns: "repeat(3, 1fr)",
-      justifyContent: "space-between", 
-      marginBottom: "20px"
+    display: "grid",
+    gridTemplateColumns: "repeat(3, 1fr)",
+    justifyContent: "space-between",
+    marginBottom: "20px"
   },
 
   nomeStyle: {
-      width: "340px",
-      height: "48px",
-      marginTop: "10px",
-      marginBottom: "10px",
-      marginRight: "5px",
-      border: "1px solid #ddd",
-      borderRadius: "4px",
+    width: "340px",
+    height: "48px",
+    marginTop: "10px",
+    marginBottom: "10px",
+    marginRight: "5px",
+    border: "1px solid #ddd",
+    borderRadius: "4px",
 
-      padding: "0 20px",
-      fontSize: "16px",
-      color: "#666",
+    padding: "0 20px",
+    fontSize: "16px",
+    color: "#666",
   },
 
   imagem: {
-      gridTemplateColumns: "repeat(2, 1fr)",
-      justifyContent: "right",
-      alignContent: "right",
+    gridTemplateColumns: "repeat(2, 1fr)",
+    justifyContent: "right",
+    alignContent: "right",
   },
 
   imagemStyle: {
-      width: "220px",
-      height: "48px",
-      marginTop: "10px",
-      marginBottom: "10px",
+    width: "220px",
+    height: "48px",
+    marginTop: "10px",
+    marginBottom: "10px",
 
-      border: "1px solid #ddd",
-      borderRadius: "4px",
+    border: "1px solid #ddd",
+    borderRadius: "4px",
 
-      padding: "0 20px",
-      fontSize: "16px",
-      color: "#666",
+    padding: "0 20px",
+    fontSize: "16px",
+    color: "#666",
   },
 
 
   buttonClose: {
-      backgroundColor: "#000",
-      color: "#00FF00",
-      marginTop: "15px",
-      border: "1px solid #00FF00",
-      borderRadius: "4px",
-      height: "48px",
-      width: "112px",
-      padding: "0 20px",
-      fontSize: "16px",
-      fontStyle: "bold",
-      cursor: "pointer",
+    backgroundColor: "#000",
+    color: "#00FF00",
+    marginTop: "15px",
+    border: "1px solid #00FF00",
+    borderRadius: "4px",
+    height: "48px",
+    width: "112px",
+    padding: "0 20px",
+    fontSize: "16px",
+    fontStyle: "bold",
+    cursor: "pointer",
   },
   buttonCreate: {
-      backgroundColor: "#00FF00",
-      color: "#000",
-      marginTop: "15px",
-      marginLeft: "30px",
-      border: "1px solid #000",
-      borderRadius: "4px",
-      height: "48px",
-      width: "112px",
-      padding: "0 20px",
-      fontSize: "16px",
-      fontStyle: "bold",
-      cursor: "pointer",
+    backgroundColor: "#00FF00",
+    color: "#000",
+    marginTop: "15px",
+    marginLeft: "30px",
+    border: "1px solid #000",
+    borderRadius: "4px",
+    height: "48px",
+    width: "112px",
+    padding: "0 20px",
+    fontSize: "16px",
+    fontStyle: "bold",
+    cursor: "pointer",
   },
 
   input: {
-      width: "280px",
-      marginTop: "10px",
-      marginBottom: "10px",
-      border: "1px solid #ddd",
-      borderRadius: "4px",
-      height: "48px",
-      padding: "0 20px",
-      fontSize: "16px",
-      color: "#666",
+    width: "280px",
+    marginTop: "10px",
+    marginBottom: "10px",
+    border: "1px solid #ddd",
+    borderRadius: "4px",
+    height: "48px",
+    padding: "0 20px",
+    fontSize: "16px",
+    color: "#666",
   },
 }));
 
@@ -155,9 +156,9 @@ function getModalStyle() {
   const left = 50 + rand();
 
   return {
-      top: `${top}%`,
-      left: `${left}%`,
-      transform: `translate(-${top}%, -${left}%)`,
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
   };
 }
 
@@ -166,18 +167,19 @@ export default function Busca({ dataResponse }) {
   const [matches, setMatches] = useState([]);
   const [nome, setNome] = useState("");
   const [idGamer, setIdGamer] = useState("");
+  const [numUsers, setNumUsers] = useState("");
 
-  const[gamer, setGamer] = useState([]);
-  
+  const [gamer, setGamer] = useState([]);
+
   const classes2 = useStyles2();
   const [modalStyle] = React.useState(getModalStyle);
   const [openModal, setOpenModal] = React.useState(false);
   const [equipes, setEquipes] = useState("");
   const [nomeEquipe, setNomeEquipe] = useState([]);
-  
-  function handleOpenModal (dados) {
+
+  function handleOpenModal(dados) {
     localStorage.setItem('idEquipe', dados);
-    setOpenModal(true);    
+    setOpenModal(true);
   };
 
   const handleCloseModal = () => {
@@ -225,13 +227,13 @@ export default function Busca({ dataResponse }) {
 
   const body = (
     <div style={modalStyle} className={classes2.paper}>
-        <h2>Juntar-se a equipe</h2>
-        
-        <div className={classes2.divAbove}>
-            
-            <p>Deseja juntar-se a equipe?</p>
+      <h2>Juntar-se a equipe</h2>
 
-            {/* <p>Escolha sua imagem :</p>
+      <div className={classes2.divAbove}>
+
+        <p>Deseja juntar-se a equipe?</p>
+
+        {/* <p>Escolha sua imagem :</p>
             <div className={classes2.imagem}>
                 <label id="thumbnail"
                     style={{ backgroundImage: `url(${preview})` }}
@@ -241,50 +243,50 @@ export default function Busca({ dataResponse }) {
                     <img src={camera} alt="Select your photo"></img>
                 </label>
             </div> */}
-            
-            <p style={{ width: "300px" }}>
-                <button className={classes2.buttonClose} onClick={handleCloseModal}>
-                    Não
+
+        <p style={{ width: "300px" }}>
+          <button className={classes2.buttonClose} onClick={handleCloseModal}>
+            Não
           </button>
-                <button className={classes2.buttonCreate} onClick={envioDadosEntrarEquipe}>
-                    Sim
+          <button className={classes2.buttonCreate} onClick={envioDadosEntrarEquipe}>
+            Sim
           </button>
-            </p>
-        </div>
+        </p>
+      </div>
     </div>
-);
+  );
 
 
-async function envioDadosEntrarEquipe(){
-  const data = {
-    idEquipe: {
-       idEquipe: localStorage.getItem('idEquipe')
-    },
-    idGamer: {
+  async function envioDadosEntrarEquipe() {
+    const data = {
+      idEquipe: {
+        idEquipe: localStorage.getItem('idEquipe')
+      },
+      idGamer: {
         idGamer: localStorage.getItem("idGamer")
-    },
-    idStatus:{
-        idStatus: 3 
-    },
-    capitao: false
-  };
+      },
+      idStatus: {
+        idStatus: 3
+      },
+      capitao: false
+    };
 
-  try {
-    const response = await api.post(`/equipegamer/`, data); //{
-    if (response.status === 201) {
-      
-      alert('Pedido enviado ao dono da equipe');
-      handleCloseModal();
-      return;
-       
-    } else {
-      alert("Erro ao enviar solicitação");
+    try {
+      const response = await api.post(`/equipegamer/`, data); //{
+      if (response.status === 201) {
+
+        alert('Pedido enviado ao dono da equipe');
+        handleCloseModal();
+        return;
+
+      } else {
+        alert("Erro ao enviar solicitação");
+      }
+    } catch (err) {
+      alert("Erro ao enviar solicitação ou conectar-se ao servidor");
     }
-  } catch (err) {
-    alert("Erro ao enviar solicitação ou conectar-se ao servidor");
-  }
 
-}
+  }
 
 
 
@@ -333,25 +335,20 @@ async function envioDadosEntrarEquipe(){
       const isArray = Array.isArray(data);
       isArray && setEquipes(data);
 
-      if (equipes == '' || equipes == null){
+
+
+      if (equipes == '' || equipes == null) {
         api.get(`/equipegamer/equipe/${pesquisa}/`).then((response) => {
           const { data2 = [] } = response || {};
           // verify response.data is an array
           const isArray2 = Array.isArray(data2);
           isArray2 && setEquipes(data);
+
         });
       }
     });
   }, [dataResponse]);
 
-async function getGamer(nomeEquipe){
-  api.get(`/equipegamer/equipe/${nomeEquipe}/`).then((response) => {
-    const { data = [] } = response || {};
-    // verify response.data is an array
-    const isArray = Array.isArray(data);
-    isArray && setGamer(data);
-  });
-}
   // useEffect(() => {
   //   dataResponse.forEach((values) => {
   //     api.get(`/jogo/${values.id}/`).then((response) => {
@@ -382,8 +379,20 @@ async function getGamer(nomeEquipe){
   function criaDados(idGamer, nome) {
     return { idGamer, nome };
   }
-  function criaDadosEquipe(fotoGamer){
-    return {fotoGamer};
+  function criaDadosEquipe(fotoGamer) {
+    return { fotoGamer };
+  }
+
+
+  async function getNumEquipe(dados) {
+    api.get(`/equipegamer/equipe/qtd/${dados}/`).then((response) => {
+      const { data = [] } = response || {};
+      const isArray = Array.isArray(data);
+      isArray && setNumUsers(data);
+      console.log(data);
+      console.log(numUsers);
+      
+    });
   }
 
   async function handleDeleteMatch(id) {
@@ -419,60 +428,60 @@ async function getGamer(nomeEquipe){
 
   async function handleConfig() {
     history.push('/config');
-}
+  }
 
-async function handleEquipe() {
+  async function handleEquipe() {
     history.push('/equipes');
-}
+  }
 
 
-function handleHome() {
+  function handleHome() {
 
     history.push('/home');
-}
+  }
 
 
   return (
     <div className="home-container">
-             <header>
-                <img src={Logo} alt="HunterProject" onClick={handleHome}></img>
-                {/* <span>Bem vindo, {userName}</span> */}
+      <header>
+        <img src={Logo} alt="HunterProject" onClick={handleHome}></img>
+        {/* <span>Bem vindo, {userName}</span> */}
 
-                <div className="input-pesquisa">
-                    <input type="text" placeholder="Busque por jogos, equipes..."></input>
-                    <button className="btn-pesquisa"><FiSearch size={18} color="#000000" /></button>
-                </div>
+        <div className="input-pesquisa">
+          <input type="text" placeholder="Busque por jogos, equipes..."></input>
+          <button className="btn-pesquisa"><FiSearch size={18} color="#000000" /></button>
+        </div>
 
 
-                <Button
-                    ref={anchorRef}
-                    aria-controls={open ? 'menu-list-grow' : undefined}
-                    aria-haspopup="true"
-                    onClick={handleToggle}
-                    className={classes.button}
+        <Button
+          ref={anchorRef}
+          aria-controls={open ? 'menu-list-grow' : undefined}
+          aria-haspopup="true"
+          onClick={handleToggle}
+          className={classes.button}
 
-                >
-                    <FiUser size={36} color="#FFFFFF" />
-                </Button>
-                <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal >
-                    {({ TransitionProps, placement }) => (
-                        <Grow
-                            {...TransitionProps}
-                            style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
-                        >
-                            <Paper className={classes.root} >
-                                <ClickAwayListener onClickAway={handleClose}>
-                                    <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                                        <MenuItem onClick={handleProfile}>Perfil</MenuItem>
-                                        <MenuItem onClick={handleEquipe}>Minhas Equipes</MenuItem>
-                                        <MenuItem onClick={handleConfig}>Configurações</MenuItem>
-                                        <MenuItem onClick={handleLogout}>Logout</MenuItem>
-                                    </MenuList>
-                                </ClickAwayListener>
-                            </Paper>
-                        </Grow>
-                    )}
-                </Popper>
+        >
+          <FiUser size={36} color="#FFFFFF" />
+        </Button>
+        <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal >
+          {({ TransitionProps, placement }) => (
+            <Grow
+              {...TransitionProps}
+              style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+            >
+              <Paper className={classes.root} >
+                <ClickAwayListener onClickAway={handleClose}>
+                  <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+                    <MenuItem onClick={handleProfile}>Perfil</MenuItem>
+                    <MenuItem onClick={handleEquipe}>Minhas Equipes</MenuItem>
+                    <MenuItem onClick={handleConfig}>Configurações</MenuItem>
+                    <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                  </MenuList>
+                </ClickAwayListener>
+              </Paper>
+            </Grow>
+          )}
+        </Popper>
 
       </header>
 
@@ -485,6 +494,9 @@ function handleHome() {
 
           {equipes
             ? equipes.map((equipe) => (
+              
+              getNumEquipe(equipe.idEquipe.nomeEquipe),
+
               <div className="div-organizacao-equipes">
                 <img src={
                   equipe.idEquipe.fotoEquipe
@@ -494,11 +506,11 @@ function handleHome() {
                   alt=""
                   className="jogo-imagem"
                 ></img>
-                
+
                 <p className="jogo-nome">{equipe.idEquipe.nomeEquipe}</p>
-                
+
                 <div>
-                  <p className="div-integrantes" > Membros:<p style={{color: '#00FF00'}}>5</p><p style={{marginLeft:"-80px"}}>/  50</p> </p>
+                  <p className="div-integrantes" > Membros:<p style={{ color: '#00FF00' }}>{numUsers}</p><p style={{ marginLeft: "-80px" }}>/  50</p> </p>
                 </div>
 
                 <div className="current-members-team">
@@ -510,14 +522,14 @@ function handleHome() {
                   ))} */}
                 </div>
 
-                
+
 
                 <div>
                   <button className="btnJuntar-se" onClick={() => handleOpenModal(equipe.idEquipe.idEquipe)} > Juntar-se</button>
                   <Modal open={openModal} onClose={handleCloseModal}>
-                    
+
                     {body}
-                </Modal>
+                  </Modal>
 
                 </div>
               </div>
