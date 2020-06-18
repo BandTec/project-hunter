@@ -345,9 +345,6 @@ export default function Teams() {
 
     const [nomeEquipeCriada, setNomeEquipeCriada] = useState('');
     const [IdEquipeCriada, setIdEquipeCriada] = useState('');
-    
-
-    localStorage.setItem('nomeEquipe', "keyd");
 
     const email = localStorage.getItem('email');
     const [equipes, setEquipes] = useState([]);
@@ -461,10 +458,8 @@ export default function Teams() {
 
 
             </header>
-
-            <div className="div-principal">
-
-                <div className="div-equipes">
+            <div className="div-principal-btn">
+                <div className="div-equipes-btn">
                     <button onClick={handleOpenModal}> <FiPlusCircle size={64} color="#FFF" /> </button>
                     <p onClick={handleOpenModal}>Criar equipe</p>
                 </div>
@@ -472,16 +467,12 @@ export default function Teams() {
                     {body}
                 </Modal>
 
-
-
-
-                <div className="div-equipes">
+                <div className="div-equipes-btn">
                     <button> <FiSearch size={64} color="#FFF" /> </button>
                     <p onClick={handleScreenFind}>Entrar em equipe</p>
                 </div>
-
             </div>
-
+            
             <div className="div-principal">
                 {equipes.map(team => (
                     <div key={team.idEquipe.idEquipe} className="div-equipes">
