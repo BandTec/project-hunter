@@ -169,6 +169,8 @@
   display: grid;
   grid-template-columns:  repeat(5, 150px);
   width: 100px;
+
+  align-items: center;
   
 }
 
@@ -185,6 +187,8 @@
   font-weight: bold;
   font-size: 15px;
   line-height: 42px;
+  justify-content: center;
+  align-items: center;
 
   color: #ffffff;
 }
@@ -213,6 +217,10 @@
 .div-integrantes{
   color: #fff;
   font-size: 18px;
+  width: 200px;
+  display: grid;
+  grid-template-columns:  repeat(3, 100px);
+
 }
 
 
