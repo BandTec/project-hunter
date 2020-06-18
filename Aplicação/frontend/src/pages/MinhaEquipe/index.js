@@ -86,10 +86,14 @@ export default function MyTeam() {
     const [nomeEquipe, setNomeEquipe] = useState('');
     const [fotoEquipe, setFotoEquipe] = useState([]);
     const [idEquipe, setIdEquipe] = useState('');
+    const [pesquisa, setPesquisa] = useState("");
 
     //localStorage.setItem('nomeEquipe', "keyd");
 
-
+    async function handlePesquisa () {
+        localStorage.setItem('pesquisa', pesquisa);
+        history.push("/busca", pesquisa);
+      }
 
     useEffect(() => {
         setNomeEquipe(localStorage.getItem('nomeEquipe'));
@@ -219,8 +223,14 @@ export default function MyTeam() {
                 {/* <span>Bem vindo, {userName}</span> */}
 
                 <div className="input-pesquisa">
-                    <input type="text" placeholder="Busque por jogos, equipes..."></input>
-                    <button className="btn-pesquisa"><FiSearch size={18} color="#000000" /></button>
+                <input
+                     type="text"
+                    placeholder="Busque por jogos ou equipes..."
+                    onChange={(e) => setPesquisa(e.target.value)}
+          ></input>
+          <button className="btn-pesquisa" onClick={handlePesquisa}>
+            <FiSearch size={18} color="#000000" />
+          </button>
                 </div>
 
 

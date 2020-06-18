@@ -130,10 +130,16 @@ export default function Configurações() {
     const [idJogo, setIdJogo] = useState('');
     const [idPosicao, setIdPosicao] = useState('');
     const [senha, setSenha] = useState('');
+    const [pesquisa, setPesquisa] = useState("");
 
   console.log(localStorage);
 
   // Botão Usuário 
+
+  async function handlePesquisa () {
+    localStorage.setItem('pesquisa', pesquisa);
+    history.push("/busca", pesquisa);
+  }
 
   const preview = useMemo(() => { return thumbnail ? URL.createObjectURL(thumbnail) : null },
   thumbnail);
@@ -328,8 +334,14 @@ async function handleSignUp2() {
 
 
         <div className="input-pesquisa">
-          <input type="text" placeholder="Busque por jogos, equipes..."></input>
-          <button className="btn-pesquisa"><FiSearch size={18} color="#000000" /></button>
+        <input
+            type="text"
+            placeholder="Busque por jogos ou equipes..."
+            onChange={(e) => setPesquisa(e.target.value)}
+          ></input>
+          <button className="btn-pesquisa" onClick={handlePesquisa}>
+            <FiSearch size={18} color="#000000" />
+          </button>
         </div>
 
 

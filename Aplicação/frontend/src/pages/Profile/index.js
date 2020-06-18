@@ -82,6 +82,12 @@ export default function Profile() {
     const email = localStorage.getItem('email');
     const idGamer = localStorage.getItem('idGamer');
     const [equipes, setEquipes] = useState([]);
+    const [pesquisa, setPesquisa] = useState("");
+
+    async function handlePesquisa () {
+        localStorage.setItem('pesquisa', pesquisa);
+        history.push("/busca", pesquisa);
+      }
 
     useEffect(() => {
         api.get(`/equipegamer/gamer/${email}/`
@@ -158,8 +164,14 @@ export default function Profile() {
             <header>
                 <img src={Logo} alt="HunterProject" onClick={handleHome}></img>
                     <div className="input-pesquisa">
-                        <input type="text" placeholder="Busque por jogos, equipes..."></input>
-                        <button className="btn-pesquisa"><FiSearch size={18} color="#000000" /></button>
+                    <input
+                     type="text"
+                    placeholder="Busque por jogos ou equipes..."
+                    onChange={(e) => setPesquisa(e.target.value)}
+          ></input>
+          <button className="btn-pesquisa" onClick={handlePesquisa}>
+            <FiSearch size={18} color="#000000" />
+            </button>
                     </div>
 
                 <Button

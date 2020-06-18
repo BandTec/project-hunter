@@ -668,7 +668,7 @@ export default function Home() {
         <div className="input-pesquisa">
           <input
             type="text"
-            placeholder="Busque por jogos, equipes..."
+            placeholder="Busque por jogos ou equipes..."
             onChange={(e) => setPesquisa(e.target.value)}
           ></input>
           <button className="btn-pesquisa" onClick={handlePesquisa}>
