@@ -47,7 +47,7 @@ public class EquipeGamerController {
 
     @GetMapping("/equipe/{nome}")
     private ResponseEntity BuscaPorNomeEquipe(@PathVariable("nome") String nome) {
-        List<EquipeGamer> lista = repository.findByIdEquipe_NomeEquipe(nome);
+        List<EquipeGamer> lista = repository.findByIdEquipe_NomeEquipeAndIdStatus_IdStatus(nome, 1);
         HttpHeaders responseHeaders = new HttpHeaders();
         Integer qtdGamers = repository.countByIdEquipe_IdEquipe(lista.get(0).getIdEquipe().getIdEquipe());
         responseHeaders.set("qtdGamers", String.valueOf(qtdGamers));
