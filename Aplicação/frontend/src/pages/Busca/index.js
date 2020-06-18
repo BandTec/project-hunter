@@ -168,7 +168,7 @@ export default function Busca({ dataResponse }) {
   const [nome, setNome] = useState("");
   const [idGamer, setIdGamer] = useState("");
   const [numUsers, setNumUsers] = useState("");
-
+  const [pesquisa, setPesquisa] = useState("");
   const [gamer, setGamer] = useState([]);
 
   const classes2 = useStyles2();
@@ -440,6 +440,10 @@ export default function Busca({ dataResponse }) {
     history.push('/home');
   }
 
+  async function handlePesquisa () {
+    localStorage.setItem('pesquisa', pesquisa);
+    history.push("/busca", pesquisa);
+  }
 
   return (
     <div className="home-container">
@@ -448,8 +452,14 @@ export default function Busca({ dataResponse }) {
         {/* <span>Bem vindo, {userName}</span> */}
 
         <div className="input-pesquisa">
-          <input type="text" placeholder="Busque por jogos, equipes..."></input>
-          <button className="btn-pesquisa"><FiSearch size={18} color="#000000" /></button>
+        <input
+                     type="text"
+                    placeholder="Busque por jogos ou equipes..."
+                    onChange={(e) => setPesquisa(e.target.value)}
+          ></input>
+          <button className="btn-pesquisa" onClick={handlePesquisa}>
+            <FiSearch size={18} color="#000000" />
+          </button>
         </div>
 
 
