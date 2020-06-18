@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import './styles.css'
+
+import "./styles.css"
 import Logo from "../../assets/testeLogo3.png";
 
 import Lol from "../../assets/lol-icon.svg";
@@ -262,17 +263,19 @@ export default function MyTeam() {
                     <img className="profile-pic" src={require(`../../assets/${team.fotoEquipe}`)} alt="Foto de Perfil"></img>
                 ))}
                 <h1 className="profile-nic">{nomeEquipe}</h1>
-                <h1 className="profile-rate"> <FiStar size={48} color="#F1DA07" />  4.96</h1>
+                {/* <h1 className="profile-rate"> <FiStar size={48} color="#F1DA07" />  4.96</h1> */}
             </div>
 
 
             <body>
                 <div>
 
-                    <h2>Jogadores:</h2>
+                    <h3>Jogadores:</h3>
                     <div className="current-members">
                         {team.map(team => (
                             <div key={team.idGamer.idGamer}>
+                            
+                                {/* <img src={require(`../../assets/${team.idGamer.fotoGamer}`)} alt="User-Icon" ></img> */}
                                 <img src={User} alt="User-Icon" ></img>
                                 <p>{team.idGamer.nome}</p>
                             </div>
@@ -280,12 +283,11 @@ export default function MyTeam() {
 
                     </div>
 
-                    <h2>Jogos Atuais:</h2>
-                    <div className="current-games">
+                    <h3>Jogos Atuais:</h3>
+                    <div className="current-gamesE">
 
                         {teamGames.map(team => (
                             <div key={team.idJogo.idJogo} >
-
                                 <img src={require(`../../assets/${team.idJogo.fotoJogo}`)} alt="Icone Jogo" ></img>
                                 <p>{team.idJogo.nomeJogo}</p>
 

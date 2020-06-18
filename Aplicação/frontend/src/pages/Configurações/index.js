@@ -16,6 +16,7 @@ import camera from '../../assets/camera.svg';
 import '../../routes.js';
 import { BrowserRouter as Router } from "react-router-dom";
 import Modal from '@material-ui/core/Modal';
+import { rows } from 'mssql';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -126,8 +127,8 @@ export default function Configurações() {
     const [cpf, setCpf] = useState('');
     const [email, setEmail] = useState('');
     const [telefone, setTelefone] = useState('');
-    const [jogo, setJogo] = useState('');
-    const [posicao, setPosicao] = useState('');
+    const [idJogo, setIdJogo] = useState('');
+    const [idPosicao, setIdPosicao] = useState('');
     const [senha, setSenha] = useState('');
 
   console.log(localStorage);
@@ -232,10 +233,6 @@ function criaDados(nome, usuario, cpf, email, senha, telefone){
     history.push('/equipes');
   }
 
-  function handleAgendamento(){
-    history.push('/agendamento');
-    }
-
   async function handleLogout() {
     try {
       const response = await api.post('/gamer/logoff');
@@ -260,6 +257,8 @@ function criaDados(nome, usuario, cpf, email, senha, telefone){
     history.push('/home');
 }
 
+const id = localStorage.getItem('idGamer');
+
   async function handleSignUp(e) {
     e.preventDefault();
     if (nome === "" || cpf === "" || email === "" || senha === "" || usuario === "" || telefone === "") {
@@ -271,31 +270,54 @@ function criaDados(nome, usuario, cpf, email, senha, telefone){
             cpf,
             email,
             telefone,
-            posicao,
-            jogo,
             senha
         };
 
-        const id = localStorage.getItem('idGamer');
-
         try {
-            const response = await api.put(`/gamer/${id}}`, data);
-            //alert(`Seu ID de Acesso ${response.data.id}`);  
-            if (response.status === 200){
-                alert('Dados alterados com sucesso!');
-                history.push('/Home');
-            }else{
-                alert('Falha na atualização, tente novamente');
+            const response = await api.put(`/gamer/${id}}`, data); 
+            //alert(`Seu ID de Acesso ${response.data.id}`);
+            if (response.status === 201){
+              handleSignUp2();
+              }else{
+                  alert('Erro na atualização de seus dados, tente novamente!');
+              }
+          } catch (err) {
+              alert('Erro na atualização de seus dados, tente novamente!');
+          }
+      }
+  }
+
+async function handleSignUp2() {
+  if (idJogo === "" && idPosicao === "") {
+      alert('Dados alterados com sucesso!');
+  } 
+  else if (idJogo === "" || idPosicao === ""){
+    alert('Preencha seu jogo e sua posição!')
+  }
+  else {
+
+      const data2 = {
+          'idJogo': {
+              'idJogo': idJogo
+            },
+            'idPosicao': {
+              'idPosicao': idPosicao
             }
-        } catch (err) {
-            alert('Falha na atualização, tente novamente');
-        }
-    }
-}
+          };
 
-function chamaLogin() {
-
-history.push("/login");
+      try {
+          const response = await api.post(`/gamerinfo/${email}`, data2);
+          //alert(`Seu ID de Acesso ${response.data.id}`);
+          if (response.status === 201){
+            alert('Dados alterados com sucesso!');
+            history.push('/home')
+          }else{
+              alert('Erro no cadastro de seu jogo e/ou posição, tente novamente!');
+          }
+      } catch (err) {
+          alert('Erro no cadastro de seu jogo e/ou posição, tente novamente!');
+      }
+  }
 }
 
   return (
@@ -343,30 +365,27 @@ history.push("/login");
       </header>
 <div className="formulario">
       <form onSubmit={handleSignUp}>
-               <center> <label id="thumbnail"
+                <label id="thumbnail"
                     style={{ backgroundImage: `url(${preview})` }}
                     className={thumbnail ? 'has-thumbnail' : ''}
                 >
                    {/* <img className="profile-pic" src = {require(`../../assets/${localStorage.getItem('nome')}-icon.jpg`)} alt="Foto de Perfil"></img> */}
                     <input type="file" onChange={event => setThumbnail(event.target.files[0])} />
                     <img src={camera} alt="Select your photo"></img>
-                    
-                </label><br></br>
+
+                </label>
+                <rows>
+                <br></br>
+                <div className = "campos3">
                 <div className="campos">
                 <p className = "campo">Nome:</p>
                 <input value={nome} onChange={e => setNome(e.target.value)} />
-                <p className = "campo">Usuário:</p>
-                <input value = {usuario} onChange={e => setUsuario(e.target.value)} />
                 <p className = "campo">CPF:</p>
                 <input value={cpf} onChange={e => setCpf(e.target.value)} />
-                <p className = "campo">Telefone:</p>
-                <input value={telefone} onChange={e => setTelefone(e.target.value)} />
                 <p className = "campo">Email:</p>
                 <input value={email} onChange={e => setEmail(e.target.value)} />
-                <p className = "campo">Senha:</p>
-                <input type = "password" value={senha} onChange={e => setSenha(e.target.value)} />
                 <p className = "campo">Jogo:</p>
-                <select onChange={e => setJogo(e.target.value)}>
+                <select onChange={e => setIdJogo(e.target.value)}>
                 <option value='0'>Selecione o jogo</option>
                 <option value='1'>Counter-Strike: Global Offensive</option>
                 <option value='2'>Valorant</option>
@@ -375,9 +394,17 @@ history.push("/login");
                 <option value='5'>DOTA 2</option>
                 <option value='6'>Call of Duty: Warzone</option>
                 <option value='7'>PlayerUnkown's Battlegrounds</option>
-                </select>
+                </select> 
+                </div>
+                <div className="campos2">
+                <p className = "campo">Usuário:</p>
+                <input value = {usuario} onChange={e => setUsuario(e.target.value)} />              
+                <p className = "campo">Telefone:</p>
+                <input value={telefone} onChange={e => setTelefone(e.target.value)} />                                          
+                <p className = "campo">Senha:</p>
+                <input type = "password" value={senha} onChange={e => setSenha(e.target.value)} />
                 <p className = "campo">Posição:</p>
-                <select onChange={e => setPosicao(e.target.value)}>
+                <select onChange={e => setIdPosicao(e.target.value)}>
                 <option value='0'>Selecione a sua posição</option>
                 <option value='2'>Atirador</option>
                 <option value='3'>Suporte</option>
@@ -389,13 +416,18 @@ history.push("/login");
                 <option value ='9'>Capitão</option>
                 <option value ='10'>Sniper</option>
                 </select>
-                </div><br></br>
+                </div> 
+                </div>
+                </rows>
+                </form>
+
                 <Router>
+                  <center>
                         <button className="configuracao container btn Cad"  type="submit">Salvar</button>
+                        </center>
                 </Router>
 
-                </center>
-            </form>
+                
             </div>
     </div>
   );

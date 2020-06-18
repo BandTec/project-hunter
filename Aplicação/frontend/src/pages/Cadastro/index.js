@@ -54,10 +54,10 @@ export default function Cadastro() {
                 if (response.status === 201){
                 handleSignUp2();
                 }else{
-                    alert('Erro no cadastro de seus dados, tente novamente');
+                    alert('Erro no cadastro de seus dados, tente novamente!');
                 }
             } catch (err) {
-                alert('Erro no cadastro de seus dados, tente novamente');
+                alert('Erro no cadastro de seus dados, tente novamente!');
             }
         }
     }
@@ -86,7 +86,8 @@ export default function Cadastro() {
                 const response = await api.post(`/gamerinfo/${email}`, data2);
                 //alert(`Seu ID de Acesso ${response.data.id}`);
                 if (response.status === 201){
-                history.push('/login');
+                    alert('Dados alterados com sucesso!');
+                    history.push('/login');
                 }else{
                     alert('Erro no cadastro de seu jogo e/ou posição, tente novamente!');
                 }
@@ -119,23 +120,18 @@ export default function Cadastro() {
                     <input type="file" onChange={event => setThumbnail(event.target.files[0])} />
                     <img src={camera} alt="Select your photo"></img>
                 </label></center>
+                <rows>
+                <br></br>
+                <div className = "campos3">
                 <div className="campos">
                 <p className = "campo">Nome:</p>
                 <input onChange={e => setNome(e.target.value)} />
-                <p className = "campo">Usuário:</p>
-                <input onChange={e => setUsuario(e.target.value)} />
                 <p className = "campo">CPF:</p>
                 <input onChange={e => setCpf(e.target.value)} />
-                <p className = "campo">Telefone:</p>
-                <input onChange={e => setTelefone(e.target.value)} />
                 <p className = "campo">Email:</p>
                 <input onChange={e => setEmail(e.target.value)} />
-                <p className = "campo">Confirme seu email:</p>
-                <input onChange={e => setConfirmarEmail(e.target.value)} />
                 <p className = "campo">Senha:</p>
                 <input type="password" onChange={e => setSenha(e.target.value)} />
-                <p className = "campo">Confirme sua senha:</p>
-                <input type="password" onChange={e => setConfirmarSenha(e.target.value)} />
                 <p className = "campo">Jogo:</p>
                 <select onChange={e => setIdJogo(e.target.value)}>
                 <option value='0'>Selecione o jogo</option>
@@ -147,6 +143,16 @@ export default function Cadastro() {
                 <option value='6'>Call of Duty: Warzone</option>
                 <option value='7'>PlayerUnkown's Battlegrounds</option>
                 </select>
+                </div>
+                <div className="campos2">
+                <p className = "campo">Usuário:</p>
+                <input onChange={e => setUsuario(e.target.value)} />
+                <p className = "campo">Telefone:</p>
+                <input onChange={e => setTelefone(e.target.value)} />
+                <p className = "campo">Confirme seu email:</p>
+                <input onChange={e => setConfirmarEmail(e.target.value)} />
+                <p className = "campo">Confirme sua senha:</p>
+                <input type="password" onChange={e => setConfirmarSenha(e.target.value)} />  
                 <p className = "campo">Posição:</p>
                 <select onChange={e => setIdPosicao(e.target.value)}>
                 <option value='0'>Selecione a sua posição</option>
@@ -160,18 +166,20 @@ export default function Cadastro() {
                 <option value ='9'>Capitão</option>
                 <option value ='10'>Sniper</option>
                 </select>
-                </div>
-                <br></br>
-                <Router>
-                    <div>
+                </div> 
+                </div> </rows>  
+                
+            </form>
+
+            <Router>
+                <center>
+                    <div className="btns">
                         <button className="cadastro container btn Voltar" type="submit"
                             onClick={chamaLogin}> Voltar</button>
                         <button className="cadastro container btn Cad"  type="submit" onKeyPress={handleKeyPress}> Cadastrar</button>
                     </div>
+                </center>
                 </Router>
-
-
-            </form>
         </div>
 
     );

@@ -3,7 +3,9 @@ package br.com.hunter.Controladores;
 import br.com.hunter.Modelos.EquipeGamer;
 import br.com.hunter.Modelos.GamerInfo;
 import br.com.hunter.Modelos.Jogo;
+import br.com.hunter.Modelos.StatusSolicitacao;
 import br.com.hunter.Repositorios.EquipeGamerRepository;
+import br.com.hunter.Repositorios.StatusSolicitacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,9 @@ public class EquipeGamerController {
 
     @Autowired
     private EquipeGamerRepository repository;
+
+    @Autowired
+    private StatusSolicitacaoRepository statusRepository;
 
     @GetMapping
     public ResponseEntity listarTodos() {
@@ -80,6 +85,34 @@ public class EquipeGamerController {
         if(repository.existsById(id)) {
             EquipeGamerAlterada.setIdEquipeGamer(id);
             repository.save(EquipeGamerAlterada);
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping ( "/aceitar/{id}" )
+    public ResponseEntity aceitar(
+            @PathVariable("id") int id) {
+        if(repository.existsById(id)) {
+            EquipeGamer alvo = repository.findByIdEquipeGamer(id);
+            StatusSolicitacao status = statusRepository.findById(1).get();
+            alvo.setIdStatus(status);
+            repository.save(alvo);
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping ( "/recusar/{id}" )
+    public ResponseEntity recusar(
+            @PathVariable("id") int id) {
+        if(repository.existsById(id)) {
+            EquipeGamer alvo = repository.findByIdEquipeGamer(id);
+            StatusSolicitacao status = statusRepository.findById(2).get();
+            alvo.setIdStatus(status);
+            repository.save(alvo);
             return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.notFound().build();

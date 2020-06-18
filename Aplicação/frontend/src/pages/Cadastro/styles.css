@@ -3,7 +3,7 @@
 }
 
 .cadastro-container header {
-    display: flex;
+    display: grid;
     align-items: center;
     justify-content: center;
     background-color: #000000;
@@ -23,7 +23,7 @@
 }
 
 .cadastro-container form{
-        margin: 20px auto 0;
+        margin: 15px auto 0;
         width: 100%;
         max-width: 300px;
         display:flex;
@@ -68,7 +68,7 @@
 
 
 .cadastro-container .btn{
-    margin-top: 1%;
+    
     border: 1px solid #000000;
     border-radius: 4px;
     height: 48px;
@@ -77,7 +77,7 @@
     font-size: 16px;
     font-style: bold;
     cursor: pointer;
-    margin-top: 1%;
+    
 }
 
 
@@ -85,6 +85,8 @@
     border: 0;
     background-color: #00FF00;
     color: #000000;
+    position: absolute;
+    margin-left: 12%;    
 }
 
 .cadastro-container .Cad:hover{
@@ -94,8 +96,15 @@
 .cadastro-container  .Voltar{
     background-color: #000000;
     color: #00FF00;
-    
+    position: absolute;
+    margin-left: -12%;
 }
+.cadastro-container .btns{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
 
 .cadastro-container .Voltar:hover{
     background-color: #161616;
@@ -126,8 +135,8 @@ label#thumbnail{
      border: 1px dashed #ddd;
      background-size: cover;
      cursor: pointer;
-     height: 120px;
-     width: 130px;
+     height: 110px;
+     width: 120px;
      display: flex;
      justify-content: center;
      align-items: center;
@@ -148,11 +157,21 @@ label#thumbnail.has-thumbnail img {
     display: none;
 }
 
+
 .cadastro-container .campos{
     display: grid;
-    grid-template-columns:  repeat(4, 5fr);
-    grid-gap: 24px;
+    grid-template-rows:  repeat(1, 5fr);
+    grid-gap: 12px;
+    list-style: none;    
+}
+.cadastro-container .campos2{
+    display: grid;
+    grid-template-columns:  repeat(1, 5);
+    grid-gap: 12px;
     list-style: none;
-    justify-content: center;
-    align-items: center;
+    margin-left: 10%;
+}
+.cadastro-container .campos3{
+    margin-top: -4px;
+    margin-left: -5%;
 }

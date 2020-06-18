@@ -181,6 +181,8 @@ export default function Busca({ dataResponse }) {
   const [matches, setMatches] = useState([]);
   const [nome, setNome] = useState("");
   const [idGamer, setIdGamer] = useState("");
+
+  const[gamer, setGamer] = useState([]);
   const [nomeJogo, setJogo] = useState("");
   const [posicao, setPosicao] = useState("");
   const [data, setData] = useState("");
@@ -207,8 +209,8 @@ export default function Busca({ dataResponse }) {
   const classes2 = useStyles2();
   const [modalStyle] = React.useState(getModalStyle);
   const [openModal, setOpenModal] = React.useState(false);
-  const [games, setGames] = useState(dataResponse);
-  const [equipes, setEquipes] = useState(dataResponse);
+  const [games, setGames] = useState("");
+  const [equipes, setEquipes] = useState("");
   const [nomeEquipe, setNomeEquipe] = useState([]);
   const [team, setTeam] = useState([]);
 
@@ -220,163 +222,7 @@ export default function Busca({ dataResponse }) {
     setOpenModal(false);
   };
 
-  async function envioDadosPartida() {
-    setDataPt(anoPt + "-" + mesPt + "-" + diaPt);
-    setHorarioPt(horarioPt + ":" + minutoPt + ":00");
 
-    setInfracao(false);
-
-    if (!jogoPt || !idGamer || !posicaoPt || !horarioPt || !dataPt) {
-      alert("Preencha os dados necessários");
-    } else {
-      const data = {
-        idJogo: {
-          idJogo: jogoPt,
-        },
-        idGamer: {
-          idGamer: idGamer,
-        },
-        idPosicao: {
-          idPosicao: posicaoPt,
-        },
-        data: dataPt,
-        hora: horarioPt,
-      };
-      try {
-        const response = await api.post(`/partida/`, data); //{
-        if (response.status === 201) {
-          alert("Partida Criada com Sucesso!");
-          let dados = response.data;
-
-          let temp = [];
-
-          dados.forEach((item) => {
-            temp.push(criaDadosPt(item.idPartida));
-          });
-
-          setIdPartida(temp[0].idPartida);
-
-          if (!nomeJogadorOpPt || !posicaoOpcionalPt) {
-            return;
-          } else {
-            //   envioDadosPartidaAgregados(nomeJogadorOpPt, posicaoOpcionalPt);
-            return;
-          }
-        } else {
-          alert("Erro ao criar partida");
-        }
-      } catch (err) {
-        alert("Erro ao criar partida ou conectar-se ao servidor");
-      }
-    }
-  }
-  function criaDadosPt(idPartida) {
-    return { idPartida };
-  }
-
-  const body = (
-    <div style={modalStyle} className={classes2.paper}>
-      <h2>Organizar uma partida</h2>
-      <div className={classes2.divAbove}>
-        <p>Selecione um jogo :</p>
-
-        <select
-          className={classes2.select}
-          onChange={(e) => setJogoPt(e.target.value)}
-        >
-          <option value="0">Selecione o jogo</option>
-          <option value="1">Counter-Strike: Global Offensive</option>
-          <option value="2">Valorant</option>
-          <option value="3">League of Legends</option>
-          <option value="4">Fortnite</option>
-          <option value="5">DOTA 2</option>
-          <option value="6">Call of Duty: Warzone</option>
-          <option value="7">PlayerUnkown's Battlegrounds</option>
-        </select>
-        <p>Selecione uma posição :</p>
-        <select
-          className={classes2.select}
-          onChange={(e) => setPosicaoPt(e.target.value)}
-        >
-          <option value="0">Selecione a sua posição</option>
-          <option value="2">Atirador</option>
-          <option value="3">Suporte</option>
-          <option value="4">Jungle</option>
-          <option value="5">Top</option>
-          <option value="6">Mid</option>
-          <option value="7">Entry Fragger</option>
-          <option value="8">Lurker</option>
-          <option value="9">Capitão</option>
-          <option value="10">Sniper</option>
-        </select>
-        <p>Outros jogadores :</p>
-        <div className={classes2.divOpcional}>
-          <input
-            placeholder="Nome do jogador(Opicional)"
-            className={classes2.input}
-            onChange={(e) => setNomeJogadorOpPt(e.target.value)}
-          />
-          <div className={classes2.comboOpcional}>
-            <select
-              className={classes2.select}
-              onChange={(e) => setPosicaoOpcionalPt(e.target.value)}
-            >
-              <option value="0">Posição</option>
-              <option value="2">Atirador</option>
-              <option value="3">Suporte</option>
-              <option value="4">Jungle</option>
-              <option value="5">Top</option>
-              <option value="6">Mid</option>
-              <option value="7">Entry Fragger</option>
-              <option value="8">Lurker</option>
-              <option value="9">Capitão</option>
-              <option value="10">Sniper</option>
-            </select>
-          </div>
-        </div>
-        <p>Selecione um horário :</p>
-        <div className={classes2.hora}>
-          <input
-            placeholder="Hora (ex: 12)"
-            className={classes2.horaStyle}
-            onChange={(e) => setHorarioPt(e.target.value)}
-          />
-
-          <input
-            placeholder="Min. (ex: 05)"
-            className={classes2.horaStyle}
-            onChange={(e) => setMinutoPt(e.target.value)}
-          />
-        </div>
-        <p>Selecione uma data :</p>
-        <div className={classes2.datas}>
-          <input
-            className={classes2.dataStyle}
-            placeholder="Dia (ex: 01)"
-            onChange={(e) => setDiaPt(e.target.value)}
-          />
-          <input
-            className={classes2.dataStyle}
-            placeholder="Mês (ex: 01)"
-            onChange={(e) => setMesPt(e.target.value)}
-          />
-          <input
-            className={classes2.dataStyle}
-            placeholder="Ano(ex: 2020)"
-            onChange={(e) => setAnoPt(e.target.value)}
-          />
-        </div>
-        <p style={{ width: "300px" }}>
-          <button className={classes2.buttonClose} onClick={handleCloseModal}>
-            Fechar
-          </button>
-          <button className={classes2.buttonCreate} onClick={envioDadosPartida}>
-            Criar
-          </button>
-        </p>
-      </div>
-    </div>
-  );
 
   // Botão Usuário
   const classes = useStyles();
@@ -435,45 +281,79 @@ export default function Busca({ dataResponse }) {
       setIdGamer(temp[0].idGamer);
       localStorage.setItem("nome", temp[0].nome);
       localStorage.setItem("idGamer", temp[0].idGamer);
+      //pesquisa();
+      //partidaGamer();
     }
     dadosPerfil();
   }, [email]);
 
-  useEffect(() => {
+  async function partidaGamer() {
     api.get(`/partida/gamer/${id}/`).then((response) => {
       const { data = [] } = response || {};
       // verify response.data is an array
       const isArray = Array.isArray(data);
       isArray && setMatches(data);
-    });
-  }, [id]);
+    })
+  }
+
   useEffect(() => {
-    dataResponse.forEach((values) => {
-      api.get(`/jogo/${values.id}/`).then((response) => {
-        const { data = [] } = response || {};
-        const isArray = Array.isArray(data);
-        isArray && setGames(data);
+    const pesquisa = localStorage.getItem('pesquisa');
+    api.get(`/equipejogo/jogo/${pesquisa}/`).then((response) => {
+      const { data = [] } = response || {};
+      // verify response.data is an array
+      const isArray = Array.isArray(data);
+      isArray && setEquipes(data);
+      
+      let dados = response.data;
+
+      let temp = [];
+
+      dados.forEach((item) => {
+        getGamer(item.idEquipe.nomeEquipe)
       });
     });
   }, [dataResponse]);
-  useEffect(() => {
-    data.forEach((values) => {
-      api.get(`/equipe/${values.id}`).then((response) => {
-        const { data = [] } = response || {};
-        const isArray = Array.isArray(data);
-        isArray && setEquipes(data);
-      });
-    });
-  }, [data, dataResponse]);
-  useEffect(() => {
-    setNomeEquipe(localStorage.getItem("nomeEquipe"));
-    api.get(`/equipegamer/equipe/${nomeEquipe}/`).then((response) => {
-      setTeam(response.data);
-    });
-  }, [nomeEquipe, team]);
+
+async function getGamer(nomeEquipe){
+  api.get(`/equipegamer/equipe/${nomeEquipe}/`).then((response) => {
+    const { data = [] } = response || {};
+    // verify response.data is an array
+    const isArray = Array.isArray(data);
+    isArray && setGamer(data);
+  });
+}
+  // useEffect(() => {
+  //   dataResponse.forEach((values) => {
+  //     api.get(`/jogo/${values.id}/`).then((response) => {
+  //       const { data = [] } = response || {};
+  //       const isArray = Array.isArray(data);
+  //       isArray && setGames(data);
+  //     });
+  //   });
+  // }, [dataResponse]);
+
+  // useEffect(() => {
+  //   data.forEach((values) => {
+  //     api.get(`/equipe/${values.id}`).then((response) => {
+  //       const { data = [] } = response || {};
+  //       const isArray = Array.isArray(data);
+  //       isArray && setEquipes(data);
+  //     });
+  //   });
+  // }, [data, dataResponse]);
+
+  // useEffect(() => {
+  //   setNomeEquipe(localStorage.getItem("nomeEquipe"));
+  //   api.get(`/equipegamer/equipe/${nomeEquipe}/`).then((response) => {
+  //     setTeam(response.data);
+  //   });
+  // }, [nomeEquipe, team]);
 
   function criaDados(idGamer, nome) {
     return { idGamer, nome };
+  }
+  function criaDadosEquipe(fotoGamer){
+    return {fotoGamer};
   }
 
   async function handleDeleteMatch(id) {
@@ -570,48 +450,28 @@ export default function Busca({ dataResponse }) {
         </Popper>
       </header>
 
-      <div>
-        <p className="type-name">Jogos</p>
-        {games
-          ? games.map((game) => (
-              <>
-                <img
-                  src={
-                    game.fotoJogo
-                      ? require(`../../assets/${game.fotoJogo}`)
-                      : game.fotoJogo
-                  }
+      <div className="div-principal">
+        <div className="div-equipes">
+          <p>Equipes</p>
+        </div>
+
+        <div className="div-equipes-busca">
+
+          {equipes
+            ? equipes.map((equipe) => (
+              <div className="div-organizacao-equipes">
+                <img src={
+                  equipe.idEquipe.fotoEquipe
+                    ? require(`../../assets/${equipe.idEquipe.fotoEquipe}`)
+                    : equipe.fotoEquipe
+                }
                   alt=""
                   className="jogo-imagem"
                 ></img>
-                <p className="jogo-nome">{game.nomeJogo}</p>
-              </>
-            ))
-          : games}
-      </div>
-
-      <div className="barras">
-        <p className="barra-menor"></p>
-        <p className="barra-maior"></p>
-      </div>
-
-      <div>
-        <p className="type-name">Equipes</p>
-        {equipes
-          ? equipes.map((equipe) => (
-              <>
-                <img
-                  src={
-                    equipe.fotoEquipe
-                      ? require(`../../assets/${equipe.fotoEquipe}`)
-                      : equipe.fotoEquipe
-                  }
-                  alt=""
-                  className="jogo-imagem"
-                ></img>
-                <p className="jogo-nome">{equipe.nomeEquipe}</p>
-                <h2>Jogadores:</h2>
-                <div className="current-members">
+                
+                <p className="jogo-nome">{equipe.idEquipe.nomeEquipe}</p>
+                
+                <div className="current-members-team">
                   {team.map((team) => (
                     <div key={team.idGamer.idGamer} className="membros-imagem">
                       <img src={User} alt="User-Icon"></img>
@@ -619,10 +479,20 @@ export default function Busca({ dataResponse }) {
                     </div>
                   ))}
                 </div>
-              </>
+
+                <div>
+                  <p className="div-integrantes"> 5/50 </p>
+                </div>
+
+                <div>
+                  <button className="btnJuntar-se"> Juntar-se</button>
+                </div>
+              </div>
             ))
-          : equipes}
+            : equipes}
+        </div>
       </div>
+
     </div>
   );
 }
