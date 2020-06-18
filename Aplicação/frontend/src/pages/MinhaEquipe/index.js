@@ -10,7 +10,7 @@ import User from "../../assets/default-user.png"
 
 
 import TeamPicture from "../../assets/team-icon.svg";
-import { FiArrowLeft, FiStar, FiTrash2, FiSearch, FiUser, FiPlusCircle } from 'react-icons/fi'
+import { FiArrowLeft, FiStar, FiTrash2, FiSearch, FiUser, FiPlusCircle, FiMessageCircle } from 'react-icons/fi'
 import { Link, useHistory } from 'react-router-dom';
 import api from '../../services/api';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -87,6 +87,7 @@ export default function MyTeam() {
     const [fotoEquipe, setFotoEquipe] = useState([]);
     const [idEquipe, setIdEquipe] = useState('');
     const [pesquisa, setPesquisa] = useState("");
+    const idGamerLogado = localStorage.getItem('idGamer');
 
     //localStorage.setItem('nomeEquipe', "keyd");
 
@@ -177,7 +178,6 @@ export default function MyTeam() {
     const [teamGamers, setTeamGamers] = useState([]);
     const [teamHistory, setTeamHistory] = useState([]);
 
-
     const history = useHistory('');
     // const userId = localStorage.getItem('userId');
     const userName = localStorage.getItem('nome');
@@ -201,6 +201,27 @@ export default function MyTeam() {
         }
 
     }
+
+    async function handleCapitao(e){
+        e.preventDefault();
+    
+          try {
+            
+              const response = await api.get(`/equipegamer/capitao/${idGamerLogado}/${idEquipe}/`);
+              console.log(response.status);
+              if (response.status === 200){
+              
+              const capitao = 1;
+              
+              }else{
+              const  capitao = 0;
+              }
+          } catch (err) {
+            alert("ID do jogador e/ou da equipe inválido(s)");
+            
+          }
+        }
+      };
 
     async function handleConfig() {
         history.push('/config');
@@ -273,6 +294,7 @@ export default function MyTeam() {
                     <img className="profile-pic" src={require(`../../assets/${team.fotoEquipe}`)} alt="Foto de Perfil"></img>
                 ))}
                 <h1 className="profile-nic">{nomeEquipe}</h1>
+                {capitao == 1 ? return ( <button> Notificações </button>); : null }
                 {/* <h1 className="profile-rate"> <FiStar size={48} color="#F1DA07" />  4.96</h1> */}
             </div>
 

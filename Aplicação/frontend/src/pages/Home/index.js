@@ -529,7 +529,8 @@ export default function Home() {
             onChange={(e) => setAnoPt(e.target.value)}
           />
         </div>
-        <p style={{ width: "300px" }}>
+        <center style={{marginRight:"-20%"}}>
+        <p className="btn-modal" style={{ width: "300px" }}>
           <button className={classes2.buttonClose} onClick={handleCloseModal}>
             Fechar
           </button>
@@ -537,6 +538,7 @@ export default function Home() {
             Criar
           </button>
         </p>
+        </center>
       </div>
     </div>
   );
@@ -626,6 +628,7 @@ export default function Home() {
       await api.delete(`/partida/partida/${id}`);
 
       setMatches(matches.filter((matches) => matches.id !== id));
+      alert("Partida deletada com sucesso!");
     } catch (err) {
       alert("Erro ao deletar o partida, tente novamente");
     }
