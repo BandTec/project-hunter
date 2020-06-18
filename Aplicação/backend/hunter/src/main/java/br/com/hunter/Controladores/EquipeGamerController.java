@@ -1,12 +1,11 @@
 package br.com.hunter.Controladores;
 
 import br.com.hunter.Modelos.EquipeGamer;
-import br.com.hunter.Modelos.GamerInfo;
-import br.com.hunter.Modelos.Jogo;
 import br.com.hunter.Modelos.StatusSolicitacao;
 import br.com.hunter.Repositorios.EquipeGamerRepository;
 import br.com.hunter.Repositorios.StatusSolicitacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-import static org.springframework.http.ResponseEntity.noContent;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
@@ -50,7 +48,12 @@ public class EquipeGamerController {
     @GetMapping("/equipe/{nome}")
     private ResponseEntity BuscaPorNomeEquipe(@PathVariable("nome") String nome) {
         List<EquipeGamer> lista = repository.findByIdEquipe_NomeEquipe(nome);
-        return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
+        HttpHeaders responseHeaders = new HttpHeaders();
+        Integer qtdGamers = repository.countByIdEquipe_IdEquipe(lista.get(0).getIdEquipe().getIdEquipe());
+        responseHeaders.set("qtdGamers", String.valueOf(qtdGamers));
+
+        return lista.isEmpty() ? ResponseEntity.noContent().build() :
+                                 ResponseEntity.ok().headers(responseHeaders).body(lista);
     }
 
     @GetMapping("/aprovado/{equipe}")
