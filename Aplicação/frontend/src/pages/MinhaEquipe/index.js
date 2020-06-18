@@ -177,6 +177,7 @@ export default function MyTeam() {
     const [teamGames, setTeamGames] = useState([]);
     const [teamGamers, setTeamGamers] = useState([]);
     const [teamHistory, setTeamHistory] = useState([]);
+    const [capitao, setCapitao]= useState([]);
 
     const history = useHistory('');
     // const userId = localStorage.getItem('userId');
@@ -200,7 +201,7 @@ export default function MyTeam() {
             alert('Estamos encontrando problemas na conexão com o servidor');
         }
 
-    }
+    }    
 
     async function handleCapitao(e){
         e.preventDefault();
@@ -211,17 +212,16 @@ export default function MyTeam() {
               console.log(response.status);
               if (response.status === 200){
               
-              const capitao = 1;
+              setCapitao(1);
               
               }else{
-              const  capitao = 0;
+              setCapitao(0);
               }
           } catch (err) {
             alert("ID do jogador e/ou da equipe inválido(s)");
             
           }
-        }
-      };
+        };
 
     async function handleConfig() {
         history.push('/config');
@@ -294,7 +294,12 @@ export default function MyTeam() {
                     <img className="profile-pic" src={require(`../../assets/${team.fotoEquipe}`)} alt="Foto de Perfil"></img>
                 ))}
                 <h1 className="profile-nic">{nomeEquipe}</h1>
-                {capitao == 1 ? return ( <button> Notificações </button>); : null }
+                <div className="notificacoes">
+                {/* {setCapitao === 1 ? (  */}
+                    <FiMessageCircle size={36} color="#FFFFFF"></FiMessageCircle>
+                <button className="btn-notif"> Notificações </button>
+                {/* // ) : capitao } */}
+                </div>
                 {/* <h1 className="profile-rate"> <FiStar size={48} color="#F1DA07" />  4.96</h1> */}
             </div>
 

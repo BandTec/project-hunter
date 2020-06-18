@@ -111,6 +111,15 @@
     margin-left: 20px;
 }
 
+.profile-container .div-profile .notificacoes{
+    margin-left: 2%;
+    margin-top: 2%;
+}
+
+.profile-containe .div-profile .btn-notif{
+    cursor: pointer;
+}
+
 .profile-container .current-gamesE{
     margin-top: 10px;
     color: #fff;
