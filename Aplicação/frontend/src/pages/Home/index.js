@@ -191,8 +191,16 @@ export default function Home() {
   const [jogoPt, setJogoPt] = useState("");
   const [posicaoPt, setPosicaoPt] = useState("");
 
-  const [nomeJogadorOpPt, setNomeJogadorOpPt] = useState("");
-  const [posicaoOpcionalPt, setPosicaoOpcionalPt] = useState("");
+  const [jogadorOpPt1, setJogadorOpPt1] = useState("");
+  const [posicaoOpcionalPt1, setPosicaoOpcionalPt1] = useState("");
+  const [jogadorOpPt2, setJogadorOpPt2] = useState("");
+  const [posicaoOpcionalPt2, setPosicaoOpcionalPt2] = useState("");
+  const [jogadorOpPt3, setJogadorOpPt3] = useState("");
+  const [posicaoOpcionalPt3, setPosicaoOpcionalPt3] = useState("");
+  const [jogadorOpPt4, setJogadorOpPt4] = useState("");
+  const [posicaoOpcionalPt4, setPosicaoOpcionalPt4] = useState("");
+  const [idsOutrosGamers, setIdsOutrosGamers] = useState([]);
+  const [idsPosicaoOutros, setIdsPosicaoOutros] = useState([]);
   const [horarioPt, setHorarioPt] = useState("");
   const [minutoPt, setMinutoPt] = useState("");
 
@@ -225,10 +233,52 @@ export default function Home() {
     setHorarioPt(horarioPt + ":" + minutoPt + ":00");
 
     setInfracao(false);
+    console.log("jogoPt", jogoPt);
+    console.log("idGamer", idGamer);
+    console.log("posicaoPt", posicaoPt);
+    console.log("hoararioPt", horarioPt);
+    console.log("dataPt", dataPt);
 
-    if (!jogoPt || !idGamer || !posicaoPt || !horarioPt || !dataPt) {
+    if (!jogoPt || !posicaoPt || !horarioPt || !dataPt) {
       alert("Preencha os dados necessários");
     } else {
+      if (jogadorOpPt1) {
+        const response = await api.get(`/gamer/usuario/${jogadorOpPt1}`);
+
+        let dados = response.data;
+        console.log("jogador1", dados);
+
+        if (!dados) {
+          return alert("Jogador opicional 1 não encontrado");
+        }
+      }
+      if (jogadorOpPt2) {
+        const response = await api.get(`/gamer/usuario/${jogadorOpPt2}`);
+
+        let dados = response.data;
+
+        if (!dados) {
+          return alert("Jogador opicional 2 não encontrado");
+        }
+      }
+      if (jogadorOpPt3) {
+        const response = await api.get(`/gamer/usuario/${jogadorOpPt3}`);
+
+        let dados = response.data;
+
+        if (!dados) {
+          return alert("Jogador opicional 3 não encontrado");
+        }
+      }
+      if (jogadorOpPt4) {
+        const response = await api.get(`/gamer/usuario/${jogadorOpPt4}`);
+
+        let dados = response.data;
+
+        if (!dados) {
+          return alert("Jogador opicional 4 não encontrado");
+        }
+      }
       const data = {
         idJogo: {
           idJogo: jogoPt,
@@ -242,11 +292,50 @@ export default function Home() {
         data: dataPt,
         hora: horarioPt,
       };
+      console.log("data", data);
       try {
-        const response = await api.post(`/partida/`, data); //{
+        const response = await api.post(`/partida`, data); //{
         if (response.status === 201) {
           alert("Partida Criada com Sucesso!");
+          handleCloseModal();
           let dados = response.data;
+
+          if (jogadorOpPt1) {
+            const response = await api.post(
+              `/partida/${jogadorOpPt1}/${posicaoOpcionalPt1}/${data.idPartida}`,
+              body
+            );
+            if (!response) {
+              return alert("Falha ao adicionar jogador opicional 1");
+            }
+          }
+          if (jogadorOpPt2) {
+            const response = await api.post(
+              `/partida/${jogadorOpPt2}/${posicaoOpcionalPt2}/${data.idPartida}`,
+              body
+            );
+            if (!response) {
+              return alert("Falha ao adicionar jogador opicional 2");
+            }
+          }
+          if (jogadorOpPt3) {
+            const response = await api.post(
+              `/partida/${jogadorOpPt3}/${posicaoOpcionalPt3}/${data.idPartida}`,
+              body
+            );
+            if (!response) {
+              return alert("Falha ao adicionar jogador opicional 3");
+            }
+          }
+          if (jogadorOpPt4) {
+            const response = await api.post(
+              `/partida/${jogadorOpPt4}/${posicaoOpcionalPt4}/${data.idPartida}`,
+              body
+            );
+            if (!response) {
+              return alert("Falha ao adicionar jogador opicional 4");
+            }
+          }
 
           let temp = [];
 
@@ -257,12 +346,6 @@ export default function Home() {
           setIdPartida(temp[0].idPartida);
 
           console.log(idPartida);
-          if (!nomeJogadorOpPt || !posicaoOpcionalPt) {
-            return;
-          } else {
-            //   envioDadosPartidaAgregados(nomeJogadorOpPt, posicaoOpcionalPt);
-            return;
-          }
         } else {
           alert("Erro ao criar partida");
         }
@@ -310,17 +393,17 @@ export default function Home() {
           <option value="9">Capitão</option>
           <option value="10">Sniper</option>
         </select>
-        <p>Outros jogadores :</p>
+        <p>Jogador opicional 1 :</p>
         <div className={classes2.divOpcional}>
           <input
             placeholder="Nome do jogador(Opicional)"
             className={classes2.input}
-            onChange={(e) => setNomeJogadorOpPt(e.target.value)}
+            onChange={(e) => setJogadorOpPt1(e.target.value)}
           />
           <div className={classes2.comboOpcional}>
             <select
               className={classes2.select}
-              onChange={(e) => setPosicaoOpcionalPt(e.target.value)}
+              onChange={(e) => setPosicaoOpcionalPt1(e.target.value)}
             >
               <option value="0">Posição</option>
               <option value="2">Atirador</option>
@@ -335,6 +418,85 @@ export default function Home() {
             </select>
           </div>
         </div>
+
+        <p>Jogador opicional 2 :</p>
+        <div className={classes2.divOpcional}>
+          <input
+            placeholder="Nome do jogador(Opicional)"
+            className={classes2.input}
+            onChange={(e) => setJogadorOpPt2(e.target.value)}
+          />
+          <div className={classes2.comboOpcional}>
+            <select
+              className={classes2.select}
+              onChange={(e) => setPosicaoOpcionalPt2(e.target.value)}
+            >
+              <option value="0">Posição</option>
+              <option value="2">Atirador</option>
+              <option value="3">Suporte</option>
+              <option value="4">Jungle</option>
+              <option value="5">Top</option>
+              <option value="6">Mid</option>
+              <option value="7">Entry Fragger</option>
+              <option value="8">Lurker</option>
+              <option value="9">Capitão</option>
+              <option value="10">Sniper</option>
+            </select>
+          </div>
+        </div>
+
+        <p>Jogador opicional 3 :</p>
+        <div className={classes2.divOpcional}>
+          <input
+            placeholder="Nome do jogador(Opicional)"
+            className={classes2.input}
+            onChange={(e) => setJogadorOpPt3(e.target.value)}
+          />
+          <div className={classes2.comboOpcional}>
+            <select
+              className={classes2.select}
+              onChange={(e) => setPosicaoOpcionalPt3(e.target.value)}
+            >
+              <option value="0">Posição</option>
+              <option value="2">Atirador</option>
+              <option value="3">Suporte</option>
+              <option value="4">Jungle</option>
+              <option value="5">Top</option>
+              <option value="6">Mid</option>
+              <option value="7">Entry Fragger</option>
+              <option value="8">Lurker</option>
+              <option value="9">Capitão</option>
+              <option value="10">Sniper</option>
+            </select>
+          </div>
+        </div>
+
+        <p>Jogador opicional 4 :</p>
+        <div className={classes2.divOpcional}>
+          <input
+            placeholder="Nome do jogador(Opicional)"
+            className={classes2.input}
+            onChange={(e) => setJogadorOpPt4(e.target.value)}
+          />
+          <div className={classes2.comboOpcional}>
+            <select
+              className={classes2.select}
+              onChange={(e) => setPosicaoOpcionalPt4(e.target.value)}
+            >
+              <option value="0">Posição</option>
+              <option value="2">Atirador</option>
+              <option value="3">Suporte</option>
+              <option value="4">Jungle</option>
+              <option value="5">Top</option>
+              <option value="6">Mid</option>
+              <option value="7">Entry Fragger</option>
+              <option value="8">Lurker</option>
+              <option value="9">Capitão</option>
+              <option value="10">Sniper</option>
+            </select>
+          </div>
+        </div>
+
         <p>Selecione um horário :</p>
         <div className={classes2.hora}>
           <input
@@ -573,7 +735,7 @@ export default function Home() {
 
             <strong>Data: </strong>
             <p>
-              <b>{match.data}</b>
+              <b>{match.data.split("-").reverse().join("/")}</b>
             </p>
 
             <strong>Horário: </strong>
