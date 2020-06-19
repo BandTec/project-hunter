@@ -54,10 +54,10 @@ export default function Cadastro() {
                 if (response.status === 201){
                 handleSignUp2();
                 }else{
-                    alert('Erro no cadastro de seus dados, tente novamente!');
+                    alert('Erro no cadastro de seus dados, tente novamente');
                 }
             } catch (err) {
-                alert('Erro no cadastro de seus dados, tente novamente!');
+                alert('Erro no cadastro de seus dados, tente novamente');
             }
         }
     }
@@ -86,8 +86,7 @@ export default function Cadastro() {
                 const response = await api.post(`/gamerinfo/${email}`, data2);
                 //alert(`Seu ID de Acesso ${response.data.id}`);
                 if (response.status === 201){
-                    alert('Dados alterados com sucesso!');
-                    history.push('/login');
+                history.push('/login');
                 }else{
                     alert('Erro no cadastro de seu jogo e/ou posição, tente novamente!');
                 }
@@ -122,7 +121,7 @@ export default function Cadastro() {
                 </label></center>
                 <rows>
                 <br></br>
-                <div className = "campos3">
+                    <div className = "campos3">
                 <div className="campos">
                 <p className = "campo">Nome:</p>
                 <input onChange={e => setNome(e.target.value)} />
@@ -172,13 +171,11 @@ export default function Cadastro() {
             </form>
 
             <Router>
-                <center>
                     <div className="btns">
+                        <button className="cadastro container btn Cad"  type="submit" onKeyPress={handleKeyPress}> Cadastrar</button>
                         <button className="cadastro container btn Voltar" type="submit"
                             onClick={chamaLogin}> Voltar</button>
-                        <button className="cadastro container btn Cad"  type="submit" onKeyPress={handleKeyPress}> Cadastrar</button>
                     </div>
-                </center>
                 </Router>
         </div>
 

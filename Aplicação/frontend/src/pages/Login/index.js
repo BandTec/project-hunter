@@ -63,10 +63,10 @@ export default function Login(){
           <Link to='/recuperar-senha'><a href=""> Esqueceu sua senha?</a></Link>
           <div className='login-container formBtn'>
           
+           <button className="login-container btn Log" type="submit">Enviar</button>
           
            <button className="login-container btn Cad" onClick={chamaCadastro}>Cadastrar</button>
            
-           <button className="login-container btn Log" type="submit">Enviar</button>
             
 
           </div>
@@ -76,7 +76,3 @@ export default function Login(){
     );
 
   }
-
-
-
-
