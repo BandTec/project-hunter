@@ -506,7 +506,7 @@ export default function Busca({ dataResponse }) {
                 <p className="jogo-nome">{equipe.idEquipe.nomeEquipe}</p>
 
                 <div>
-                  <p className="div-integrantes" > Membros:<p style={{ color: '#00FF00' }}>{numUsers}</p><p style={{ marginLeft: "-80px" }}>/  50</p> </p>
+                  <p className="div-integrantes" > Membros:<p style={{ color: '#00FF00' }}>{numUsers}5</p><p style={{ marginLeft: "-80px" }}>/  50</p> </p>
                 </div>
 
                 <div className="current-members-team">

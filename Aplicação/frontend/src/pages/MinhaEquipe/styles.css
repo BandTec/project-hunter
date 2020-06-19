@@ -135,10 +135,20 @@
 
 .profile-container .div-profile .notificacoes{
     margin-left: 1%;
-    margin-top: 2.5%;
+    margin-top: 2.7%;
 }
 
 .btn-notif{
+    cursor: pointer;
+    background: transparent;
+    border-radius: 4px;
+    border: transparent;
+    color: #dcdce6;
+    width: 25px;
+    height: 25px;
+}
+
+.btn-exportacao{
     cursor: pointer;
     background: transparent;
     border-radius: 4px;
