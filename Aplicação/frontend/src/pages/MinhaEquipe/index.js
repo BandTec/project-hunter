@@ -276,6 +276,8 @@ export default function MyTeam() {
             }
         } catch (err) {
             alert("Erro ao aceitar jogador ou conectar-se ao servidor!");
+        }finally{
+            window.location.reload(false);
         }
 
     }
@@ -298,6 +300,8 @@ export default function MyTeam() {
             }
         } catch (err) {
             alert("Erro ao recusar jogador ou conectar-se ao servidor!");
+        }finally{
+            window.location.reload(false);
         }
 
     }
