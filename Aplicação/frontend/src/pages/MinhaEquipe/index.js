@@ -10,7 +10,7 @@ import User from "../../assets/default-user.png"
 
 
 import TeamPicture from "../../assets/team-icon.svg";
-import { FiArrowLeft, FiStar, FiTrash2, FiSearch, FiUser, FiPlusCircle, FiMessageCircle, } from 'react-icons/fi'
+import { FiArrowLeft, FiStar, FiTrash2, FiSearch, FiUser, FiPlusCircle, FiMessageCircle, FiPrinter } from 'react-icons/fi'
 import { Link, useHistory } from 'react-router-dom';
 import api from '../../services/api';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -536,9 +536,14 @@ export default function MyTeam() {
                 <h1 className="profile-nic">{nomeEquipe}</h1>
                 <div className="notificacoes">
                     {capitao === 1 ? (
+                        <>
                         <button className="btn-notif" onClick={handleOpenModal}>
                             <FiMessageCircle size={23} color="#FFFFFF"></FiMessageCircle>
                         </button>
+                        <button className="btn-exportacao">
+                            <FiPrinter size={23} color="#FFFFFF"></FiPrinter>
+                        </button>
+                        </>
                     ) : null}
                 </div>
                 <Modal open={openModal} onClose={handleCloseModal}>
