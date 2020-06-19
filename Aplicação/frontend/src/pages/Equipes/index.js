@@ -185,24 +185,13 @@ export default function Teams() {
     };
 
     const body = (
+        <center>
         <div style={modalStyle} className={classes2.paper}>
-            <h2>Criar uma equipe</h2>
+            <h2>Crie sua equipe</h2>
             
             <div className={classes2.divAbove}>
-                
-                <p>Digite o nome da equipe :</p>
+            <p>Escolha sua imagem :</p>
 
-               
-
-                <div className={classes2.nome}>
-                    <input
-                        placeholder="Ex: Fusion Gaming"
-                        className={classes2.nomeStyle}
-                        onChange={(e) => setNomeEquipeCriada(e.target.value)}
-                    />
-
-                </div>
-                <p>Escolha sua imagem :</p>
                 <div className={classes2.imagem}>
                     <label id="thumbnail"
                         style={{ backgroundImage: `url(${preview})` }}
@@ -212,6 +201,30 @@ export default function Teams() {
                         <img src={camera} alt="Select your photo"></img>
                     </label>
                 </div>
+
+                <p>Digite o nome da equipe:</p>
+                <div className={classes2.nome}>
+                    <input
+                        placeholder="Ex: Fusion Gaming"
+                        className={classes2.nomeStyle}
+                        onChange={(e) => setNomeEquipeCriada(e.target.value)}
+                    />
+                </div>
+
+                <p>Selecione o jogo principal:</p>
+                <div className={classes2.nome}>
+                    <select className={classes2.nomeStyle} onChange={e => setIdJogo(e.target.value)}>
+                        <option value='0'>Selecione o jogo</option>
+                        <option value='1'>Counter-Strike: Global Offensive</option>
+                        <option value='2'>Valorant</option>
+                        <option value='3'>League of Legends</option>
+                        <option value='4'>Fortnite</option>
+                        <option value='5'>DOTA 2</option>
+                        <option value='6'>Call of Duty: Warzone</option>
+                        <option value='7'>PlayerUnkown's Battlegrounds</option>
+                    </select>
+                </div>
+                
                 <center className="btn-modal-criarEquipe">
                 <p style={{ width: "300px"}}>
                     <button className={classes2.buttonClose} onClick={handleCloseModal}>
@@ -224,6 +237,7 @@ export default function Teams() {
                 </center>
             </div>
         </div>
+        </center>
     );
 
 
@@ -242,23 +256,44 @@ export default function Teams() {
 
             try {
                 const response = await api.post(`/equipe/`, data); //{
-                if (response.status === 201) {
-                  alert("Equipe Criada com Sucesso!");
-                  let dados = response.data.idEquipe;
-                
-                  console.log(dados);
-
-                  adicionaJogador(dados);
-                    return;
-                   
-                } else {
-                  alert("Erro ao criar partida");
-                }
-              } catch (err) {
-                alert("Erro ao criar partida ou conectar-se ao servidor");
+                    if (response.status === 201){
+                        envioDadosJogo(response.data.idEquipe);
+                        }else{
+                            alert('Erro no cadastro da sua equipe, tente novamente!');
+                        }
+                    } catch (err) {
+                        alert('Erro no cadastro da sua equipe, tente novamente!');
               }
             }
 
+    }
+
+    async function envioDadosJogo(id) {
+        if (idJogo === "" ) {
+            alert('Por favor, preencha o jogo que sua equipe mais joga!');
+        } else {
+
+            const data2 = {
+                'idEquipe': {
+                    'idEquipe': id
+                  },
+                  'idJogo': {
+                    'idJogo': idJogo
+                  }
+                };
+
+            try {
+                const response = await api.post(`/equipejogo/`, data2);
+                //alert(`Seu ID de Acesso ${response.data.id}`);
+                if (response.status === 201){
+                    alert('Equipe criada com sucesso!');
+                }else{
+                    alert('Erro no cadastro do jogo, tente novamente!');
+                }
+            } catch (err) {
+                alert('Erro no cadastro do jogo, tente novamente!');
+            }
+        }
     }
 
     async function adicionaJogador(dados){
@@ -344,7 +379,7 @@ export default function Teams() {
     const [nomeEquipe, setNomeEquipe] = useState('');
     const [fotoEquipe, setFotoEquipe] = useState([]);
     const [idEquipe, setIdEquipe] = useState('');
-
+    const [idJogo, setIdJogo] = useState('');
     const [nomeEquipeCriada, setNomeEquipeCriada] = useState('');
     const [IdEquipeCriada, setIdEquipeCriada] = useState('');
 
