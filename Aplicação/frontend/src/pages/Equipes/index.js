@@ -518,10 +518,12 @@ export default function Teams() {
             
             <div className="div-principal">
                 {equipes.map(team => (
+                    <center>
                     <div key={team.idEquipe.idEquipe} className="div-equipes">
                         <img src={require(`../../assets/${team.idEquipe.fotoEquipe}`)} onClick={() => handleTeamProfile(team.idEquipe.nomeEquipe, team.idEquipe.idEquipe )} alt="Icone Equipe"></img>
                         <p onClick={() => handleTeamProfile(team.idEquipe.nomeEquipe, team.idEquipe.idEquipe)}>{team.idEquipe.nomeEquipe}</p>
                     </div>
+                    </center>
                 ))}
             </div>
 
