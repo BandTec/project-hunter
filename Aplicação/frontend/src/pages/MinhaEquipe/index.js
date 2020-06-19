@@ -225,17 +225,14 @@ export default function MyTeam() {
             <center><h2>Solicitações</h2></center>
             <center>
                 <div className={classes2.divAbove}>
-
-
                     <div className="solicitantes">
                         {solicitacoes ? solicitacoes.map(sol => (
                             <div className="div-above-solicitacoes">
                                 <div key={sol.idGamer.idGamer} >
-
                                     <img className="profile-gamer-solicitacao" src={require(`../../assets/${sol.idGamer.fotoGamer}`)} alt="Foto de Perfil"></img>
                                     <p>{sol.idGamer.usuario}</p>
                                 </div>
-
+                                
                                 <div className="botoes-div-above-solicitacoes">
                                     <button className="btnAprovar" onClick={() => aceitarJogador(sol.idEquipeGamer)}> Aprovar</button>
 

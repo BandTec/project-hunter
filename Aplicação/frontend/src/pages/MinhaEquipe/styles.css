@@ -18,11 +18,13 @@
 .solicitantes .div-above-solicitacoes{
     display: grid;
     grid-template-columns:  repeat(2, 1fr);
+    padding: 5px;
 }
 
 .solicitantes .div-above-solicitacoes .botoes-div-above-solicitacoes{
     display: grid;
     grid-template-columns:  repeat(2, 1fr);
+    padding: 10px;
 }
 
 .profile-container header {
