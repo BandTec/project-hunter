@@ -428,7 +428,8 @@ export default function Busca({ dataResponse }) {
 
   async function handlePesquisa () {
     localStorage.setItem('pesquisa', pesquisa);
-    history.push("/busca", pesquisa);
+    window.location.reload(false);
+    
   }
 
   return (
@@ -442,6 +443,7 @@ export default function Busca({ dataResponse }) {
                      type="text"
                     placeholder="Busque por jogos ou equipes..."
                     onChange={(e) => setPesquisa(e.target.value)}
+                    
           ></input>
           <button className="btn-pesquisa" onClick={handlePesquisa}>
             <FiSearch size={18} color="#000000" />
