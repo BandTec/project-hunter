@@ -161,9 +161,7 @@ const useStyles2 = makeStyles((theme) => ({
   },
 }));
 
-function rand() {
-  return Math.round(Math.random() * 20) - 10;
-}
+
 function getModalStyle() {
   const top = 50 ;
   const left = 50 ;
@@ -351,6 +349,8 @@ export default function Home() {
         }
       } catch (err) {
         alert("Erro ao criar partida ou conectar-se ao servidor");
+      }finally{
+        window.location.reload(false);
       }
     }
   }
@@ -631,6 +631,8 @@ export default function Home() {
       alert("Partida deletada com sucesso!");
     } catch (err) {
       alert("Erro ao deletar o partida, tente novamente");
+    }finally{
+      window.location.reload(false);
     }
   }
 
