@@ -414,8 +414,9 @@ export default function Teams() {
         history.push('/busca');
     }
 
-    function handleTeamProfile(name) {
+    function handleTeamProfile(name, id) {
         localStorage.setItem('nomeEquipe', name);
+        localStorage.setItem('idEquipe', id);
         history.push('/perfil-equipe');
     }
 
@@ -484,8 +485,8 @@ export default function Teams() {
             <div className="div-principal">
                 {equipes.map(team => (
                     <div key={team.idEquipe.idEquipe} className="div-equipes">
-                        <img src={require(`../../assets/${team.idEquipe.fotoEquipe}`)} onClick={() => handleTeamProfile(team.idEquipe.nomeEquipe)} alt="Icone Equipe"></img>
-                        <p onClick={() => handleTeamProfile(team.idEquipe.nomeEquipe)}>{team.idEquipe.nomeEquipe}</p>
+                        <img src={require(`../../assets/${team.idEquipe.fotoEquipe}`)} onClick={() => handleTeamProfile(team.idEquipe.nomeEquipe, team.idEquipe.idEquipe )} alt="Icone Equipe"></img>
+                        <p onClick={() => handleTeamProfile(team.idEquipe.nomeEquipe, team.idEquipe.idEquipe)}>{team.idEquipe.nomeEquipe}</p>
                     </div>
                 ))}
             </div>

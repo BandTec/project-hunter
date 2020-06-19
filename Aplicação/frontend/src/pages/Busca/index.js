@@ -395,20 +395,6 @@ export default function Busca({ dataResponse }) {
     });
   }
 
-  async function handleDeleteMatch(id) {
-    try {
-      await api.delete(`/partida/partida/${id}`);
-
-      setMatches(matches.filter((matches) => matches.id !== id));
-    } catch (err) {
-      alert("Erro ao deletar o partida, tente novamente");
-    }
-  }
-
-  function handleAgendamento() {
-    history.push("/agendamento");
-  }
-
   function handleProfile() {
     history.push("/profile");
   }

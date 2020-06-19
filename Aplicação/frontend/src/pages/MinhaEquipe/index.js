@@ -10,7 +10,7 @@ import User from "../../assets/default-user.png"
 
 
 import TeamPicture from "../../assets/team-icon.svg";
-import { FiArrowLeft, FiStar, FiTrash2, FiSearch, FiUser, FiPlusCircle, FiMessageCircle } from 'react-icons/fi'
+import { FiArrowLeft, FiStar, FiTrash2, FiSearch, FiUser, FiPlusCircle, FiMessageCircle, } from 'react-icons/fi'
 import { Link, useHistory } from 'react-router-dom';
 import api from '../../services/api';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -57,8 +57,7 @@ const useStyles2 = makeStyles((theme) => ({
     },
 
     divAbove: {
-        display: "grid",
-        gridTemplateColumns: "repeat(2, 1fr)",
+
         alignItems: "center",
         justifyContent: "center",
     },
@@ -68,7 +67,7 @@ const useStyles2 = makeStyles((theme) => ({
     nome: {
         display: "grid",
         gridTemplateColumns: "repeat(3, 1fr)",
-        justifyContent: "space-between", 
+        justifyContent: "space-between",
         marginBottom: "20px"
     },
 
@@ -179,7 +178,7 @@ export default function MyTeam() {
     function getModalStyle() {
         const top = 50 + rand();
         const left = 50 + rand();
-    
+
         return {
             top: `${top}%`,
             left: `${left}%`,
@@ -206,12 +205,12 @@ export default function MyTeam() {
     const classes2 = useStyles2();
     const [nomeEquipe, setNomeEquipe] = useState('');
     const [fotoEquipe, setFotoEquipe] = useState([]);
-    const [idEquipe, setIdEquipe] = useState('');
+    const idEquipe = localStorage.getItem('idEquipe');
     const [pesquisa, setPesquisa] = useState("");
     const [solicitacoes, setSolicitacoes] = useState('');
     const idGamerLogado = localStorage.getItem('idGamer');
     const [idEquipeGamer, setIdEquipeGamer] = useState('');
-    const [capitao, setCapitao]= useState([]);
+    const [capitao, setCapitao] = useState([]);
     //localStorage.setItem('nomeEquipe', "keyd");
 
     const handleOpenModal = () => {
@@ -226,91 +225,88 @@ export default function MyTeam() {
         <div style={modalStyle} className={classes2.paper}>
             <center><h2>Solicitações</h2></center>
             <center>
-            <div className={classes2.divAbove}>
-                
-                <p>Fernando</p>
-                <div>
-                  <button className="btnAprovar" onClick={aceitarJogador}> Aprovar</button>
-                    
-                  <button className="btnRecusar" onClick={recusarJogador}> Recusar</button>
-                    
-                </div>
+                <div className={classes2.divAbove}>
 
-                <div className="solicitantes">
-                        {/* {team.map(team => (
-                            <div key={team.idGamer.idGamer}>
-                                <img className="profile-pic" src={require(`../../assets/${team.fotoGamer}`)} alt="Foto de Perfil"></img>
-                                <p>{team.idGamer.nome}</p>
+
+                    <div className="solicitantes">
+                        {solicitacoes ? solicitacoes.map(sol => (
+                            <div className="div-above-solicitacoes">
+                                <div key={sol.idGamer.idGamer} >
+
+                                    <img className="profile-gamer-solicitacao" src={require(`../../assets/${sol.idGamer.fotoGamer}`)} alt="Foto de Perfil"></img>
+                                    <p>{sol.idGamer.usuario}</p>
+                                </div>
+
+                                <div className="botoes-div-above-solicitacoes">
+                                    <button className="btnAprovar" onClick={() => aceitarJogador(sol.idEquipeGamer)}> Aprovar</button>
+
+                                    <button className="btnRecusar" onClick={() => recusarJogador(sol.idEquipeGamer)}> Recusar</button>
+                                </div>
                             </div>
-                        ))} */}
+
+                        )) : solicitacoes}
+                    </div>
+
                 </div>
-                
-            </div>
-            <center className="btn-modal">
-                <p style={{ width: "300px"}}>
-                    <button className={classes2.buttonClose} onClick={handleCloseModal}>
-                        Fechar
+                <center className="btn-modal">
+                    <p style={{ width: "300px" }}>
+                        <button className={classes2.buttonClose} onClick={handleCloseModal}>
+                            Fechar
               </button>
-                </p>
+                    </p>
                 </center>
             </center>
         </div>
     );
 
-    async function aceitarJogador() {
-            const data = {
-              
-            };
+    async function aceitarJogador(id) {
+        
+        try {
+            const response = await api.put(`/equipegamer/aceitar/${id}/`); //{
+            if (response.status === 200) {
+                alert("Jogador aceito com sucesso!");
+                let dados = response.data.idEquipe;
 
-            try {
-                const response = await api.post(`/equipegamer/aceitar/${idEquipeGamer}/`, data); //{
-                if (response.status === 201) {
-                  alert("Jogador aceito com sucesso!");
-                  let dados = response.data.idEquipe;
-                
-                  console.log(dados);
+                console.log(dados);
 
                 //   adicionaJogador(dados);
-                    return;
-                   
-                } else {
-                  alert("Erro ao aceitar jogador!");
-                }
-              } catch (err) {
-                alert("Erro ao aceitar jogador ou conectar-se ao servidor!");
-              }
+                return;
+
+            } else {
+                alert("Erro ao aceitar jogador!");
+            }
+        } catch (err) {
+            alert("Erro ao aceitar jogador ou conectar-se ao servidor!");
+        }
 
     }
 
-    async function recusarJogador() {
-        const data = {
-          
-        };
-
+    async function recusarJogador(id) {
+       
         try {
-            const response = await api.post(`/equipegamer/recusar/${idEquipeGamer}/`, data); //{
-            if (response.status === 201) {
-              alert("Jogador recusado com sucesso!");
-              let dados = response.data.idEquipe;
-            
-              console.log(dados);
+            const response = await api.put(`/equipegamer/recusar/${id}/`); //{
+            if (response.status === 200) {
+                alert("Jogador recusado com sucesso!");
+                let dados = response.data.idEquipe;
 
-            //   recusaJogador(dados);
+                console.log(dados);
+
+                //   recusaJogador(dados);
                 return;
-               
+
             } else {
-              alert("Erro ao recusar jogador!");
+                alert("Erro ao recusar jogador!");
             }
-          } catch (err) {
+        } catch (err) {
             alert("Erro ao recusar jogador ou conectar-se ao servidor!");
-          }
+        }
 
-}
+    }
 
-    async function handlePesquisa () {
+    async function handlePesquisa() {
         localStorage.setItem('pesquisa', pesquisa);
         history.push("/busca", pesquisa);
-      }
+    }
 
     useEffect(() => {
         setNomeEquipe(localStorage.getItem('nomeEquipe'));
@@ -347,8 +343,9 @@ export default function MyTeam() {
                 );
             });
 
-            setIdEquipe(temp[0].idEquipe);
+            //setIdEquipe(temp[0].idEquipe);
 
+            //getPlayerPendente(idEquipe);
             console.log(fotoEquipe);
         });
     }, [nomeEquipe]);
@@ -381,6 +378,20 @@ export default function MyTeam() {
         });
     }, [idEquipe]);
 
+    // useEffect(() => {
+    //     api.get(`/equipegamer/pendente/${idEquipe}/`
+
+    //     ).then(response => {
+    //         //setTeamGames(response.data);
+    //         const { data = [] } = response || {};
+    //         // verify response.data is an array
+    //         const isArray = Array.isArray(data)
+    //         isArray && setSolicitacoes(data);
+
+    //         console.log(solicitacoes);
+    //     });
+    // }, [idEquipe]);
+
     useEffect(() => {
         api.get(`/equipegamer/pendente/${idEquipe}/`
 
@@ -391,7 +402,7 @@ export default function MyTeam() {
             const isArray = Array.isArray(data)
             isArray && setSolicitacoes(data);
 
-            console.log(teamHistory);
+            console.log(solicitacoes);
         });
     }, [idEquipe]);
 
@@ -427,27 +438,28 @@ export default function MyTeam() {
             alert('Estamos encontrando problemas na conexão com o servidor');
         }
 
-    }    
+    }
 
-    async function handleCapitao(e){
-        e.preventDefault();
-    
-          try {
-            
-              const response = await api.get(`/equipegamer/capitao/${idGamerLogado}/${idEquipe}/`);
-              console.log(response.status);
-              if (response.status === 200){
-              
-              setCapitao(1);
-              
-              }else{
-              setCapitao(0);
-              }
-          } catch (err) {
+    useEffect(() => {
+        try {
+
+            api.get(`/equipegamer/capitao/${idGamerLogado}/${idEquipe}/`).then(response => {
+                console.log(response.status);
+                if (response.status === 200) {
+
+                    setCapitao(1);
+                    console.log(capitao);
+
+                } else {
+                    setCapitao(0);
+                    console.log(capitao);
+                }
+            });
+        } catch (err) {
             alert("ID do jogador e/ou da equipe inválido(s)");
-            
-          }
-        };
+
+        }
+    }, [capitao]);
 
     async function handleConfig() {
         history.push('/config');
@@ -462,6 +474,8 @@ export default function MyTeam() {
 
         history.push('/home');
     }
+
+
     return (
         <div className="profile-container">
 
@@ -470,14 +484,14 @@ export default function MyTeam() {
                 {/* <span>Bem vindo, {userName}</span> */}
 
                 <div className="input-pesquisa">
-                <input
-                     type="text"
-                    placeholder="Busque por jogos ou equipes..."
-                    onChange={(e) => setPesquisa(e.target.value)}
-          ></input>
-          <button className="btn-pesquisa" onClick={handlePesquisa}>
-            <FiSearch size={18} color="#000000" />
-          </button>
+                    <input
+                        type="text"
+                        placeholder="Busque por jogos ou equipes..."
+                        onChange={(e) => setPesquisa(e.target.value)}
+                    ></input>
+                    <button className="btn-pesquisa" onClick={handlePesquisa}>
+                        <FiSearch size={18} color="#000000" />
+                    </button>
                 </div>
 
 
@@ -521,11 +535,11 @@ export default function MyTeam() {
                 ))}
                 <h1 className="profile-nic">{nomeEquipe}</h1>
                 <div className="notificacoes">
-                {/* {setCapitao === 1 ? (  */}
-                <button className="btn-notif" onClick={handleOpenModal}>
-                <FiMessageCircle size={23} color="#FFFFFF"></FiMessageCircle>
-                 </button>
-                {/* // ) : capitao } */}
+                    {capitao === 1 ? (
+                        <button className="btn-notif" onClick={handleOpenModal}>
+                            <FiMessageCircle size={23} color="#FFFFFF"></FiMessageCircle>
+                        </button>
+                    ) : null}
                 </div>
                 <Modal open={openModal} onClose={handleCloseModal}>
                     {body}
@@ -541,7 +555,7 @@ export default function MyTeam() {
                     <div className="current-members">
                         {team.map(team => (
                             <div key={team.idGamer.idGamer}>
-                            
+
                                 {/* <img src={require(`../../assets/${team.idGamer.fotoGamer}`)} alt="User-Icon" ></img> */}
                                 <img src={User} alt="User-Icon" ></img>
                                 <p>{team.idGamer.nome}</p>

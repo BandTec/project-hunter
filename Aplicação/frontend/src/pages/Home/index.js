@@ -302,8 +302,8 @@ export default function Home() {
 
           if (jogadorOpPt1) {
             const response = await api.post(
-              `/partida/${jogadorOpPt1}/${posicaoOpcionalPt1}/${data.idPartida}`,
-              body
+              `/partida/${jogadorOpPt1}/${posicaoOpcionalPt1}/${data.idPartida}/`,
+              data
             );
             if (!response) {
               return alert("Falha ao adicionar jogador opicional 1");
@@ -311,8 +311,8 @@ export default function Home() {
           }
           if (jogadorOpPt2) {
             const response = await api.post(
-              `/partida/${jogadorOpPt2}/${posicaoOpcionalPt2}/${data.idPartida}`,
-              body
+              `/partida/${jogadorOpPt2}/${posicaoOpcionalPt2}/${data.idPartida}/`,
+              data
             );
             if (!response) {
               return alert("Falha ao adicionar jogador opicional 2");
@@ -320,8 +320,8 @@ export default function Home() {
           }
           if (jogadorOpPt3) {
             const response = await api.post(
-              `/partida/${jogadorOpPt3}/${posicaoOpcionalPt3}/${data.idPartida}`,
-              body
+              `/partida/${jogadorOpPt3}/${posicaoOpcionalPt3}/${data.idPartida}/`,
+              data
             );
             if (!response) {
               return alert("Falha ao adicionar jogador opicional 3");
@@ -329,8 +329,8 @@ export default function Home() {
           }
           if (jogadorOpPt4) {
             const response = await api.post(
-              `/partida/${jogadorOpPt4}/${posicaoOpcionalPt4}/${data.idPartida}`,
-              body
+              `/partida/${jogadorOpPt4}/${posicaoOpcionalPt4}/${data.idPartida}/`,
+              data
             );
             if (!response) {
               return alert("Falha ao adicionar jogador opicional 4");
