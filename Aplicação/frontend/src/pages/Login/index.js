@@ -20,6 +20,7 @@ export default function Login(){
     history.push('/cadastro');
   }
 
+
   async function handleSignIn(e){
     e.preventDefault();
 
@@ -63,10 +64,10 @@ export default function Login(){
           <Link to='/recuperar-senha'><a href=""> Esqueceu sua senha?</a></Link>
           <div className='login-container formBtn'>
           
-           
-          <button className="login-container btn Cad"  onClick={chamaCadastro}>Cadastrar</button>
-
-           <button className="login-container btn Log" type="submit">Enviar</button>
+           <div>
+          <button className="login-container btn Cad"  type="button" onClick={chamaCadastro}>Cadastrar</button>
+            </div>
+          <button className="login-container btn Log" type="submit" >Enviar</button>
             
 
           </div>

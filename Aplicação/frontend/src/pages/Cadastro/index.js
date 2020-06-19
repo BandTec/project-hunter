@@ -172,7 +172,7 @@ export default function Cadastro() {
             <Router>
                 <center>
                     <div className="btns">
-                        <button className="cadastro container btn Voltar" onClick={chamaLogin}> Voltar</button>
+                        <button className="cadastro container btn Voltar" type="button" onClick={chamaLogin}> Voltar</button>
                         <button className="cadastro container btn Cad" type="submit" onKeyPress={handleKeyPress}> Cadastrar</button>
                     </div>
                 </center>
