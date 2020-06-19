@@ -443,6 +443,19 @@ export default function MyTeam() {
 
     }
 
+    async function handleExportacao() {
+        try {
+            const response = await api.post(`/arquivo/${1}`);
+            if (response.status === 200) {
+                alert('Exportação realizada com sucesso!');
+            } else {
+                alert('Estamos encontrando problemas para exportar seu arquivo!');
+            }
+        } catch (err) {
+            alert('Estamos encontrando problemas para exportar seu arquivo!');
+        }
+    }
+
     useEffect(() => {
         try {
 
@@ -543,7 +556,7 @@ export default function MyTeam() {
                         <button className="btn-notif" onClick={handleOpenModal}>
                             <FiMessageCircle size={23} color="#FFFFFF"></FiMessageCircle>
                         </button>
-                        <button className="btn-exportacao">
+                        <button className="btn-exportacao" onClick={handleExportacao}>
                             <FiPrinter size={23} color="#FFFFFF"></FiPrinter>
                         </button>
                         </>

@@ -457,7 +457,6 @@ export default function Teams() {
 
     return (
         <div className="equipes-container">
-
             <header>
                 <img src={Logo} alt="HunterProject" onClick={handleHome}></img>
                 {/* <span>Bem vindo, {userName}</span> */}
