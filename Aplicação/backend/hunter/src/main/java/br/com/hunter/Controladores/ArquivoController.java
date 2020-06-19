@@ -1,12 +1,18 @@
 package br.com.hunter.Controladores;
 
+import br.com.hunter.MediaTypeUtils;
 import br.com.hunter.Modelos.EquipeGamer;
 import br.com.hunter.Modelos.GamerInfo;
 import br.com.hunter.Repositorios.EquipeGamerRepository;
 import br.com.hunter.Repositorios.GamerInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletContext;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,13 +27,17 @@ public class ArquivoController {
     private GamerInfoRepository repository;
 
     @Autowired
+    private ServletContext servletContext;
+
+
+    @Autowired
     private EquipeGamerRepository equipeGamerRepository;
     // criar arquivo
     public static void gravarRegistro(String registro) {
         BufferedWriter saida = null;
 
         try {
-            saida = new BufferedWriter(new FileWriter("Usuario.txt", true));
+            saida = new BufferedWriter(new FileWriter("C:/Users/Public/Downloads/Usuario.txt", true));
         } catch (IOException var5) {
             System.out.printf("Erro na abertura do arquivo: %s.\n", var5.getMessage());
         }
@@ -92,7 +102,7 @@ public class ArquivoController {
     }
 
     @PostMapping("/{id}")
-    public void criarArquivo(@PathVariable("id") Integer id) {
+    public ResponseEntity<InputStreamResource> criarArquivo(@PathVariable("id") Integer id) throws IOException  {
 
         String header = "";
         String corpo = "";
@@ -129,5 +139,19 @@ public class ArquivoController {
         trailer = trailer + "02";
         trailer = trailer + String.format("%010d", contadorDeDados);
         gravarRegistro(trailer);
+
+        //filename: C:/Users/Public/Downloads/Usuario.txt
+        MediaType mediaType = MediaTypeUtils.getMediaTypeForFileName(this.servletContext, "C:/Users/Public/Downloads/Usuario.txt");
+        File file = new File("C:/Users/Public/Downloads/Usuario.txt");
+        InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+        return ResponseEntity.ok()
+                // Content-Disposition
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + file.getName())
+                // Content-Type
+                .contentType(mediaType)
+                // Contet-Length
+                .contentLength(file.length()) //
+                .body(resource);
     }
+
 }
