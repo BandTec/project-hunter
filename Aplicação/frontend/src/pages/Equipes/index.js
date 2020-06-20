@@ -1,8 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import './styles.css'
 import Logo from "../../assets/testeLogo3.png";
-
-
 import camera from '../../assets/camera.svg';
 import { FiArrowLeft, FiStar, FiTrash2, FiSearch, FiUser, FiPlusCircle } from 'react-icons/fi'
 import { Link, useHistory } from 'react-router-dom';
@@ -14,10 +12,13 @@ import Grow from '@material-ui/core/Grow';
 import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-
 import Modal from "@material-ui/core/Modal";
-
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -166,7 +167,17 @@ export default function Teams() {
     const [thumbnail, setThumbnail] = useState(null);
     const classes2 = useStyles2();
     const [pesquisa, setPesquisa] = useState("");
+    const [openAlerta, setOpenAlerta] = React.useState(false);
+    const [dadosAlerta, setDadosAlerta] = useState('');
 
+    function handleOpenAlert (resposta) {
+        setDadosAlerta(resposta);
+        setOpenAlerta(true);
+      };
+    
+      const handleCloseAlert = () => {
+        setOpenAlerta(false);
+      };
 
     const preview = useMemo(() => { return thumbnail ? URL.createObjectURL(thumbnail) : null },
         thumbnail);
@@ -244,7 +255,7 @@ export default function Teams() {
 
     async function envioDadosEquipe() {
         if (!nomeEquipeCriada || !thumbnail) {
-            alert("Preencha os dados necessários");
+            handleOpenAlert("Preencha os dados necessários");
           } else {
             
             const fotoEquipeCriada = nomeEquipeCriada.toLowerCase() + "-icon.png"; 
@@ -260,10 +271,10 @@ export default function Teams() {
                         envioDadosJogo(response.data.idEquipe);
                         adicionaJogador(response.data.idEquipe);
                         }else{
-                            alert('Erro no cadastro da sua equipe, tente novamente!');
+                            handleOpenAlert('Erro no cadastro da sua equipe, tente novamente!');
                         }
                     } catch (err) {
-                        alert('Erro no cadastro da sua equipe, tente novamente!');
+                        handleOpenAlert('Erro no cadastro da sua equipe, tente novamente!');
               }
             }
 
@@ -271,7 +282,7 @@ export default function Teams() {
 
     async function envioDadosJogo(id) {
         if (idJogo === "" ) {
-            alert('Por favor, preencha o jogo que sua equipe mais joga!');
+            handleOpenAlert('Por favor, preencha o jogo que sua equipe mais joga!');
         } else {
 
             const data2 = {
@@ -287,20 +298,17 @@ export default function Teams() {
                 const response = await api.post(`/equipejogo/`, data2);
                 //alert(`Seu ID de Acesso ${response.data.id}`);
                 if (response.status === 201){
-                    alert('Equipe criada com sucesso!');
+                    handleOpenAlert('Equipe criada com sucesso!');
                 }else{
-                    alert('Erro no cadastro do jogo, tente novamente!');
+                    handleOpenAlert('Erro no cadastro do jogo, tente novamente!');
                 }
             } catch (err) {
-                alert('Erro no cadastro do jogo, tente novamente!');
+                handleOpenAlert('Erro no cadastro do jogo, tente novamente!');
             }
         }
     }
 
     async function adicionaJogador(dados){
-
-       
-
         const data = {
             idEquipe: {
                idEquipe: dados
@@ -318,25 +326,21 @@ export default function Teams() {
             const response = await api.post(`/equipegamer/`, data); //{
             if (response.status === 201) {
               
-              alert('Usuário adicionado');
+                handleOpenAlert('Equipe criada com sucesso!');
               handleCloseModal();
               return;
                
             } else {
-              alert("Erro ao adicionar jogador");
+                handleOpenAlert("Erro ao criar equipe");
             }
           } catch (err) {
-            alert("Erro ao adicionar jogador ou conectar-se ao servidor");
+            handleOpenAlert("Erro ao adicionar jogador na equipe ou conectar-se ao servidor");
           }
-
     }
 
     function criaDadosEquipe(idEquipe) {
         return { idEquipe };
       }
-
-
-
 
     // Botão Usuário 
     const classes = useStyles();
@@ -419,10 +423,10 @@ export default function Teams() {
                 localStorage.clear();
                 history.push('/');
             } else {
-                alert('Estamos encontrando problemas na conexão com o servidor');
+                handleOpenAlert('Estamos encontrando problemas na conexão com o servidor');
             }
         } catch (err) {
-            alert('Estamos encontrando problemas na conexão com o servidor');
+            handleOpenAlert('Estamos encontrando problemas na conexão com o servidor');
         }
 
     }
@@ -528,7 +532,24 @@ export default function Teams() {
                 ))}
             </div>
 
-
+            <Dialog
+                open={openAlerta}
+                onClose={handleCloseAlert}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title">Alerta</DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    {dadosAlerta}
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleCloseAlert} color="primary" autoFocus>
+                    OK
+                  </Button>
+                </DialogActions>
+              </Dialog>
 
         </div>
     );
