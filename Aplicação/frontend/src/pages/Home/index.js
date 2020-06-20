@@ -161,12 +161,9 @@ const useStyles2 = makeStyles((theme) => ({
   },
 }));
 
-function rand() {
-  return Math.round(Math.random() * 20) - 10;
-}
 function getModalStyle() {
-  const top = 50 + rand();
-  const left = 50 + rand();
+  const top = 50;
+  const left = 50;
 
   return {
     top: `${top}%`,
@@ -293,61 +290,67 @@ export default function Home() {
         hora: horarioPt,
       };
       console.log("data", data);
-      const response = await api.post(`/partida`, data); //{
-      if (response.status === 201) {
-        let dados = response.data;
+      try {
+        const response = await api.post(`/partida`, data); //{
+        if (response.status === 201) {
+          let dados = response.data;
 
-        let temp = [];
+          let temp = [];
 
-        temp.push(criaDadosPt(dados.idPartida));
+          temp.push(criaDadosPt(dados.idPartida));
 
-        setIdPartida(temp[0].idPartida);
-        if (jogadorOpPt1) {
-          const response = await api.post(
-            `/partida/${jogadorOpPt1}/${posicaoOpcionalPt1}/${dados.idPartida}`,
-            data
-          );
-          console.log("dados1", response);
-          if (!response) {
-            return alert("Falha ao adicionar jogador opicional 1");
+          setIdPartida(temp[0].idPartida);
+          if (jogadorOpPt1) {
+            const response = await api.post(
+              `/partida/${jogadorOpPt1}/${posicaoOpcionalPt1}/${dados.idPartida}`,
+              data
+            );
+            console.log("dados1", response);
+            if (!response) {
+              return alert("Falha ao adicionar jogador opicional 1");
+            }
           }
-        }
-        if (jogadorOpPt2) {
-          const response = await api.post(
-            `/partida/${jogadorOpPt2}/${posicaoOpcionalPt2}/${dados.idPartida}`,
-            data
-          );
-          if (!response) {
-            return alert("Falha ao adicionar jogador opicional 2");
+          if (jogadorOpPt2) {
+            const response = await api.post(
+              `/partida/${jogadorOpPt2}/${posicaoOpcionalPt2}/${dados.idPartida}`,
+              data
+            );
+            if (!response) {
+              return alert("Falha ao adicionar jogador opicional 2");
+            }
           }
-        }
-        if (jogadorOpPt3) {
-          const response = await api.post(
-            `/partida/${jogadorOpPt3}/${posicaoOpcionalPt3}/${dados.idPartida}`,
-            data
-          );
-          if (!response) {
-            return alert("Falha ao adicionar jogador opicional 3");
+          if (jogadorOpPt3) {
+            const response = await api.post(
+              `/partida/${jogadorOpPt3}/${posicaoOpcionalPt3}/${dados.idPartida}`,
+              data
+            );
+            if (!response) {
+              return alert("Falha ao adicionar jogador opicional 3");
+            }
           }
-        }
-        if (jogadorOpPt4) {
-          const response = await api.post(
-            `/partida/${jogadorOpPt4}/${posicaoOpcionalPt4}/${dados.idPartida}`,
-            data
-          );
-          if (!response) {
-            return alert("Falha ao adicionar jogador opicional 4");
+          if (jogadorOpPt4) {
+            const response = await api.post(
+              `/partida/${jogadorOpPt4}/${posicaoOpcionalPt4}/${dados.idPartida}`,
+              data
+            );
+            if (!response) {
+              return alert("Falha ao adicionar jogador opicional 4");
+            }
           }
+          alert("Partida Criada com Sucesso!");
+
+          console.log("dados", dados.idPartida);
+
+          handleCloseModal();
+
+          console.log(idPartida);
+        } else {
+          alert("Erro ao criar partida");
         }
-        alert("Partida Criada com Sucesso!");
-
-        console.log("dados", dados.idPartida);
-
-        handleCloseModal();
-
-        console.log(idPartida);
-      } else {
-        alert("Erro ao criar partida");
+      } catch (err) {
+        alert("Erro ao criar partida ou conectar-se ao servidor");
+      } finally {
+        window.location.reload(false);
       }
     }
   }
@@ -630,6 +633,8 @@ export default function Home() {
       alert("Partida deletada com sucesso!");
     } catch (err) {
       alert("Erro ao deletar o partida, tente novamente");
+    } finally {
+      window.location.reload(false);
     }
   }
 

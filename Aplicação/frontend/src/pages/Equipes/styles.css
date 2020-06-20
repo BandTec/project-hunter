@@ -84,7 +84,7 @@
 
 .equipes-container .div-principal{
     display: grid;
-    grid-template-columns:  repeat(3, 1fr);
+    grid-template-columns:  repeat(4, 1fr);
     grid-gap: 24px;
 }
 
@@ -151,6 +151,6 @@
     cursor: pointer;
 }
 
-.btn-modal{
-    margin-right: -120%;
+.btn-modal-criarEquipe{
+    margin-right: -110%;
 }

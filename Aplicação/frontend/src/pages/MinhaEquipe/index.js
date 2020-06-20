@@ -10,7 +10,7 @@ import User from "../../assets/default-user.png"
 
 
 import TeamPicture from "../../assets/team-icon.svg";
-import { FiArrowLeft, FiStar, FiTrash2, FiSearch, FiUser, FiPlusCircle, FiMessageCircle } from 'react-icons/fi'
+import { FiArrowLeft, FiStar, FiTrash2, FiSearch, FiUser, FiPlusCircle, FiMessageCircle, FiPrinter } from 'react-icons/fi'
 import { Link, useHistory } from 'react-router-dom';
 import api from '../../services/api';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -21,7 +21,7 @@ import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-
+import Modal from "@material-ui/core/Modal";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -41,6 +41,110 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: "300px",
         transition: "border-color 0.2s",
     }
+}));
+
+const useStyles2 = makeStyles((theme) => ({
+    paper: {
+        position: "absolute",
+
+        backgroundColor: "#000",
+        font: "Roboto, Arial, Helvetica, sans-serif",
+        color: "#fff",
+        border: "2px solid #000",
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 4, 3),
+        width: "700px",
+    },
+
+    divAbove: {
+
+        alignItems: "center",
+        justifyContent: "center",
+    },
+
+
+
+    nome: {
+        display: "grid",
+        gridTemplateColumns: "repeat(3, 1fr)",
+        justifyContent: "space-between",
+        marginBottom: "20px"
+    },
+
+    nomeStyle: {
+        width: "340px",
+        height: "48px",
+        marginTop: "10px",
+        marginBottom: "10px",
+        marginRight: "5px",
+        border: "1px solid #ddd",
+        borderRadius: "4px",
+
+        padding: "0 20px",
+        fontSize: "16px",
+        color: "#666",
+    },
+
+    imagem: {
+        gridTemplateColumns: "repeat(2, 1fr)",
+        justifyContent: "right",
+        alignContent: "right",
+    },
+
+    imagemStyle: {
+        width: "220px",
+        height: "48px",
+        marginTop: "10px",
+        marginBottom: "10px",
+
+        border: "1px solid #ddd",
+        borderRadius: "4px",
+
+        padding: "0 20px",
+        fontSize: "16px",
+        color: "#666",
+    },
+
+
+    buttonClose: {
+        backgroundColor: "#000",
+        color: "#00FF00",
+        marginTop: "15px",
+        border: "1px solid #00FF00",
+        borderRadius: "4px",
+        height: "48px",
+        width: "112px",
+        padding: "0 20px",
+        fontSize: "16px",
+        fontStyle: "bold",
+        cursor: "pointer",
+    },
+    buttonCreate: {
+        backgroundColor: "#00FF00",
+        color: "#000",
+        marginTop: "15px",
+        marginLeft: "30px",
+        border: "1px solid #000",
+        borderRadius: "4px",
+        height: "48px",
+        width: "112px",
+        padding: "0 20px",
+        fontSize: "16px",
+        fontStyle: "bold",
+        cursor: "pointer",
+    },
+
+    input: {
+        width: "280px",
+        marginTop: "10px",
+        marginBottom: "10px",
+        border: "1px solid #ddd",
+        borderRadius: "4px",
+        height: "48px",
+        padding: "0 20px",
+        fontSize: "16px",
+        color: "#666",
+    },
 }));
 
 export default function MyTeam() {
@@ -68,6 +172,19 @@ export default function MyTeam() {
         }
     }
 
+    function rand() {
+        return Math.round(Math.random() * 20) - 10;
+    }
+    function getModalStyle() {
+        const top = 50 ;
+        const left = 50 ;
+        return {
+            top: `${top}%`,
+            left: `${left}%`,
+            transform: `translate(-${top}%, -${left}%)`,
+        };
+    }
+
     // return focus to the button when we transitioned from !open -> open
     const prevOpen = React.useRef(open);
     React.useEffect(() => {
@@ -82,19 +199,114 @@ export default function MyTeam() {
     // Botão Usuário 
 
 
-
+    const [modalStyle] = React.useState(getModalStyle);
+    const [openModal, setOpenModal] = React.useState(false);
+    const classes2 = useStyles2();
     const [nomeEquipe, setNomeEquipe] = useState('');
     const [fotoEquipe, setFotoEquipe] = useState([]);
-    const [idEquipe, setIdEquipe] = useState('');
+    const idEquipe = localStorage.getItem('idEquipe');
     const [pesquisa, setPesquisa] = useState("");
+    const [solicitacoes, setSolicitacoes] = useState('');
     const idGamerLogado = localStorage.getItem('idGamer');
-
+    const [idEquipeGamer, setIdEquipeGamer] = useState('');
+    const [capitao, setCapitao] = useState([]);
     //localStorage.setItem('nomeEquipe', "keyd");
 
-    async function handlePesquisa () {
+    const handleOpenModal = () => {
+        setOpenModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setOpenModal(false);
+    };
+
+    const body = (
+        <div style={modalStyle} className={classes2.paper}>
+            <center><h2>Solicitações</h2></center>
+            <center>
+                <div className={classes2.divAbove}>
+                    <div className="solicitantes">
+                        {solicitacoes ? solicitacoes.map(sol => (
+                            <div className="div-above-solicitacoes">
+                                <div key={sol.idGamer.idGamer} >
+                                    <img className="profile-gamer-solicitacao" src={require(`../../assets/${sol.idGamer.fotoGamer}`)} alt="Foto de Perfil"></img>
+                                    <p>{sol.idGamer.usuario}</p>
+                                </div>
+                                
+                                <div className="botoes-div-above-solicitacoes">
+                                    <button className="btnAprovar" onClick={() => aceitarJogador(sol.idEquipeGamer)}> Aprovar</button>
+
+                                    <button className="btnRecusar" onClick={() => recusarJogador(sol.idEquipeGamer)}> Recusar</button>
+                                </div>
+                            </div>
+
+                        )) : solicitacoes}
+                    </div>
+
+                </div>
+                <center className="btn-modal">
+                    <p style={{ width: "300px" }}>
+                        <button className={classes2.buttonClose} onClick={handleCloseModal}>
+                            Fechar
+              </button>
+                    </p>
+                </center>
+            </center>
+        </div>
+    );
+
+    async function aceitarJogador(id) {
+        
+        try {
+            const response = await api.put(`/equipegamer/aceitar/${id}/`); //{
+            if (response.status === 200) {
+                alert("Jogador aceito com sucesso!");
+                let dados = response.data.idEquipe;
+
+                console.log(dados);
+
+                //   adicionaJogador(dados);
+                return;
+
+            } else {
+                alert("Erro ao aceitar jogador!");
+            }
+        } catch (err) {
+            alert("Erro ao aceitar jogador ou conectar-se ao servidor!");
+        }finally{
+            window.location.reload(false);
+        }
+
+    }
+
+    async function recusarJogador(id) {
+       
+        try {
+            const response = await api.put(`/equipegamer/recusar/${id}/`); //{
+            if (response.status === 200) {
+                alert("Jogador recusado com sucesso!");
+                let dados = response.data.idEquipe;
+
+                console.log(dados);
+
+                //   recusaJogador(dados);
+                return;
+
+            } else {
+                alert("Erro ao recusar jogador!");
+            }
+        } catch (err) {
+            alert("Erro ao recusar jogador ou conectar-se ao servidor!");
+        }finally{
+            window.location.reload(false);
+        }
+
+    }
+
+    async function handlePesquisa() {
         localStorage.setItem('pesquisa', pesquisa);
         history.push("/busca", pesquisa);
-      }
+    }
 
     useEffect(() => {
         setNomeEquipe(localStorage.getItem('nomeEquipe'));
@@ -131,8 +343,9 @@ export default function MyTeam() {
                 );
             });
 
-            setIdEquipe(temp[0].idEquipe);
+            //setIdEquipe(temp[0].idEquipe);
 
+            //getPlayerPendente(idEquipe);
             console.log(fotoEquipe);
         });
     }, [nomeEquipe]);
@@ -165,8 +378,33 @@ export default function MyTeam() {
         });
     }, [idEquipe]);
 
+    // useEffect(() => {
+    //     api.get(`/equipegamer/pendente/${idEquipe}/`
 
+    //     ).then(response => {
+    //         //setTeamGames(response.data);
+    //         const { data = [] } = response || {};
+    //         // verify response.data is an array
+    //         const isArray = Array.isArray(data)
+    //         isArray && setSolicitacoes(data);
 
+    //         console.log(solicitacoes);
+    //     });
+    // }, [idEquipe]);
+
+    useEffect(() => {
+        api.get(`/equipegamer/pendente/${idEquipe}/`
+
+        ).then(response => {
+            //setTeamGames(response.data);
+            const { data = [] } = response || {};
+            // verify response.data is an array
+            const isArray = Array.isArray(data)
+            isArray && setSolicitacoes(data);
+
+            console.log(solicitacoes);
+        });
+    }, [idEquipe]);
 
     function criaDados(idEquipe) {
         return { idEquipe }
@@ -177,7 +415,6 @@ export default function MyTeam() {
     const [teamGames, setTeamGames] = useState([]);
     const [teamGamers, setTeamGamers] = useState([]);
     const [teamHistory, setTeamHistory] = useState([]);
-    const [capitao, setCapitao]= useState([]);
 
     const history = useHistory('');
     // const userId = localStorage.getItem('userId');
@@ -201,27 +438,41 @@ export default function MyTeam() {
             alert('Estamos encontrando problemas na conexão com o servidor');
         }
 
-    }    
+    }
 
-    async function handleCapitao(e){
-        e.preventDefault();
-    
-          try {
-            
-              const response = await api.get(`/equipegamer/capitao/${idGamerLogado}/${idEquipe}/`);
-              console.log(response.status);
-              if (response.status === 200){
-              
-              setCapitao(1);
-              
-              }else{
-              setCapitao(0);
-              }
-          } catch (err) {
+    async function handleExportacao() {
+        try {
+            const response = await api.post(`/arquivo/${1}`);
+            if (response.status === 200) {
+                alert('Exportação realizada com sucesso!');
+            } else {
+                alert('Estamos encontrando problemas para exportar seu arquivo!');
+            }
+        } catch (err) {
+            alert('Estamos encontrando problemas para exportar seu arquivo!');
+        }
+    }
+
+    useEffect(() => {
+        try {
+
+            api.get(`/equipegamer/capitao/${idGamerLogado}/${idEquipe}/`).then(response => {
+                console.log(response.status);
+                if (response.status === 200) {
+
+                    setCapitao(1);
+                    console.log(capitao);
+
+                } else {
+                    setCapitao(0);
+                    console.log(capitao);
+                }
+            });
+        } catch (err) {
             alert("ID do jogador e/ou da equipe inválido(s)");
-            
-          }
-        };
+
+        }
+    }, [capitao]);
 
     async function handleConfig() {
         history.push('/config');
@@ -236,6 +487,8 @@ export default function MyTeam() {
 
         history.push('/home');
     }
+
+
     return (
         <div className="profile-container">
 
@@ -244,14 +497,14 @@ export default function MyTeam() {
                 {/* <span>Bem vindo, {userName}</span> */}
 
                 <div className="input-pesquisa">
-                <input
-                     type="text"
-                    placeholder="Busque por jogos ou equipes..."
-                    onChange={(e) => setPesquisa(e.target.value)}
-          ></input>
-          <button className="btn-pesquisa" onClick={handlePesquisa}>
-            <FiSearch size={18} color="#000000" />
-          </button>
+                    <input
+                        type="text"
+                        placeholder="Busque por jogos ou equipes..."
+                        onChange={(e) => setPesquisa(e.target.value)}
+                    ></input>
+                    <button className="btn-pesquisa" onClick={handlePesquisa}>
+                        <FiSearch size={18} color="#000000" />
+                    </button>
                 </div>
 
 
@@ -295,11 +548,20 @@ export default function MyTeam() {
                 ))}
                 <h1 className="profile-nic">{nomeEquipe}</h1>
                 <div className="notificacoes">
-                {/* {setCapitao === 1 ? (  */}
-                    <FiMessageCircle size={36} color="#FFFFFF"></FiMessageCircle>
-                <button className="btn-notif"> Notificações </button>
-                {/* // ) : capitao } */}
+                    {capitao === 1 ? (
+                        <>
+                        <button className="btn-notif" onClick={handleOpenModal}>
+                            <FiMessageCircle size={23} color="#FFFFFF"></FiMessageCircle>
+                        </button>
+                        <button className="btn-exportacao" onClick={handleExportacao}>
+                            <FiPrinter size={23} color="#FFFFFF"></FiPrinter>
+                        </button>
+                        </>
+                    ) : null}
                 </div>
+                <Modal open={openModal} onClose={handleCloseModal}>
+                    {body}
+                </Modal>
                 {/* <h1 className="profile-rate"> <FiStar size={48} color="#F1DA07" />  4.96</h1> */}
             </div>
 
@@ -311,7 +573,7 @@ export default function MyTeam() {
                     <div className="current-members">
                         {team.map(team => (
                             <div key={team.idGamer.idGamer}>
-                            
+
                                 {/* <img src={require(`../../assets/${team.idGamer.fotoGamer}`)} alt="User-Icon" ></img> */}
                                 <img src={User} alt="User-Icon" ></img>
                                 <p>{team.idGamer.nome}</p>

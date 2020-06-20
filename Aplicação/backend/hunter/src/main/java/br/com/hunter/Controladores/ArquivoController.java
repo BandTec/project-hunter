@@ -1,12 +1,20 @@
 package br.com.hunter.Controladores;
 
+import br.com.hunter.MediaTypeUtils;
 import br.com.hunter.Modelos.EquipeGamer;
+import br.com.hunter.Modelos.Gamer;
 import br.com.hunter.Modelos.GamerInfo;
 import br.com.hunter.Repositorios.EquipeGamerRepository;
 import br.com.hunter.Repositorios.GamerInfoRepository;
+import br.com.hunter.Repositorios.GamerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletContext;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,16 +26,23 @@ import java.util.List;
 public class ArquivoController {
 
     @Autowired
-    private GamerInfoRepository repository;
+    private GamerInfoRepository gamerInfoRepository;
+
+    @Autowired
+    private GamerRepository gamerRepository;
 
     @Autowired
     private EquipeGamerRepository equipeGamerRepository;
+
+    @Autowired
+    private ServletContext servletContext;
+
     // criar arquivo
     public static void gravarRegistro(String registro) {
         BufferedWriter saida = null;
 
         try {
-            saida = new BufferedWriter(new FileWriter("Usuario.txt", true));
+            saida = new BufferedWriter(new FileWriter("C:/Users/Public/Downloads/Usuario.txt", true));
         } catch (IOException var5) {
             System.out.printf("Erro na abertura do arquivo: %s.\n", var5.getMessage());
         }
@@ -92,7 +107,7 @@ public class ArquivoController {
     }
 
     @PostMapping("/{id}")
-    public void criarArquivo(@PathVariable("id") Integer id) {
+    public ResponseEntity<InputStreamResource> criarArquivo(@PathVariable("id") Integer id) throws IOException  {
 
         String header = "";
         String corpo = "";
@@ -105,23 +120,24 @@ public class ArquivoController {
         header = header + "01";
         gravarRegistro(header);
 
-        for(int i = id; i < 11; i++) {
-            GamerInfo usuario = repository.findOneByIdGamer_IdGamer(i);
+        List<EquipeGamer> usuarios = equipeGamerRepository.findByIdStatus_IdStatusAndIdEquipe_IdEquipe(1, id);
 
-            List<EquipeGamer> equipe = equipeGamerRepository.findByIdGamer_IdGamer(i);
-            String nomeEquipe = "";
-            String nome = usuario.getIdGamer().getNome();
-            if (equipe.isEmpty()) {
-                nomeEquipe = "";
-            } else {
-                EquipeGamer atual = equipe.get(0);
-                nomeEquipe = atual.getIdEquipe().getNomeEquipe();
-            }
-            String posicao = usuario.getIdPosicao().getPosicao();
-            String nomeJogo = usuario.getIdJogo().getNomeJogo();
+        for(int i = 0; i < usuarios.size(); i++) {
+
+            int idGamerAtual = usuarios.get(i).getIdGamer().getIdGamer();
+            Gamer atual = gamerRepository.findById(idGamerAtual);
+            GamerInfo infos = gamerInfoRepository.findFirstByIdGamer_IdGamer(idGamerAtual);
+
+
+            String nome = atual.getNome();
+            String usuario = atual.getUsuario();
+            String email = atual.getEmail();
+            String jogo = infos.getIdJogo().getNomeJogo();
+            String posicao = infos.getIdPosicao().getPosicao();
+
 
             corpo = corpo + "01";
-            corpo +=String.format(" %-4s %-25s %-25s %-15s %-25s\n",i, nome, nomeEquipe, posicao, nomeJogo);
+            corpo +=String.format(" %-25s %-25s %-35s %-15s %-15s\n", nome, usuario, email, jogo, posicao);
             contadorDeDados = contadorDeDados + 1;
 
         }
@@ -129,5 +145,19 @@ public class ArquivoController {
         trailer = trailer + "02";
         trailer = trailer + String.format("%010d", contadorDeDados);
         gravarRegistro(trailer);
+
+        //filename: C:/Users/Public/Downloads/Usuario.txt
+        MediaType mediaType = MediaTypeUtils.getMediaTypeForFileName(this.servletContext, "C:/Users/Public/Downloads/Usuario.txt");
+        File file = new File("C:/Users/Public/Downloads/Usuario.txt");
+        InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+        return ResponseEntity.ok()
+                // Content-Disposition
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + file.getName())
+                // Content-Type
+                .contentType(mediaType)
+                // Contet-Length
+                .contentLength(file.length()) //
+                .body(resource);
     }
+
 }

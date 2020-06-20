@@ -3,13 +3,19 @@ package br.com.hunter.Controladores;
 import br.com.hunter.Modelos.Gamer;
 import br.com.hunter.Modelos.GamerInfo;
 import br.com.hunter.Repositorios.GamerRepository;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.springframework.http.ResponseEntity.*;
 
@@ -45,8 +51,10 @@ public class GamerContoller {
     public ResponseEntity atualizar(
             @PathVariable("id") int id, @RequestBody Gamer gamerAlterado ) {
         if(repository.existsById(id)) {
-            gamerAlterado.setIdGamer(id);
-            repository.save(gamerAlterado);
+            Gamer gamercompleto = repository.findById(id);
+            copyNonNullProperties(gamerAlterado, gamercompleto);
+
+            repository.save (gamercompleto);
             return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.notFound().build();
@@ -96,6 +104,24 @@ public class GamerContoller {
         } else {
             return noContent().build();
         }
+    }
+
+
+    public static void copyNonNullProperties(Object src, Object target) {
+        BeanUtils.copyProperties(src, target, getNullPropertyNames(src));
+    }
+
+    public static String[] getNullPropertyNames (Object source) {
+        final BeanWrapper src = new BeanWrapperImpl(source);
+        java.beans.PropertyDescriptor[] pds = src.getPropertyDescriptors();
+
+        Set<String> emptyNames = new HashSet<String>();
+        for(java.beans.PropertyDescriptor pd : pds) {
+            Object srcValue = src.getPropertyValue(pd.getName());
+            if (srcValue == null) emptyNames.add(pd.getName());
+        }
+        String[] result = new String[emptyNames.size()];
+        return emptyNames.toArray(result);
     }
 
 }

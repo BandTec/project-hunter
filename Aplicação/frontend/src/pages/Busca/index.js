@@ -152,8 +152,8 @@ function rand() {
   return Math.round(Math.random() * 20) - 10;
 }
 function getModalStyle() {
-  const top = 50 + rand();
-  const left = 50 + rand();
+  const top = 50 ;
+  const left = 50 ;
 
   return {
     top: `${top}%`,
@@ -168,7 +168,7 @@ export default function Busca({ dataResponse }) {
   const [nome, setNome] = useState("");
   const [idGamer, setIdGamer] = useState("");
   const [numUsers, setNumUsers] = useState("");
-
+  const [pesquisa, setPesquisa] = useState("");
   const [gamer, setGamer] = useState([]);
 
   const classes2 = useStyles2();
@@ -395,20 +395,6 @@ export default function Busca({ dataResponse }) {
     });
   }
 
-  async function handleDeleteMatch(id) {
-    try {
-      await api.delete(`/partida/partida/${id}`);
-
-      setMatches(matches.filter((matches) => matches.id !== id));
-    } catch (err) {
-      alert("Erro ao deletar o partida, tente novamente");
-    }
-  }
-
-  function handleAgendamento() {
-    history.push("/agendamento");
-  }
-
   function handleProfile() {
     history.push("/profile");
   }
@@ -440,6 +426,11 @@ export default function Busca({ dataResponse }) {
     history.push('/home');
   }
 
+  async function handlePesquisa () {
+    localStorage.setItem('pesquisa', pesquisa);
+    window.location.reload(false);
+    
+  }
 
   return (
     <div className="home-container">
@@ -448,8 +439,15 @@ export default function Busca({ dataResponse }) {
         {/* <span>Bem vindo, {userName}</span> */}
 
         <div className="input-pesquisa">
-          <input type="text" placeholder="Busque por jogos, equipes..."></input>
-          <button className="btn-pesquisa"><FiSearch size={18} color="#000000" /></button>
+        <input
+                     type="text"
+                    placeholder="Busque por jogos ou equipes..."
+                    onChange={(e) => setPesquisa(e.target.value)}
+                    
+          ></input>
+          <button className="btn-pesquisa" onClick={handlePesquisa}>
+            <FiSearch size={18} color="#000000" />
+          </button>
         </div>
 
 
@@ -510,7 +508,7 @@ export default function Busca({ dataResponse }) {
                 <p className="jogo-nome">{equipe.idEquipe.nomeEquipe}</p>
 
                 <div>
-                  <p className="div-integrantes" > Membros:<p style={{ color: '#00FF00' }}>{numUsers}</p><p style={{ marginLeft: "-80px" }}>/  50</p> </p>
+                  <p className="div-integrantes" > Membros:<p style={{ color: '#00FF00' }}>{numUsers}5</p><p style={{ marginLeft: "-80px" }}>/  50</p> </p>
                 </div>
 
                 <div className="current-members-team">
