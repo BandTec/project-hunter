@@ -5,15 +5,29 @@ import '../../routes.js';
 import api from '../../services/api';
 import { login } from "../../auth";
 import { Link, useHistory } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle'; 
 
 export default function Login(){ 
 
-
+  const [openAlerta, setOpenAlerta] = React.useState(false);
+  const [dadosAlerta, setDadosAlerta] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const history = useHistory('');
 
+  function handleOpenAlert (resposta) {
+    setDadosAlerta(resposta);
+    setOpenAlerta(true);
+  };
+
+  const handleCloseAlert = () => {
+    setOpenAlerta(false);
+  };
 
   function chamaCadastro(){
   
@@ -26,7 +40,7 @@ export default function Login(){
 
     
     if (!email || !password) {
-      alert("Preencha e-mail e senha para continuar!");
+      handleOpenAlert("Preencha seu e-mail e sua senha para continuar!");
     } else {
       try {
         
@@ -41,10 +55,10 @@ export default function Login(){
           history.push("/home");
           
           }else{
-            alert("Email ou senha inválidos");
+            handleOpenAlert("Email ou senha inválidos");
           }
       } catch (err) {
-        alert("Email ou senha inválidos");
+        handleOpenAlert("Email ou senha inválidos");
         
       }
     }
@@ -72,6 +86,26 @@ export default function Login(){
 
           </div>
         </form>
+
+          <Dialog
+                open={openAlerta}
+                onClose={handleCloseAlert}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title">Alerta</DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    {dadosAlerta}
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleCloseAlert} color="primary" autoFocus>
+                    OK
+                  </Button>
+                </DialogActions>
+            </Dialog>
+
       </div>
 
     );
