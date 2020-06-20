@@ -15,16 +15,16 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 export default function Register() {
 
-  const [open, setOpen] = React.useState(false);
-  const [dados, setDados] = useState('wqeqwe');
+  const [openAlerta, setOpenAlerta] = React.useState(false);
+  const [dadosAlerta, setDadosAlerta] = useState('');
   
   function handleOpenAlert (resposta) {
-    setDados(resposta);
-    setOpen(true);
+    setDadosAlerta(resposta);
+    setOpenAlerta(true);
   };
 
   const handleCloseAlert = () => {
-    setOpen(false);
+    setOpenAlerta(false);
   };
 
     const [email, setEmail] = useState('');
@@ -76,25 +76,25 @@ export default function Register() {
                 </form>
             </div>
             <div>
-      <Dialog
-        open={open}
-        onClose={handleCloseAlert}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">Erro</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            {dados}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseAlert} color="primary" autoFocus>
-            OK
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </div>
+              <Dialog
+                open={openAlerta}
+                onClose={handleCloseAlert}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title">Alerta</DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    {dadosAlerta}
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleCloseAlert} color="primary" autoFocus>
+                    OK
+                  </Button>
+                </DialogActions>
+              </Dialog>
+          </div>
         </div>
         
     );

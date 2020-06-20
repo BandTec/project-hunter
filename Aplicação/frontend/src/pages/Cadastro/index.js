@@ -6,6 +6,12 @@ import camera from '../../assets/camera.svg';
 import '../../routes.js';
 import api from '../../services/api';
 import { BrowserRouter as Router } from "react-router-dom";
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 
 export default function Cadastro() {
@@ -21,6 +27,17 @@ export default function Cadastro() {
     const [confirmarEmail, setConfirmarEmail] = useState('');
     const [idJogo, setIdJogo] = useState('');
     const [idPosicao, setIdPosicao] = useState('');
+    const [openAlerta, setOpenAlerta] = React.useState(false);
+    const [dadosAlerta, setDadosAlerta] = useState('');
+
+    function handleOpenAlert (resposta) {
+        setDadosAlerta(resposta);
+        setOpenAlerta(true);
+      };
+    
+      const handleCloseAlert = () => {
+        setOpenAlerta(false);
+      };
 
     const preview = useMemo(() => { return thumbnail ? URL.createObjectURL(thumbnail) : null },
         thumbnail);
@@ -33,9 +50,9 @@ export default function Cadastro() {
     async function handleSignUp(e) {
         e.preventDefault();
         if (email != confirmarEmail) {
-            alert('Digite seu email corretamente!');
+            handleOpenAlert('Digite seu email corretamente!');
         } else if (senha != confirmarSenha) {
-            alert('Digite sua senha corretamente!')
+            handleOpenAlert('Digite sua senha corretamente!')
         }
         else {
             const data = {
@@ -53,10 +70,10 @@ export default function Cadastro() {
                 if (response.status === 201) {
                     handleSignUp2();
                 } else {
-                    alert('Erro no cadastro de seus dados, tente novamente');
+                    handleOpenAlert('Erro no cadastro de seus dados, tente novamente');
                 }
             } catch (err) {
-                alert('Erro no cadastro de seus dados, tente novamente');
+                handleOpenAlert('Erro no cadastro de seus dados, tente novamente');
             }
         }
     }
@@ -69,7 +86,7 @@ export default function Cadastro() {
 
     async function handleSignUp2() {
         if (idJogo === "" || idPosicao === "") {
-            alert('Preencha seu jogo e posição!');
+            handleOpenAlert('Preencha seu jogo e posição!');
         } else {
 
             const data2 = {
@@ -85,12 +102,13 @@ export default function Cadastro() {
                 const response = await api.post(`/gamerinfo/${email}`, data2);
                 //alert(`Seu ID de Acesso ${response.data.id}`);
                 if (response.status === 201) {
+                    handleOpenAlert('Cadastro realizado com sucesso!');
                     history.push('/login');
                 } else {
-                    alert('Erro no cadastro de seu jogo e/ou posição, tente novamente!');
+                    handleOpenAlert('Erro no cadastro de seu jogo e/ou posição, tente novamente!');
                 }
             } catch (err) {
-                alert('Erro no cadastro de seu jogo e/ou posição, tente novamente!');
+                handleOpenAlert('Erro no cadastro de seu jogo e/ou posição, tente novamente!');
             }
         }
     }
@@ -166,10 +184,7 @@ export default function Cadastro() {
                             </select>
                         </div>
                     </div> </rows>
-
-            </form>
-
-            <Router>
+                    <Router>
                 <center>
                     <div className="btns">
                         <button className="cadastro container btn Voltar" type="button" onClick={chamaLogin}> Voltar</button>
@@ -177,6 +192,29 @@ export default function Cadastro() {
                     </div>
                 </center>
             </Router>
+            </form>
+
+            <div>
+              <Dialog
+                open={openAlerta}
+                onClose={handleCloseAlert}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title">Alerta</DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    {dadosAlerta}
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleCloseAlert} color="primary" autoFocus>
+                    OK
+                  </Button>
+                </DialogActions>
+              </Dialog>
+          </div>
+            
         </div>
 
     );
