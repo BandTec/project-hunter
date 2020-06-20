@@ -1,6 +1,5 @@
 package br.com.hunter.Controladores;
 
-import br.com.hunter.Modelos.Equipe;
 import br.com.hunter.Modelos.Gamer;
 import br.com.hunter.Modelos.GamerInfo;
 import br.com.hunter.Repositorios.GamerInfoRepository;
@@ -57,8 +56,8 @@ public class GamerInfoController {
 
     @PostMapping("/{email}")
     public ResponseEntity criarPorEmail( @RequestBody GamerInfo gamerinfo, @PathVariable("email") String email ) {
-        Gamer gamer = gamerRepository.findOneByEmail(email);
-        gamerinfo.setIdGamer(gamer);
+        List<Gamer> gamer = gamerRepository.findFistByEmail(email);
+        gamerinfo.setIdGamer(gamer.get(0));
         this.repository.save(gamerinfo);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

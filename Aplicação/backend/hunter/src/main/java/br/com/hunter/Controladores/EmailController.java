@@ -8,11 +8,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
 
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import java.util.List;
-import java.util.Properties;
 
 @RestController
 @RequestMapping("/email")
@@ -43,8 +39,8 @@ public class EmailController {
         List<Gamer> gamer = gamerRepository.findByEmail(email);
 
         if(!gamer.isEmpty()){
-            Gamer gamerUnico = gamerRepository.findOneByEmail(email);
-            sendEmail(email,gamerUnico.getSenha());
+            List<Gamer> gamerUnico = gamerRepository.findFistByEmail(email);
+            sendEmail(email,gamerUnico.get(0).getSenha());
 
             return ResponseEntity.ok("email enviado");
 

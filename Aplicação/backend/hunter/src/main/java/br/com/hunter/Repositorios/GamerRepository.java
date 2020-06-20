@@ -19,7 +19,7 @@ public interface GamerRepository extends JpaRepository<Gamer, Integer> {
     List<Gamer> findByNome(String nome);
     List<Gamer> findByUsuario(String usuario);
     Gamer findOneByUsuario(String usuario);
-    Gamer findOneByEmail(String email);
+    List<Gamer> findFistByEmail(String email);
 
 
 }
