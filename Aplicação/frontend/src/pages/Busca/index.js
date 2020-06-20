@@ -21,8 +21,12 @@ import Paper from "@material-ui/core/Paper";
 import Popper from "@material-ui/core/Popper";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-
 import Modal from "@material-ui/core/Modal";
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -170,12 +174,22 @@ export default function Busca({ dataResponse }) {
   const [numUsers, setNumUsers] = useState([]);
   const [pesquisa, setPesquisa] = useState("");
   const [gamer, setGamer] = useState([]);
-
   const classes2 = useStyles2();
   const [modalStyle] = React.useState(getModalStyle);
   const [openModal, setOpenModal] = React.useState(false);
   const [equipes, setEquipes] = useState("");
   const [nomeEquipe, setNomeEquipe] = useState([]);
+  const [openAlerta, setOpenAlerta] = React.useState(false);
+  const [dadosAlerta, setDadosAlerta] = useState('');
+
+  function handleOpenAlert (resposta) {
+    setDadosAlerta(resposta);
+    setOpenAlerta(true);
+  };
+
+  const handleCloseAlert = () => {
+    setOpenAlerta(false);
+  };
 
   function handleOpenModal(dados) {
     localStorage.setItem('idEquipe', dados);
@@ -227,11 +241,11 @@ export default function Busca({ dataResponse }) {
 
   const body = (
     <div style={modalStyle} className={classes2.paper}>
-      <h2>Juntar-se a equipe</h2>
+      <center><h2>Solicitação</h2></center>
 
       <div className={classes2.divAbove}>
 
-        <p>Deseja juntar-se a equipe?</p>
+        <p>Deseja se juntar a equipe?</p>
 
         {/* <p>Escolha sua imagem :</p>
             <div className={classes2.imagem}>
@@ -275,15 +289,15 @@ export default function Busca({ dataResponse }) {
       const response = await api.post(`/equipegamer/`, data); //{
       if (response.status === 201) {
 
-        alert('Pedido enviado ao dono da equipe');
+        handleOpenAlert('Pedido enviado ao capitão da equipe');
         handleCloseModal();
         return;
 
       } else {
-        alert("Erro ao enviar solicitação");
+        handleOpenAlert("Erro ao enviar solicitação");
       }
     } catch (err) {
-      alert("Erro ao enviar solicitação ou conectar-se ao servidor");
+      handleOpenAlert("Erro ao enviar solicitação ou conectar-se ao servidor");
     }
 
   }
@@ -411,10 +425,10 @@ export default function Busca({ dataResponse }) {
         localStorage.clear();
         history.push("/");
       } else {
-        alert("Estamos encontrando problemas na conexão com o servidor");
+        handleOpenAlert("Estamos encontrando problemas na conexão com o servidor");
       }
     } catch (err) {
-      alert("Estamos encontrando problemas na conexão com o servidor");
+      handleOpenAlert("Estamos encontrando problemas na conexão com o servidor");
     }
   }
 
@@ -545,7 +559,26 @@ export default function Busca({ dataResponse }) {
             : equipes}
         </div>
       </div>
-
+      <div>
+              <Dialog
+                open={openAlerta}
+                onClose={handleCloseAlert}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title">Alerta</DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    {dadosAlerta}
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleCloseAlert} color="primary" autoFocus>
+                    OK
+                  </Button>
+                </DialogActions>
+              </Dialog>
+          </div>
     </div>
   );
 }
