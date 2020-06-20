@@ -293,64 +293,61 @@ export default function Home() {
         hora: horarioPt,
       };
       console.log("data", data);
-      try {
-        const response = await api.post(`/partida`, data); //{
-        if (response.status === 201) {
-          alert("Partida Criada com Sucesso!");
-          handleCloseModal();
-          let dados = response.data;
+      const response = await api.post(`/partida`, data); //{
+      if (response.status === 201) {
+        let dados = response.data;
 
-          if (jogadorOpPt1) {
-            const response = await api.post(
-              `/partida/${jogadorOpPt1}/${posicaoOpcionalPt1}/${data.idPartida}`,
-              body
-            );
-            if (!response) {
-              return alert("Falha ao adicionar jogador opicional 1");
-            }
+        let temp = [];
+
+        temp.push(criaDadosPt(dados.idPartida));
+
+        setIdPartida(temp[0].idPartida);
+        if (jogadorOpPt1) {
+          const response = await api.post(
+            `/partida/${jogadorOpPt1}/${posicaoOpcionalPt1}/${dados.idPartida}`,
+            data
+          );
+          console.log("dados1", response);
+          if (!response) {
+            return alert("Falha ao adicionar jogador opicional 1");
           }
-          if (jogadorOpPt2) {
-            const response = await api.post(
-              `/partida/${jogadorOpPt2}/${posicaoOpcionalPt2}/${data.idPartida}`,
-              body
-            );
-            if (!response) {
-              return alert("Falha ao adicionar jogador opicional 2");
-            }
-          }
-          if (jogadorOpPt3) {
-            const response = await api.post(
-              `/partida/${jogadorOpPt3}/${posicaoOpcionalPt3}/${data.idPartida}`,
-              body
-            );
-            if (!response) {
-              return alert("Falha ao adicionar jogador opicional 3");
-            }
-          }
-          if (jogadorOpPt4) {
-            const response = await api.post(
-              `/partida/${jogadorOpPt4}/${posicaoOpcionalPt4}/${data.idPartida}`,
-              body
-            );
-            if (!response) {
-              return alert("Falha ao adicionar jogador opicional 4");
-            }
-          }
-
-          let temp = [];
-
-          dados.forEach((item) => {
-            temp.push(criaDadosPt(item.idPartida));
-          });
-
-          setIdPartida(temp[0].idPartida);
-
-          console.log(idPartida);
-        } else {
-          alert("Erro ao criar partida");
         }
-      } catch (err) {
-        alert("Erro ao criar partida ou conectar-se ao servidor");
+        if (jogadorOpPt2) {
+          const response = await api.post(
+            `/partida/${jogadorOpPt2}/${posicaoOpcionalPt2}/${dados.idPartida}`,
+            data
+          );
+          if (!response) {
+            return alert("Falha ao adicionar jogador opicional 2");
+          }
+        }
+        if (jogadorOpPt3) {
+          const response = await api.post(
+            `/partida/${jogadorOpPt3}/${posicaoOpcionalPt3}/${dados.idPartida}`,
+            data
+          );
+          if (!response) {
+            return alert("Falha ao adicionar jogador opicional 3");
+          }
+        }
+        if (jogadorOpPt4) {
+          const response = await api.post(
+            `/partida/${jogadorOpPt4}/${posicaoOpcionalPt4}/${dados.idPartida}`,
+            data
+          );
+          if (!response) {
+            return alert("Falha ao adicionar jogador opicional 4");
+          }
+        }
+        alert("Partida Criada com Sucesso!");
+
+        console.log("dados", dados.idPartida);
+
+        handleCloseModal();
+
+        console.log(idPartida);
+      } else {
+        alert("Erro ao criar partida");
       }
     }
   }
@@ -529,15 +526,18 @@ export default function Home() {
             onChange={(e) => setAnoPt(e.target.value)}
           />
         </div>
-        <center style={{marginRight:"-20%"}}>
-        <p className="btn-modal" style={{ width: "300px" }}>
-          <button className={classes2.buttonClose} onClick={handleCloseModal}>
-            Fechar
-          </button>
-          <button className={classes2.buttonCreate} onClick={envioDadosPartida}>
-            Criar
-          </button>
-        </p>
+        <center style={{ marginRight: "-20%" }}>
+          <p className="btn-modal" style={{ width: "300px" }}>
+            <button className={classes2.buttonClose} onClick={handleCloseModal}>
+              Fechar
+            </button>
+            <button
+              className={classes2.buttonCreate}
+              onClick={envioDadosPartida}
+            >
+              Criar
+            </button>
+          </p>
         </center>
       </div>
     </div>
@@ -613,11 +613,10 @@ export default function Home() {
     });
   }, [id]);
 
-  async function handlePesquisa () {
-      localStorage.setItem('pesquisa', pesquisa);
-      history.push("/busca", pesquisa);
-    }
-  
+  async function handlePesquisa() {
+    localStorage.setItem("pesquisa", pesquisa);
+    history.push("/busca", pesquisa);
+  }
 
   function criaDados(idGamer, nome) {
     return { idGamer, nome };
