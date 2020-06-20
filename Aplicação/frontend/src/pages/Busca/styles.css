@@ -16,6 +16,7 @@
 .home-container header img {
   height: 64px;
   margin-right: 150px;
+  cursor: pointer;
 }
 .home-container header input {
   border-style: hidden;
