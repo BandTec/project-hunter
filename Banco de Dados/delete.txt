@@ -1,0 +1,5 @@
+delete equipejogo where idequipejogo = 43
+delete equipegamer where idequipegamer = 67
+delete equipegamer where idequipegamer = 68
+delete equipe where idequipe = 62
+delete equipe where idequipe = 63

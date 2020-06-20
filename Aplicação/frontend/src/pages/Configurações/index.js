@@ -17,6 +17,11 @@ import '../../routes.js';
 import { BrowserRouter as Router } from "react-router-dom";
 import Modal from '@material-ui/core/Modal';
 import { rows } from 'mssql';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -131,10 +136,20 @@ export default function Configurações() {
   const [idPosicao, setIdPosicao] = useState('');
   const [senha, setSenha] = useState('');
   const [pesquisa, setPesquisa] = useState("");
-
+  const [openAlerta, setOpenAlerta] = React.useState(false);
+  const [dadosAlerta, setDadosAlerta] = useState('');
   console.log(localStorage);
 
   // Botão Usuário 
+  function handleOpenAlert (resposta) {
+    setDadosAlerta(resposta);
+    setOpenAlerta(true);
+  };
+
+  const handleCloseAlert = () => {
+    setOpenAlerta(false);
+  };
+
 
   async function handlePesquisa() {
     localStorage.setItem('pesquisa', pesquisa);
@@ -246,10 +261,10 @@ export default function Configurações() {
         localStorage.clear();
         history.push('/');
       } else {
-        alert('Estamos encontrando problemas na conexão com o servidor');
+        handleOpenAlert('Estamos encontrando problemas na conexão com o servidor');
       }
     } catch (err) {
-      alert('Estamos encontrando problemas na conexão com o servidor');
+      handleOpenAlert('Estamos encontrando problemas na conexão com o servidor');
     }
 
   }
@@ -269,7 +284,7 @@ export default function Configurações() {
   async function handleSignUp(e) {
     e.preventDefault();
     if (nome === "" || cpf === "" || email === "" || senha === "" || usuario === "" || telefone === "") {
-      alert('Por favor preencha todos os campos!');
+      handleOpenAlert('Por favor preencha todos os campos!');
     } else {
 
       const data = {
@@ -287,20 +302,20 @@ export default function Configurações() {
         if (response.status === 200) {
           handleSignUp2();
         } else {
-          alert('Erro na atualização de seus dados, tente novamente!');
+          handleOpenAlert('Erro na atualização de seus dados, tente novamente!');
         }
       } catch (err) {
-        alert('Erro na atualização de seus dados ou conexão com a aplicação, tente novamente!');
+        handleOpenAlert('Erro na atualização de seus dados ou conexão com a aplicação, tente novamente!');
       }
     }
   }
 
   async function handleSignUp2() {
     if (idJogo === "" && idPosicao === "") {
-      alert('Dados alterados com sucesso!');
+      handleOpenAlert('Dados alterados com sucesso!');
     }
     else if (idJogo === "" || idPosicao === "") {
-      alert('Preencha seu jogo e sua posição!')
+      handleOpenAlert('Preencha seu jogo e sua posição!')
     }
     else {
 
@@ -317,13 +332,13 @@ export default function Configurações() {
         const response = await api.post(`/gamerinfo/${email}`, data2);
         //alert(`Seu ID de Acesso ${response.data.id}`);
         if (response.status === 201) {
-          alert('Dados alterados com sucesso!');
+          handleOpenAlert('Dados alterados com sucesso!');
           history.push('/home')
         } else {
-          alert('Erro no cadastro de seu jogo e/ou posição, tente novamente!');
+          handleOpenAlert('Erro no cadastro de seu jogo e/ou posição, tente novamente!');
         }
       } catch (err) {
-        alert('Erro no cadastro de seu jogo e/ou posição, tente novamente!');
+        handleOpenAlert('Erro no cadastro de seu jogo e/ou posição, tente novamente!');
       }
     }
   }
@@ -439,8 +454,26 @@ export default function Configurações() {
           </center>
 
         </form>
-
-
+        <div>
+        <Dialog
+                open={openAlerta}
+                onClose={handleCloseAlert}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title">Alerta</DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    {dadosAlerta}
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleCloseAlert} color="primary" autoFocus>
+                    OK
+                  </Button>
+                </DialogActions>
+              </Dialog>
+          </div>
 
 
 

@@ -255,7 +255,7 @@ export default function Home() {
         console.log("jogador1", dados);
 
         if (!dados) {
-          return handleOpenAlert("Jogador opicional 1 não encontrado");
+          handleOpenAlert("Jogador opcional 1 não encontrado");
         }
       }
       if (jogadorOpPt2) {
@@ -264,7 +264,7 @@ export default function Home() {
         let dados = response.data;
 
         if (!dados) {
-          return handleOpenAlert("Jogador opicional 2 não encontrado");
+          handleOpenAlert("Jogador opcional 2 não encontrado");
         }
       }
       if (jogadorOpPt3) {
@@ -273,7 +273,7 @@ export default function Home() {
         let dados = response.data;
 
         if (!dados) {
-          return handleOpenAlert("Jogador opicional 3 não encontrado");
+          handleOpenAlert("Jogador opcional 3 não encontrado");
         }
       }
       if (jogadorOpPt4) {
@@ -282,7 +282,7 @@ export default function Home() {
         let dados = response.data;
 
         if (!dados) {
-          return handleOpenAlert("Jogador opicional 4 não encontrado");
+          handleOpenAlert("Jogador opcional 4 não encontrado");
         }
       }
       const data = {
@@ -316,7 +316,7 @@ export default function Home() {
             );
             console.log("dados1", response);
             if (!response) {
-              return handleOpenAlert("Falha ao adicionar jogador opicional 1");
+              handleOpenAlert("Falha ao adicionar jogador opicional 1");
             }
           }
           if (jogadorOpPt2) {
@@ -325,7 +325,7 @@ export default function Home() {
               data
             );
             if (!response) {
-              return handleOpenAlert("Falha ao adicionar jogador opicional 2");
+              handleOpenAlert("Falha ao adicionar jogador opicional 2");
             }
           }
           if (jogadorOpPt3) {
@@ -334,7 +334,7 @@ export default function Home() {
               data
             );
             if (!response) {
-              return handleOpenAlert("Falha ao adicionar jogador opicional 3");
+              handleOpenAlert("Falha ao adicionar jogador opicional 3");
             }
           }
           if (jogadorOpPt4) {

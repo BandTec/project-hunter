@@ -22,6 +22,11 @@ import Popper from '@material-ui/core/Popper';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Modal from "@material-ui/core/Modal";
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -211,6 +216,17 @@ export default function MyTeam() {
     const [idEquipeGamer, setIdEquipeGamer] = useState('');
     const [capitao, setCapitao] = useState([]);
     //localStorage.setItem('nomeEquipe', "keyd");
+    const [openAlerta, setOpenAlerta] = React.useState(false);
+    const [dadosAlerta, setDadosAlerta] = useState('');
+    
+    function handleOpenAlert (resposta) {
+      setDadosAlerta(resposta);
+      setOpenAlerta(true);
+    };
+  
+    const handleCloseAlert = () => {
+      setOpenAlerta(false);
+    };
 
     const handleOpenModal = () => {
         setOpenModal(true);
@@ -260,7 +276,7 @@ export default function MyTeam() {
         try {
             const response = await api.put(`/equipegamer/aceitar/${id}/`); //{
             if (response.status === 200) {
-                alert("Jogador aceito com sucesso!");
+                handleOpenAlert("Jogador aceito com sucesso!");
                 let dados = response.data.idEquipe;
 
                 console.log(dados);
@@ -269,10 +285,10 @@ export default function MyTeam() {
                 return;
 
             } else {
-                alert("Erro ao aceitar jogador!");
+                handleOpenAlert("Erro ao aceitar jogador!");
             }
         } catch (err) {
-            alert("Erro ao aceitar jogador ou conectar-se ao servidor!");
+            handleOpenAlert("Erro ao aceitar jogador ou conectar-se ao servidor!");
         }finally{
             window.location.reload(false);
         }
@@ -284,7 +300,7 @@ export default function MyTeam() {
         try {
             const response = await api.put(`/equipegamer/recusar/${id}/`); //{
             if (response.status === 200) {
-                alert("Jogador recusado com sucesso!");
+                handleOpenAlert("Jogador recusado com sucesso!");
                 let dados = response.data.idEquipe;
 
                 console.log(dados);
@@ -293,10 +309,10 @@ export default function MyTeam() {
                 return;
 
             } else {
-                alert("Erro ao recusar jogador!");
+                handleOpenAlert("Erro ao recusar jogador!");
             }
         } catch (err) {
-            alert("Erro ao recusar jogador ou conectar-se ao servidor!");
+            handleOpenAlert("Erro ao recusar jogador ou conectar-se ao servidor!");
         }finally{
             window.location.reload(false);
         }
@@ -432,10 +448,10 @@ export default function MyTeam() {
                 localStorage.clear();
                 history.push('/');
             } else {
-                alert('Estamos encontrando problemas na conexão com o servidor');
+                handleOpenAlert('Estamos encontrando problemas na conexão com o servidor');
             }
         } catch (err) {
-            alert('Estamos encontrando problemas na conexão com o servidor');
+            handleOpenAlert('Estamos encontrando problemas na conexão com o servidor');
         }
 
     }
@@ -444,12 +460,12 @@ export default function MyTeam() {
         try {
             const response = await api.post(`/arquivo/${1}`);
             if (response.status === 200) {
-                alert('Exportação realizada com sucesso!');
+                handleOpenAlert('Exportação realizada com sucesso!');
             } else {
-                alert('Estamos encontrando problemas para exportar seu arquivo!');
+                handleOpenAlert('Estamos encontrando problemas para exportar seu arquivo!');
             }
         } catch (err) {
-            alert('Estamos encontrando problemas para exportar seu arquivo!');
+            handleOpenAlert('Estamos encontrando problemas para exportar seu arquivo!');
         }
     }
 
@@ -469,7 +485,7 @@ export default function MyTeam() {
                 }
             });
         } catch (err) {
-            alert("ID do jogador e/ou da equipe inválido(s)");
+            handleOpenAlert("ID do jogador e/ou da equipe inválido(s)");
 
         }
     }, [capitao]);
@@ -630,6 +646,26 @@ export default function MyTeam() {
                     </div>
                 </div>
             </body>
+            <div>
+            <Dialog
+                open={openAlerta}
+                onClose={handleCloseAlert}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title">Alerta</DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    {dadosAlerta}
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleCloseAlert} color="primary" autoFocus>
+                    OK
+                  </Button>
+                </DialogActions>
+              </Dialog>
+              </div>
         </div>
     );
 }
