@@ -19,7 +19,11 @@ import Paper from "@material-ui/core/Paper";
 import Popper from "@material-ui/core/Popper";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import Modal from "@material-ui/core/Modal";
 
 const useStyles = makeStyles((theme) => ({
@@ -182,12 +186,13 @@ export default function Home() {
   const [hora, setHora] = useState("");
   const [pesquisa, setPesquisa] = useState("");
   const [resultado, setResultado] = useState([]);
+  const [openAlerta, setOpenAlerta] = React.useState(false);
+  const [dadosAlerta, setDadosAlerta] = useState('');
 
   console.log(localStorage);
 
   const [jogoPt, setJogoPt] = useState("");
   const [posicaoPt, setPosicaoPt] = useState("");
-
   const [jogadorOpPt1, setJogadorOpPt1] = useState("");
   const [posicaoOpcionalPt1, setPosicaoOpcionalPt1] = useState("");
   const [jogadorOpPt2, setJogadorOpPt2] = useState("");
@@ -200,22 +205,26 @@ export default function Home() {
   const [idsPosicaoOutros, setIdsPosicaoOutros] = useState([]);
   const [horarioPt, setHorarioPt] = useState("");
   const [minutoPt, setMinutoPt] = useState("");
-
   const [dataPt, setDataPt] = useState("");
-
   const [anoPt, setAnoPt] = useState("");
   const [mesPt, setMesPt] = useState("");
   const [diaPt, setDiaPt] = useState("");
-
   const [infracao, setInfracao] = useState("");
-
   const [idPartida, setIdPartida] = useState("");
-
   const classes2 = useStyles2();
   const [modalStyle] = React.useState(getModalStyle);
   const [openModal, setOpenModal] = React.useState(false);
   const [page, setPage] = useState(0);
   const [metadata, setMetadata] = useState([]);
+
+  function handleOpenAlert (resposta) {
+    setDadosAlerta(resposta);
+    setOpenAlerta(true);
+  };
+
+  const handleCloseAlert = () => {
+    setOpenAlerta(false);
+  };
 
   const handleOpenModal = () => {
     setOpenModal(true);
@@ -237,7 +246,7 @@ export default function Home() {
     console.log("dataPt", dataPt);
 
     if (!jogoPt || !posicaoPt || !horarioPt || !dataPt) {
-      alert("Preencha os dados necessários");
+      handleOpenAlert("Preencha os dados necessários");
     } else {
       if (jogadorOpPt1) {
         const response = await api.get(`/gamer/usuario/${jogadorOpPt1}`);
@@ -246,7 +255,7 @@ export default function Home() {
         console.log("jogador1", dados);
 
         if (!dados) {
-          return alert("Jogador opicional 1 não encontrado");
+          return handleOpenAlert("Jogador opicional 1 não encontrado");
         }
       }
       if (jogadorOpPt2) {
@@ -255,7 +264,7 @@ export default function Home() {
         let dados = response.data;
 
         if (!dados) {
-          return alert("Jogador opicional 2 não encontrado");
+          return handleOpenAlert("Jogador opicional 2 não encontrado");
         }
       }
       if (jogadorOpPt3) {
@@ -264,7 +273,7 @@ export default function Home() {
         let dados = response.data;
 
         if (!dados) {
-          return alert("Jogador opicional 3 não encontrado");
+          return handleOpenAlert("Jogador opicional 3 não encontrado");
         }
       }
       if (jogadorOpPt4) {
@@ -273,7 +282,7 @@ export default function Home() {
         let dados = response.data;
 
         if (!dados) {
-          return alert("Jogador opicional 4 não encontrado");
+          return handleOpenAlert("Jogador opicional 4 não encontrado");
         }
       }
       const data = {
@@ -307,7 +316,7 @@ export default function Home() {
             );
             console.log("dados1", response);
             if (!response) {
-              return alert("Falha ao adicionar jogador opicional 1");
+              return handleOpenAlert("Falha ao adicionar jogador opicional 1");
             }
           }
           if (jogadorOpPt2) {
@@ -316,7 +325,7 @@ export default function Home() {
               data
             );
             if (!response) {
-              return alert("Falha ao adicionar jogador opicional 2");
+              return handleOpenAlert("Falha ao adicionar jogador opicional 2");
             }
           }
           if (jogadorOpPt3) {
@@ -325,7 +334,7 @@ export default function Home() {
               data
             );
             if (!response) {
-              return alert("Falha ao adicionar jogador opicional 3");
+              return handleOpenAlert("Falha ao adicionar jogador opicional 3");
             }
           }
           if (jogadorOpPt4) {
@@ -334,10 +343,10 @@ export default function Home() {
               data
             );
             if (!response) {
-              return alert("Falha ao adicionar jogador opicional 4");
+              return handleOpenAlert("Falha ao adicionar jogador opicional 4");
             }
           }
-          alert("Partida Criada com Sucesso!");
+          handleOpenAlert("Partida Criada com Sucesso!");
 
           console.log("dados", dados.idPartida);
 
@@ -345,10 +354,10 @@ export default function Home() {
 
           console.log(idPartida);
         } else {
-          alert("Erro ao criar partida");
+          handleOpenAlert("Erro ao criar partida");
         }
       } catch (err) {
-        alert("Erro ao criar partida ou conectar-se ao servidor");
+        handleOpenAlert("Erro ao criar partida ou conectar-se ao servidor");
       } finally {
         window.location.reload(false);
       }
@@ -630,9 +639,9 @@ export default function Home() {
       await api.delete(`/partida/partida/${id}`);
 
       setMatches(matches.filter((matches) => matches.id !== id));
-      alert("Partida deletada com sucesso!");
+      handleOpenAlert("Partida deletada com sucesso!");
     } catch (err) {
-      alert("Erro ao deletar o partida, tente novamente");
+      handleOpenAlert("Erro ao deletar o partida, tente novamente");
     } finally {
       window.location.reload(false);
     }
@@ -652,10 +661,10 @@ export default function Home() {
         localStorage.clear();
         history.push("/");
       } else {
-        alert("Estamos encontrando problemas na conexão com o servidor");
+        handleOpenAlert("Estamos encontrando problemas na conexão com o servidor");
       }
     } catch (err) {
-      alert("Estamos encontrando problemas na conexão com o servidor");
+      handleOpenAlert("Estamos encontrando problemas na conexão com o servidor");
     }
   }
 
@@ -772,6 +781,26 @@ export default function Home() {
           </Modal>
         </li>
       </ul>
+      <div>
+              <Dialog
+                open={openAlerta}
+                onClose={handleCloseAlert}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title">Alerta</DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    {dadosAlerta}
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleCloseAlert} color="primary" autoFocus>
+                    OK
+                  </Button>
+                </DialogActions>
+              </Dialog>
+          </div>
     </div>
   );
 }
