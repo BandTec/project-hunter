@@ -258,6 +258,7 @@ export default function Teams() {
                 const response = await api.post(`/equipe/`, data); //{
                     if (response.status === 201){
                         envioDadosJogo(response.data.idEquipe);
+                        adicionaJogador(response.data.idEquipe);
                         }else{
                             alert('Erro no cadastro da sua equipe, tente novamente!');
                         }

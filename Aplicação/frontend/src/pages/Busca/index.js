@@ -152,8 +152,8 @@ function rand() {
   return Math.round(Math.random() * 20) - 10;
 }
 function getModalStyle() {
-  const top = 50 ;
-  const left = 50 ;
+  const top = 50;
+  const left = 50;
 
   return {
     top: `${top}%`,
@@ -167,7 +167,7 @@ export default function Busca({ dataResponse }) {
   const [matches, setMatches] = useState([]);
   const [nome, setNome] = useState("");
   const [idGamer, setIdGamer] = useState("");
-  const [numUsers, setNumUsers] = useState("");
+  const [numUsers, setNumUsers] = useState([]);
   const [pesquisa, setPesquisa] = useState("");
   const [gamer, setGamer] = useState([]);
 
@@ -318,14 +318,6 @@ export default function Busca({ dataResponse }) {
     dadosPerfil();
   }, [email]);
 
-  async function partidaGamer() {
-    api.get(`/partida/gamer/${id}/`).then((response) => {
-      const { data = [] } = response || {};
-      // verify response.data is an array
-      const isArray = Array.isArray(data);
-      isArray && setMatches(data);
-    })
-  }
 
   useEffect(() => {
     const pesquisa = localStorage.getItem('pesquisa');
@@ -335,6 +327,9 @@ export default function Busca({ dataResponse }) {
       const isArray = Array.isArray(data);
       isArray && setEquipes(data);
 
+      data.forEach((item) =>
+        getNumEquipe(item.idEquipe.nomeEquipe)
+      );
 
 
       if (equipes == '' || equipes == null) {
@@ -383,15 +378,28 @@ export default function Busca({ dataResponse }) {
     return { fotoGamer };
   }
 
+  let vetorNum = [];
 
   async function getNumEquipe(dados) {
+
     api.get(`/equipegamer/equipe/qtd/${dados}/`).then((response) => {
-      const { data = [] } = response || {};
-      const isArray = Array.isArray(data);
-      isArray && setNumUsers(data);
-      console.log(data);
-      console.log(numUsers);
-      
+      //const { data = [] } = response || {};
+      //const isArray = Array.isArray(data);
+      //isArray && setNumUsers(data);
+      const data = response.data;
+      if (response.status === 200) {
+        setNumUsers(data);
+        vetorNum.push(data);
+        console.log(vetorNum);
+        console.log(numUsers);
+      }
+      else if (response === 204) {
+        setNumUsers(1);
+        vetorNum.push(1);
+        console.log(vetorNum);
+        console.log(numUsers);
+      }
+
     });
   }
 
@@ -426,10 +434,10 @@ export default function Busca({ dataResponse }) {
     history.push('/home');
   }
 
-  async function handlePesquisa () {
+  async function handlePesquisa() {
     localStorage.setItem('pesquisa', pesquisa);
     window.location.reload(false);
-    
+
   }
 
   return (
@@ -439,11 +447,11 @@ export default function Busca({ dataResponse }) {
         {/* <span>Bem vindo, {userName}</span> */}
 
         <div className="input-pesquisa">
-        <input
-                     type="text"
-                    placeholder="Busque por jogos ou equipes..."
-                    onChange={(e) => setPesquisa(e.target.value)}
-                    
+          <input
+            type="text"
+            placeholder="Busque por jogos ou equipes..."
+            onChange={(e) => setPesquisa(e.target.value)}
+
           ></input>
           <button className="btn-pesquisa" onClick={handlePesquisa}>
             <FiSearch size={18} color="#000000" />
@@ -492,8 +500,8 @@ export default function Busca({ dataResponse }) {
 
           {equipes
             ? equipes.map((equipe) => (
-              
-              getNumEquipe(equipe.idEquipe.nomeEquipe),
+
+              //() => getNumEquipe(equipe.idEquipe.nomeEquipe),
 
               <div className="div-organizacao-equipes">
                 <img src={
@@ -508,7 +516,9 @@ export default function Busca({ dataResponse }) {
                 <p className="jogo-nome">{equipe.idEquipe.nomeEquipe}</p>
 
                 <div>
-                  <p className="div-integrantes" > Membros:<p style={{ color: '#00FF00' }}>{numUsers}5</p><p style={{ marginLeft: "-80px" }}>/  50</p> </p>
+
+
+                  <p className="div-integrantes" > Membros:<p style={{ color: '#00FF00' }}>{vetorNum[3]}</p><p style={{ marginLeft: "-80px" }}>/  50</p> </p>
                 </div>
 
                 <div className="current-members-team">
