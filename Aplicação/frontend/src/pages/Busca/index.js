@@ -378,7 +378,7 @@ export default function Busca({ dataResponse }) {
     return { fotoGamer };
   }
 
-  let vetorNum = [];
+  let cont = 0;
 
   async function getNumEquipe(dados) {
 
@@ -388,15 +388,13 @@ export default function Busca({ dataResponse }) {
       //isArray && setNumUsers(data);
       const data = response.data;
       if (response.status === 200) {
-        setNumUsers(data);
-        vetorNum.push(data);
-        console.log(vetorNum);
+        //setNumUsers(data);
+        numUsers.push(data);
         console.log(numUsers);
       }
-      else if (response === 204) {
-        setNumUsers(1);
-        vetorNum.push(1);
-        console.log(vetorNum);
+      else{
+        //setNumUsers(0);
+        numUsers.push(0)
         console.log(numUsers);
       }
 
@@ -518,7 +516,7 @@ export default function Busca({ dataResponse }) {
                 <div>
 
 
-                  <p className="div-integrantes" > Membros:<p style={{ color: '#00FF00' }}>{vetorNum[3]}</p><p style={{ marginLeft: "-80px" }}>/  50</p> </p>
+                  <p className="div-integrantes" > Membros:<p style={{ color: '#00FF00' }}>{numUsers[cont], cont++}</p><p style={{ marginLeft: "-80px" }}>/  50</p> </p>
                 </div>
 
                 <div className="current-members-team">
@@ -541,6 +539,8 @@ export default function Busca({ dataResponse }) {
 
                 </div>
               </div>
+            
+
             ))
             : equipes}
         </div>
