@@ -538,7 +538,7 @@ export default function Home() {
             onChange={(e) => setAnoPt(e.target.value)}
           />
         </div>
-        <center style={{ marginRight: "-20%" }}>
+        <center style={{ marginRight: "-160%" }}>
           <p className="btn-modal" style={{ width: "300px" }}>
             <button className={classes2.buttonClose} onClick={handleCloseModal}>
               Fechar
