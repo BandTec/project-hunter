@@ -93,7 +93,7 @@ public class EquipeGamerController {
     @GetMapping("/existe/{idequipe}/{idgamer}")
     private ResponseEntity gamerNaEquipe(@PathVariable("idequipe")  Integer idEquipe, @PathVariable("idgamer")  Integer idGamer) {
         return repository.existsByIdEquipe_IdEquipeAndIdGamer_IdGamer(idEquipe,idGamer) ?
-                ResponseEntity.noContent().build() : ResponseEntity.ok().build();
+                ResponseEntity.ok().build() :  ResponseEntity.noContent().build() ;
     }
 
     @DeleteMapping( "/{idequipe}/{idgamer}" )
