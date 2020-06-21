@@ -37,6 +37,7 @@ export default function Cadastro() {
     
       const handleCloseAlert = () => {
         setOpenAlerta(false);
+        chamaLogin();
       };
 
     const preview = useMemo(() => { return thumbnail ? URL.createObjectURL(thumbnail) : null },
@@ -103,7 +104,6 @@ export default function Cadastro() {
                 //alert(`Seu ID de Acesso ${response.data.id}`);
                 if (response.status === 201) {
                     handleOpenAlert('Cadastro realizado com sucesso!');
-                    history.push('/login');
                 } else {
                     handleOpenAlert('Erro no cadastro de seu jogo e/ou posição, tente novamente!');
                 }

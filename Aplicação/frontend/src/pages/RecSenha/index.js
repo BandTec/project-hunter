@@ -17,6 +17,7 @@ export default function Register() {
 
   const [openAlerta, setOpenAlerta] = React.useState(false);
   const [dadosAlerta, setDadosAlerta] = useState('');
+  const [c, setC] = useState('');
   
   function handleOpenAlert (resposta) {
     setDadosAlerta(resposta);
@@ -25,7 +26,12 @@ export default function Register() {
 
   const handleCloseAlert = () => {
     setOpenAlerta(false);
+    chamaLogin();
   };
+
+  function chamaLogin() {
+    history.push("/login");
+}
 
     const [email, setEmail] = useState('');
 
@@ -47,7 +53,6 @@ export default function Register() {
           console.log(response.status);
           if (response.status === 200){
             handleOpenAlert('As instruções de recuperação de senha enviadas para seu email!');
-            history.push("/");
           }else{
             handleOpenAlert('Email inválido');
           }
