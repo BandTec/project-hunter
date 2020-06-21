@@ -91,10 +91,12 @@ public class EquipeGamerController {
         return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
     }
 
-    @DeleteMapping( "/{id}" )
-    public ResponseEntity excluir(@PathVariable("id") int id) {
-        if (repository.existsById(id)) {
-            repository.deleteById(id);
+    @DeleteMapping( "/{idequipe}/{idgamer}" )
+    public ResponseEntity excluir(@PathVariable("idequipe") int idequipe,
+                                  @PathVariable("idgamer") int idgamer) {
+        if (repository.existsByIdEquipe_IdEquipeAndIdGamer_IdGamer(idequipe, idgamer)) {
+            EquipeGamer alvo = repository.findByIdEquipe_IdEquipeAndIdGamer_IdGamer(idequipe, idgamer);
+            repository.deleteById(alvo.getIdEquipeGamer());
             return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.notFound().build();

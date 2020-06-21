@@ -143,7 +143,7 @@ public class ArquivoController {
         }
         gravarRegistro(corpo);
         trailer = trailer + "02";
-        trailer = trailer + String.format("%010d", contadorDeDados);
+        trailer = trailer + "11";
         gravarRegistro(trailer);
 
         //filename: C:/Users/Public/Downloads/Usuario.txt

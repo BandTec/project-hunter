@@ -25,4 +25,7 @@ public interface EquipeGamerRepository extends JpaRepository<EquipeGamer, Intege
 
     EquipeGamer findByIdEquipe_IdEquipeAndIdGamer_IdGamerAndCapitao(int equipe, int gamer, boolean capitao);
 
+    EquipeGamer findByIdEquipe_IdEquipeAndIdGamer_IdGamer(int equipe, int gamer);
+    boolean existsByIdEquipe_IdEquipeAndIdGamer_IdGamer(int equipe, int gamer);
+
 }
