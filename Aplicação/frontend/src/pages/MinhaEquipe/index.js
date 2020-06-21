@@ -461,7 +461,7 @@ export default function MyTeam() {
 
     async function handleExportacao() {
         try {
-            const response = await apiArquivo.post(`/arquivo/${1}`);
+            const response = await apiArquivo.post(`/arquivo/${idEquipe}`);
             if (response.status === 200) {
                 handleOpenAlert('Exportação realizada com sucesso!');
             } else {

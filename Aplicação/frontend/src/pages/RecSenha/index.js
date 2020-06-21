@@ -46,11 +46,8 @@ export default function Register() {
           const response = await apiEmail.get(`/email/${email}/`);
           console.log(response.status);
           if (response.status === 200){
-          
-          localStorage.setItem('email', email);
             handleOpenAlert('As instruções de recuperação de senha enviadas para seu email!');
-          history.push("/");
-          
+            history.push("/");
           }else{
             handleOpenAlert('Email inválido');
           }
