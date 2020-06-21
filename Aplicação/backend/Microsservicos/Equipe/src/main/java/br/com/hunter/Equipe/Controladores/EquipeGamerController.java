@@ -90,6 +90,11 @@ public class EquipeGamerController {
         List<EquipeGamer> lista = repository.findByIdStatus_IdStatusAndIdEquipe_IdEquipe(3 , equipe);
         return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
     }
+    @GetMapping("/existe/{idequipe}/{idgamer}")
+    private ResponseEntity gamerNaEquipe(@PathVariable("idequipe")  Integer idEquipe, @PathVariable("idgamer")  Integer idGamer) {
+        return repository.existsByIdEquipe_IdEquipeAndIdGamer_IdGamer(idEquipe,idGamer) ?
+                ResponseEntity.noContent().build() : ResponseEntity.ok().build();
+    }
 
     @DeleteMapping( "/{idequipe}/{idgamer}" )
     public ResponseEntity excluir(@PathVariable("idequipe") int idequipe,
