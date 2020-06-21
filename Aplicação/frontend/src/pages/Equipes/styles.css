@@ -10,6 +10,15 @@
     
 }
 
+.equipes-container .div-principal button{
+    position: absolute;
+    left: 40%;
+    top: 34%;
+    border: 0;
+    cursor: pointer;
+    background: transparent;
+}
+
 .equipes-container header {
     display: flex;
     align-items: center;

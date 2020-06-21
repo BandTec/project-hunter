@@ -10,7 +10,7 @@ import "./styles.css";
 import logo from '../../assets/testeLogo3.svg';
 import camera from '../../assets/camera.svg';
 import '../../routes.js';
-import api from '../../services/api';
+// import api from '../../services/api';
 import { BrowserRouter as Router } from "react-router-dom";
 
 
@@ -23,26 +23,26 @@ export default function ContCadastro() {
         history.push('/')
     }
 
-    async function handleSignUp(e) {
-        e.preventDefault();
-                const data = {
-                jogo,
-                posicao
-            };
+    // async function handleSignUp(e) {
+    //     e.preventDefault();
+    //             const data = {
+    //             jogo,
+    //             posicao
+    //         };
 
-            try {
-                const response = await api.post('/usuario/criar', data);
-                //alert(`Seu ID de Acesso ${response.data.id}`);
-                if (response.status === 200){
-                history.push('/DefinicaoCadPerfil');
-                }else{
-                    alert('Erro no cadastro, tente novamente');
-                }
-            } catch (err) {
-                alert('Erro no cadastro, tente novamente');
-            }
+    //         try {
+    //             const response = await api.post('/usuario/criar', data);
+    //             //alert(`Seu ID de Acesso ${response.data.id}`);
+    //             if (response.status === 200){
+    //             history.push('/DefinicaoCadPerfil');
+    //             }else{
+    //                 alert('Erro no cadastro, tente novamente');
+    //             }
+    //         } catch (err) {
+    //             alert('Erro no cadastro, tente novamente');
+    //         }
         
-    }
+    // }
 
     const history = useHistory('');
     function chamaLogin() {

@@ -4,7 +4,7 @@ import Logo from "../../assets/testeLogo3.png";
 import camera from '../../assets/camera.svg';
 import { FiArrowLeft, FiStar, FiTrash2, FiSearch, FiUser, FiPlusCircle } from 'react-icons/fi'
 import { Link, useHistory } from 'react-router-dom';
-import api from '../../services/api';
+import apiGamer from '../../services/apiGamer';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
@@ -19,6 +19,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import apiEquipe from '../../services/apiEquipe';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -266,7 +267,7 @@ export default function Teams() {
             };
 
             try {
-                const response = await api.post(`/equipe/`, data); //{
+                const response = await apiEquipe.post(`/equipe/`, data); //{
                     if (response.status === 201){
                         envioDadosJogo(response.data.idEquipe);
                         adicionaJogador(response.data.idEquipe);
@@ -295,7 +296,7 @@ export default function Teams() {
                 };
 
             try {
-                const response = await api.post(`/equipejogo/`, data2);
+                const response = await apiEquipe.post(`/equipejogo/`, data2);
                 //alert(`Seu ID de Acesso ${response.data.id}`);
                 if (response.status === 201){
                     handleOpenAlert('Equipe criada com sucesso!');
@@ -323,7 +324,7 @@ export default function Teams() {
           };
 
           try {
-            const response = await api.post(`/equipegamer/`, data); //{
+            const response = await apiEquipe.post(`/equipegamer/`, data); //{
             if (response.status === 201) {
               
                 handleOpenAlert('Equipe criada com sucesso!');
@@ -392,7 +393,7 @@ export default function Teams() {
     const [equipes, setEquipes] = useState([]);
 
     useEffect(() => {
-        api.get(`/equipegamer/gamer/${email}/`
+        apiEquipe.get(`/equipegamer/gamer/${email}/`
 
         ).then(response => {
 
@@ -418,7 +419,7 @@ export default function Teams() {
     }
     async function handleLogout() {
         try {
-            const response = await api.post('/gamer/logoff');
+            const response = await apiGamer.post('/gamer/logoff');
             if (response.status === 200) {
                 localStorage.clear();
                 history.push('/');
@@ -525,10 +526,21 @@ export default function Teams() {
                 {equipes.map(team => (
                     <center>
                     <div key={team.idEquipe.idEquipe} className="div-equipes">
+                    
                         <img src={require(`../../assets/${team.idEquipe.fotoEquipe}`)} onClick={() => handleTeamProfile(team.idEquipe.nomeEquipe, team.idEquipe.idEquipe )} alt="Icone Equipe"></img>
                         <p onClick={() => handleTeamProfile(team.idEquipe.nomeEquipe, team.idEquipe.idEquipe)}>{team.idEquipe.nomeEquipe}</p>
                     </div>
                     </center>
+                //     <>
+                //     <button type="button">
+                //     {" "}
+                //     <FiTrash2
+                //       size={20}
+                //       color="#a8a8b3"
+                     
+                //     />
+                //   </button>
+                //     </>
                 ))}
             </div>
 

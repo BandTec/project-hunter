@@ -7,7 +7,9 @@ import Team from "../../assets/team-icon.svg"
 import UserPicture from "../../assets/user1.jpg";
 import { FiArrowLeft, FiStar, FiTrash2, FiSearch, FiUser, FiPlusCircle } from 'react-icons/fi'
 import { Link, useHistory } from 'react-router-dom';
-import api from '../../services/api';
+import apiEquipe from '../../services/apiEquipe';
+import apiGamer from '../../services/apiGamer';
+import apiPartida from '../../services/apiPartida';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
@@ -90,7 +92,7 @@ export default function Profile() {
       }
 
     useEffect(() => {
-        api.get(`/equipegamer/gamer/${email}/`
+        apiEquipe.get(`/equipegamer/gamer/${email}/`
     
         ).then(response => {
           
@@ -102,7 +104,7 @@ export default function Profile() {
       }, [email]);     
 
       useEffect(() => {
-        api.get(`/gamerinfo/gamer/${email}/`
+        apiGamer.get(`/gamerinfo/gamer/${email}/`
   
         ).then(response => {
 
@@ -121,7 +123,7 @@ export default function Profile() {
       }, []);
 
       useEffect(() => {
-        api.get(`/partida/gamer/antes/${idGamer}/`
+        apiPartida.get(`/partida/gamer/antes/${idGamer}/`
 
         ).then(response => {
             //setTeamGames(response.data);

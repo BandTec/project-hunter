@@ -3,7 +3,7 @@ import './styles.css'
 import Logo from "../../assets/testeLogo3.png";
 import { FiArrowLeft, FiPower, FiTrash2, FiSearch, FiUser, FiPlusCircle } from 'react-icons/fi'
 import { Link, useHistory } from 'react-router-dom';
-import api from '../../services/api';
+import apiGamer from '../../services/apiGamer';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
@@ -206,7 +206,7 @@ export default function Configurações() {
 
   React.useEffect(() => {
     async function dadosPerfil() {
-      const response = await api.get(`/gamer/${emailSelect}/`); //{
+      const response = await apiGamer.get(`/gamer/${emailSelect}/`); //{
 
       let dados = response.data;
 
@@ -256,7 +256,7 @@ export default function Configurações() {
 
   async function handleLogout() {
     try {
-      const response = await api.post('/gamer/logoff');
+      const response = await apiGamer.post('/gamer/logoff');
       if (response.status === 200) {
         localStorage.clear();
         history.push('/');
@@ -296,7 +296,7 @@ export default function Configurações() {
       };
 
       try {
-        const response = await api.put(`/gamer/${id}`, data);
+        const response = await apiGamer.put(`/gamer/${id}`, data);
         //alert(`Seu ID de Acesso ${response.data.id}`);
         
         if (response.status === 200) {
@@ -313,6 +313,7 @@ export default function Configurações() {
   async function handleSignUp2() {
     if (idJogo === "" && idPosicao === "") {
       handleOpenAlert('Dados alterados com sucesso!');
+      history.push('/home')
     }
     else if (idJogo === "" || idPosicao === "") {
       handleOpenAlert('Preencha seu jogo e sua posição!')
@@ -329,7 +330,7 @@ export default function Configurações() {
       };
 
       try {
-        const response = await api.post(`/gamerinfo/${email}`, data2);
+        const response = await apiGamer.post(`/gamerinfo/${email}`, data2);
         //alert(`Seu ID de Acesso ${response.data.id}`);
         if (response.status === 201) {
           handleOpenAlert('Dados alterados com sucesso!');

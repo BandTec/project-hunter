@@ -12,7 +12,9 @@ import User from "../../assets/default-user.png"
 import TeamPicture from "../../assets/team-icon.svg";
 import { FiArrowLeft, FiStar, FiTrash2, FiSearch, FiUser, FiPlusCircle, FiMessageCircle, FiPrinter } from 'react-icons/fi'
 import { Link, useHistory } from 'react-router-dom';
-import api from '../../services/api';
+import apiEquipe from '../../services/apiEquipe';
+import apiGamer from '../../services/apiGamer';
+import apiArquivo from '../../services/apiArquivo';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
@@ -27,6 +29,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import apiPartida from '../../services/apiPartida';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -274,7 +277,7 @@ export default function MyTeam() {
     async function aceitarJogador(id) {
         
         try {
-            const response = await api.put(`/equipegamer/aceitar/${id}/`); //{
+            const response = await apiEquipe.put(`/equipegamer/aceitar/${id}/`); //{
             if (response.status === 200) {
                 handleOpenAlert("Jogador aceito com sucesso!");
                 let dados = response.data.idEquipe;
@@ -298,7 +301,7 @@ export default function MyTeam() {
     async function recusarJogador(id) {
        
         try {
-            const response = await api.put(`/equipegamer/recusar/${id}/`); //{
+            const response = await apiEquipe.put(`/equipegamer/recusar/${id}/`); //{
             if (response.status === 200) {
                 handleOpenAlert("Jogador recusado com sucesso!");
                 let dados = response.data.idEquipe;
@@ -326,7 +329,7 @@ export default function MyTeam() {
 
     useEffect(() => {
         setNomeEquipe(localStorage.getItem('nomeEquipe'));
-        api.get(`/equipegamer/equipe/${nomeEquipe}/`
+        apiEquipe.get(`/equipegamer/equipe/${nomeEquipe}/`
 
         ).then(response => {
             setTeam(response.data);
@@ -337,7 +340,7 @@ export default function MyTeam() {
     }, [nomeEquipe]);
 
     useEffect(() => {
-        api.get(`/equipe/nome/${nomeEquipe}/`
+        apiEquipe.get(`/equipe/nome/${nomeEquipe}/`
 
         ).then(response => {
             //setTeamGames(response.data);
@@ -367,7 +370,7 @@ export default function MyTeam() {
     }, [nomeEquipe]);
 
     useEffect(() => {
-        api.get(`/equipejogo/equipe/${idEquipe}/`
+        apiEquipe.get(`/equipejogo/equipe/${idEquipe}/`
 
         ).then(response => {
             //setTeamGames(response.data);
@@ -381,7 +384,7 @@ export default function MyTeam() {
     }, [idEquipe]);
 
     useEffect(() => {
-        api.get(`/partida/equipe/antes/${idEquipe}/`
+        apiPartida.get(`/partida/equipe/antes/${idEquipe}/`
 
         ).then(response => {
             //setTeamGames(response.data);
@@ -409,7 +412,7 @@ export default function MyTeam() {
     // }, [idEquipe]);
 
     useEffect(() => {
-        api.get(`/equipegamer/pendente/${idEquipe}/`
+        apiEquipe.get(`/equipegamer/pendente/${idEquipe}/`
 
         ).then(response => {
             //setTeamGames(response.data);
@@ -443,7 +446,7 @@ export default function MyTeam() {
     }
     async function handleLogout() {
         try {
-            const response = await api.post('/gamer/logoff');
+            const response = await apiGamer.post('/gamer/logoff');
             if (response.status === 200) {
                 localStorage.clear();
                 history.push('/');
@@ -458,7 +461,7 @@ export default function MyTeam() {
 
     async function handleExportacao() {
         try {
-            const response = await api.post(`/arquivo/${1}`);
+            const response = await apiArquivo.post(`/arquivo/${1}`);
             if (response.status === 200) {
                 handleOpenAlert('Exportação realizada com sucesso!');
             } else {
@@ -472,7 +475,7 @@ export default function MyTeam() {
     useEffect(() => {
         try {
 
-            api.get(`/equipegamer/capitao/${idGamerLogado}/${idEquipe}/`).then(response => {
+            apiEquipe.get(`/equipegamer/capitao/${idGamerLogado}/${idEquipe}/`).then(response => {
                 console.log(response.status);
                 if (response.status === 200) {
 

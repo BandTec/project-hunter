@@ -10,7 +10,8 @@ import {
   FiPlusCircle,
 } from "react-icons/fi";
 import { Link, useHistory } from "react-router-dom";
-import api from "../../services/api";
+import apiGamer from "../../services/apiGamer";
+import apiPartida from "../../services/apiPartida";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
@@ -249,7 +250,7 @@ export default function Home() {
       handleOpenAlert("Preencha os dados necessários");
     } else {
       if (jogadorOpPt1) {
-        const response = await api.get(`/gamer/usuario/${jogadorOpPt1}`);
+        const response = await apiGamer.get(`/gamer/usuario/${jogadorOpPt1}`);
 
         let dados = response.data;
         console.log("jogador1", dados);
@@ -259,7 +260,7 @@ export default function Home() {
         }
       }
       if (jogadorOpPt2) {
-        const response = await api.get(`/gamer/usuario/${jogadorOpPt2}`);
+        const response = await apiGamer.get(`/gamer/usuario/${jogadorOpPt2}`);
 
         let dados = response.data;
 
@@ -268,7 +269,7 @@ export default function Home() {
         }
       }
       if (jogadorOpPt3) {
-        const response = await api.get(`/gamer/usuario/${jogadorOpPt3}`);
+        const response = await apiGamer.get(`/gamer/usuario/${jogadorOpPt3}`);
 
         let dados = response.data;
 
@@ -277,7 +278,7 @@ export default function Home() {
         }
       }
       if (jogadorOpPt4) {
-        const response = await api.get(`/gamer/usuario/${jogadorOpPt4}`);
+        const response = await apiGamer.get(`/gamer/usuario/${jogadorOpPt4}`);
 
         let dados = response.data;
 
@@ -300,7 +301,7 @@ export default function Home() {
       };
       console.log("data", data);
       try {
-        const response = await api.post(`/partida`, data); //{
+        const response = await apiPartida.post(`/partida`, data); //{
         if (response.status === 201) {
           let dados = response.data;
 
@@ -310,7 +311,7 @@ export default function Home() {
 
           setIdPartida(temp[0].idPartida);
           if (jogadorOpPt1) {
-            const response = await api.post(
+            const response = await apiPartida.post(
               `/partida/${jogadorOpPt1}/${posicaoOpcionalPt1}/${dados.idPartida}`,
               data
             );
@@ -320,7 +321,7 @@ export default function Home() {
             }
           }
           if (jogadorOpPt2) {
-            const response = await api.post(
+            const response = await apiPartida.post(
               `/partida/${jogadorOpPt2}/${posicaoOpcionalPt2}/${dados.idPartida}`,
               data
             );
@@ -329,7 +330,7 @@ export default function Home() {
             }
           }
           if (jogadorOpPt3) {
-            const response = await api.post(
+            const response = await apiPartida.post(
               `/partida/${jogadorOpPt3}/${posicaoOpcionalPt3}/${dados.idPartida}`,
               data
             );
@@ -338,7 +339,7 @@ export default function Home() {
             }
           }
           if (jogadorOpPt4) {
-            const response = await api.post(
+            const response = await apiPartida.post(
               `/partida/${jogadorOpPt4}/${posicaoOpcionalPt4}/${dados.idPartida}`,
               data
             );
@@ -598,7 +599,7 @@ export default function Home() {
 
   React.useEffect(() => {
     async function dadosPerfil() {
-      const response = await api.get(`/gamer/${email}/`); //{
+      const response = await apiGamer.get(`/gamer/${email}/`); //{
 
       let dados = response.data;
 
@@ -617,7 +618,7 @@ export default function Home() {
   }, [email]);
 
   useEffect(() => {
-    api.get(`/partida/gamer/depois/${id}/`).then((response) => {
+    apiPartida.get(`/partida/gamer/depois/${id}/`).then((response) => {
       const { data = [] } = response || {};
       // verify response.data is an array
       const isArray = Array.isArray(data);
@@ -636,7 +637,7 @@ export default function Home() {
 
   async function handleDeleteMatch(id) {
     try {
-      await api.delete(`/partida/partida/${id}`);
+      await apiPartida.delete(`/partida/partida/${id}`);
 
       setMatches(matches.filter((matches) => matches.id !== id));
       handleOpenAlert("Partida deletada com sucesso!");
@@ -656,7 +657,7 @@ export default function Home() {
   }
   async function handleLogout() {
     try {
-      const response = await api.post("/gamer/logoff");
+      const response = await apiGamer.post("/gamer/logoff");
       if (response.status === 200) {
         localStorage.clear();
         history.push("/");

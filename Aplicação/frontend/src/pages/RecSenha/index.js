@@ -3,7 +3,7 @@ import './styles.css'
 import Logo from "../../assets/testeLogo3.svg";
 import { FiArrowLeft } from 'react-icons/fi'
 import { Link, useHistory } from 'react-router-dom';
-import api from '../../services/api';
+import apiEmail from '../../services/apiEmail';
 import { waitForElementToBeRemoved } from '@testing-library/react';
 
 import Button from '@material-ui/core/Button';
@@ -43,7 +43,7 @@ export default function Register() {
     } else {
       try {
         
-          const response = await api.get(`/email/${email}/`);
+          const response = await apiEmail.get(`/email/${email}/`);
           console.log(response.status);
           if (response.status === 200){
           
