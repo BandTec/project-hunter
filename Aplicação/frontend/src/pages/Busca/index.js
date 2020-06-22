@@ -409,13 +409,18 @@ export default function Busca({ dataResponse }) {
       const data = response.data;
       if (response.status === 200) {
         //setNumUsers(data);
-        numUsers.push({numero : data});
+        numUsers.push(data);
         console.log(numUsers);
+        
       }
       else {
         //setNumUsers(0);
-        numUsers.push({numero : 0})
+        numUsers.push(0)
         console.log(numUsers);
+      }
+      for (let key in numUsers) {
+        localStorage.setItem('item'+key, numUsers[key]);
+        console.log(key, numUsers[key]);
       }
 
     });
@@ -524,11 +529,8 @@ export default function Busca({ dataResponse }) {
 
           {equipes
             ? equipes.map((equipe) => (
-
-              
-              
-              
-
+    
+             
 
               <div key={equipe.idEquipe.idEquipe}  className="div-organizacao-equipes">
                 <img src={
@@ -545,11 +547,12 @@ export default function Busca({ dataResponse }) {
                 <div>
 
 
-                  
+                
+
                   
                   
 
-                  <p className="div-integrantes" > Membros:<p style={{ color: '#00FF00' }}>{numUsers[cont]}</p><p style={{ marginLeft: "-80px" }}>/  50</p> </p>
+                  <p className="div-integrantes" > Membros:<p style={{ color: '#00FF00' }}>{localStorage.getItem('item'+cont, cont++)}</p><p style={{ marginLeft: "-80px" }}>/  50</p> </p>
                 </div>
 
                 <div className="current-members-team">
