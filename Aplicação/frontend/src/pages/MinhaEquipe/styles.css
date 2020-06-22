@@ -10,6 +10,23 @@
     
 }
 
+.btnJunter-se{
+ 
+    border: 0;
+    background-color: #00FF00;
+    color: #000000;
+    border: 2px solid #000000;
+    height: 30px;
+    width: 100px;
+    border-radius: 4px;
+    cursor: pointer;
+    
+}
+
+.btnJuntar-se:hover{
+    background-color: #009e00;
+}
+
 .solicitantes{
     justify-content: center;
     align-items: center;

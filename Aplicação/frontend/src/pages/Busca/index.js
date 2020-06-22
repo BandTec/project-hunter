@@ -50,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const useStyles2 = makeStyles((theme) => ({
+
   paper: {
     position: "absolute",
 
@@ -168,7 +169,7 @@ function getModalStyle() {
 }
 
 export default function Busca({ dataResponse }) {
-  console.log(dataResponse);
+
   const [matches, setMatches] = useState([]);
   const [nome, setNome] = useState("");
   const [idGamer, setIdGamer] = useState("");
@@ -180,10 +181,11 @@ export default function Busca({ dataResponse }) {
   const [openModal, setOpenModal] = React.useState(false);
   const [equipes, setEquipes] = useState("");
   const [nomeEquipe, setNomeEquipe] = useState([]);
+  const [equipesBtn, setEquipesBtn] = useState([]);
   const [openAlerta, setOpenAlerta] = React.useState(false);
   const [dadosAlerta, setDadosAlerta] = useState('');
 
-  function handleOpenAlert (resposta) {
+  function handleOpenAlert(resposta) {
     setDadosAlerta(resposta);
     setOpenAlerta(true);
   };
@@ -334,6 +336,8 @@ export default function Busca({ dataResponse }) {
   }, [email]);
 
 
+
+
   useEffect(() => {
     const pesquisa = localStorage.getItem('pesquisa');
     apiEquipe.get(`/equipejogo/jogo/${pesquisa}/`).then((response) => {
@@ -343,7 +347,8 @@ export default function Busca({ dataResponse }) {
       isArray && setEquipes(data);
 
       data.forEach((item) =>
-        getNumEquipe(item.idEquipe.nomeEquipe)
+        getNumEquipe(item.idEquipe.nomeEquipe),
+        
       );
 
 
@@ -404,17 +409,23 @@ export default function Busca({ dataResponse }) {
       const data = response.data;
       if (response.status === 200) {
         //setNumUsers(data);
-        numUsers.push(data);
+        numUsers.push({numero : data});
         console.log(numUsers);
       }
-      else{
+      else {
         //setNumUsers(0);
-        numUsers.push(0)
+        numUsers.push({numero : 0})
         console.log(numUsers);
       }
 
     });
   }
+
+  function handleTeamProfile(name, id) {
+    localStorage.setItem('nomeEquipe', name);
+    localStorage.setItem('idEquipe', id);
+    history.push('/perfil-equipe');
+}
 
   function handleProfile() {
     history.push("/profile");
@@ -514,9 +525,12 @@ export default function Busca({ dataResponse }) {
           {equipes
             ? equipes.map((equipe) => (
 
-              //() => getNumEquipe(equipe.idEquipe.nomeEquipe),
+              
+              
+              
 
-              <div className="div-organizacao-equipes">
+
+              <div key={equipe.idEquipe.idEquipe}  className="div-organizacao-equipes">
                 <img src={
                   equipe.idEquipe.fotoEquipe
                     ? require(`../../assets/${equipe.idEquipe.fotoEquipe}`)
@@ -531,55 +545,51 @@ export default function Busca({ dataResponse }) {
                 <div>
 
 
-                  <p className="div-integrantes" > Membros:<p style={{ color: '#00FF00' }}>{numUsers[cont], cont++}</p><p style={{ marginLeft: "-80px" }}>/  50</p> </p>
+                  
+                  
+                  
+
+                  <p className="div-integrantes" > Membros:<p style={{ color: '#00FF00' }}>{numUsers[cont]}</p><p style={{ marginLeft: "-80px" }}>/  50</p> </p>
                 </div>
 
                 <div className="current-members-team">
-                  {/* {gamer.map((player) => (
-                    <div key={player.idGamer.idGamer} className="membros-imagem">
-                      <img src={player.idGamer.fotoGamer} alt="User-Icon"></img>
-                      
-                    </div>
-                  ))} */}
+                  
                 </div>
 
 
 
                 <div>
-                  <button className="btnJuntar-se" onClick={() => handleOpenModal(equipe.idEquipe.idEquipe)} > Juntar-se</button>
-                  <Modal open={openModal} onClose={handleCloseModal}>
-
-                    {body}
-                  </Modal>
+                  <button className="btnPerfil" onClick={() => handleTeamProfile(equipe.idEquipe.nomeEquipe, equipe.idEquipe.idEquipe)} >Perfil da Equipe</button>
+                  
 
                 </div>
               </div>
-            
+
 
             ))
             : equipes}
         </div>
       </div>
       <div>
-              <Dialog
-                open={openAlerta}
-                onClose={handleCloseAlert}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-              >
-                <DialogTitle id="alert-dialog-title">Alerta</DialogTitle>
-                <DialogContent>
-                  <DialogContentText id="alert-dialog-description">
-                    {dadosAlerta}
-                  </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={handleCloseAlert} color="primary" autoFocus>
-                    OK
+        <Dialog
+          open={openAlerta}
+          onClose={handleCloseAlert}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">Alerta</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              {dadosAlerta}
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseAlert} color="primary" autoFocus>
+              OK
                   </Button>
-                </DialogActions>
-              </Dialog>
-          </div>
+          </DialogActions>
+        </Dialog>
+      </div>
     </div>
   );
 }

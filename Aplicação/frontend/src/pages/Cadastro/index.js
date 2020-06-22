@@ -49,6 +49,7 @@ export default function Cadastro() {
     }
 
     async function handleSignUp(e) {
+        console.log(thumbnail);
         e.preventDefault();
         if (email != confirmarEmail) {
             handleOpenAlert('Digite seu email corretamente!');

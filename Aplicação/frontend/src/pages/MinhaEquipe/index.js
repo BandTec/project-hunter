@@ -31,6 +31,144 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import apiPartida from '../../services/apiPartida';
 
+const useStyles3 = makeStyles((theme) => ({
+    root: {
+      display: "flex",
+    },
+    paper: {
+      marginRight: theme.spacing(2),
+      width: "150px",
+      height: "100px",
+    },
+    button: {
+      height: "60px",
+      width: "60px",
+      borderRadius: "100%",
+      border: "1px solid #dcdce6",
+      background: "transparent",
+      marginLeft: "300px",
+      transition: "border-color 0.2s",
+    },
+  }));
+  
+  const useStyles4 = makeStyles((theme) => ({
+    paper: {
+      position: "absolute",
+  
+      backgroundColor: "#000",
+      font: "Roboto, Arial, Helvetica, sans-serif",
+      color: "#fff",
+      border: "2px solid #000",
+      boxShadow: theme.shadows[5],
+      padding: theme.spacing(2, 4, 3),
+    },
+  
+    divAbove2: {
+      display: "grid",
+      gridTemplateColumns: "repeat(2, 1fr)",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+  
+  
+  
+    nome2: {
+      display: "grid",
+      gridTemplateColumns: "repeat(3, 1fr)",
+      justifyContent: "space-between",
+      marginBottom: "20px"
+    },
+  
+    nomeStyle2: {
+      width: "340px",
+      height: "48px",
+      marginTop: "10px",
+      marginBottom: "10px",
+      marginRight: "5px",
+      border: "1px solid #ddd",
+      borderRadius: "4px",
+  
+      padding: "0 20px",
+      fontSize: "16px",
+      color: "#666",
+    },
+  
+    imagem2: {
+      gridTemplateColumns: "repeat(2, 1fr)",
+      justifyContent: "right",
+      alignContent: "right",
+    },
+  
+    imagemStyle2: {
+      width: "220px",
+      height: "48px",
+      marginTop: "10px",
+      marginBottom: "10px",
+  
+      border: "1px solid #ddd",
+      borderRadius: "4px",
+  
+      padding: "0 20px",
+      fontSize: "16px",
+      color: "#666",
+    },
+  
+  
+    buttonClose2: {
+      backgroundColor: "#000",
+      color: "#00FF00",
+      marginTop: "15px",
+      border: "1px solid #00FF00",
+      borderRadius: "4px",
+      height: "48px",
+      width: "112px",
+      padding: "0 20px",
+      fontSize: "16px",
+      fontStyle: "bold",
+      cursor: "pointer",
+    },
+    buttonCreate2: {
+      backgroundColor: "#00FF00",
+      color: "#000",
+      marginTop: "15px",
+      marginLeft: "30px",
+      border: "1px solid #000",
+      borderRadius: "4px",
+      height: "48px",
+      width: "112px",
+      padding: "0 20px",
+      fontSize: "16px",
+      fontStyle: "bold",
+      cursor: "pointer",
+    },
+  
+    input2: {
+      width: "280px",
+      marginTop: "10px",
+      marginBottom: "10px",
+      border: "1px solid #ddd",
+      borderRadius: "4px",
+      height: "48px",
+      padding: "0 20px",
+      fontSize: "16px",
+      color: "#666",
+    },
+  }));
+  
+  function rand() {
+    return Math.round(Math.random() * 20) - 10;
+  }
+  function getModalStyle2() {
+    const top = 50;
+    const left = 50;
+  
+    return {
+      top: `${top}%`,
+      left: `${left}%`,
+      transform: `translate(-${top}%, -${left}%)`,
+    };
+  }
+
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
@@ -206,7 +344,7 @@ export default function MyTeam() {
 
     // Botão Usuário 
 
-
+    const classes4 = useStyles4();
     const [modalStyle] = React.useState(getModalStyle);
     const [openModal, setOpenModal] = React.useState(false);
     const classes2 = useStyles2();
@@ -221,7 +359,20 @@ export default function MyTeam() {
     //localStorage.setItem('nomeEquipe', "keyd");
     const [openAlerta, setOpenAlerta] = React.useState(false);
     const [dadosAlerta, setDadosAlerta] = useState('');
+    const [membro, setMembro] = useState('');
+    const [modalStyle2] = React.useState(getModalStyle2);
+    const [openModal2, setOpenModal2] = React.useState(false);
+    const classes3 = useStyles3();
     
+    function handleOpenModal2(dados) {
+        localStorage.setItem('idEquipe', dados);
+        setOpenModal2(true);
+      };
+    
+      const handleCloseModal2 = () => {
+        setOpenModal2(false);
+      };
+
     function handleOpenAlert (resposta) {
       setDadosAlerta(resposta);
       setOpenAlerta(true);
@@ -321,6 +472,70 @@ export default function MyTeam() {
         }
 
     }
+
+    const body2 = (
+        <div style={modalStyle2} className={classes4.paper2}>
+          <center><h2>Solicitação</h2></center>
+    
+          <div className={classes4.divAbove2}>
+    
+            <p>Deseja se juntar a equipe?</p>
+    
+            {/* <p>Escolha sua imagem :</p>
+                <div className={classes2.imagem}>
+                    <label id="thumbnail"
+                        style={{ backgroundImage: `url(${preview})` }}
+                        className={thumbnail ? 'has-thumbnail' : ''}
+                    >
+                        <input type="file" onChange={event => setThumbnail(event.target.files[0])} />
+                        <img src={camera} alt="Select your photo"></img>
+                    </label>
+                </div> */}
+    
+            <p style={{ width: "300px" }}>
+              <button className={classes4.buttonClose2} onClick={handleCloseModal}>
+                Não
+              </button>
+              <button className={classes4.buttonCreate2} onClick={envioDadosEntrarEquipe}>
+                Sim
+              </button>
+            </p>
+          </div>
+        </div>
+      );
+    
+    
+      async function envioDadosEntrarEquipe() {
+        const data = {
+          idEquipe: {
+            idEquipe: localStorage.getItem('idEquipe')
+          },
+          idGamer: {
+            idGamer: localStorage.getItem("idGamer")
+          },
+          idStatus: {
+            idStatus: 3
+          },
+          capitao: false
+        };
+    
+        try {
+          const response = await apiEquipe.post(`/equipegamer/`, data); //{
+          if (response.status === 201) {
+    
+            handleOpenAlert('Pedido enviado ao capitão da equipe');
+            handleCloseModal();
+            return;
+    
+          } else {
+            handleOpenAlert("Erro ao enviar solicitação");
+          }
+        } catch (err) {
+          handleOpenAlert("Erro ao enviar solicitação ou conectar-se ao servidor");
+        }
+    
+      }
+    
 
     async function handlePesquisa() {
         localStorage.setItem('pesquisa', pesquisa);
@@ -475,6 +690,27 @@ export default function MyTeam() {
     useEffect(() => {
         try {
 
+            apiEquipe.get(`/equipegamer/existe/${idEquipe}/${idGamerLogado}/`).then(response => {
+                console.log(response.status);
+                if (response.status === 200) {
+
+                    setMembro(1);
+                    console.log(membro);
+
+                } else {
+                    setMembro(0);
+                    console.log(membro);
+                }
+            });
+        } catch (err) {
+            handleOpenAlert("ID do jogador e/ou da equipe inválido(s)");
+
+        }
+    }, [capitao]);
+
+    useEffect(() => {
+        try {
+
             apiEquipe.get(`/equipegamer/capitao/${idGamerLogado}/${idEquipe}/`).then(response => {
                 console.log(response.status);
                 if (response.status === 200) {
@@ -567,16 +803,28 @@ export default function MyTeam() {
                 ))}
                 <h1 className="profile-nic">{nomeEquipe}</h1>
                 <div className="notificacoes">
-                    {capitao === 1 ? (
-                        <>
-                        <button className="btn-notif" onClick={handleOpenModal}>
-                            <FiMessageCircle size={23} color="#FFFFFF"></FiMessageCircle>
-                        </button>
-                        <button className="btn-exportacao" onClick={handleExportacao}>
-                            <FiPrinter size={23} color="#FFFFFF"></FiPrinter>
-                        </button>
-                        </>
-                    ) : null}
+                {membro === 0 ? 
+                
+                <div>
+                  <button className="btnJuntar-se" > Juntar-se</button>
+                  <Modal open={openModal2} onClose={handleCloseModal2}>
+                    {body2}
+                  </Modal>
+                </div>            :
+                     
+                     <>{
+                        capitao === 1 ? (
+                            <>
+                            <button className="btn-notif" onClick={handleOpenModal}>
+                                <FiMessageCircle size={23} color="#FFFFFF"></FiMessageCircle>
+                            </button>
+                            <button className="btn-exportacao" onClick={handleExportacao}>
+                                <FiPrinter size={23} color="#FFFFFF"></FiPrinter>
+                            </button>
+                            </>
+                        ) : null}
+                       </>
+                }
                 </div>
                 <Modal open={openModal} onClose={handleCloseModal}>
                     {body}
