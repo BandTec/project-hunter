@@ -32,15 +32,15 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import apiPartida from '../../services/apiPartida';
 
 const useStyles3 = makeStyles((theme) => ({
-    root: {
+    root2: {
       display: "flex",
     },
-    paper: {
+    paper2: {
       marginRight: theme.spacing(2),
       width: "150px",
       height: "100px",
     },
-    button: {
+    button2: {
       height: "60px",
       width: "60px",
       borderRadius: "100%",
@@ -52,7 +52,7 @@ const useStyles3 = makeStyles((theme) => ({
   }));
   
   const useStyles4 = makeStyles((theme) => ({
-    paper: {
+    paper2: {
       position: "absolute",
   
       backgroundColor: "#000",
@@ -355,6 +355,7 @@ export default function MyTeam() {
     const [solicitacoes, setSolicitacoes] = useState('');
     const idGamerLogado = localStorage.getItem('idGamer');
     const [idEquipeGamer, setIdEquipeGamer] = useState('');
+    const [idEquipeProfile, setIdEquipeProfile] = useState('');
     const [capitao, setCapitao] = useState([]);
     //localStorage.setItem('nomeEquipe', "keyd");
     const [openAlerta, setOpenAlerta] = React.useState(false);
@@ -364,8 +365,8 @@ export default function MyTeam() {
     const [openModal2, setOpenModal2] = React.useState(false);
     const classes3 = useStyles3();
     
-    function handleOpenModal2(dados) {
-        localStorage.setItem('idEquipe', dados);
+    function handleOpenModal2(dados2) {
+        localStorage.setItem('idEquipe', dados2);
         setOpenModal2(true);
       };
     
@@ -493,7 +494,7 @@ export default function MyTeam() {
                 </div> */}
     
             <p style={{ width: "300px" }}>
-              <button className={classes4.buttonClose2} onClick={handleCloseModal}>
+              <button className={classes4.buttonClose2} onClick={handleCloseModal2}>
                 Não
               </button>
               <button className={classes4.buttonCreate2} onClick={envioDadosEntrarEquipe}>
@@ -503,10 +504,10 @@ export default function MyTeam() {
           </div>
         </div>
       );
-    
-    
+
       async function envioDadosEntrarEquipe() {
-        const data = {
+        
+        const data2 = {
           idEquipe: {
             idEquipe: localStorage.getItem('idEquipe')
           },
@@ -520,7 +521,7 @@ export default function MyTeam() {
         };
     
         try {
-          const response = await apiEquipe.post(`/equipegamer/`, data); //{
+          const response = await apiEquipe.post(`/equipegamer/`, data2); //{
           if (response.status === 201) {
     
             handleOpenAlert('Pedido enviado ao capitão da equipe');
@@ -806,7 +807,7 @@ export default function MyTeam() {
                 {membro === 0 ? 
                 
                 <div>
-                  <button className="btnJuntar-se" > Juntar-se</button>
+                  <button className="btnJuntar-se" onClick={handleOpenModal2}> Juntar-se</button>
                   <Modal open={openModal2} onClose={handleCloseModal2}>
                     {body2}
                   </Modal>
