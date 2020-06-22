@@ -509,7 +509,7 @@ export default function MyTeam() {
         
         const data2 = {
           idEquipe: {
-            idEquipe: localStorage.getItem('idEquipe')
+            idEquipe: idEquipeProfile
           },
           idGamer: {
             idGamer: localStorage.getItem("idGamer")
@@ -578,7 +578,7 @@ export default function MyTeam() {
                 );
             });
 
-            //setIdEquipe(temp[0].idEquipe);
+            setIdEquipeProfile(temp[0].idEquipe);
 
             //getPlayerPendente(idEquipe);
             console.log(fotoEquipe);
