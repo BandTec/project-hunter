@@ -236,8 +236,7 @@ export default function Home() {
   };
 
   async function envioDadosPartida() {
-    setDataPt(anoPt + "-" + mesPt + "-" + diaPt);
-    setHorarioPt(horarioPt + ":" + minutoPt + ":00");
+    
 
     setInfracao(false);
     console.log("jogoPt", jogoPt);
@@ -246,7 +245,7 @@ export default function Home() {
     console.log("hoararioPt", horarioPt);
     console.log("dataPt", dataPt);
 
-    if (!jogoPt || !posicaoPt || !horarioPt || !dataPt) {
+    if (!jogoPt || !posicaoPt || !horarioPt || !minutoPt || !anoPt || !mesPt || !diaPt) {
       handleOpenAlert("Preencha os dados necessários");
     } else {
       if (jogadorOpPt1) {
@@ -296,8 +295,8 @@ export default function Home() {
         idPosicao: {
           idPosicao: posicaoPt,
         },
-        data: dataPt,
-        hora: horarioPt,
+        data: anoPt + "-" + mesPt + "-" + diaPt,
+        hora: horarioPt + ":" + minutoPt + ":00",
       };
       console.log("data", data);
       try {
@@ -317,7 +316,7 @@ export default function Home() {
             );
             console.log("dados1", response);
             if (!response) {
-              handleOpenAlert("Falha ao adicionar jogador opicional 1");
+              handleOpenAlert("Falha ao adicionar jogador opcional 1");
             }
           }
           if (jogadorOpPt2) {
@@ -326,7 +325,7 @@ export default function Home() {
               data
             );
             if (!response) {
-              handleOpenAlert("Falha ao adicionar jogador opicional 2");
+              handleOpenAlert("Falha ao adicionar jogador opcional 2");
             }
           }
           if (jogadorOpPt3) {
@@ -335,7 +334,7 @@ export default function Home() {
               data
             );
             if (!response) {
-              handleOpenAlert("Falha ao adicionar jogador opicional 3");
+              handleOpenAlert("Falha ao adicionar jogador opcional 3");
             }
           }
           if (jogadorOpPt4) {
@@ -344,7 +343,7 @@ export default function Home() {
               data
             );
             if (!response) {
-              return handleOpenAlert("Falha ao adicionar jogador opicional 4");
+              return handleOpenAlert("Falha ao adicionar jogador opcional 4");
             }
           }
           handleOpenAlert("Partida Criada com Sucesso!");
@@ -403,10 +402,10 @@ export default function Home() {
           <option value="9">Capitão</option>
           <option value="10">Sniper</option>
         </select>
-        <p>Jogador opicional 1 :</p>
+        <p>Jogador opcional 1 :</p>
         <div className={classes2.divOpcional}>
           <input
-            placeholder="Nome do jogador(Opicional)"
+            placeholder="Nome de usuário"
             className={classes2.input}
             onChange={(e) => setJogadorOpPt1(e.target.value)}
           />
@@ -429,10 +428,10 @@ export default function Home() {
           </div>
         </div>
 
-        <p>Jogador opicional 2 :</p>
+        <p>Jogador opcional 2 :</p>
         <div className={classes2.divOpcional}>
           <input
-            placeholder="Nome do jogador(Opicional)"
+            placeholder="Nome de usuário"
             className={classes2.input}
             onChange={(e) => setJogadorOpPt2(e.target.value)}
           />
@@ -455,10 +454,10 @@ export default function Home() {
           </div>
         </div>
 
-        <p>Jogador opicional 3 :</p>
+        <p>Jogador opcional 3 :</p>
         <div className={classes2.divOpcional}>
           <input
-            placeholder="Nome do jogador(Opicional)"
+            placeholder="Nome de usuário"
             className={classes2.input}
             onChange={(e) => setJogadorOpPt3(e.target.value)}
           />
@@ -481,10 +480,10 @@ export default function Home() {
           </div>
         </div>
 
-        <p>Jogador opicional 4 :</p>
+        <p>Jogador opcional 4 :</p>
         <div className={classes2.divOpcional}>
           <input
-            placeholder="Nome do jogador(Opicional)"
+            placeholder="Nome de usuário"
             className={classes2.input}
             onChange={(e) => setJogadorOpPt4(e.target.value)}
           />
@@ -510,13 +509,13 @@ export default function Home() {
         <p>Selecione um horário :</p>
         <div className={classes2.hora}>
           <input
-            placeholder="Hora (ex: 12)"
+            placeholder="Hora"
             className={classes2.horaStyle}
             onChange={(e) => setHorarioPt(e.target.value)}
           />
 
           <input
-            placeholder="Min. (ex: 05)"
+            placeholder="Min."
             className={classes2.horaStyle}
             onChange={(e) => setMinutoPt(e.target.value)}
           />
@@ -525,17 +524,17 @@ export default function Home() {
         <div className={classes2.datas}>
           <input
             className={classes2.dataStyle}
-            placeholder="Dia (ex: 01)"
+            placeholder="Dia"
             onChange={(e) => setDiaPt(e.target.value)}
           />
           <input
             className={classes2.dataStyle}
-            placeholder="Mês (ex: 01)"
+            placeholder="Mês"
             onChange={(e) => setMesPt(e.target.value)}
           />
           <input
             className={classes2.dataStyle}
-            placeholder="Ano(ex: 2020)"
+            placeholder="Ano"
             onChange={(e) => setAnoPt(e.target.value)}
           />
         </div>
