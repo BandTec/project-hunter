@@ -2,7 +2,7 @@ import axios from 'axios'
 import { getToken } from "../auth";
 
   const apiPartida = axios.create({
-    baseURL: "http://localhost:8085",
+    baseURL: "https://apipartida.herokuapp.com/",
     mode: 'cors',
     headers:{
         'Access-Control-Allow-Origin':'*'

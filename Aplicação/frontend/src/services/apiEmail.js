@@ -2,7 +2,7 @@ import axios from 'axios'
 import { getToken } from "../auth";
 
   const apiEmail = axios.create({
-    baseURL: "http://localhost:8082",
+    baseURL: "https://apirecsenha.herokuapp.com/",
     mode: 'cors',
     headers:{
         'Access-Control-Allow-Origin':'*'
