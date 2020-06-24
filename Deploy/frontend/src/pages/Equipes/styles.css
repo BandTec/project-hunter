@@ -1,0 +1,165 @@
+.equipes-container{
+    width:100%;
+    /* max-width: 800px; */
+    padding: 30px;
+    /* margin: 32px auto; */
+    display: contents;
+    justify-content: center;
+    align-items: center;
+    
+    
+}
+
+.equipes-container .div-principal button{
+    position: absolute;
+    left: 40%;
+    top: 34%;
+    border: 0;
+    cursor: pointer;
+    background: transparent;
+}
+
+.equipes-container header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000000;
+    
+}
+
+
+.equipes-container header img {
+    height: 64px;
+    margin-right: 150px;
+    cursor: pointer;
+}
+.equipes-container header input{
+   
+    
+    
+    border-style: hidden;
+    border-radius: 4px;
+    height: 48px;
+    width: 600px;
+    padding: 0 20px;
+    font-size: 14px;
+    color: #666;
+    
+}
+
+
+.equipes-container header a {
+    width: 260px;
+    margin-left: auto;
+    margin-top: 0;
+}
+.equipes-container header button {
+    height: 60px;
+    width: 60px;
+    border-radius: 4px;
+    border: 1px solid #dcdce6;
+    background: transparent;
+    /* margin-left: 300px; */
+    transition : border-color 0.2s;
+    
+}
+
+.equipes-container header button:hover{
+    border-color: #999;
+    
+
+}
+
+.equipes-container .input-pesquisa{
+    display: flex;
+    width: 600px;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin-left: 200px;
+
+
+}
+.equipes-container .btn-pesquisa{
+    padding: 10px;
+    height: 100%;
+    color: white;
+    min-width: 50px;
+    text-align: center;
+    border-style: none;
+    cursor: pointer;
+}
+
+.equipes-container .div-principal{
+    display: grid;
+    grid-template-columns:  repeat(4, 1fr);
+    grid-gap: 24px;
+}
+
+.equipes-container .div-principal-btn{
+    display: grid;
+    grid-template-columns:  repeat(3, 1fr);
+    grid-gap: 24px;
+    margin-left: 27%;
+}
+
+.equipes-container  .div-equipes{
+    margin-top: 40px;
+    color: #fff;
+    background-color: #000000;
+    width: 200px;
+    height: 190px;
+    margin-left: 60px;
+    text-align: center;
+    border-radius: 10px;  
+}
+
+.equipes-container  .div-equipes-btn{
+    margin-top: 40px;
+    color: #fff;
+    background-color: #000000;
+    width: 250px;
+    height: 97px;
+    margin-left: 60px;
+    text-align: center;
+    border-radius: 10px;  
+}
+
+.equipes-container .div-equipes p{
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.equipes-container .div-equipes-btn p{
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.equipes-container .div-principal .div-equipes  button{
+    height: 70px;
+    width: 70px;
+    background: transparent;
+    border:transparent;
+    cursor: pointer;
+}
+
+.equipes-container .div-principal-btn .div-equipes-btn  button{
+    height: 70px;
+    width: 70px;
+    background: transparent;
+    border:transparent;
+    cursor: pointer;
+}
+
+.equipes-container .div-equipes img{
+    height: 130px;
+    width: 130px;
+    cursor: pointer;
+}
+
+.btn-modal-criarEquipe{
+    margin-right: -110%;
+}

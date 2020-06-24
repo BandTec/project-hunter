@@ -1,0 +1,100 @@
+.rec-senha-container header .trilha{
+    display: block;
+    color: #fff;
+    font-size: 16px;
+    position: fixed;
+    margin-left:11%;
+    margin-top: 1%;
+}
+.rec-senha-container header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000000;
+    
+}
+
+.rec-senha-container header img {
+    height: 64px;
+    margin-left: 4.6%;
+    cursor: pointer;
+}
+
+.rec-senha-container form{
+    
+    margin: 180px auto 0;
+    width: 100%;
+    max-width: 300px;
+    display:flex;
+    flex-direction:column;
+    /*box-shadow: 0 0 100px rgba(0, 0, 0, 0.1);*/
+}
+
+.rec-senha-container form h1{
+    font-size: 20px;
+    color: #ffff;
+    font-weight: 300;
+}
+
+.rec-senha-container form input{
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    height: 48px;
+    padding: 0 20px;
+    font-size: 16px;
+    color: #666;
+}
+
+.rec-senha-container header{
+    align-items: center;
+    justify-content: left;
+    padding: 0 auto;
+    height: 100%;
+    display:flex;
+    margin-bottom: 50px;
+    
+}
+
+.rec-senha-container .btn{
+    margin-top: 15px;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    height: 48px;
+    width : 112px;
+    padding: 0 20px;
+    font-size: 16px;
+    font-style: bold;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+}
+
+.rec-senha-container form div{
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    
+}
+
+.rec-senha-container .env{
+    border: 0;
+    background-color: #00FF00;
+    color: #000000;
+    
+}
+
+.rec-senha-container .env:hover{
+    background-color: #00FF00;
+}
+
+.rec-senha-container .voltar{
+    font-weight: normal;
+    font-style: normal;
+    color: #ffff;
+    
+}
+
+.rec-senha-container .voltar:hover{
+    filter: brightness(90%);
+}
