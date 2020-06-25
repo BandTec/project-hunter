@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/email")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://hunterproject.herokuapp.com")
 public class EmailController {
 
     @Autowired

@@ -17,7 +17,7 @@ import static org.springframework.http.ResponseEntity.*;
 
 @RestController
 @RequestMapping("/gamer")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://hunterproject.herokuapp.com")
 public class GamerContoller {
 
     @Autowired

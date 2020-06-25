@@ -22,7 +22,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/arquivo")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://hunterproject.herokuapp.com")
 public class ArquivoController {
 
     @Autowired

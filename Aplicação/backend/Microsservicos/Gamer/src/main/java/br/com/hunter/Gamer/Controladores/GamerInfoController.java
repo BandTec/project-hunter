@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/gamerinfo")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://hunterproject.herokuapp.com")
 public class GamerInfoController {
 
     @Autowired

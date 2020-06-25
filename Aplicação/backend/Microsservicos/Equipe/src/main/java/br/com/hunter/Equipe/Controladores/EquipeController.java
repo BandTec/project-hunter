@@ -13,7 +13,7 @@ import static org.springframework.http.ResponseEntity.*;
 
 @RestController
 @RequestMapping("/equipe")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://hunterproject.herokuapp.com")
 public class EquipeController {
 
     @Autowired
