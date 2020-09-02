@@ -84,3 +84,10 @@ data DATE,
 hora TIME,
 winner bit null
 );
+
+create table friendlist (
+idFriendlist int primary key identity (1,1),
+idGamer1 int foreign key references gamer (idGamer),
+idGamer2 int foreign key references gamer (idGamer),
+idStatus int foreign key references statusSolicitacao (idStatus)
+);
