@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="planets_array">
+        <item>Atirador</item>
+        <item>Suporte</item>
+        <item>Jungle</item>
+        <item>Top</item>
+        <item>Mid</item>
+        <item>Lurker</item>
+        <item>Capitão</item>
+        <item>Sniper</item>
+    </string-array>
+</resources>
