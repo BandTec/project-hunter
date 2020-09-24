@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="planets_array">
+    <string-array name="games_array">
         <item>Counter-Strike: Global Offensive</item>
         <item>Valorant</item>
         <item>League of Legends</item>
         <item>Fortnite</item>
         <item>DOTA 2</item>
         <item>Call of Duty: Warzone</item>
-        <item>PlayerUnkown's Battlegrounds</item>
+        <item>PlayerUnkown\'s Battlegrounds</item>
     </string-array>
 </resources>
