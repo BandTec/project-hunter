@@ -1,6 +1,8 @@
 package br.com.hunter.Gamer.Controladores;
 
 import br.com.hunter.Gamer.Modelos.Gamer;
+//import br.com.hunter.Gamer.Modelos.GamerAmigo;
+//import br.com.hunter.Gamer.Repositorios.GamerAmigoRepository;
 import br.com.hunter.Gamer.Repositorios.GamerRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
@@ -22,6 +24,9 @@ public class GamerContoller {
 
     @Autowired
     public GamerRepository repository;
+
+//    @Autowired
+//    public GamerAmigoRepository gamerAmigoRepository;
 
     private boolean logado = false;
 
@@ -102,6 +107,17 @@ public class GamerContoller {
         }
     }
 
+//    @GetMapping("/pendente/{gamer}")
+//    private ResponseEntity BuscaPorStatusPendente(@PathVariable("gamer")  Integer gamer) {
+//        List<GamerAmigo> lista = gamerAmigoRepository.findByIdStatus_IdStatusAndIdGamer_IdGamer(3, gamer);
+//        return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
+//    }
+//
+//    @GetMapping("/aprovado/{gamer}")
+//    private ResponseEntity BuscaPorStatusAprovado(@PathVariable("gamer")  Integer gamer) {
+//        List<GamerAmigo> lista = gamerAmigoRepository.findByIdStatus_IdStatusAndIdGamer_IdGamer(1, gamer);
+//        return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
+//    }
 
     public static void copyNonNullProperties(Object src, Object target) {
         BeanUtils.copyProperties(src, target, getNullPropertyNames(src));
