@@ -13,11 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-import static org.springframework.http.ResponseEntity.ok;
-
 @RestController
 @RequestMapping("/equipegamer")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://hunterproject.herokuapp.com")
 public class EquipeGamerController {
 
     @Autowired
@@ -62,7 +60,7 @@ public class EquipeGamerController {
             responseHeaders.set("qtdGamers", String.valueOf(qtdGamers));
             return ResponseEntity.ok().headers(responseHeaders).body(lista);
         } else {
-           return ResponseEntity.noContent().build();
+            return ResponseEntity.noContent().build();
         }
 
 
@@ -92,11 +90,18 @@ public class EquipeGamerController {
         List<EquipeGamer> lista = repository.findByIdStatus_IdStatusAndIdEquipe_IdEquipe(3 , equipe);
         return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
     }
+    @GetMapping("/existe/{idequipe}/{idgamer}")
+    private ResponseEntity gamerNaEquipe(@PathVariable("idequipe")  Integer idEquipe, @PathVariable("idgamer")  Integer idGamer) {
+        return repository.existsByIdEquipe_IdEquipeAndIdGamer_IdGamerAndIdStatus_IdStatus(idEquipe,idGamer, 1) ?
+                ResponseEntity.ok().build() :  ResponseEntity.noContent().build() ;
+    }
 
-    @DeleteMapping( "/{id}" )
-    public ResponseEntity excluir(@PathVariable("id") int id) {
-        if (repository.existsById(id)) {
-            repository.deleteById(id);
+    @DeleteMapping( "/{idequipe}/{idgamer}" )
+    public ResponseEntity excluir(@PathVariable("idequipe") int idequipe,
+                                  @PathVariable("idgamer") int idgamer) {
+        if (repository.existsByIdEquipe_IdEquipeAndIdGamer_IdGamer(idequipe, idgamer)) {
+            EquipeGamer alvo = repository.findByIdEquipe_IdEquipeAndIdGamer_IdGamer(idequipe, idgamer);
+            repository.deleteById(alvo.getIdEquipeGamer());
             return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.notFound().build();

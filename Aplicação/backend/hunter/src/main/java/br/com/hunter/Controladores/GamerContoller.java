@@ -21,11 +21,14 @@ import static org.springframework.http.ResponseEntity.*;
 
 @RestController
 @RequestMapping("/gamer")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://hunterproject.herokuapp.com")
 public class GamerContoller {
 
     @Autowired
     public GamerRepository repository;
+
+//    @Autowired
+//    public GamerAmigoRepository gamerAmigoRepository;
 
     private boolean logado = false;
 
@@ -106,6 +109,17 @@ public class GamerContoller {
         }
     }
 
+//    @GetMapping("/pendente/{gamer}")
+//    private ResponseEntity BuscaPorStatusPendente(@PathVariable("gamer")  Integer gamer) {
+//        List<GamerAmigo> lista = gamerAmigoRepository.findByIdStatus_IdStatusAndIdGamer_IdGamer(3, gamer);
+//        return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
+//    }
+//
+//    @GetMapping("/aprovado/{gamer}")
+//    private ResponseEntity BuscaPorStatusAprovado(@PathVariable("gamer")  Integer gamer) {
+//        List<GamerAmigo> lista = gamerAmigoRepository.findByIdStatus_IdStatusAndIdGamer_IdGamer(1, gamer);
+//        return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
+//    }
 
     public static void copyNonNullProperties(Object src, Object target) {
         BeanUtils.copyProperties(src, target, getNullPropertyNames(src));

@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/gamerinfo")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://hunterproject.herokuapp.com")
 public class GamerInfoController {
 
     @Autowired
@@ -56,8 +56,8 @@ public class GamerInfoController {
 
     @PostMapping("/{email}")
     public ResponseEntity criarPorEmail( @RequestBody GamerInfo gamerinfo, @PathVariable("email") String email ) {
-        List<Gamer> gamer = gamerRepository.findFistByEmail(email);
-        gamerinfo.setIdGamer(gamer.get(0));
+        Gamer gamer = gamerRepository.findOneByEmail(email);
+        gamerinfo.setIdGamer(gamer);
         this.repository.save(gamerinfo);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

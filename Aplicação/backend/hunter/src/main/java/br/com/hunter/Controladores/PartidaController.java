@@ -25,7 +25,7 @@ import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @RequestMapping("/partida")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://hunterproject.herokuapp.com")
 public class PartidaController {
 
     @Autowired
@@ -66,11 +66,11 @@ public class PartidaController {
         List<Partida> lista = new ArrayList<Partida>();
         // repository.findByIdGamer_IdGamerAndDataAfter(id, LocalDate.now().minusDays(1))
         for (int i = 0; i < base.size(); i++)
-        if (base.get(i).getHora().isBefore(LocalTime.now()) && base.get(i).getData().isEqual(LocalDate.now())) {
+            if (base.get(i).getHora().isBefore(LocalTime.now()) && base.get(i).getData().isEqual(LocalDate.now())) {
 
-        } else {
-            lista.add(base.get(i));
-        }
+            } else {
+                lista.add(base.get(i));
+            }
         return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
     }
 
