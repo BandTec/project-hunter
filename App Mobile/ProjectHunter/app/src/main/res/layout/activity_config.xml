@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:orientation="vertical"
@@ -13,13 +13,17 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:background="#2B2828" />
 
+
     <ImageView
         android:id="@+id/iv_logo"
         android:layout_width="95dp"
         android:layout_height="95dp"
         android:background="@drawable/ic_action_name"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_editor_absoluteY="10dp"
+
+        />
 
     <TextView
         android:id="@+id/tv_usuario"
@@ -210,6 +214,77 @@
         android:id="@+id/bt_enviar"
         app:layout_constraintTop_toBottomOf="@id/sp_posicao"
         android:layout_marginTop="20dp"
-        android:onClick="cadastrar" />
+        android:onClick="atualizar" />
+
+
+    <ImageButton
+        android:id="@+id/bt_perfil"
+        android:layout_width="80dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/botoes_estilizados"
+
+        android:text=""
+        android:src="@drawable/users"
+        android:padding="20dp"
+        android:scaleType="fitCenter"
+        android:textSize="13dp"
+        android:layout_marginRight="270dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bt_enviar" />
+
+    <ImageButton
+        android:id="@+id/bt_equipe"
+        android:layout_width="80dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/botoes_estilizados"
+
+        android:text=""
+        android:src="@drawable/shield"
+        android:padding="20dp"
+        android:scaleType="fitCenter"
+        android:textSize="13dp"
+        android:layout_marginRight="90dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bt_enviar" />
+
+    <ImageButton
+        android:id="@+id/bt_config"
+        android:layout_width="80dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/botoes_estilizados"
+
+        android:text=""
+        android:src="@drawable/settings"
+        android:padding="20dp"
+        android:scaleType="fitCenter"
+        android:textSize="13dp"
+        android:layout_marginLeft="90dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bt_enviar" />
+
+    <ImageButton
+        android:id="@+id/bt_sair"
+        android:layout_width="80dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/botoes_estilizados"
+
+        android:text=""
+        android:src="@drawable/logout"
+        android:padding="20dp"
+        android:scaleType="fitCenter"
+        android:textSize="13dp"
+        android:layout_marginLeft="270dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bt_enviar" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
