@@ -39,7 +39,7 @@ public class EmailController {
         List<Gamer> gamer = gamerRepository.findByEmail(email);
 
         if(!gamer.isEmpty()){
-            List<Gamer> gamerUnico = gamerRepository.findFistByEmail(email);
+            Gamer gamerUnico = gamerRepository.findFistByEmail(email);
             sendEmail(email,gamerUnico.get(0).getSenha());
 
             return ResponseEntity.ok("email enviado");
