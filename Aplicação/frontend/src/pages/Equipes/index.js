@@ -5,6 +5,7 @@ import camera from '../../assets/camera.svg';
 import { FiArrowLeft, FiStar, FiTrash2, FiSearch, FiUser, FiPlusCircle } from 'react-icons/fi'
 import { Link, useHistory } from 'react-router-dom';
 import apiGamer from '../../services/apiGamer';
+import apiHunter from '../../services/apiHunter';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
@@ -267,7 +268,7 @@ export default function Teams() {
             };
 
             try {
-                const response = await apiEquipe.post(`/equipe/`, data); //{
+                const response = await apiHunter.post(`/equipe/`, data); //{
                     if (response.status === 201){
                         envioDadosJogo(response.data.idEquipe);
                         adicionaJogador(response.data.idEquipe);
@@ -296,7 +297,7 @@ export default function Teams() {
                 };
 
             try {
-                const response = await apiEquipe.post(`/equipejogo/`, data2);
+                const response = await apiHunter.post(`/equipejogo/`, data2);
                 //alert(`Seu ID de Acesso ${response.data.id}`);
                 if (response.status === 201){
                     handleOpenAlert('Equipe criada com sucesso!');
@@ -324,7 +325,7 @@ export default function Teams() {
           };
 
           try {
-            const response = await apiEquipe.post(`/equipegamer/`, data); //{
+            const response = await apiHunter.post(`/equipegamer/`, data); //{
             if (response.status === 201) {
               
                 handleOpenAlert('Equipe criada com sucesso!');
@@ -393,7 +394,7 @@ export default function Teams() {
     const [equipes, setEquipes] = useState([]);
 
     useEffect(() => {
-        apiEquipe.get(`/equipegamer/gamer/${email}/`
+        apiHunter.get(`/equipegamer/gamer/${email}/`
 
         ).then(response => {
 
@@ -419,7 +420,7 @@ export default function Teams() {
     }
     async function handleLogout() {
         try {
-            const response = await apiGamer.post('/gamer/logoff');
+            const response = await apiHunter.post('/gamer/logoff');
             if (response.status === 200) {
                 localStorage.clear();
                 history.push('/');

@@ -10,6 +10,7 @@ import { Link, useHistory } from 'react-router-dom';
 import apiEquipe from '../../services/apiEquipe';
 import apiGamer from '../../services/apiGamer';
 import apiPartida from '../../services/apiPartida';
+import apiHunter from '../../services/apiHunter';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
@@ -92,7 +93,7 @@ export default function Profile() {
       }
 
     useEffect(() => {
-        apiEquipe.get(`/equipegamer/gamer/${email}/`
+        apiHunter.get(`/equipegamer/gamer/${email}/`
     
         ).then(response => {
           
@@ -104,7 +105,7 @@ export default function Profile() {
       }, [email]);     
 
       useEffect(() => {
-        apiGamer.get(`/gamerinfo/gamer/${email}/`
+        apiHunter.get(`/gamerinfo/gamer/${email}/`
   
         ).then(response => {
 
@@ -123,7 +124,7 @@ export default function Profile() {
       }, []);
 
       useEffect(() => {
-        apiPartida.get(`/partida/gamer/antes/${idGamer}/`
+        apiHunter.get(`/partida/gamer/antes/${idGamer}/`
 
         ).then(response => {
             //setTeamGames(response.data);

@@ -3,6 +3,7 @@ import "./styles.css";
 import logo from '../../assets/testeLogo3.svg';
 import '../../routes.js';
 import apiGamer from '../../services/apiGamer';
+import apiHunter from '../../services/apiHunter';
 import { login } from "../../auth";
 import { Link, useHistory } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
@@ -44,7 +45,7 @@ export default function Login(){
     } else {
       try {
         
-          const response = await apiGamer.get(`/gamer/${email}/${password}/`);
+          const response = await apiHunter.get(`/gamer/${email}/${password}/`);
           console.log(response.status);
           if (response.status === 200){
           

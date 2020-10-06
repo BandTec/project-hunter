@@ -14,6 +14,7 @@ import {
 import { Link, useHistory } from "react-router-dom";
 import apiEquipe from "../../services/apiEquipe";
 import apiGamer from "../../services/apiGamer";
+import apiHunter from "../../services/apiHunter";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
@@ -289,7 +290,7 @@ export default function Busca({ dataResponse }) {
     };
 
     try {
-      const response = await apiEquipe.post(`/equipegamer/`, data); //{
+      const response = await apiHunter.post(`/equipegamer/`, data); //{
       if (response.status === 201) {
 
         handleOpenAlert('Pedido enviado ao capitão da equipe');
@@ -315,7 +316,7 @@ export default function Busca({ dataResponse }) {
 
   React.useEffect(() => {
     async function dadosPerfil() {
-      const response = await apiGamer.get(`/gamer/${email}/`); //{
+      const response = await apiHunter.get(`/gamer/${email}/`); //{
 
       let dados = response.data;
 
@@ -340,7 +341,7 @@ export default function Busca({ dataResponse }) {
 
   useEffect(() => {
     const pesquisa = localStorage.getItem('pesquisa');
-    apiEquipe.get(`/equipejogo/jogo/${pesquisa}/`).then((response) => {
+    apiHunter.get(`/equipejogo/jogo/${pesquisa}/`).then((response) => {
       const { data = [] } = response || {};
       // verify response.data is an array
       const isArray = Array.isArray(data);
@@ -353,7 +354,7 @@ export default function Busca({ dataResponse }) {
 
 
       if (equipes == '' || equipes == null) {
-        apiEquipe.get(`/equipegamer/equipe/${pesquisa}/`).then((response) => {
+        apiHunter.get(`/equipegamer/equipe/${pesquisa}/`).then((response) => {
           const { data2 = [] } = response || {};
           // verify response.data is an array
           const isArray2 = Array.isArray(data2);
@@ -402,7 +403,7 @@ export default function Busca({ dataResponse }) {
 
   async function getNumEquipe(dados) {
 
-    apiEquipe.get(`/equipegamer/equipe/qtd/${dados}/`).then((response) => {
+    apiHunter.get(`/equipegamer/equipe/qtd/${dados}/`).then((response) => {
       //const { data = [] } = response || {};
       //const isArray = Array.isArray(data);
       //isArray && setNumUsers(data);
@@ -437,7 +438,7 @@ export default function Busca({ dataResponse }) {
   }
   async function handleLogout() {
     try {
-      const response = await apiGamer.post("/gamer/logoff");
+      const response = await apiHunter.post("/gamer/logoff");
       if (response.status === 200) {
         localStorage.clear();
         history.push("/");

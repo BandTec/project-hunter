@@ -5,7 +5,7 @@ import { FiArrowLeft } from 'react-icons/fi'
 import { Link, useHistory } from 'react-router-dom';
 import apiEmail from '../../services/apiEmail';
 import { waitForElementToBeRemoved } from '@testing-library/react';
-
+import apiHunter from '../../services/apiHunter';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -49,7 +49,7 @@ export default function Register() {
     } else {
       try {
         
-          const response = await apiEmail.get(`/email/${email}/`);
+          const response = await apiHunter.get(`/email/${email}/`);
           console.log(response.status);
           if (response.status === 200){
             handleOpenAlert('As instruções de recuperação de senha enviadas para seu email!');

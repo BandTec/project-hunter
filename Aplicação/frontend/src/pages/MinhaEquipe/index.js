@@ -15,6 +15,7 @@ import { Link, useHistory } from 'react-router-dom';
 import apiEquipe from '../../services/apiEquipe';
 import apiGamer from '../../services/apiGamer';
 import apiArquivo from '../../services/apiArquivo';
+import apiHunter from '../../services/apiHunter';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
@@ -429,7 +430,7 @@ export default function MyTeam() {
     async function aceitarJogador(id) {
         
         try {
-            const response = await apiEquipe.put(`/equipegamer/aceitar/${id}/`); //{
+            const response = await apiHunter.put(`/equipegamer/aceitar/${id}/`); //{
             if (response.status === 200) {
                 handleOpenAlert("Jogador aceito com sucesso!");
                 let dados = response.data.idEquipe;
@@ -453,7 +454,7 @@ export default function MyTeam() {
     async function recusarJogador(id) {
        
         try {
-            const response = await apiEquipe.put(`/equipegamer/recusar/${id}/`); //{
+            const response = await apiHunter.put(`/equipegamer/recusar/${id}/`); //{
             if (response.status === 200) {
                 handleOpenAlert("Jogador recusado com sucesso!");
                 let dados = response.data.idEquipe;
@@ -521,7 +522,7 @@ export default function MyTeam() {
         };
     
         try {
-          const response = await apiEquipe.post(`/equipegamer/`, data2); //{
+          const response = await apiHunter.post(`/equipegamer/`, data2); //{
           if (response.status === 201) {
     
             handleOpenAlert('Pedido enviado ao capitão da equipe');
@@ -545,7 +546,7 @@ export default function MyTeam() {
 
     useEffect(() => {
         setNomeEquipe(localStorage.getItem('nomeEquipe'));
-        apiEquipe.get(`/equipegamer/equipe/${nomeEquipe}/`
+        apiHunter.get(`/equipegamer/equipe/${nomeEquipe}/`
 
         ).then(response => {
             setTeam(response.data);
@@ -556,7 +557,7 @@ export default function MyTeam() {
     }, [nomeEquipe]);
 
     useEffect(() => {
-        apiEquipe.get(`/equipe/nome/${nomeEquipe}/`
+        apiHunter.get(`/equipe/nome/${nomeEquipe}/`
 
         ).then(response => {
             //setTeamGames(response.data);
@@ -586,7 +587,7 @@ export default function MyTeam() {
     }, [nomeEquipe]);
 
     useEffect(() => {
-        apiEquipe.get(`/equipejogo/equipe/${idEquipe}/`
+        apiHunter.get(`/equipejogo/equipe/${idEquipe}/`
 
         ).then(response => {
             //setTeamGames(response.data);
@@ -600,7 +601,7 @@ export default function MyTeam() {
     }, [idEquipe]);
 
     useEffect(() => {
-        apiPartida.get(`/partida/equipe/antes/${idEquipe}/`
+        apiHunter.get(`/partida/equipe/antes/${idEquipe}/`
 
         ).then(response => {
             //setTeamGames(response.data);
@@ -628,7 +629,7 @@ export default function MyTeam() {
     // }, [idEquipe]);
 
     useEffect(() => {
-        apiEquipe.get(`/equipegamer/pendente/${idEquipe}/`
+        apiHunter.get(`/equipegamer/pendente/${idEquipe}/`
 
         ).then(response => {
             //setTeamGames(response.data);
@@ -662,7 +663,7 @@ export default function MyTeam() {
     }
     async function handleLogout() {
         try {
-            const response = await apiGamer.post('/gamer/logoff');
+            const response = await apiHunter.post('/gamer/logoff');
             if (response.status === 200) {
                 localStorage.clear();
                 history.push('/');
@@ -677,7 +678,7 @@ export default function MyTeam() {
 
     async function handleExportacao() {
         try {
-            const response = await apiArquivo.post(`/arquivo/${idEquipe}`);
+            const response = await apiHunter.post(`/arquivo/${idEquipe}`);
             if (response.status === 200) {
                 handleOpenAlert('Exportação realizada com sucesso!');
             } else {
@@ -691,7 +692,7 @@ export default function MyTeam() {
     useEffect(() => {
         try {
 
-            apiEquipe.get(`/equipegamer/existe/${idEquipe}/${idGamerLogado}/`).then(response => {
+            apiHunter.get(`/equipegamer/existe/${idEquipe}/${idGamerLogado}/`).then(response => {
                 console.log(response.status);
                 if (response.status === 200) {
 
@@ -712,7 +713,7 @@ export default function MyTeam() {
     useEffect(() => {
         try {
 
-            apiEquipe.get(`/equipegamer/capitao/${idGamerLogado}/${idEquipe}/`).then(response => {
+            apiHunter.get(`/equipegamer/capitao/${idGamerLogado}/${idEquipe}/`).then(response => {
                 console.log(response.status);
                 if (response.status === 200) {
 

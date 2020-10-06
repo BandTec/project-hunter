@@ -5,6 +5,7 @@ import Logo from "../../assets/testeLogo3.png";
 import camera from '../../assets/camera.svg';
 import '../../routes.js';
 import apiGamer from '../../services/apiGamer';
+import apiHunter from '../../services/apiHunter';
 import { BrowserRouter as Router } from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -67,7 +68,7 @@ export default function Cadastro() {
             };
 
             try {
-                const response = await apiGamer.post(`/gamer/criar`, data);
+                const response = await apiHunter.post(`/gamer/criar`, data);
                 //alert(`Seu ID de Acesso ${response.data.id}`);
                 if (response.status === 201) {
                     handleSignUp2();
@@ -101,7 +102,7 @@ export default function Cadastro() {
             };
 
             try {
-                const response = await apiGamer.post(`/gamerinfo/${email}`, data2);
+                const response = await apiHunter.post(`/gamerinfo/${email}`, data2);
                 //alert(`Seu ID de Acesso ${response.data.id}`);
                 if (response.status === 201) {
                     handleOpenAlert('Cadastro realizado com sucesso!');
