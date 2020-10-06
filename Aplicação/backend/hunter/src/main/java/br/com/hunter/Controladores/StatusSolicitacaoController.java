@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/statussolicitacao")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://174.129.149.193:3000/")
 public class StatusSolicitacaoController {
 
     @Autowired
