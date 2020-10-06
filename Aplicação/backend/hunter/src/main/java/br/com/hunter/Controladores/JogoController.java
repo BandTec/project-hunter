@@ -15,7 +15,7 @@ import static org.springframework.http.ResponseEntity.*;
 
 @RestController
 @RequestMapping("/jogo")
-@CrossOrigin(origins = "http://174.129.149.193:3000/")
+@CrossOrigin(origins = "http://174.129.149.193:3000")
 public class JogoController {
 
     @Autowired
