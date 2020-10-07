@@ -17,7 +17,7 @@ import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @RequestMapping("/posicao")
-@CrossOrigin(origins = "http://174.129.149.193:3000")
+@CrossOrigin(origins = " * ", allowedHeaders = " * ")
 public class PosicaoController {
 
     @Autowired
