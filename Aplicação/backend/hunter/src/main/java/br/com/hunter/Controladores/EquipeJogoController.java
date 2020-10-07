@@ -19,7 +19,7 @@ import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @RequestMapping("/equipejogo")
-@CrossOrigin(origins = " * ", allowedHeaders = " * ")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class EquipeJogoController {
 
     @Autowired

@@ -16,7 +16,7 @@ import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @RequestMapping("/pesquisa")
-@CrossOrigin(origins = " * ", allowedHeaders = " * ")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class PesquisaController {
 
     @Autowired

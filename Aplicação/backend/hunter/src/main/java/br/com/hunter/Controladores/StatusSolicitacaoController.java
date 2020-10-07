@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/statussolicitacao")
-@CrossOrigin(origins = " * ", allowedHeaders = " * ")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class StatusSolicitacaoController {
 
     @Autowired

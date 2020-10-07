@@ -25,7 +25,7 @@ import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @RequestMapping("/partida")
-@CrossOrigin(origins = " * ", allowedHeaders = " * ")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class PartidaController {
 
     @Autowired

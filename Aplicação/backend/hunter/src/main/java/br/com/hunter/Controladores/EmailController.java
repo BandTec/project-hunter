@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/email")
-@CrossOrigin(origins = " * ", allowedHeaders = " * ")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class EmailController {
 
     @Autowired
