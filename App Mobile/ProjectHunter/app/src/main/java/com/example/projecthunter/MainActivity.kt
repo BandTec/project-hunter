@@ -7,9 +7,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.OrientationHelper
 import kotlinx.android.synthetic.main.activity_home.*
 
+
 class MainActivity : AppCompatActivity() {
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
@@ -21,5 +23,9 @@ class MainActivity : AppCompatActivity() {
 
         rv_partidas.layoutManager = LinearLayoutManager(this, OrientationHelper.HORIZONTAL, false)
         rv_partidas.adapter = PostsAdapter(posts)
+
+
+
+
     }
 }
