@@ -89,6 +89,22 @@ public class GamerContoller {
         }
     }
 
+    @GetMapping("/login/{email}/{senha}")
+    public ResponseEntity getUsuarioESenhaReturn(@PathVariable("email") String email, @PathVariable("senha") String senha ){
+        List gamer;
+        gamer = repository.findOneByEmailAndSenha(email, senha);
+        if(!logado) {
+            if (gamer.isEmpty()) {
+                return ResponseEntity.noContent().build();
+            } else {
+                logado = true;
+                return ResponseEntity.ok(gamer);
+            }
+        } else {
+            return ResponseEntity.ok("ja está logado");
+        }
+    }
+
 
     @PostMapping("/logoff")
     public ResponseEntity logoff() {
