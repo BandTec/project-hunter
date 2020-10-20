@@ -1,9 +1,7 @@
 package com.example.projecthunter.utils
 
 import com.androidnetworking.interceptors.HttpLoggingInterceptor
-import com.example.projecthunter.services.LoginService
-import com.example.projecthunter.services.LogoffService
-import com.example.projecthunter.services.MatchesService
+import com.example.projecthunter.services.*
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -33,5 +31,17 @@ class ApiConnectionUtils {
 
     fun matchService() : MatchesService {
         return getRetrofitInstance().create(MatchesService::class.java)
+    }
+
+    fun recSenha() : RecSenhaService {
+        return getRetrofitInstance().create(RecSenhaService::class.java)
+    }
+
+    fun cadastroService() : CadastroService {
+        return getRetrofitInstance().create(CadastroService::class.java)
+    }
+
+    fun configService() : ConfigService {
+        return getRetrofitInstance().create(ConfigService::class.java)
     }
 }

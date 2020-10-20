@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.Toast
 import com.example.projecthunter.models.UserModel
 import com.example.projecthunter.utils.ApiConnectionUtils
-import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
