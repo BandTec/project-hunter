@@ -109,15 +109,15 @@ class HomeActivity : AppCompatActivity() {
 
     fun logoff(componente: View){
 
-        ApiConnectionUtils().logoffService().logoff().enqueue(object: Callback<JsonObject> {
+        ApiConnectionUtils().logoffService().logoff().enqueue(object: Callback<Void> {
 
-            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+            override fun onFailure(call: Call<Void>, t: Throwable) {
 
                 Toast.makeText(this@HomeActivity, "Erro ao executar comando", Toast.LENGTH_SHORT).show()
 
             }
 
-            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
 
                 if(response.code() == 200) {
                     val telaLogin = Intent(this@HomeActivity, MainActivity::class.java)

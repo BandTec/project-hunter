@@ -10,7 +10,7 @@ import retrofit2.http.Path
 
 interface LogoffService {
     @POST("/gamer/logoff")
-    fun logoff() : Call<JsonObject>
+    fun logoff() : Call<Void>
 
 
 }
