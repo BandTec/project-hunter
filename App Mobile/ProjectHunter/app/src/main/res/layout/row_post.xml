@@ -10,7 +10,7 @@
     android:layout_marginLeft="35dp"
     card_view:cardCornerRadius="5dp" >
 
-    <center>
+
 
         <TextView
         android:id="@+id/firstName"
@@ -20,7 +20,7 @@
         android:textSize="22sp"
         android:textAlignment="center"
         android:text="Default Text"/>
-    </center>
+
 
 
 
