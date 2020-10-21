@@ -49,31 +49,31 @@ class Register : AppCompatActivity() {
 
     fun doRegister(nome:String, usuario:String, email:String, cpf:Int, telefone:Int, senha:String) {
 
-        ApiConnectionUtils().cadastroService().cadastro(nome,usuario,email,cpf,telefone,senha).enqueue(object:
-            Callback<List<UserModel>> {
-
-            override fun onFailure(call: Call<List<UserModel>>, t: Throwable) {
-                Toast.makeText(this@Register, "Erro ao efetuar o cadastro", Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onResponse(call: Call<List<UserModel>>, response: Response<List<UserModel>>) {
-
-                if(response.code() == 201) {
-                    val telaLogin = Intent(this@Register, MainActivity::class.java)
-                    var currentUser : Integer = Integer(0)
-                    response?.body()?.let {
-                        //it é o corpo de retorno da requisição
-                        currentUser  = it[0].idGamer;
-                        println(currentUser);
-                    }
-                    telaLogin.putExtra("currentUser", currentUser.toString())
-                    startActivity(telaLogin)
-                }else{
-                    Toast.makeText(this@Register, "Erro no cadastro, tente novamente!", Toast.LENGTH_SHORT).show()
-                }
-
-            }
-        })
+//        ApiConnectionUtils().cadastroService().cadastro(nome,usuario,email,cpf,telefone,senha).enqueue(object:
+//            Callback<List<UserModel>> {
+//
+//            override fun onFailure(call: Call<List<UserModel>>, t: Throwable) {
+//                Toast.makeText(this@Register, "Erro ao efetuar o cadastro", Toast.LENGTH_SHORT).show()
+//            }
+//
+//            override fun onResponse(call: Call<List<UserModel>>, response: Response<List<UserModel>>) {
+//
+//                if(response.code() == 201) {
+//                    val telaLogin = Intent(this@Register, MainActivity::class.java)
+//                    var currentUser : Integer = Integer(0)
+//                    response?.body()?.let {
+//                        //it é o corpo de retorno da requisição
+//                        currentUser  = it[0].idGamer;
+//                        println(currentUser);
+//                    }
+//                    telaLogin.putExtra("currentUser", currentUser.toString())
+//                    startActivity(telaLogin)
+//                }else{
+//                    Toast.makeText(this@Register, "Erro no cadastro, tente novamente!", Toast.LENGTH_SHORT).show()
+//                }
+//
+//            }
+//        })
 
     }
 

@@ -27,14 +27,12 @@ class HomeActivity : AppCompatActivity() {
     var dataJogo = mutableListOf<String>()
     var horaJogo = mutableListOf<String>()
     val posts: ArrayList<String> = ArrayList()
+    var posts2 = mutableListOf<PartidaModel>()
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-
-
-
 
         var idGamer = intent.extras?.getString("currentUser")
         if (idGamer != null) {
@@ -43,26 +41,14 @@ class HomeActivity : AppCompatActivity() {
 
         }
 
-//        for (i in 1..5){
-//            val jogo = "nomeJogo[i]"
-//            posts.add("Jogo: $jogo")
-//        }
-
-
-
-
-        rv_partidas.layoutManager = LinearLayoutManager(this, OrientationHelper.HORIZONTAL, false)
-        rv_partidas.adapter = PostsAdapter(posts)
     }
 
     @SuppressLint("WrongConstant")
-    fun criarCards(nomeJogo:String?, papel:String?, data:String?, hora:String?){
+    fun criarCardsAlternativo(partida:List<PartidaModel>?){
         try{
-            posts.add("Jogo: $nomeJogo \tHora: $hora \tPapel: $papel \tData: $data")
-            
+            posts2 = partida as MutableList<PartidaModel>
             rv_partidas.layoutManager = LinearLayoutManager(this@HomeActivity, OrientationHelper.HORIZONTAL, false)
-            rv_partidas.adapter = PostsAdapter(posts)
-
+            rv_partidas.adapter = PostsAdapter(posts2)
         }catch (e:Exception){
             Toast.makeText(this@HomeActivity, e.toString(), Toast.LENGTH_SHORT).show()
         }
@@ -84,18 +70,15 @@ class HomeActivity : AppCompatActivity() {
                         //it é o corpo de retorno da requisição
                         //nomeJogo.add(it[0].idJogo.nomeJogo)
 
-                        for (partida in it){
-                            nomeJogo.add(partida.idJogo.nomeJogo)
-                            papel.add(partida.idPosicao.posicao)
-                            dataJogo.add(partida.data)
-                            horaJogo.add(partida.hora)
+//                        for (partida in it){
+//                            nomeJogo.add(partida.idJogo.nomeJogo)
+//                            papel.add(partida.idPosicao.posicao)
+//                            dataJogo.add(partida.data)
+//                            horaJogo.add(partida.hora)
+//
+//                        }
+                        criarCardsAlternativo(response.body())
 
-                        }
-
-                        Toast.makeText(this@HomeActivity, nomeJogo.toString(), Toast.LENGTH_SHORT).show()
-                        for(i in 1..nomeJogo.size){
-                            criarCards(nomeJogo[i-1], papel[i-1], dataJogo[i-1], horaJogo[i-1])
-                        }
                     }
                 }else{
                     Toast.makeText(this@HomeActivity, response.code().toString(), Toast.LENGTH_LONG).show()
@@ -106,6 +89,13 @@ class HomeActivity : AppCompatActivity() {
     }
 
 
+
+    fun config(componente:View){
+        var idGamer = intent.extras?.getString("currentUser")
+        val telaConfig = Intent(this@HomeActivity, Configuration::class.java)
+        telaConfig.putExtra("currentUser", idGamer)
+        startActivity(telaConfig)
+    }
 
     fun logoff(componente: View){
 
