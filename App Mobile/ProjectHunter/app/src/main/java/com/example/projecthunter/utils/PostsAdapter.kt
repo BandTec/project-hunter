@@ -28,6 +28,7 @@ class PostsAdapter(val posts: List<PartidaModel>): RecyclerView.Adapter<PostsAda
                 holder.funcao.text = "Papel: --"
             }
             holder.hour.text = "Horário: "+posts[position].hora
+            holder.hour.setTypeface(null, Typeface.BOLD)
             holder.date.text = "Data: "+posts[position].data
 
         }

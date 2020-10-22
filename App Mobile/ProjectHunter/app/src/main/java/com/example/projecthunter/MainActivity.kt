@@ -64,12 +64,15 @@ fun login(componente: View){
                 if(response.code() == 200) {
                     val telaHome = Intent(this@MainActivity, HomeActivity::class.java)
                     var currentUser : Integer = Integer(0)
+                    var usuario:String = ""
                     response?.body()?.let {
                         //it é o corpo de retorno da requisição
                         currentUser  = it[0].idGamer!!;
+                        usuario = it[0].usuario
                         println(currentUser);
                     }
                     telaHome.putExtra("currentUser", currentUser.toString())
+                    telaHome.putExtra("usuario",usuario)
                     startActivity(telaHome)
                     }else{
                         Toast.makeText(this@MainActivity, "Login ou senha Inválidos", Toast.LENGTH_SHORT).show()

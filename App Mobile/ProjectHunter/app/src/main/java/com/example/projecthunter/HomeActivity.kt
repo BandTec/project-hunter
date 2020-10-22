@@ -35,6 +35,7 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
 
         var idGamer = intent.extras?.getString("currentUser")
+
         if (idGamer != null) {
             partidas(idGamer.toInt())
 
@@ -92,8 +93,10 @@ class HomeActivity : AppCompatActivity() {
 
     fun config(componente:View){
         var idGamer = intent.extras?.getString("currentUser")
+        var usuario = intent.extras?.getString("usuario")
         val telaConfig = Intent(this@HomeActivity, Configuration::class.java)
         telaConfig.putExtra("currentUser", idGamer)
+        telaConfig.putExtra("usuario", usuario)
         startActivity(telaConfig)
     }
 
