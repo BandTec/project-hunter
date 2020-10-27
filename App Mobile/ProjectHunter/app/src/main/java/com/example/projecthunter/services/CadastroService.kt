@@ -10,6 +10,9 @@ import retrofit2.http.Body
 
 interface CadastroService {
     @POST("/gamer/criar")
-    fun cadastro(@Body body: UserModel) : Call<List<UserModel>>
+    fun cadastro(@Body body: UserModel) : Call<Void>
+
+    @GET("/gamer/usuario/{usuario}")
+    fun getNovoUsuario(@Path("usuario") usuario:String) : Call<List<UserModel>>
 
 }

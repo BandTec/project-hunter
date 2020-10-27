@@ -30,18 +30,18 @@ class RecuperacaoSenha : AppCompatActivity() {
     fun doRecSenha(email:String) {
 
         ApiConnectionUtils().recSenha().recSenha(email).enqueue(object:
-            Callback<List<UserModel>> {
+            Callback<Void> {
 
-            override fun onFailure(call: Call<List<UserModel>>, t: Throwable) {
+            override fun onFailure(call: Call<Void>, t: Throwable) {
                 Toast.makeText(this@RecuperacaoSenha, "Erro ao enviar email de recuperação de senha", Toast.LENGTH_SHORT).show()
             }
 
-            override fun onResponse(call: Call<List<UserModel>>, response: Response<List<UserModel>>) {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
 
-                if(response.code() == 200) {
+                if(response.code() == 204) {
                     Toast.makeText(this@RecuperacaoSenha, "As instruções de recuperação de senha enviadas para seu email!", Toast.LENGTH_SHORT).show()
                 }else{
-                    Toast.makeText(this@RecuperacaoSenha, "Email inválido", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@RecuperacaoSenha, "Email inválido ${response.code()}", Toast.LENGTH_SHORT).show()
                 }
 
             }

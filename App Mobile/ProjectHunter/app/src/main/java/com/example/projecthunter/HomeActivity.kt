@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.OrientationHelper
 import com.example.projecthunter.models.PartidaModel
 import com.example.projecthunter.utils.ApiConnectionUtils
+import com.example.projecthunter.utils.NewMatchAdapter
 import com.example.projecthunter.utils.PostsAdapter
 import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.activity_home.*
@@ -40,6 +41,7 @@ class HomeActivity : AppCompatActivity() {
             partidas(idGamer.toInt())
 
 
+
         }
 
     }
@@ -47,8 +49,12 @@ class HomeActivity : AppCompatActivity() {
     @SuppressLint("WrongConstant")
     fun criarCardsAlternativo(partida:List<PartidaModel>?){
         try{
+
+
+
             posts2 = partida as MutableList<PartidaModel>
             rv_partidas.layoutManager = LinearLayoutManager(this@HomeActivity, OrientationHelper.HORIZONTAL, false)
+            rv_partidas.adapter = NewMatchAdapter()
             rv_partidas.adapter = PostsAdapter(posts2)
         }catch (e:Exception){
             Toast.makeText(this@HomeActivity, e.toString(), Toast.LENGTH_SHORT).show()

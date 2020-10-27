@@ -32,8 +32,8 @@ class Register : AppCompatActivity() {
             val nome = et_nome.text.toString()
             val usuario = et_usuario.text.toString()
             val email = et_email.text.toString()
-            val cpf = et_cpf.text.toString().toInt()
-            val telefone = et_telefone.text.toString().toInt()
+            val cpf = et_cpf.text.toString()
+            val telefone = et_telefone.text.toString()
             val senha = et_senha.text.toString()
             val confSenha = et_confSenha.text.toString()
 
@@ -47,34 +47,56 @@ class Register : AppCompatActivity() {
         }
     }
 
-    fun doRegister(nome:String, usuario:String, email:String, cpf:Int, telefone:Int, senha:String) {
+    fun doRegister(nome:String, usuario:String, email:String, cpf:String, telefone:String, senha:String) {
 
-//        ApiConnectionUtils().cadastroService().cadastro(nome,usuario,email,cpf,telefone,senha).enqueue(object:
-//            Callback<List<UserModel>> {
-//
-//            override fun onFailure(call: Call<List<UserModel>>, t: Throwable) {
-//                Toast.makeText(this@Register, "Erro ao efetuar o cadastro", Toast.LENGTH_SHORT).show()
-//            }
-//
-//            override fun onResponse(call: Call<List<UserModel>>, response: Response<List<UserModel>>) {
-//
-//                if(response.code() == 201) {
-//                    val telaLogin = Intent(this@Register, MainActivity::class.java)
-//                    var currentUser : Integer = Integer(0)
-//                    response?.body()?.let {
-//                        //it é o corpo de retorno da requisição
-//                        currentUser  = it[0].idGamer;
-//                        println(currentUser);
-//                    }
-//                    telaLogin.putExtra("currentUser", currentUser.toString())
-//                    startActivity(telaLogin)
-//                }else{
-//                    Toast.makeText(this@Register, "Erro no cadastro, tente novamente!", Toast.LENGTH_SHORT).show()
-//                }
-//
-//            }
-//        })
+        val userModel = UserModel(null, nome, cpf, email, senha, telefone,null, usuario, email)
+        ApiConnectionUtils().cadastroService().cadastro(userModel).enqueue(object:
+            Callback<Void> {
 
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Toast.makeText(this@Register, "Erro ao efetuar o cadastro", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+
+                if(response.code() == 201) {
+                    Toast.makeText(this@Register, "Usuário Criado com sucesso!", Toast.LENGTH_SHORT).show()
+                    telaHome(usuario)
+                }else{
+                    Toast.makeText(this@Register, "Erro no cadastro, tente novamente!", Toast.LENGTH_SHORT).show()
+                }
+
+            }
+        })
+    }
+
+    fun telaHome(usuario: String){
+        ApiConnectionUtils().cadastroService().getNovoUsuario(usuario).enqueue(object:
+            Callback<List<UserModel>> {
+
+            override fun onFailure(call: Call<List<UserModel>>, t: Throwable) {
+                Toast.makeText(this@Register, "Cadastro efetuado, mas com erro ao enviar a tela Home $t", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onResponse(call: Call<List<UserModel>>, response: Response<List<UserModel>>) {
+
+                if(response.code() == 200) {
+
+                    var currentUser:Integer = Integer(0)
+                    response.body()?.forEach{
+                        if (it != null) {
+                            currentUser = it.idGamer!!
+                        }
+                    }
+                    val telaHome = Intent(this@Register, HomeActivity::class.java)
+                    telaHome.putExtra("currentUser", currentUser)
+                    startActivity(telaHome)
+                }else{
+                    Toast.makeText(this@Register, "Erro no cadastro, tente novamente!", Toast.LENGTH_SHORT).show()
+                }
+
+            }
+        })
     }
 
 }

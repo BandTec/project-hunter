@@ -7,7 +7,7 @@ import retrofit2.http.Path
 
 
 interface RecSenhaService {
-    @GET("/email/{email}/")
-    fun recSenha(@Path("email") email:String) : Call<List<UserModel>>
+    @GET("/email/{email}")
+    fun recSenha(@Path("email") email:String) : Call<Void>
 
 }
