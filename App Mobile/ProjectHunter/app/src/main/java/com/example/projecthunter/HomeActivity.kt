@@ -74,18 +74,7 @@ class HomeActivity : AppCompatActivity() {
 
                 if(response.code() == 200) {
                     response?.body()?.let {
-                        //it é o corpo de retorno da requisição
-                        //nomeJogo.add(it[0].idJogo.nomeJogo)
-
-//                        for (partida in it){
-//                            nomeJogo.add(partida.idJogo.nomeJogo)
-//                            papel.add(partida.idPosicao.posicao)
-//                            dataJogo.add(partida.data)
-//                            horaJogo.add(partida.hora)
-//
-//                        }
                         criarCardsAlternativo(response.body())
-
                     }
                 }else{
                     Toast.makeText(this@HomeActivity, response.code().toString(), Toast.LENGTH_LONG).show()

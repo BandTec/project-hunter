@@ -1,18 +1,16 @@
 package com.example.projecthunter
 
 import android.content.Intent
+import android.graphics.PorterDuff
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import com.example.projecthunter.models.UserModel
 import com.example.projecthunter.utils.ApiConnectionUtils
-import kotlinx.android.synthetic.main.activity_configuration.et_confSenha
-import kotlinx.android.synthetic.main.activity_configuration.et_cpf
-import kotlinx.android.synthetic.main.activity_configuration.et_email
-import kotlinx.android.synthetic.main.activity_configuration.et_senha
-import kotlinx.android.synthetic.main.activity_configuration.et_telefone
-import kotlinx.android.synthetic.main.activity_configuration.et_usuario
+import kotlinx.android.synthetic.main.activity_configuration.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,6 +22,7 @@ class Configuration : AppCompatActivity() {
     var usuario:String = ""
 
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_configuration)
@@ -36,6 +35,8 @@ class Configuration : AppCompatActivity() {
         if(username != null){
             usuario = username as String
         }
+
+        bt_config.setColorFilter(getColor(android.R.color.holo_green_dark), PorterDuff.Mode.SRC_IN)
 
         //inicioComDados(nome)
 

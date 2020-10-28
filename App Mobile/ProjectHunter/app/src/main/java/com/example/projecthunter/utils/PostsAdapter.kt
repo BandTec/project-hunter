@@ -14,6 +14,7 @@ class PostsAdapter(val posts: List<PartidaModel>): RecyclerView.Adapter<PostsAda
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view : View = LayoutInflater.from(parent.context).inflate(R.layout.row_post, parent, false)
         return ViewHolder(view)
+        NewMatchAdapter()
     }
 
     override fun getItemCount() = posts.size

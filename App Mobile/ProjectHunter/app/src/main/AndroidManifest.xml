@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Configuration"></activity>
+        <activity android:name=".PerfilActivity"></activity>
+        <activity android:name=".Configuration" />
         <activity android:name=".utils.Configuration" />
         <activity android:name=".Register" />
         <activity android:name=".RecuperacaoSenha" />
