@@ -94,6 +94,14 @@ class HomeActivity : AppCompatActivity() {
         telaConfig.putExtra("usuario", usuario)
         startActivity(telaConfig)
     }
+    fun perfil(componente:View){
+        var idGamer = intent.extras?.getString("currentUser")
+        var usuario = intent.extras?.getString("usuario")
+        val telaPerfil = Intent(this@HomeActivity, PerfilActivity::class.java)
+        telaPerfil.putExtra("currentUser", idGamer)
+        telaPerfil.putExtra("usuario", usuario)
+        startActivity(telaPerfil)
+    }
 
     fun logoff(componente: View){
 

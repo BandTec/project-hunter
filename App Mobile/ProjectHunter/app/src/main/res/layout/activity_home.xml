@@ -7,30 +7,44 @@
     tools:context=".HomeActivity">
 
     <LinearLayout
+        android:id="@+id/ll_topo"
         android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:background="#2B2828" />
+        android:background="#2B2828"
+        tools:ignore="MissingConstraints" >
 
 
     <ImageView
         android:id="@+id/iv_logo"
-        android:layout_width="95dp"
-        android:layout_height="95dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:background="@drawable/ic_logo"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_editor_absoluteY="30dp"
+        android:layout_marginBottom="10dp"
+        app:layout_editor_absoluteY="50dp"
 
         />
+    </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/ll_corpo"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="#000"
+        tools:ignore="MissingConstraints"
+        app:layout_constraintTop_toBottomOf="@+id/ll_topo">
     <TextView
         android:layout_width="250dp"
         android:id="@+id/tv_titulo"
-        android:layout_marginTop="50dp"
-        android:layout_marginRight="100dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginRight="10dp"
         android:text="Suas Próximas Partidas:"
         android:textSize="30sp"
         android:textColor="@android:color/white"
@@ -49,6 +63,18 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_titulo" />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_rodape"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="260dp"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="#000"
+        tools:ignore="MissingConstraints"
+        app:layout_constraintTop_toBottomOf="@+id/ll_corpo" > </LinearLayout>
 
     <ImageButton
         android:id="@+id/bt_perfil"
@@ -56,7 +82,7 @@
         android:layout_height="70dp"
         android:layout_marginTop="40dp"
         android:background="@drawable/botoes_estilizados"
-
+        android:onClick="perfil"
         android:text=""
         android:src="@drawable/ic_users"
         android:padding="20dp"
@@ -65,7 +91,7 @@
         android:layout_marginRight="270dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rv_partidas" />
+        app:layout_constraintTop_toBottomOf="@+id/ll_corpo" />
 
     <ImageButton
         android:id="@+id/bt_equipe"
@@ -82,7 +108,7 @@
         android:layout_marginRight="90dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rv_partidas" />
+        app:layout_constraintTop_toBottomOf="@+id/ll_corpo" />
 
     <ImageButton
         android:id="@+id/bt_config"
@@ -99,7 +125,7 @@
         android:layout_marginLeft="90dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rv_partidas" />
+        app:layout_constraintTop_toBottomOf="@+id/ll_corpo" />
 
     <ImageButton
         android:id="@+id/bt_sair"
@@ -116,8 +142,9 @@
         android:layout_marginLeft="270dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rv_partidas"
+        app:layout_constraintTop_toBottomOf="@+id/ll_corpo"
         tools:ignore="OnClick" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
