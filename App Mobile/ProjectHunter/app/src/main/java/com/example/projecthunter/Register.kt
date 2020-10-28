@@ -47,7 +47,7 @@ class Register : AppCompatActivity() {
         }
     }
 
-    fun doRegister(nome:String, usuario:String, email:String, cpf:String, telefone:String, senha:String) {
+    private fun doRegister(nome:String, usuario:String, email:String, cpf:String, telefone:String, senha:String) {
 
         val userModel = UserModel(null, nome, cpf, email, senha, telefone,null, usuario, email)
         ApiConnectionUtils().cadastroService().cadastro(userModel).enqueue(object:
