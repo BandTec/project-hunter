@@ -31,7 +31,7 @@
             android:id="@+id/iv_busca"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="270dp"
+            android:layout_marginLeft="220dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/ic_search"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -59,19 +59,19 @@
         android:textSize="13dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginLeft="150dp"
+        android:layout_marginLeft="50dp"
         android:layout_marginTop="35dp"
         app:layout_constraintTop_toBottomOf="@id/iv_logo"
         />
 
     <EditText
         android:id="@+id/et_nome"
-        android:layout_width="171dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:background="@drawable/radius"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginLeft="80dp"
+        android:layout_marginLeft="50dp"
         app:layout_constraintTop_toBottomOf="@id/tv_nome" />
 
     <TextView
@@ -84,17 +84,17 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/et_nome"
-        android:layout_marginLeft="150dp"
+        android:layout_marginLeft="50dp"
         />
 
     <EditText
         android:id="@+id/et_usuario"
-        android:layout_width="171dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:background="@drawable/radius"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginLeft="80dp"
+        android:layout_marginLeft="50dp"
         app:layout_constraintTop_toBottomOf="@id/tv_usuario" />
 
     <TextView
@@ -108,17 +108,17 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/et_usuario"
-        android:layout_marginLeft="150dp"
+        android:layout_marginLeft="50dp"
         />
 
     <EditText
         android:id="@+id/et_email"
-        android:layout_width="171dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:background="@drawable/radius"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginLeft="80dp"
+        android:layout_marginLeft="50dp"
         app:layout_constraintTop_toBottomOf="@id/tv_email" />
 
     <TextView
@@ -129,7 +129,7 @@
         android:inputType="number"
         android:textColor="#FFFFFF"
         android:textSize="13dp"
-        android:layout_marginLeft="150dp"
+        android:layout_marginLeft="50dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/et_email"
@@ -137,12 +137,12 @@
 
     <EditText
         android:id="@+id/et_cpf"
-        android:layout_width="171dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:background="@drawable/radius"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginLeft="80dp"
+        android:layout_marginLeft="50dp"
         app:layout_constraintTop_toBottomOf="@id/tv_cpf" />
 
     <TextView
@@ -153,7 +153,7 @@
         android:inputType="number"
         android:textColor="#FFFFFF"
         android:textSize="13dp"
-        android:layout_marginLeft="150dp"
+        android:layout_marginLeft="50dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/et_cpf"
@@ -161,12 +161,12 @@
 
     <EditText
         android:id="@+id/et_telefone"
-        android:layout_width="171dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:background="@drawable/radius"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginLeft="80dp"
+        android:layout_marginLeft="50dp"
         app:layout_constraintTop_toBottomOf="@id/tv_telefone" />
 
     <TextView
@@ -176,7 +176,7 @@
         android:text="Senha:"
         android:textColor="#FFFFFF"
         android:textSize="13dp"
-        android:layout_marginLeft="150dp"
+        android:layout_marginLeft="50dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/et_telefone"
@@ -184,12 +184,13 @@
 
     <EditText
         android:id="@+id/et_senha"
-        android:layout_width="171dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:background="@drawable/radius"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginLeft="80dp"
+        android:layout_marginLeft="50dp"
+        android:inputType="textPassword"
         app:layout_constraintTop_toBottomOf="@id/tv_senha" />
 
     <TextView
@@ -200,7 +201,7 @@
         android:inputType="number"
         android:textColor="#FFFFFF"
         android:textSize="13dp"
-        android:layout_marginLeft="120dp"
+        android:layout_marginLeft="50dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/et_senha"
@@ -208,12 +209,13 @@
 
     <EditText
         android:id="@+id/et_confSenha"
-        android:layout_width="171dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:background="@drawable/radius"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginLeft="80dp"
+        android:layout_marginLeft="50dp"
+        android:inputType="textPassword"
         app:layout_constraintTop_toBottomOf="@id/tv_confSenha" />
 
     <TextView
@@ -223,7 +225,7 @@
         android:text="Jogo:"
         android:textColor="#FFFFFF"
         android:textSize="13dp"
-        android:layout_marginLeft="150dp"
+        android:layout_marginLeft="50dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/et_confSenha"
@@ -245,7 +247,7 @@
         android:text="Posição:"
         android:textColor="#FFFFFF"
         android:textSize="13dp"
-        android:layout_marginLeft="150dp"
+        android:layout_marginLeft="50dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/sp_jogo"
@@ -268,7 +270,7 @@
         app:layout_constraintRight_toRightOf="parent"
         android:text="Atualizar"
         android:textSize="13dp"
-        android:layout_marginLeft="120dp"
+        android:layout_marginLeft="160dp"
         android:id="@+id/bt_enviar"
         app:layout_constraintTop_toBottomOf="@id/sp_posicao"
         android:layout_marginTop="20dp"

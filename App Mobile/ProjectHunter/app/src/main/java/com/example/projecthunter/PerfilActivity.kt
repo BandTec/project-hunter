@@ -15,6 +15,7 @@ class PerfilActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_perfil)
         bt_perfil.setColorFilter(getColor(android.R.color.holo_green_dark), PorterDuff.Mode.SRC_IN)
+        tv_id_nome.text = intent.extras?.getString("usuario")
     }
 
 }
