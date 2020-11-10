@@ -40,8 +40,7 @@ public class GamerContoller {
 
     @GetMapping("/usuario/{usuario}")
     private ResponseEntity BuscaPorUsuario(@PathVariable("usuario") String usuario) {
-        List<Gamer> lista = repository.findByUsuario(usuario);
-        return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
+        return  ResponseEntity.of(repository.findByUsuario(usuario));
     }
 
     @PostMapping("/criar")
