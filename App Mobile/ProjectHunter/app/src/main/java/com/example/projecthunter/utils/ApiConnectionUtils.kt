@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit
 class ApiConnectionUtils {
     fun getRetrofitInstance(): Retrofit {
 
-        val path = "http://ec2-52-0-122-72.compute-1.amazonaws.com:8080"
+        val path = "http://ec2-34-238-228-208.compute-1.amazonaws.com:8080"
 
         return Retrofit.Builder()
             .baseUrl(path)
