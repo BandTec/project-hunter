@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HeaderFragment">
+
+    <LinearLayout
+        android:id="@+id/ll_topo"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#2B2828"
+        tools:ignore="MissingConstraints" >
+
+
+        <ImageView
+            android:id="@+id/iv_logo"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:background="@drawable/ic_logo"
+            android:layout_marginBottom="10dp"
+
+
+            />
+
+        <ImageButton
+            android:id="@+id/iv_busca"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="220dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/ic_search"
+
+            />
+    </LinearLayout>
+
+
+</FrameLayout>
