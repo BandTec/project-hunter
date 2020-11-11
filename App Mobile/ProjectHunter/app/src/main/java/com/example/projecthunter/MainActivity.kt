@@ -28,14 +28,14 @@ class MainActivity : AppCompatActivity() {
 
         preferencias = getPreferences(Context.MODE_PRIVATE)
         val usuario = preferencias?.getString("usuario", null)
+        val login = preferencias?.getString("login", null)
         val senha = preferencias?.getString("senha", null)
         val currentUser = preferencias?.getString("currentUser", null)
-        if (usuario != null && senha != null && currentUser != null){
-            val telaHome = Intent(this@MainActivity, HomeActivity::class.java)
-            telaHome.putExtra("currentUser", currentUser)
-            telaHome.putExtra("usuario",usuario)
-            startActivity(telaHome)
+        if (usuario != null && senha != null && currentUser != null && login != null){
+            doLogin(login, senha)
         }
+
+        //preferencias.edit().remove("usuario").commit()
     }
 
 fun login(componente: View){
@@ -91,6 +91,7 @@ fun login(componente: View){
                     telaHome.putExtra("usuario",usuario)
                     val editor = preferencias?.edit()
                     editor?.putString("usuario", usuario)
+                    editor?.putString("login", login)
                     editor?.putString("currentUser", currentUser.toString())
                     editor?.putString("senha", senha)
                     editor?.commit()

@@ -14,17 +14,19 @@
         android:background="#2B2828" />
 
 
-    <ImageView
-        android:id="@+id/iv_logo"
-        android:layout_width="95dp"
-        android:layout_height="95dp"
-        android:background="@drawable/ic_action_name"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_editor_absoluteY="10dp"
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
 
-        />
+        android:id="@+id/ll_topo"
+        tools:ignore="MissingConstraints">
 
+        <fragment
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            class="com.example.projecthunter.HeaderFragment"/>
+
+    </FrameLayout>
     <EditText
         android:id="@+id/rv_partidas"
         android:layout_width="400dp"
@@ -34,7 +36,7 @@
         android:background="#FFF"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_logo" />
+        app:layout_constraintTop_toBottomOf="@id/ll_topo" />
 
 
     <ImageButton

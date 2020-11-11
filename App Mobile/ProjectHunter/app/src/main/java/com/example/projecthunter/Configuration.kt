@@ -38,34 +38,32 @@ class Configuration : AppCompatActivity() {
 
         bt_config.setColorFilter(getColor(android.R.color.holo_green_dark), PorterDuff.Mode.SRC_IN)
 
-        //inicioComDados(nome)
+        inicioComDados()
 
     }
 
-//    fun inicioComDados(nome:EditText){
-//        ApiConnectionUtils().configService().getUserData(usuario).enqueue(object: Callback<List<UserModel>> {
-//            override fun onFailure(call: Call<List<UserModel>>, t: Throwable) {
-//                Toast.makeText(this@Configuration, "Erro ao receber os dados $t", Toast.LENGTH_SHORT).show()
-//            }
-//
-//            override fun onResponse(call: Call<List<UserModel>>, response: Response<List<UserModel>>) {
-//                response.body()?.forEach{
-//                    if (it != null) {
-//
-////
-////                        et_nome.setText(it.nome)
-////                        et_senha.setText(it.senha)
-////                        et_confSenha.setText(it.senha)
-////                        et_telefone.setText(it.telefone)
-////                        et_email.setText(it.email)
-////                        et_cpf.setText(it.cpf)
-////                        et_usuario.setText(it.usuario)
-//                    }
-//
-//                }
-//            }
-//        })
-//    }
+    fun inicioComDados(){
+        ApiConnectionUtils().configService().getUserData(usuario).enqueue(object: Callback<UserModel> {
+            override fun onFailure(call: Call<UserModel>, t: Throwable) {
+                Toast.makeText(this@Configuration, "Erro ao receber os dados $t", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onResponse(call: Call<UserModel>, response: Response<UserModel>) {
+
+                    with (response.body()){
+
+                        et_nome.setText(this?.nome)
+                        et_senha.setText(this?.senha)
+                        et_confSenha.setText(this?.senha)
+                        et_telefone.setText(this?.telefone)
+                        et_email.setText(this?.email)
+                        et_cpf.setText(this?.cpf)
+                        et_usuario.setText(this?.usuario)
+
+                }
+            }
+        })
+    }
 
     fun atualizar(componente: View) {
         if (et_usuario.text.toString().equals("") && et_email.text.toString()

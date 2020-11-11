@@ -12,6 +12,6 @@ interface ConfigService {
     fun atualizar(@Path("id") id: Integer?, @Body userModel: UserModel) : Call<Void>
 
     @GET("/gamer/usuario/{usuario}")
-    fun getUserData(@Path("usuario") usuario:String): Call<List<UserModel>>
+    fun getUserData(@Path("usuario") usuario:String): Call<UserModel>
 
 }

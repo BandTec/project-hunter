@@ -1,6 +1,7 @@
 package com.example.projecthunter
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -105,6 +106,7 @@ class HomeActivity : AppCompatActivity() {
 
     fun logoff(componente: View){
 
+
         ApiConnectionUtils().logoffService().logoff().enqueue(object: Callback<Void> {
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
@@ -116,6 +118,12 @@ class HomeActivity : AppCompatActivity() {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
 
                 if(response.code() == 200) {
+                    var preferencias = getPreferences(Context.MODE_PRIVATE)
+                    preferencias.edit().remove("usuario").commit()
+                    preferencias.edit().remove("login").commit()
+                    preferencias.edit().remove("senha").commit()
+                    preferencias.edit().remove("currentUser").commit()
+
                     val telaLogin = Intent(this@HomeActivity, MainActivity::class.java)
                     startActivity(telaLogin)
                 }else{
