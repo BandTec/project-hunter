@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.example.projecthunter.models.UserModel
 import com.example.projecthunter.utils.ApiConnectionUtils
 import kotlinx.android.synthetic.main.activity_register.*
@@ -13,6 +14,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class Register : AppCompatActivity() {
+    private lateinit var loadingView: AlertDialog
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
@@ -42,13 +45,20 @@ class Register : AppCompatActivity() {
                 Toast.makeText(this, "Por favor, digite sua senha corretamente!", Toast.LENGTH_SHORT).show()
             }
             else{
+                val builder = AlertDialog.Builder(this)
+                builder.setCancelable(false)
+                builder.setView(R.layout.loading_dialog)
+                loadingView = builder.create()
+
+
                 doRegister(nome,usuario,email,cpf,telefone,senha)
+
             }
         }
     }
 
     private fun doRegister(nome:String, usuario:String, email:String, cpf:String, telefone:String, senha:String) {
-
+        loadingView.show()
         val userModel = UserModel(null, nome, cpf, email, senha, telefone,null, usuario, email)
         ApiConnectionUtils().cadastroService().cadastro(userModel).enqueue(object:
             Callback<Void> {
@@ -60,6 +70,7 @@ class Register : AppCompatActivity() {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
 
                 if(response.code() == 201) {
+                    loadingView.dismiss()
                     Toast.makeText(this@Register, "Usuário Criado com sucesso!", Toast.LENGTH_SHORT).show()
                     telaHome(usuario)
                 }else{

@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import com.example.projecthunter.models.UserModel
 import com.example.projecthunter.utils.ApiConnectionUtils
 import kotlinx.android.synthetic.main.activity_configuration.*
@@ -17,7 +18,7 @@ import retrofit2.Response
 
 class Configuration : AppCompatActivity() {
 
-
+    private lateinit var loadingView: AlertDialog
     var idGamer: Integer? = null
     var usuario:String = ""
 
@@ -37,6 +38,11 @@ class Configuration : AppCompatActivity() {
         }
 
         bt_config.setColorFilter(getColor(android.R.color.holo_green_dark), PorterDuff.Mode.SRC_IN)
+
+        val builder = AlertDialog.Builder(this)
+        builder.setCancelable(false)
+        builder.setView(R.layout.loading_dialog)
+        loadingView = builder.create()
 
         inicioComDados()
 
@@ -66,6 +72,7 @@ class Configuration : AppCompatActivity() {
     }
 
     fun atualizar(componente: View) {
+
         if (et_usuario.text.toString().equals("") && et_email.text.toString()
                 .equals("") && et_cpf.text.toString().equals("") && et_telefone.text.toString()
                 .equals("") && et_senha.text.toString().equals("") && et_confSenha.text.toString()
@@ -96,6 +103,7 @@ class Configuration : AppCompatActivity() {
 
     fun doUpdate(nome:String, usuario:String, email:String, cpf:String, telefone:String, senha:String) {
 
+        loadingView.show()
         val userModel = UserModel(idGamer, nome, cpf, email, senha, telefone,null, usuario, email)
         ApiConnectionUtils().configService().atualizar(idGamer, userModel).enqueue( object : Callback<Void> {
 
@@ -106,6 +114,7 @@ class Configuration : AppCompatActivity() {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 Toast.makeText(this@Configuration, "Usuário Atualizado", Toast.LENGTH_SHORT).show()
                 if(response.code() == 200) {
+                    loadingView.dismiss()
                     val telaHome = Intent(this@Configuration, HomeActivity::class.java)
                     Toast.makeText(this@Configuration, "Usuário Atualizado", Toast.LENGTH_SHORT).show()
                     telaHome.putExtra("currentUser", idGamer)
