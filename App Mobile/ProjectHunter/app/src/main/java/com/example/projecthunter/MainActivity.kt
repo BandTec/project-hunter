@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.RecoverySystem
 import android.view.View
 import android.widget.Toast
 import com.example.projecthunter.models.UserModel
@@ -56,12 +55,12 @@ fun login(componente: View){
 }
 
     fun doCadastro(componente: View){
-        val telaCad = Intent(this@MainActivity, Register::class.java)
+        val telaCad = Intent(this@MainActivity, RegisterActivity::class.java)
         startActivity(telaCad)
     }
 
     fun doRecSenha(componente: View){
-        val telaRecuperacaoSenha = Intent(this@MainActivity, RecuperacaoSenha::class.java)
+        val telaRecuperacaoSenha = Intent(this@MainActivity, PasswordRecoverActivity::class.java)
         startActivity(telaRecuperacaoSenha)
     }
 

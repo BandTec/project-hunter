@@ -3,6 +3,7 @@
     package="com.example.projecthunter">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -13,13 +14,13 @@
         android:theme="@style/AppTheme">
         <activity android:name=".EquipeActivity"></activity>
         <activity android:name=".PerfilActivity" />
-        <activity android:name=".Configuration" />
+        <activity android:name=".ConfigurationActivity" />
         <activity android:name=".utils.Configuration" />
-        <activity android:name=".Register" />
-        <activity android:name=".RecuperacaoSenha" />
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".PasswordRecoverActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".BuscaActivity" />
-        <activity android:name=".Busca" />
+        <activity android:name=".SearchActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -14,7 +14,6 @@ import com.example.projecthunter.models.PartidaModel
 import com.example.projecthunter.utils.ApiConnectionUtils
 import com.example.projecthunter.utils.NewMatchAdapter
 import com.example.projecthunter.utils.PostsAdapter
-import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.activity_home.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -90,7 +89,7 @@ class HomeActivity : AppCompatActivity() {
     fun config(componente:View){
         var idGamer = intent.extras?.getString("currentUser")
         var usuario = intent.extras?.getString("usuario")
-        val telaConfig = Intent(this@HomeActivity, Configuration::class.java)
+        val telaConfig = Intent(this@HomeActivity, ConfigurationActivity::class.java)
         telaConfig.putExtra("currentUser", idGamer)
         telaConfig.putExtra("usuario", usuario)
         startActivity(telaConfig)

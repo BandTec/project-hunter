@@ -3,7 +3,7 @@ package com.example.projecthunter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
-class Busca : AppCompatActivity() {
+class SearchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_busca)
