@@ -5,11 +5,12 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.PorterDuff
-import android.media.Image
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Base64
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -17,12 +18,21 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.view.drawToBitmap
 import com.example.projecthunter.models.UserModel
 import com.example.projecthunter.utils.ApiConnectionUtils
-import com.example.projecthunter.utils.ImageUploader
 import kotlinx.android.synthetic.main.activity_configuration.*
 import kotlinx.android.synthetic.main.fragment_image_profile.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.json.JSONObject
+import org.json.JSONTokener
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.ByteArrayOutputStream
+import java.io.OutputStreamWriter
+import java.net.URL
+import javax.net.ssl.HttpsURLConnection
 
 class ConfigurationActivity : AppCompatActivity() {
 
@@ -133,19 +143,22 @@ class ConfigurationActivity : AppCompatActivity() {
                 Toast.makeText(this, "Por favor, digite sua senha corretamente!", Toast.LENGTH_SHORT).show()
             }
             else{
-                doUpdate(nome,usuario,email,cpf,telefone,senha)
+                loadingView.show()
+                if (selectedImage != null) {
+                    uploadImageToImgur(selectedImage, nome, usuario, email, cpf, telefone, senha)
+                }else{
+                    doUpdate(nome, usuario, email, cpf, telefone, senha)
+                }
             }
         }
     }
 
     fun doUpdate(nome:String, usuario:String, email:String, cpf:String, telefone:String, senha:String) {
-
-        loadingView.show()
-        val envioImagem: ImageUploader? = null
         var linkImagem : String? = ""
-        linkImagem = envioImagem?.uploadImageToImgur(selectedImage)
-
-        val userModel = UserModel(idGamer, nome, cpf, email, senha, telefone,linkImagem, usuario, email)
+        if(imgurUrl != null) {
+            linkImagem = imgurUrl
+        }
+        val userModel = UserModel(null, nome, cpf, email, senha, telefone, linkImagem, usuario, email)
         ApiConnectionUtils().configService().atualizar(idGamer, userModel).enqueue( object : Callback<Void> {
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
@@ -214,6 +227,67 @@ class ConfigurationActivity : AppCompatActivity() {
         }
     }
 
+    private val CLIENT_ID = "63fff1e83ba6f56"
+    private var imgurUrl: String = ""
+
+
+    fun uploadImageToImgur(image: Bitmap, nome:String, usuario:String, email:String, cpf:String, telefone:String, senha:String){
+
+        getBase64Image(image, complete = { base64Image ->
+            GlobalScope.launch(Dispatchers.Default) {
+                val url = URL("https://api.imgur.com/3/image")
+
+                val boundary = "Boundary-${System.currentTimeMillis()}"
+
+                val httpsURLConnection =
+                    withContext(Dispatchers.IO) { url.openConnection() as HttpsURLConnection }
+                httpsURLConnection.setRequestProperty("Authorization", "Client-ID $CLIENT_ID")
+                httpsURLConnection.setRequestProperty(
+                    "Content-Type",
+                    "multipart/form-data; boundary=$boundary"
+                )
+
+                httpsURLConnection.requestMethod = "POST"
+                httpsURLConnection.doInput = true
+                httpsURLConnection.doOutput = true
+
+                var body = ""
+                body += "--$boundary\r\n"
+                body += "Content-Disposition:form-data; name=\"image\""
+                body += "\r\n\r\n$base64Image\r\n"
+                body += "--$boundary--\r\n"
+
+
+                val outputStreamWriter = OutputStreamWriter(httpsURLConnection.outputStream)
+                withContext(Dispatchers.IO) {
+                    outputStreamWriter.write(body)
+                    outputStreamWriter.flush()
+                }
+                val response = httpsURLConnection.inputStream.bufferedReader()
+                    .use { it.readText() }  // defaults to UTF-8
+                val jsonObject = JSONTokener(response).nextValue() as JSONObject
+                val data = jsonObject.getJSONObject("data")
+
+                Log.d("TAG", "Link is : ${data.getString("link")}")
+                imgurUrl = data.getString("link")
+                doUpdate(nome,usuario,email,cpf,telefone,senha)
+
+            }
+        })
+
+    }
+
+
+
+
+    private fun getBase64Image(image: Bitmap, complete: (String) -> Unit) {
+        GlobalScope.launch {
+            val outputStream = ByteArrayOutputStream()
+            image.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+            val b = outputStream.toByteArray()
+            complete(Base64.encodeToString(b, Base64.DEFAULT))
+        }
+    }
 
 
 }

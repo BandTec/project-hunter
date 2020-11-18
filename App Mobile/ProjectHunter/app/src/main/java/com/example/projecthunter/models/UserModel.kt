@@ -10,7 +10,7 @@ data class UserModel (
     val email:String,
     val senha:String,
     val telefone:String,
-    val fotoGamner:String?,
+    val fotoGamer:String?,
     val usuario:String,
     val username:String,
     )
