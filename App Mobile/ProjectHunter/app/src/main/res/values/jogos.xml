@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="games_array">
+        <item>Escolha um jogo</item>
         <item>Counter-Strike: Global Offensive</item>
         <item>Valorant</item>
         <item>League of Legends</item>

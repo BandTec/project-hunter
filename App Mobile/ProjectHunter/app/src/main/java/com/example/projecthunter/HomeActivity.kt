@@ -21,7 +21,7 @@ import retrofit2.Response
 import java.lang.Exception
 
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity(), PostsAdapter.ClickEventHandler {
 
     var nomeJogo = mutableListOf<String>()
     var papel = mutableListOf<String>()
@@ -131,5 +131,12 @@ class HomeActivity : AppCompatActivity() {
 
             }
         })
+    }
+
+    @SuppressLint("ResourceType")
+    override fun forwardClick(holder: View) {
+        holder.setOnClickListener{
+            Toast.makeText(this@HomeActivity, "Teste", Toast.LENGTH_SHORT).show()
+        }
     }
 }

@@ -8,14 +8,14 @@
     tools:context=".HomeActivity">
 
     <FrameLayout
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
 
         android:id="@+id/ll_topo"
         tools:ignore="MissingConstraints">
 
         <fragment
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             class="com.example.projecthunter.HeaderFragment"/>
 

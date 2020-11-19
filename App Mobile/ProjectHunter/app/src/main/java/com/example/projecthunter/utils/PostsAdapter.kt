@@ -1,21 +1,30 @@
 package com.example.projecthunter.utils
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
 import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
-import android.widget.Toast
+
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.projecthunter.NewMatchActivity
 import com.example.projecthunter.R
 import com.example.projecthunter.models.PartidaModel
 
+
 class PostsAdapter(val posts: List<PartidaModel>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
 
     internal val VIEW_TYPE_ONE = 1
     internal val VIEW_TYPE_TWO = 2
 
+    private lateinit var context : Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         //val view : View = LayoutInflater.from(parent.context).inflate(R.layout.row_post, parent, false)
@@ -25,13 +34,20 @@ class PostsAdapter(val posts: List<PartidaModel>): RecyclerView.Adapter<Recycler
             ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_post, parent, false))
         }else {
             ViewHolder2(LayoutInflater.from(parent.context).inflate(R.layout.new_match_post, parent, false))
+
         }
 
+    }
+
+
+    interface ClickEventHandler {
+        fun forwardClick(holder: View)
     }
 
     override fun getItemCount() = posts.size
 
 
+    @SuppressLint("ResourceType")
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
         if(position < posts.size-1) {
@@ -53,6 +69,26 @@ class PostsAdapter(val posts: List<PartidaModel>): RecyclerView.Adapter<Recycler
 
         else{
             (holder as ViewHolder2).bind(position)
+
+
+            context = holder.itemView.context
+
+            holder.imagem.setOnClickListener { v ->
+
+                val intent = Intent(this.context, NewMatchActivity::class.java)
+                ContextCompat.startActivity(this.context, intent, null)
+//                val activity=v!!.context as AppCompatActivity
+//                val newMatchFragment = NewMatchFragment()
+//                activity.supportFragmentManager.beginTransaction().replace(R.id.cardview,
+//                    newMatchFragment).addToBackStack(null).commit()
+//                holder.imagem.visibility = View.INVISIBLE
+//                holder.organizacao.visibility = View.INVISIBLE
+//
+//                holder.cardview.layoutParams.height =800
+//                holder.cardview.layoutParams.width =950
+            }
+
+
         }
     }
 
@@ -73,6 +109,8 @@ class PostsAdapter(val posts: List<PartidaModel>): RecyclerView.Adapter<Recycler
     class ViewHolder2(itemView: View) : RecyclerView.ViewHolder(itemView){
         var organizacao: TextView = itemView.findViewById(R.id.firstName)
         var imagem: ImageButton = itemView.findViewById(R.id.image)
+        var cardview : CardView = itemView.findViewById(R.id.cardview)
+
 
         internal fun bind(position: Int) {
             // This method will be called anytime a list item is created or update its data

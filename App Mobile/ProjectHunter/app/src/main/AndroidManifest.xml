@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EquipeActivity"></activity>
+        <activity android:name=".NewMatchActivity"></activity>
+        <activity android:name=".EquipeActivity" />
         <activity android:name=".PerfilActivity" />
         <activity android:name=".ConfigurationActivity" />
         <activity android:name=".utils.Configuration" />
