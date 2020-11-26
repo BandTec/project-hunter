@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="positions_array">
+        <item>Escolha uma posição</item>
         <item>Atirador</item>
         <item>Suporte</item>
         <item>Jungle</item>

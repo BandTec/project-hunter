@@ -18,11 +18,12 @@ import com.example.projecthunter.R
 import com.example.projecthunter.models.PartidaModel
 
 
-class PostsAdapter(val posts: List<PartidaModel>, val idGamer:Int): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ProfileAdapter(val posts: List<PartidaModel>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
     internal val VIEW_TYPE_ONE = 1
     internal val VIEW_TYPE_TWO = 2
+    internal val VIEW_TYPE_THREE = 3
 
     private lateinit var context : Context
 
@@ -32,9 +33,10 @@ class PostsAdapter(val posts: List<PartidaModel>, val idGamer:Int): RecyclerView
 
         return if (viewType == VIEW_TYPE_ONE) {
             ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_post, parent, false))
-        }else {
+        }else if (viewType == VIEW_TYPE_TWO) {
             ViewHolder2(LayoutInflater.from(parent.context).inflate(R.layout.new_match_post, parent, false))
-
+        }else{
+            ViewHolder2(LayoutInflater.from(parent.context).inflate(R.layout.new_match_post, parent, false))
         }
 
     }
@@ -68,15 +70,24 @@ class PostsAdapter(val posts: List<PartidaModel>, val idGamer:Int): RecyclerView
         }
 
         else{
-
             (holder as ViewHolder2).bind(position)
+
+
             context = holder.itemView.context
 
             holder.imagem.setOnClickListener { v ->
 
                 val intent = Intent(this.context, NewMatchActivity::class.java)
-                intent.putExtra("idGamer", idGamer)
                 ContextCompat.startActivity(this.context, intent, null)
+//                val activity=v!!.context as AppCompatActivity
+//                val newMatchFragment = NewMatchFragment()
+//                activity.supportFragmentManager.beginTransaction().replace(R.id.cardview,
+//                    newMatchFragment).addToBackStack(null).commit()
+//                holder.imagem.visibility = View.INVISIBLE
+//                holder.organizacao.visibility = View.INVISIBLE
+//
+//                holder.cardview.layoutParams.height =800
+//                holder.cardview.layoutParams.width =950
             }
 
 

@@ -47,7 +47,7 @@ class HomeActivity : AppCompatActivity(), PostsAdapter.ClickEventHandler {
     }
 
     @SuppressLint("WrongConstant")
-    fun criarCardsAlternativo(partida:List<PartidaModel>?){
+    fun criarCardsAlternativo(partida:List<PartidaModel>?, idGamer: Int){
         try{
 
 
@@ -55,14 +55,14 @@ class HomeActivity : AppCompatActivity(), PostsAdapter.ClickEventHandler {
             posts2 = partida as MutableList<PartidaModel>
             rv_partidas.layoutManager = LinearLayoutManager(this@HomeActivity, OrientationHelper.HORIZONTAL, false)
             rv_partidas.adapter = NewMatchAdapter()
-            rv_partidas.adapter = PostsAdapter(posts2)
+            rv_partidas.adapter = PostsAdapter(posts2, idGamer)
         }catch (e:Exception){
             Toast.makeText(this@HomeActivity, e.toString(), Toast.LENGTH_SHORT).show()
         }
     }
 
     fun partidas(idGamer: Int){
-        ApiConnectionUtils().matchService().findMatches(idGamer).enqueue(object: Callback<List<PartidaModel>> {
+        ApiConnectionUtils().matchesService().findMatches(idGamer).enqueue(object: Callback<List<PartidaModel>> {
 
             override fun onFailure(call: Call<List<PartidaModel>>, t: Throwable) {
 
@@ -74,7 +74,7 @@ class HomeActivity : AppCompatActivity(), PostsAdapter.ClickEventHandler {
 
                 if(response.code() == 200) {
                     response?.body()?.let {
-                        criarCardsAlternativo(response.body())
+                        criarCardsAlternativo(response.body(), idGamer)
                     }
                 }else{
                     Toast.makeText(this@HomeActivity, response.code().toString(), Toast.LENGTH_LONG).show()

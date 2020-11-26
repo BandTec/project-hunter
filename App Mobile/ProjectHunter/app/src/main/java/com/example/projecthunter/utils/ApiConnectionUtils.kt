@@ -29,10 +29,6 @@ class ApiConnectionUtils {
         return getRetrofitInstance().create(LogoffService::class.java)
     }
 
-    fun matchService() : MatchesService {
-        return getRetrofitInstance().create(MatchesService::class.java)
-    }
-
     fun recSenha() : RecSenhaService {
         return getRetrofitInstance().create(RecSenhaService::class.java)
     }
@@ -43,5 +39,9 @@ class ApiConnectionUtils {
 
     fun configService() : ConfigService {
         return getRetrofitInstance().create(ConfigService::class.java)
+    }
+
+    fun matchesService() : MatchesService{
+        return getRetrofitInstance().create(MatchesService::class.java)
     }
 }

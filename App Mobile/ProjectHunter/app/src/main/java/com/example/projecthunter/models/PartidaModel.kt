@@ -1,6 +1,6 @@
 package com.example.projecthunter.models
 
-data class PartidaModel (
+data class PartidaModel(
     val idPk:Integer,
     val idPartida:Integer,
     val idJogo:JogoModel,

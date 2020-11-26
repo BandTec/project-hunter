@@ -1,8 +1,8 @@
 package com.example.projecthunter.models
 
-data class JogoModel (
-    val idJogo:Integer,
-    val nomeJogo:String,
-    val qtdePlayers:Integer,
-    val fotoJogo:String
+data class JogoModel(
+    val idJogo: Int,
+    val nomeJogo:String?,
+    val qtdePlayers: Int?,
+    val fotoJogo:String?
 )
