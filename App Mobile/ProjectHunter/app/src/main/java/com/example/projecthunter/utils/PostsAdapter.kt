@@ -9,26 +9,35 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.projecthunter.HomeActivity
 import com.example.projecthunter.NewMatchActivity
 import com.example.projecthunter.R
-import com.example.projecthunter.models.PartidaModel
+import com.example.projecthunter.models.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
-class PostsAdapter(val posts: List<PartidaModel>, val idGamer:Int): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class PostsAdapter(var posts: MutableList<PartidaModel>, val idGamer:Int): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
     internal val VIEW_TYPE_ONE = 1
     internal val VIEW_TYPE_TWO = 2
+
+
 
     private lateinit var context : Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         //val view : View = LayoutInflater.from(parent.context).inflate(R.layout.row_post, parent, false)
         //val view2 : View = LayoutInflater.from(parent.context).inflate(R.layout.new_match_post, parent, false)
+
+
 
         return if (viewType == VIEW_TYPE_ONE) {
             ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_post, parent, false))
@@ -64,6 +73,29 @@ class PostsAdapter(val posts: List<PartidaModel>, val idGamer:Int): RecyclerView
                 holder.hour.setTypeface(null, Typeface.BOLD)
                 holder.date.text = "Data: " + posts[position].data.toString()
 
+
+                holder.delete.setOnClickListener{
+                    context = holder.itemView.context
+                    ApiConnectionUtils().matchesService().deleteMatch(posts[position].idPartida).enqueue(object:
+                        Callback<Void> {
+                        override fun onFailure(call: Call<Void>, t: Throwable) {
+                            Toast.makeText(context, "Erro ao apagar partida $t", Toast.LENGTH_SHORT).show()
+                        }
+
+                        override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                            if(response.code() == 200) {
+                                Toast.makeText(context, "Partida Criada", Toast.LENGTH_SHORT).show()
+                                val intent = Intent(context, HomeActivity::class.java)
+                                intent.putExtra("currentUser", idGamer.toString())
+                                ContextCompat.startActivity(context, intent, null)
+
+                            }else{
+                                Toast.makeText(context, "Erro ao apagar partida ${response.code()} ", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    })
+                }
+
             }
         }
 
@@ -84,6 +116,9 @@ class PostsAdapter(val posts: List<PartidaModel>, val idGamer:Int): RecyclerView
     }
 
     override fun getItemViewType(position: Int): Int {
+
+
+
         return if (position < posts.size-1) {
             VIEW_TYPE_ONE
         } else VIEW_TYPE_TWO
@@ -95,6 +130,7 @@ class PostsAdapter(val posts: List<PartidaModel>, val idGamer:Int): RecyclerView
         val date: TextView = itemView.findViewById(R.id.date)
         val funcao: TextView = itemView.findViewById(R.id.function)
         val hour: TextView = itemView.findViewById(R.id.hour)
+        val delete: ImageButton = itemView.findViewById(R.id.ib_excluir)
     }
 
     class ViewHolder2(itemView: View) : RecyclerView.ViewHolder(itemView){

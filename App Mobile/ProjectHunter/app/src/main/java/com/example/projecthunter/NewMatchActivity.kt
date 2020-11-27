@@ -115,10 +115,11 @@ class NewMatchActivity : AppCompatActivity() {
                             loadingView.dismiss()
                             if(response.code() == 201) {
 
-                                val telaHome = Intent(this@NewMatchActivity, HomeActivity::class.java)
+                                //val telaHome = Intent(this@NewMatchActivity, HomeActivity::class.java)
                                 Toast.makeText(this@NewMatchActivity, "Partida Criada", Toast.LENGTH_SHORT).show()
-                                telaHome.putExtra("currentUser", id)
-                                startActivity(telaHome)
+                                //telaHome.putExtra("currentUser", id)
+                                //startActivity(telaHome)
+                                onBackPressed()
                             }else{
                                 Toast.makeText(this@NewMatchActivity, "Erro ao criar nova partida! ${response.message()} ", Toast.LENGTH_SHORT).show()
                             }

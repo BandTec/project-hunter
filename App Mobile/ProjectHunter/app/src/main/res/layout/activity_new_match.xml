@@ -44,7 +44,7 @@
 
                 <TextView
                     android:id="@+id/tv_jogo"
-                    android:layout_width="150dp"
+                    android:layout_width="130dp"
                     android:layout_height="30dp"
                     android:layout_marginTop="10dp"
                     android:text="Selecione um jogo:"
@@ -70,7 +70,7 @@
 
                 <TextView
                     android:id="@+id/tv_posicao"
-                    android:layout_width="150dp"
+                    android:layout_width="130dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="10dp"
                     android:text="Selecione sua posicao:"
@@ -96,7 +96,7 @@
 
                 <TextView
                     android:id="@+id/tv_horario"
-                    android:layout_width="150dp"
+                    android:layout_width="130dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="10dp"
                     android:text="Digite um horário:"
@@ -126,7 +126,7 @@
                     android:id="@+id/et_minuto"
                     android:layout_width="50dp"
                     android:layout_height="30dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
                     android:background="@drawable/radius"
                     android:layout_marginTop="20dp" />
             </LinearLayout>
@@ -139,7 +139,7 @@
 
                 <TextView
                     android:id="@+id/tv_data"
-                    android:layout_width="150dp"
+                    android:layout_width="130dp"
                     android:layout_height="50dp"
 
                     android:text="Digite uma data:"
@@ -167,7 +167,7 @@
 
                 <EditText
                     android:id="@+id/et_mes"
-                    android:layout_width="30dp"
+                    android:layout_width="50dp"
                     android:layout_height="30dp"
                     android:layout_marginLeft="10dp"
                     android:background="@drawable/radius"

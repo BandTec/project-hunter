@@ -10,7 +10,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.OrientationHelper
-import com.example.projecthunter.models.PartidaModel
+import com.example.projecthunter.models.*
 import com.example.projecthunter.utils.ApiConnectionUtils
 import com.example.projecthunter.utils.NewMatchAdapter
 import com.example.projecthunter.utils.PostsAdapter
@@ -33,14 +33,14 @@ class HomeActivity : AppCompatActivity(), PostsAdapter.ClickEventHandler {
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //finish();
+        //startActivity(getIntent());
         setContentView(R.layout.activity_home)
 
         var idGamer = intent.extras?.getString("currentUser")
 
         if (idGamer != null) {
             partidas(idGamer.toInt())
-
-
 
         }
 
@@ -53,6 +53,13 @@ class HomeActivity : AppCompatActivity(), PostsAdapter.ClickEventHandler {
 
 
             posts2 = partida as MutableList<PartidaModel>
+            posts2.add(PartidaModel(1,1,
+                JogoModel(1, "1", 1, "null"),
+                EquipeModel(1, "null", "null"),
+                UserModel(null, "null", "null", "null", "null",
+                    "null", "null", "null", "null"),
+                PosicaoModel(1, "null"),
+                InfracaoModel(1,"null"), "1", "1", true))
             rv_partidas.layoutManager = LinearLayoutManager(this@HomeActivity, OrientationHelper.HORIZONTAL, false)
             rv_partidas.adapter = NewMatchAdapter()
             rv_partidas.adapter = PostsAdapter(posts2, idGamer)
