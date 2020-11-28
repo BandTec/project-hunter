@@ -1,0 +1,41 @@
+<project name="Hunter" default="build" basedir=".">
+    <description>Hunter</description>
+    
+    <property name="build" location="bin" />
+    <property name="src" location="src"/>
+    <property name="dist" location="dist"/>
+
+    <path id="class.path">
+        <pathelement location="./lib/junit-4.10.jar" />
+        <pathelement location="${build}" />
+    </path>
+
+    <target name="clean">
+        <delete dir="${build}" />
+        <delete dir="${dist}" />
+    </target>
+    
+    <target name="makedir">
+        <mkdir dir="${build}" />
+        <mkdir dir="${dist}" />
+    </target>
+
+    <target name="compile" depends="clean, makedir">
+        <javac srcdir="${src}" destdir="${build}">
+            <classpath refid="class.path" />
+        </javac>
+    </target>
+    
+    <target name="jar" depends="compile">
+    <jar destfile="${dist}\rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}.jar" basedir="${build}">
+      <manifest>
+        <attribute name="Main-Class" value="Rectangulator" />
+      </manifest>
+    </jar>
+  </target>
+
+     <target name="main" depends="compile, jar">
+    <description>Main target</description>
+  </target>
+  
+</project>
