@@ -61,7 +61,7 @@
             />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_partidas"
+            android:id="@+id/rv_dados"
             android:layout_width="400dp"
             android:layout_height="200dp"
             android:layout_marginTop="50dp"

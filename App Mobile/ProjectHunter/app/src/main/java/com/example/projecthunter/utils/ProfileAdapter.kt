@@ -8,22 +8,32 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.OrientationHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projecthunter.NewMatchActivity
 import com.example.projecthunter.R
-import com.example.projecthunter.models.PartidaModel
+import com.example.projecthunter.models.*
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_perfil.*
+import kotlinx.android.synthetic.main.fragment_image_profile.*
+import java.util.*
 
 
-class ProfileAdapter(val posts: List<PartidaModel>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ProfileAdapter(val posts: MutableList<List<GamerInfoJogoModel>>, val posts2: MutableList<List<GamerInfoEquipeModel>>, val posts3: MutableList<List<PartidaModel>>, val taxa1:Double, val taxa2:Double): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
     internal val VIEW_TYPE_ONE = 1
     internal val VIEW_TYPE_TWO = 2
     internal val VIEW_TYPE_THREE = 3
+
+    var listaFinal = listOf(0, 1, 2)
+
 
     private lateinit var context : Context
 
@@ -31,12 +41,14 @@ class ProfileAdapter(val posts: List<PartidaModel>): RecyclerView.Adapter<Recycl
         //val view : View = LayoutInflater.from(parent.context).inflate(R.layout.row_post, parent, false)
         //val view2 : View = LayoutInflater.from(parent.context).inflate(R.layout.new_match_post, parent, false)
 
+
+
         return if (viewType == VIEW_TYPE_ONE) {
-            ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_post, parent, false))
+            ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.games_post, parent, false))
         }else if (viewType == VIEW_TYPE_TWO) {
-            ViewHolder2(LayoutInflater.from(parent.context).inflate(R.layout.new_match_post, parent, false))
+            ViewHolder2(LayoutInflater.from(parent.context).inflate(R.layout.equipes_post, parent, false))
         }else{
-            ViewHolder2(LayoutInflater.from(parent.context).inflate(R.layout.new_match_post, parent, false))
+            ViewHolder3(LayoutInflater.from(parent.context).inflate(R.layout.hist_vitorias_post, parent, false))
         }
 
     }
@@ -46,79 +58,106 @@ class ProfileAdapter(val posts: List<PartidaModel>): RecyclerView.Adapter<Recycl
         fun forwardClick(holder: View)
     }
 
-    override fun getItemCount() = posts.size
+    override fun getItemCount() = listaFinal.size
 
 
     @SuppressLint("ResourceType")
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-
-        if(position < posts.size-1) {
-            if (posts != null) {
+        if(position == 0) {
+            posts.forEach {
                 holder as ViewHolder
-                holder.firstName.text = posts[position].idJogo.nomeJogo
-                holder.firstName.setTypeface(null, Typeface.BOLD)
-                if (posts[position].idPosicao.posicao != null) {
-                    holder.funcao.text = "Papel: " + posts[position].idPosicao.posicao
-                } else {
-                    holder.funcao.text = "Papel: --"
-                }
-                holder.hour.text = "Horário: " + posts[position].hora.toString()
-                holder.hour.setTypeface(null, Typeface.BOLD)
-                holder.date.text = "Data: " + posts[position].data.toString()
 
+                holder.rv.layoutManager = LinearLayoutManager(null, OrientationHelper.VERTICAL, false)
+                holder.rv.adapter = GameByGameAdapter(it as MutableList<GamerInfoJogoModel>)
             }
         }
 
-        else{
-            (holder as ViewHolder2).bind(position)
-
-
-            context = holder.itemView.context
-
-            holder.imagem.setOnClickListener { v ->
-
-                val intent = Intent(this.context, NewMatchActivity::class.java)
-                ContextCompat.startActivity(this.context, intent, null)
-//                val activity=v!!.context as AppCompatActivity
-//                val newMatchFragment = NewMatchFragment()
-//                activity.supportFragmentManager.beginTransaction().replace(R.id.cardview,
-//                    newMatchFragment).addToBackStack(null).commit()
-//                holder.imagem.visibility = View.INVISIBLE
-//                holder.organizacao.visibility = View.INVISIBLE
-//
-//                holder.cardview.layoutParams.height =800
-//                holder.cardview.layoutParams.width =950
-            }
-
-
-        }
+//        if(position == 0) {
+//            if (posts != null) {
+//                holder as ViewHolder
+//                holder.jogoUm.text = posts[position].idJogo.nomeJogo
+//                holder.jogoUm.setTypeface(null, Typeface.BOLD)
+//                if (posts[position].idJogo.fotoJogo != null) {
+//                    Picasso.get().load(posts[position].idJogo.fotoJogo).into(holder.jogoUmImg)
+//                }
+//            }
+//        }else if (position == 1) {
+//            if (posts != null) {
+//                holder as ViewHolder
+//                holder.jogoDois.text = posts[position].idJogo.nomeJogo
+//                holder.jogoDois.setTypeface(null, Typeface.BOLD)
+//                if (posts[position].idJogo.fotoJogo != null) {
+//                    Picasso.get().load(posts[position].idJogo.fotoJogo).into(holder.jogoDoisImg)
+//                }
+//            }
+//        }else if (position == 1) {
+//            if (posts2 != null) {
+//                holder as ViewHolder2
+//                holder.equipeUm.text = posts2[position].idEquipe.nomeEquipe
+//                holder.equipeUm.setTypeface(null, Typeface.BOLD)
+//                if (posts2[position].idEquipe.fotoEquipe != null) {
+//                    Picasso.get().load(posts2[position].idEquipe.fotoEquipe).into(holder.equipeUmImg)
+//                }
+//            }
+//        }else if (position == 3) {
+//            if (posts2 != null) {
+//                holder as ViewHolder2
+//                holder.equipeDois.text = posts2[position].idEquipe.nomeEquipe
+//                holder.equipeDois.setTypeface(null, Typeface.BOLD)
+//                if (posts2[position].idEquipe.fotoEquipe != null) {
+//                    Picasso.get().load(posts2[position].idEquipe.fotoEquipe).into(holder.equipeDoisImg)
+//                }
+//            }
+//        }else if (position == 4) {
+//            if (posts3 != null) {
+//                holder as ViewHolder3
+//                holder.taxaJogoUm.text = taxa1.toString()+ "%"
+//                holder.taxaJogoUm.setTypeface(null, Typeface.BOLD)
+//                if (posts3[position].idJogo.fotoJogo != null) {
+//                    Picasso.get().load(posts3[position].idJogo.fotoJogo).into(holder.taxaUmImg)
+//                }
+//            }
+//        }else {
+//            if (posts3 != null) {
+//                holder as ViewHolder3
+//                holder.taxaJogoDois.text = taxa2.toString()+ "%"
+//                holder.taxaJogoDois.setTypeface(null, Typeface.BOLD)
+//                if (posts3[position].idJogo.fotoJogo != null) {
+//                    Picasso.get().load(posts3[position].idJogo.fotoJogo).into(holder.taxaDoisImg)
+//                }
+//            }
+//       }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position < posts.size-1) {
-            VIEW_TYPE_ONE
-        } else VIEW_TYPE_TWO
+        if (position < 1) {
+            return VIEW_TYPE_ONE
+        } else if(position < 2){
+            return VIEW_TYPE_TWO
+        }else{
+            return VIEW_TYPE_THREE
+        }
 
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val firstName: TextView = itemView.findViewById(R.id.firstName)
-        val date: TextView = itemView.findViewById(R.id.date)
-        val funcao: TextView = itemView.findViewById(R.id.function)
-        val hour: TextView = itemView.findViewById(R.id.hour)
+        val rv: RecyclerView = itemView.findViewById(R.id.rv_jogos)
+
     }
 
     class ViewHolder2(itemView: View) : RecyclerView.ViewHolder(itemView){
-        var organizacao: TextView = itemView.findViewById(R.id.firstName)
-        var imagem: ImageButton = itemView.findViewById(R.id.image)
-        var cardview : CardView = itemView.findViewById(R.id.cardview)
+        val equipeUm: TextView = itemView.findViewById(R.id.tv_equipe_um)
+        val equipeDois: TextView = itemView.findViewById(R.id.tv_equipe_dois)
+        val equipeUmImg : ImageView = itemView.findViewById(R.id.iv_equipe_um)
+        val equipeDoisImg : ImageView = itemView.findViewById(R.id.iv_equipe_dois)
+    }
 
+    class ViewHolder3(itemView: View) : RecyclerView.ViewHolder(itemView){
+        var taxaJogoUm: TextView = itemView.findViewById(R.id.tv_taxa_um)
+        var taxaJogoDois: TextView = itemView.findViewById(R.id.tv_taxa_dois)
+        val taxaUmImg : ImageView = itemView.findViewById(R.id.iv_jogo_taxa_um)
+        val taxaDoisImg : ImageView = itemView.findViewById(R.id.iv_jogo_taxa_dois)
 
-        internal fun bind(position: Int) {
-            // This method will be called anytime a list item is created or update its data
-            //Do your stuff here
-            organizacao.setTypeface(null, Typeface.BOLD)
-        }
     }
 
 
