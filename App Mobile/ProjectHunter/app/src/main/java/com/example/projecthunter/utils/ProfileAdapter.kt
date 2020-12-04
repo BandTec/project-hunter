@@ -25,7 +25,7 @@ import kotlinx.android.synthetic.main.fragment_image_profile.*
 import java.util.*
 
 
-class ProfileAdapter(val posts: MutableList<List<GamerInfoJogoModel>>, val posts2: MutableList<List<GamerInfoEquipeModel>>, val posts3: MutableList<List<PartidaModel>>, val taxa1:Double, val taxa2:Double): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ProfileAdapter(val posts: MutableList<List<GamerInfoJogoModel>>, val posts2: MutableList<List<GamerInfoEquipeModel>>, val posts3: MutableList<List<PartidaModel>>, val id:Int): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
     internal val VIEW_TYPE_ONE = 1
@@ -71,62 +71,22 @@ class ProfileAdapter(val posts: MutableList<List<GamerInfoJogoModel>>, val posts
                 holder.rv.adapter = GameByGameAdapter(it as MutableList<GamerInfoJogoModel>)
             }
         }
+       else if(position == 1) {
+            posts2.forEach {
+                holder as ViewHolder2
 
-//        if(position == 0) {
-//            if (posts != null) {
-//                holder as ViewHolder
-//                holder.jogoUm.text = posts[position].idJogo.nomeJogo
-//                holder.jogoUm.setTypeface(null, Typeface.BOLD)
-//                if (posts[position].idJogo.fotoJogo != null) {
-//                    Picasso.get().load(posts[position].idJogo.fotoJogo).into(holder.jogoUmImg)
-//                }
-//            }
-//        }else if (position == 1) {
-//            if (posts != null) {
-//                holder as ViewHolder
-//                holder.jogoDois.text = posts[position].idJogo.nomeJogo
-//                holder.jogoDois.setTypeface(null, Typeface.BOLD)
-//                if (posts[position].idJogo.fotoJogo != null) {
-//                    Picasso.get().load(posts[position].idJogo.fotoJogo).into(holder.jogoDoisImg)
-//                }
-//            }
-//        }else if (position == 1) {
-//            if (posts2 != null) {
-//                holder as ViewHolder2
-//                holder.equipeUm.text = posts2[position].idEquipe.nomeEquipe
-//                holder.equipeUm.setTypeface(null, Typeface.BOLD)
-//                if (posts2[position].idEquipe.fotoEquipe != null) {
-//                    Picasso.get().load(posts2[position].idEquipe.fotoEquipe).into(holder.equipeUmImg)
-//                }
-//            }
-//        }else if (position == 3) {
-//            if (posts2 != null) {
-//                holder as ViewHolder2
-//                holder.equipeDois.text = posts2[position].idEquipe.nomeEquipe
-//                holder.equipeDois.setTypeface(null, Typeface.BOLD)
-//                if (posts2[position].idEquipe.fotoEquipe != null) {
-//                    Picasso.get().load(posts2[position].idEquipe.fotoEquipe).into(holder.equipeDoisImg)
-//                }
-//            }
-//        }else if (position == 4) {
-//            if (posts3 != null) {
-//                holder as ViewHolder3
-//                holder.taxaJogoUm.text = taxa1.toString()+ "%"
-//                holder.taxaJogoUm.setTypeface(null, Typeface.BOLD)
-//                if (posts3[position].idJogo.fotoJogo != null) {
-//                    Picasso.get().load(posts3[position].idJogo.fotoJogo).into(holder.taxaUmImg)
-//                }
-//            }
-//        }else {
-//            if (posts3 != null) {
-//                holder as ViewHolder3
-//                holder.taxaJogoDois.text = taxa2.toString()+ "%"
-//                holder.taxaJogoDois.setTypeface(null, Typeface.BOLD)
-//                if (posts3[position].idJogo.fotoJogo != null) {
-//                    Picasso.get().load(posts3[position].idJogo.fotoJogo).into(holder.taxaDoisImg)
-//                }
-//            }
-//       }
+                holder.rv.layoutManager = LinearLayoutManager(null, OrientationHelper.VERTICAL, false)
+                holder.rv.adapter = TeamByTeamAdapter(it as MutableList<GamerInfoEquipeModel>, id)
+            }
+        }else{
+            posts3.forEach {
+                holder as ViewHolder3
+
+                holder.rv.layoutManager = LinearLayoutManager(null, OrientationHelper.VERTICAL, false)
+                holder.rv.adapter = HistByHistAdapter(it as MutableList<PartidaModel>)
+            }
+        }
+
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -146,17 +106,11 @@ class ProfileAdapter(val posts: MutableList<List<GamerInfoJogoModel>>, val posts
     }
 
     class ViewHolder2(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val equipeUm: TextView = itemView.findViewById(R.id.tv_equipe_um)
-        val equipeDois: TextView = itemView.findViewById(R.id.tv_equipe_dois)
-        val equipeUmImg : ImageView = itemView.findViewById(R.id.iv_equipe_um)
-        val equipeDoisImg : ImageView = itemView.findViewById(R.id.iv_equipe_dois)
+        val rv: RecyclerView = itemView.findViewById(R.id.rv_equipes)
     }
 
     class ViewHolder3(itemView: View) : RecyclerView.ViewHolder(itemView){
-        var taxaJogoUm: TextView = itemView.findViewById(R.id.tv_taxa_um)
-        var taxaJogoDois: TextView = itemView.findViewById(R.id.tv_taxa_dois)
-        val taxaUmImg : ImageView = itemView.findViewById(R.id.iv_jogo_taxa_um)
-        val taxaDoisImg : ImageView = itemView.findViewById(R.id.iv_jogo_taxa_dois)
+        val rv: RecyclerView = itemView.findViewById(R.id.rv_historicos)
 
     }
 

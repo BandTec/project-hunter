@@ -52,7 +52,7 @@ class PerfilActivity : AppCompatActivity() {
                     inicioComImagem(usuario)
                     delay(3000)
                     withContext(Dispatchers.Main) {
-                        criarCards()
+                        id?.let { criarCards(it) }
                     }
                 }.invoke()
             }
@@ -60,11 +60,11 @@ class PerfilActivity : AppCompatActivity() {
     }
 
     @SuppressLint("WrongConstant")
-    fun criarCards(){
+    fun criarCards(id:Int){
         try{
             rv_dados.layoutManager = LinearLayoutManager(this@PerfilActivity, OrientationHelper.HORIZONTAL, false)
             rv_dados.adapter = NewMatchAdapter()
-            rv_dados.adapter = ProfileAdapter(posts, posts2, posts3, 30.0, 100.0)
+            rv_dados.adapter = ProfileAdapter(posts, posts2, posts3, id)
         }catch (e: java.lang.Exception){
             Toast.makeText(this@PerfilActivity, e.toString(), Toast.LENGTH_SHORT).show()
         }
@@ -89,6 +89,7 @@ class PerfilActivity : AppCompatActivity() {
                         }
                     }
 
+                    id = this?.idGamer?.toInt()
                     tv_id_nome.text = this?.nome
                     this?.email?.let { getGames(it) }
                     this?.email?.let { getTeams(it) }

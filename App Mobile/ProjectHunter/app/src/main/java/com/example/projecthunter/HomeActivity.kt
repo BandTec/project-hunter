@@ -107,6 +107,7 @@ class HomeActivity : AppCompatActivity(), PostsAdapter.ClickEventHandler {
         startActivity(telaPerfil)
     }
 
+
     fun logoff(componente: View){
 
 
