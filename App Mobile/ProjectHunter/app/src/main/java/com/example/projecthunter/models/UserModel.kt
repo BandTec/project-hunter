@@ -4,7 +4,7 @@ import android.icu.number.IntegerWidth
 import java.math.BigInteger
 
 data class UserModel (
-    val idGamer:Integer?,
+    val idGamer:Int?,
     val nome:String,
     val cpf:String,
     val email:String,

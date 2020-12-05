@@ -1,16 +1,18 @@
 package com.example.projecthunter.models
 
 data class EquipeGamerModel(
-    val idEquipe: NovoMembroEquipe,
-    val idGamer: NovaPartidaGamerModel,
-    val idStatus: NovoMembroIdStatus,
+    val idEquipe: EquipeModel,
+    val idGamer: NovoMembroGamer,
+    val idStatus: StatusModel,
     val capitao: Boolean
-)
-
-data class NovoMembroIdStatus(
-    val idStatus:Int
 )
 
 data class NovoMembroEquipe(
     val idEquipe:Int
+)
+
+data class NovoMembroGamer(
+    val idGamer:Int,
+    val nome:String?,
+    val fotoGamer:String?
 )

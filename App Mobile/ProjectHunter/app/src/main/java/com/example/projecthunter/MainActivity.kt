@@ -76,7 +76,7 @@ fun login(componente: View){
 
                 if(response.code() == 200) {
                     val telaHome = Intent(this@MainActivity, HomeActivity::class.java)
-                    var currentUser : Integer = Integer(0)
+                    var currentUser : Int = 0
                     var usuario:String = ""
                     var senha:String=""
                     response?.body()?.let {
@@ -84,7 +84,7 @@ fun login(componente: View){
                         currentUser  = it[0].idGamer!!;
                         usuario = it[0].usuario
                         senha = it[0].senha
-                        println(currentUser);
+
                     }
                     telaHome.putExtra("currentUser", currentUser.toString())
                     telaHome.putExtra("usuario",usuario)

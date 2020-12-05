@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+
     android:layout_height="match_parent">
 
     <ImageButton
@@ -11,7 +12,8 @@
         android:scaleType="fitCenter"
         android:layout_height="80dp"
         android:id="@+id/ib_imagem_usuario"
-        android:background="#fff"
+        android:background="@drawable/botao_imagem"
+
         android:src="@drawable/ic_users"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="150dp"

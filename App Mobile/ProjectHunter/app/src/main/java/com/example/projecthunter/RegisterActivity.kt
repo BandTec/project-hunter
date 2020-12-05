@@ -147,7 +147,7 @@ class RegisterActivity : AppCompatActivity() {
 
                 if(response.code() == 200) {
 
-                    var currentUser:Integer = Integer(0)
+                    var currentUser:Int = 0
                     response.body()?.forEach{
                         if (it != null) {
                             currentUser = it.idGamer!!
