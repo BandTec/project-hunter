@@ -5,3 +5,5 @@ data class EquipeModel(
     val nomeEquipe:String,
     val fotoEquipe:String
 )
+
+
