@@ -34,7 +34,7 @@ class NewMatchActivity : AppCompatActivity() {
             usuario = username as String
         }
 
-                val spinner: Spinner = sp_escolha_jogo
+        val spinner: Spinner = sp_escolha_jogo
         ArrayAdapter.createFromResource(
             this@NewMatchActivity,
             R.array.games_array,
@@ -104,7 +104,7 @@ class NewMatchActivity : AppCompatActivity() {
 
                         var data =  et_ano.text.toString() +"-"+ et_mes.text.toString() +"-"+ et_dia.text.toString()
                     var hora = et_hora.text.toString() +":"+ et_minuto.text.toString() + ":00"
-                    var partida = NovaPartidaModel(jogo, gamer, posicao, data, hora)
+                    var partida = NovaPartidaModel(jogo, gamer, posicao, data, hora, null)
                     ApiConnectionUtils().matchesService().createMatch(partida).enqueue(object:
                         Callback<Void> {
                         override fun onFailure(call: Call<Void>, t: Throwable) {

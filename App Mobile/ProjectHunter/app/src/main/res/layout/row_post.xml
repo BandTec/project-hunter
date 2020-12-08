@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="250dp"
     android:layout_height="200dp"
-
+    android:id="@+id/cardview_post"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     card_view:cardElevation="1dp"
     android:layout_marginRight="25dp"
@@ -28,7 +28,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:src="@drawable/ic_trash"
-    android:backgroundTint="@android:color/transparent"
+    android:backgroundTint="@android:color/white"
     android:layout_marginLeft="200dp"
     android:id="@+id/ib_excluir"
     ></ImageButton>
@@ -61,5 +61,25 @@
         android:textSize="15sp"
         android:text="Default Text"
         android:layout_marginTop="160dp"
+        />
+
+    <Button
+        android:id="@+id/button_yes_pt"
+        android:layout_width="70dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="155dp"
+        android:visibility="gone"
+        android:background="@drawable/botao"
+        android:text="Sim"
+        />
+    <Button
+        android:id="@+id/button_no_pt"
+        android:layout_width="70dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="155dp"
+        android:layout_marginLeft="75dp"
+        android:visibility="gone"
+        android:background="@drawable/botao_negar"
+        android:text="Não"
         />
 </androidx.cardview.widget.CardView>

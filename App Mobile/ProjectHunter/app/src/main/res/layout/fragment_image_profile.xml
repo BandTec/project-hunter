@@ -9,7 +9,7 @@
     <ImageButton
         android:layout_width="80dp"
         android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
+        android:scaleType="center"
         android:layout_height="80dp"
         android:id="@+id/ib_imagem_usuario"
         android:background="@drawable/botao_imagem"

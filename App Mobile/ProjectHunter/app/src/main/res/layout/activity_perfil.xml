@@ -42,9 +42,27 @@
             <fragment
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="140dp"
+                android:layout_marginLeft="110dp"
                 class="com.example.projecthunter.ImageProfileFragment"/>
 
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="220dp"
+                android:src="@drawable/ic_star"
+                />
+
+            <TextView
+                android:layout_width="40dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="25dp"
+                android:textColor="#F1DA07"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:text="0.00"
+                android:id="@+id/tv_rating"
+                android:layout_marginLeft="270dp"/>
         </FrameLayout>
 
         <TextView
@@ -89,7 +107,6 @@
         android:layout_height="70dp"
         android:layout_marginTop="40dp"
         android:background="@drawable/botoes_estilizados"
-        android:onClick="perfil"
         android:text=""
         android:src="@drawable/ic_users"
         android:padding="20dp"

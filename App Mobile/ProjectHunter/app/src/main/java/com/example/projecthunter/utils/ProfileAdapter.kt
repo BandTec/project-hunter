@@ -76,7 +76,7 @@ class ProfileAdapter(val posts: MutableList<List<GamerInfoJogoModel>>, val posts
                 holder as ViewHolder2
 
                 holder.rv.layoutManager = LinearLayoutManager(null, OrientationHelper.VERTICAL, false)
-                holder.rv.adapter = TeamByTeamAdapter(it as MutableList<GamerInfoEquipeModel>, id)
+                holder.rv.adapter = TeamByTeamAdapter(it as MutableList<GamerInfoEquipeModel>, id, false)
             }
         }else{
             posts3.forEach {

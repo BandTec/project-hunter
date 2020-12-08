@@ -1,10 +1,8 @@
 package com.example.projecthunter.services
+import com.example.projecthunter.models.GamerInfoJogoModel
 import com.example.projecthunter.models.UserModel
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.PUT
-import retrofit2.http.Path
+import retrofit2.http.*
 
 
 interface ConfigService {
@@ -13,5 +11,8 @@ interface ConfigService {
 
     @GET("/gamer/usuario/{usuario}")
     fun getUserData(@Path("usuario") usuario:String): Call<UserModel>
+
+    @PUT("/gamerinfo/{email}")
+    fun putGameUser(@Path("emal") email:String, @Body gamer: GamerInfoJogoModel): Call<Void>
 
 }

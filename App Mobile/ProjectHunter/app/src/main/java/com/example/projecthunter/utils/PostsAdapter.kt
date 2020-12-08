@@ -3,13 +3,17 @@ package com.example.projecthunter.utils
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.Typeface
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
@@ -21,6 +25,12 @@ import com.example.projecthunter.models.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.DateFormat
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
+import java.time.temporal.TemporalAccessor
 
 
 class PostsAdapter(var posts: MutableList<PartidaModel>, val idGamer:Int): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -56,6 +66,7 @@ class PostsAdapter(var posts: MutableList<PartidaModel>, val idGamer:Int): Recyc
     override fun getItemCount() = posts.size
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("ResourceType")
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
@@ -84,7 +95,7 @@ class PostsAdapter(var posts: MutableList<PartidaModel>, val idGamer:Int): Recyc
 
                         override fun onResponse(call: Call<Void>, response: Response<Void>) {
                             if(response.code() == 200) {
-                                Toast.makeText(context, "Partida Criada", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context, "Partida Apagada", Toast.LENGTH_SHORT).show()
                                 val intent = Intent(context, HomeActivity::class.java)
                                 intent.putExtra("currentUser", idGamer.toString())
                                 ContextCompat.startActivity(context, intent, null)
@@ -96,7 +107,92 @@ class PostsAdapter(var posts: MutableList<PartidaModel>, val idGamer:Int): Recyc
                     })
                 }
 
+                val dataHoje: LocalDate = LocalDate.now()
+                val horaHoje: LocalTime = LocalTime.now()
+
+                val dataPt: LocalDate = LocalDate.parse(posts[position].data)
+                val horaPt: LocalTime = LocalTime.parse(posts[position].hora)
+
+                val dt:LocalDateTime = LocalDateTime.of(dataPt, horaPt)
+                val dtNow:LocalDateTime = LocalDateTime.now()
+                context = holder.itemView.context
+
+                if (dtNow.isAfter(dt)){
+                    holder.hour.text = "Dia passou"
+                    //if(horaHoje.isAfter(horaPt)){
+                        if(posts[position].winner!!){
+
+                            holder.cardView.setCardBackgroundColor(Color.parseColor("#C4C4C4"))
+                            holder.hour.text = "Venceu"
+                            holder.hour.setTypeface(null, Typeface.BOLD)
+                            holder.hour.setTextColor(Color.parseColor("#005000"))
+                            holder.btPerdeu.visibility = View.INVISIBLE
+                            holder.btVenceu.visibility = View.INVISIBLE
+                            holder.delete.visibility = View.INVISIBLE
+
+                        }else{
+                            holder.cardView.setCardBackgroundColor(Color.parseColor("#FFFFFF"))
+                            holder.date.visibility = View.INVISIBLE
+                            holder.hour.text = "Partida Vencida?"
+                            holder.hour.setTypeface(null, Typeface.BOLD)
+                            holder.hour.setTextColor(Color.parseColor("#000000"))
+                            holder.btVenceu.visibility = View.VISIBLE
+                            holder.btPerdeu.visibility = View.VISIBLE
+                            holder.delete.visibility = View.INVISIBLE
+
+                        }
+
+                        holder.btVenceu.setOnClickListener {
+                            holder.date.visibility = View.VISIBLE
+                            holder.delete.visibility = View.INVISIBLE
+                            holder.cardView.setCardBackgroundColor(Color.parseColor("#C4C4C4"))
+                            holder.btPerdeu.visibility = View.INVISIBLE
+                            holder.btVenceu.visibility = View.INVISIBLE
+                            holder.hour.text = "Venceu"
+                            holder.hour.setTypeface(null, Typeface.BOLD)
+                            holder.hour.setTextColor(Color.parseColor("#005000"))
+                            val atualizacaoPt = NovaPartidaModel(
+                                NovaPartidaJogoModel(posts[position].idJogo.idJogo),
+                                NovaPartidaGamerModel(posts[position].idGamer.idGamer),
+                                NovaPartidaPosicaoModel(posts[position].idPosicao.idPosicao),
+                                posts[position].data,
+                                posts[position].hora,
+                                true
+                            )
+                            if (posts[position].idPk == 0) {
+                                Toast.makeText(context, "idPk = 0 ???", Toast.LENGTH_SHORT).show()
+                            } else {
+                                holder.updateMatch(posts[position].idPk, atualizacaoPt, context)
+                            }
+                        }
+                            holder.btPerdeu.setOnClickListener {
+                            holder.date.visibility = View.VISIBLE
+                            holder.delete.visibility = View.INVISIBLE
+                            holder.cardView.setCardBackgroundColor(Color.parseColor("#C4C4C4"))
+                            holder.btPerdeu.visibility = View.INVISIBLE
+                            holder.btVenceu.visibility = View.INVISIBLE
+                            holder.hour.text = "Perdeu"
+                            holder.hour.setTypeface(null, Typeface.BOLD)
+                            holder.hour.setTextColor(Color.parseColor("#B10000"))
+                            val atualizacaoPt = NovaPartidaModel(
+                                NovaPartidaJogoModel(posts[position].idJogo.idJogo),
+                                NovaPartidaGamerModel(posts[position].idGamer.idGamer),
+                                NovaPartidaPosicaoModel(posts[position].idPosicao.idPosicao),
+                                posts[position].data,
+                                posts[position].hora,
+                                false
+                            )
+
+                            holder.updateMatch(posts[position].idPk, atualizacaoPt, context)
+
+
+                    }
+                }
+
             }
+
+
+
         }
 
         else{
@@ -131,6 +227,31 @@ class PostsAdapter(var posts: MutableList<PartidaModel>, val idGamer:Int): Recyc
         val funcao: TextView = itemView.findViewById(R.id.function)
         val hour: TextView = itemView.findViewById(R.id.hour)
         val delete: ImageButton = itemView.findViewById(R.id.ib_excluir)
+        val btVenceu: Button = itemView.findViewById(R.id.button_yes_pt)
+        val btPerdeu: Button = itemView.findViewById(R.id.button_no_pt)
+        val cardView:CardView = itemView.findViewById(R.id.cardview_post)
+
+        fun updateMatch(idPartida:Int, atualizacaoPt:NovaPartidaModel, context:Context){
+            ApiConnectionUtils().matchesService()
+                .updateMatch(idPartida, atualizacaoPt)
+                .enqueue(object: Callback<Void>{
+                    override fun onFailure(call: Call<Void>, t: Throwable) {
+                        Toast.makeText(context, "Erro ao atualizar status da partida $t", Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun onResponse(
+                        call: Call<Void>,
+                        response: Response<Void>
+                    ) {
+                        if(response.code()==200){
+                            Toast.makeText(context, "Partida Atualizada", Toast.LENGTH_SHORT).show()
+                        }else{
+                            Toast.makeText(context, "Erro ao atualizar status da partida "+ idPartida.toString(), Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                })
+        }
     }
 
     class ViewHolder2(itemView: View) : RecyclerView.ViewHolder(itemView){

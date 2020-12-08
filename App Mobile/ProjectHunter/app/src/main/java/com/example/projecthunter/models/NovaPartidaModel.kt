@@ -7,4 +7,5 @@ data class NovaPartidaModel(
     val idPosicao:NovaPartidaPosicaoModel,
     val data:String,
     val hora:String,
+    val winner:Boolean?
 )

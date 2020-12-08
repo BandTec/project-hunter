@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#2b2b2b"
+        android:padding="20dp"
+        >
+        <TextView
+            android:id="@+id/text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Deseja sair da equipe?"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            />
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/linear_layout2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:background="#2b2b2b"
+        android:padding="20dp"
+        >
+        <Button
+            android:id="@+id/button_yes_popup"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:background="@drawable/botao"
+            android:text="Sim"
+            />
+        <Button
+            android:id="@+id/button_no_popup"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:background="@drawable/botao_negar"
+            android:text="Não"
+            />
+    </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

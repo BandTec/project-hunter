@@ -10,5 +10,5 @@ data class PartidaModel(
     val idInfracao:InfracaoModel,
     val data:String,
     val hora:String,
-    val winner:Boolean
+    val winner:Boolean?
 )

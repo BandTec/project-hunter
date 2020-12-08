@@ -11,12 +11,27 @@ import android.provider.MediaStore
 import android.util.Base64
 import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.drawToBitmap
+import com.example.projecthunter.models.GamerInfoJogoModel
+import com.example.projecthunter.models.JogoModel
+import com.example.projecthunter.models.PosicaoModel
 import com.example.projecthunter.models.UserModel
 import com.example.projecthunter.utils.ApiConnectionUtils
+import kotlinx.android.synthetic.main.activity_configuration.*
 import kotlinx.android.synthetic.main.activity_register.*
+import kotlinx.android.synthetic.main.activity_register.et_confSenha
+import kotlinx.android.synthetic.main.activity_register.et_cpf
+import kotlinx.android.synthetic.main.activity_register.et_email
+import kotlinx.android.synthetic.main.activity_register.et_nome
+import kotlinx.android.synthetic.main.activity_register.et_senha
+import kotlinx.android.synthetic.main.activity_register.et_telefone
+import kotlinx.android.synthetic.main.activity_register.et_usuario
+import kotlinx.android.synthetic.main.activity_register.sp_jogo
+import kotlinx.android.synthetic.main.activity_register.sp_posicao
 import kotlinx.android.synthetic.main.fragment_image_profile.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -39,6 +54,26 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+
+        val spinner: Spinner = sp_jogo
+        ArrayAdapter.createFromResource(
+            this@RegisterActivity,
+            R.array.games_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinner.adapter = adapter
+        }
+
+        val spinner2: Spinner = sp_posicao
+        ArrayAdapter.createFromResource(
+            this@RegisterActivity,
+            R.array.positions_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinner2.adapter = adapter
+        }
 
         ib_imagem_usuario.setOnClickListener{
             //check runtime permission
@@ -65,10 +100,10 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     fun cadastrar(componente: View) {
-        if (et_usuario.text.toString().equals("") && et_email.text.toString()
-                .equals("") && et_cpf.text.toString().equals("") && et_telefone.text.toString()
-                .equals("") && et_senha.text.toString().equals("") && et_confSenha.text.toString()
-                .equals("")
+        if (et_usuario.text.toString().equals("") || et_email.text.toString()
+                .equals("") || et_cpf.text.toString().equals("") || et_telefone.text.toString()
+                .equals("") || et_senha.text.toString().equals("") || et_confSenha.text.toString()
+                .equals("") || sp_jogo.selectedItemPosition ==0 || sp_posicao.selectedItemPosition ==0
         ) {
 
             Toast.makeText(this, "Por favor preencha seus dados corretamente!", Toast.LENGTH_SHORT)
@@ -124,9 +159,33 @@ class RegisterActivity : AppCompatActivity() {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
 
                 if(response.code() == 201) {
+                    val gamerInfo = GamerInfoJogoModel(null, null,
+                        JogoModel(sp_jogo.selectedItemPosition, null, null, null),
+                        PosicaoModel(sp_posicao.selectedItemPosition, null))
+                    doRegisterGame(email, gamerInfo)
+                    telaHome(usuario)
+                }else{
+                    Toast.makeText(this@RegisterActivity, "Erro no cadastro, tente novamente!", Toast.LENGTH_SHORT).show()
+                }
+
+            }
+        })
+    }
+
+    private fun doRegisterGame(email:String,gamerInfo:GamerInfoJogoModel){
+        ApiConnectionUtils().cadastroService().postGameUser(email, gamerInfo).enqueue(object:
+            Callback<Void> {
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Toast.makeText(this@RegisterActivity, "Erro ao efetuar o cadastro", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+
+                if(response.code() == 201) {
                     loadingView.dismiss()
                     Toast.makeText(this@RegisterActivity, "Usuário Criado com sucesso!", Toast.LENGTH_SHORT).show()
-                    telaHome(usuario)
+
                 }else{
                     Toast.makeText(this@RegisterActivity, "Erro no cadastro, tente novamente!", Toast.LENGTH_SHORT).show()
                 }

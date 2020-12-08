@@ -5,10 +5,7 @@ import com.example.projecthunter.models.EquipeJogoModel
 import com.example.projecthunter.models.EquipeModel
 import com.example.projecthunter.models.UserModel
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface EquipeService {
     @GET("/equipe/nome/{nome}")
@@ -25,4 +22,16 @@ interface EquipeService {
 
     @GET("/equipegamer/equipe/{nome}/")
     fun getTeamPlayers(@Path("nome") nome:String) : Call<List<EquipeGamerModel>>
+
+    @GET("/equipegamer/equipe/{pesquisa}/")
+    fun getTeamsBySearchName(@Path("pesquisa") pesquisa:String) : Call<List<EquipeGamerModel>>
+
+    @GET("/equipejogo/jogo/{pesquisa}/")
+    fun getTeamsBySearchGame(@Path("pesquisa") pesquisa:String) : Call<List<EquipeGamerModel>>
+
+    @GET("/equipegamer/equipe/qtd/{nome}/")
+    fun getTeamQtd(@Path("nome") nome:String) : Call<Int>
+
+    @DELETE("/equipegamer/{idEquipe}/{idGamer}")
+    fun deleteGamerOnTeam(@Path("idEquipe") idEquipe:Int, @Path("idGamer") idGamer:Int): Call<Void>
 }

@@ -87,7 +87,7 @@ fun login(componente: View){
 
                     }
                     telaHome.putExtra("currentUser", currentUser.toString())
-                    telaHome.putExtra("usuario",usuario)
+                    telaHome.putExtra("usuario", usuario)
                     val editor = preferencias?.edit()
                     editor?.putString("usuario", usuario)
                     editor?.putString("login", login)

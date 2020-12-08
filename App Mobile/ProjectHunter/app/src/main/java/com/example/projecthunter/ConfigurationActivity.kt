@@ -1,6 +1,7 @@
 package com.example.projecthunter
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -12,13 +13,29 @@ import android.provider.MediaStore
 import android.util.Base64
 import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.drawToBitmap
+import com.example.projecthunter.models.GamerInfoJogoModel
+import com.example.projecthunter.models.JogoModel
+import com.example.projecthunter.models.PosicaoModel
 import com.example.projecthunter.models.UserModel
 import com.example.projecthunter.utils.ApiConnectionUtils
 import kotlinx.android.synthetic.main.activity_configuration.*
+import kotlinx.android.synthetic.main.activity_configuration.et_confSenha
+import kotlinx.android.synthetic.main.activity_configuration.et_cpf
+import kotlinx.android.synthetic.main.activity_configuration.et_email
+import kotlinx.android.synthetic.main.activity_configuration.et_nome
+import kotlinx.android.synthetic.main.activity_configuration.et_senha
+import kotlinx.android.synthetic.main.activity_configuration.et_telefone
+import kotlinx.android.synthetic.main.activity_configuration.et_usuario
+import kotlinx.android.synthetic.main.activity_configuration.sp_jogo
+import kotlinx.android.synthetic.main.activity_configuration.sp_posicao
+import kotlinx.android.synthetic.main.activity_new_match.*
+import kotlinx.android.synthetic.main.activity_register.*
 import kotlinx.android.synthetic.main.fragment_image_profile.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -57,7 +74,27 @@ class ConfigurationActivity : AppCompatActivity() {
             idGamer = Integer(id)
         }
         if(username != null){
-            usuario = username as String
+            usuario = username
+        }
+
+        val spinner: Spinner = sp_jogo
+        ArrayAdapter.createFromResource(
+            this@ConfigurationActivity,
+            R.array.games_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinner.adapter = adapter
+        }
+
+        val spinner2: Spinner = sp_posicao
+        ArrayAdapter.createFromResource(
+            this@ConfigurationActivity,
+            R.array.positions_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinner2.adapter = adapter
         }
 
         bt_config.setColorFilter(getColor(android.R.color.holo_green_dark), PorterDuff.Mode.SRC_IN)
@@ -112,6 +149,7 @@ class ConfigurationActivity : AppCompatActivity() {
                         et_email.setText(this?.email)
                         et_cpf.setText(this?.cpf)
                         et_usuario.setText(this?.usuario)
+                        idGamer = this?.idGamer?.let { Integer(it) }
 
                 }
             }
@@ -120,10 +158,10 @@ class ConfigurationActivity : AppCompatActivity() {
 
     fun atualizar(componente: View) {
 
-        if (et_usuario.text.toString().equals("") && et_email.text.toString()
-                .equals("") && et_cpf.text.toString().equals("") && et_telefone.text.toString()
-                .equals("") && et_senha.text.toString().equals("") && et_confSenha.text.toString()
-                .equals("")
+        if (et_usuario.text.toString().equals("") || et_email.text.toString()
+                .equals("") || et_cpf.text.toString().equals("") || et_telefone.text.toString()
+                .equals("") || et_senha.text.toString().equals("") || et_confSenha.text.toString()
+                .equals("") || sp_jogo.selectedItemPosition ==0 || sp_posicao.selectedItemPosition ==0
         ) {
 
             Toast.makeText(this, "Por favor preencha seus dados corretamente!", Toast.LENGTH_SHORT)
@@ -158,7 +196,7 @@ class ConfigurationActivity : AppCompatActivity() {
         if(imgurUrl != null) {
             linkImagem = imgurUrl
         }
-        val userModel = UserModel(null, nome, cpf, email, senha, telefone, linkImagem, usuario, email)
+        val userModel = UserModel(idGamer?.toInt(), nome, cpf, email, senha, telefone, linkImagem, usuario, email)
         ApiConnectionUtils().configService().atualizar(idGamer, userModel).enqueue( object : Callback<Void> {
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
@@ -169,6 +207,11 @@ class ConfigurationActivity : AppCompatActivity() {
                 Toast.makeText(this@ConfigurationActivity, "Usuário Atualizado", Toast.LENGTH_SHORT).show()
                 if(response.code() == 200) {
                     loadingView.dismiss()
+                    val gamerInfo = GamerInfoJogoModel(null, null,
+                        JogoModel(sp_jogo.selectedItemPosition, null, null, null),
+                        PosicaoModel(sp_posicao.selectedItemPosition, null)
+                    )
+                    doUpdateGame(email, gamerInfo)
                     val telaHome = Intent(this@ConfigurationActivity, HomeActivity::class.java)
                     Toast.makeText(this@ConfigurationActivity, "Usuário Atualizado", Toast.LENGTH_SHORT).show()
                     telaHome.putExtra("currentUser", idGamer.toString())
@@ -182,6 +225,27 @@ class ConfigurationActivity : AppCompatActivity() {
 
     }
 
+    private fun doUpdateGame(email:String,gamerInfo:GamerInfoJogoModel){
+        ApiConnectionUtils().cadastroService().postGameUser(email, gamerInfo).enqueue(object:
+            Callback<Void> {
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Toast.makeText(this@ConfigurationActivity, "Erro ao efetuar a atualização", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+
+                if(response.code() == 201) {
+                    loadingView.dismiss()
+                    Toast.makeText(this@ConfigurationActivity, "Usuário Atualizado com sucesso!", Toast.LENGTH_SHORT).show()
+
+                }else{
+                    Toast.makeText(this@ConfigurationActivity, "Erro na atualizzção, tente novamente!", Toast.LENGTH_SHORT).show()
+                }
+
+            }
+        })
+    }
 
     private fun pickImageFromGallery() {
         //Intent to pick image
@@ -287,6 +351,45 @@ class ConfigurationActivity : AppCompatActivity() {
             val b = outputStream.toByteArray()
             complete(Base64.encodeToString(b, Base64.DEFAULT))
         }
+    }
+
+    fun perfil(componente: View){
+        var idGamer = intent.extras?.getString("currentUser")
+        var usuario = intent.extras?.getString("usuario")
+        val telaPerfil = Intent(this@ConfigurationActivity, PerfilActivity::class.java)
+        telaPerfil.putExtra("currentUser", idGamer)
+        telaPerfil.putExtra("usuario", usuario)
+        startActivity(telaPerfil)
+    }
+
+    fun logoff(componente: View){
+
+
+        ApiConnectionUtils().logoffService().logoff().enqueue(object: Callback<Void> {
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+
+                Toast.makeText(this@ConfigurationActivity, "Erro ao executar comando", Toast.LENGTH_SHORT).show()
+
+            }
+
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+
+                if(response.code() == 200) {
+                    var preferencias = getPreferences(Context.MODE_PRIVATE)
+                    preferencias.edit().remove("usuario").commit()
+                    preferencias.edit().remove("login").commit()
+                    preferencias.edit().remove("senha").commit()
+                    preferencias.edit().remove("currentUser").commit()
+
+                    val telaLogin = Intent(this@ConfigurationActivity, MainActivity::class.java)
+                    startActivity(telaLogin)
+                }else{
+                    Toast.makeText(this@ConfigurationActivity, response.code().toString(), Toast.LENGTH_SHORT).show()
+                }
+
+            }
+        })
     }
 
 

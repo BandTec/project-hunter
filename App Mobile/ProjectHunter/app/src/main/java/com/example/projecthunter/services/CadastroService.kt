@@ -1,4 +1,5 @@
 package com.example.projecthunter.services
+import com.example.projecthunter.models.GamerInfoJogoModel
 import com.example.projecthunter.models.LoginModel
 import com.example.projecthunter.models.UserModel
 import retrofit2.Call
@@ -15,4 +16,6 @@ interface CadastroService {
     @GET("/gamer/usuario/{usuario}")
     fun getNovoUsuario(@Path("usuario") usuario:String) : Call<List<UserModel>>
 
+    @POST("/gamerinfo/{email}")
+    fun postGameUser(@Path("email") email:String, @Body gamer: GamerInfoJogoModel): Call<Void>
 }

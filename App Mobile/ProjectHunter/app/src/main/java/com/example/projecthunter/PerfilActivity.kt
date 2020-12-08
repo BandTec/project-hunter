@@ -1,11 +1,14 @@
 package com.example.projecthunter
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
 import android.graphics.PorterDuff
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -34,8 +37,8 @@ class PerfilActivity : AppCompatActivity() {
     var posts3 = mutableListOf<List<PartidaModel>>()
     var id: Int? = null
 
-
-
+    var qtdPartidas:Int = 0
+    var qtdVitorias:Int = 0
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,6 +64,10 @@ class PerfilActivity : AppCompatActivity() {
 
     @SuppressLint("WrongConstant")
     fun criarCards(id:Int){
+
+        var rating:Double = ((qtdVitorias.toDouble()*5) / qtdPartidas.toDouble() +0.00)
+        tv_rating.text = rating.toString()
+
         try{
             rv_dados.layoutManager = LinearLayoutManager(this@PerfilActivity, OrientationHelper.HORIZONTAL, false)
             rv_dados.adapter = NewMatchAdapter()
@@ -159,11 +166,10 @@ class PerfilActivity : AppCompatActivity() {
 
                 if(response.code() == 200) {
                     response?.body()?.forEach() {
-                        //criarCardsAlternativo(jogo, equipe, response.body())
-                       // totalPtJogos[it.idJogo.idJogo]+= 1
-//                        if (it.winner){
-//                            taxaVitJogos[it.idJogo.idJogo]+=1
-//                        }
+                        qtdPartidas++
+                        if(it.winner!!){
+                            qtdVitorias++
+                        }
                         posts3.add(response.body()!!)
                     }
                 }else if (response.code() == 204) {
@@ -173,6 +179,45 @@ class PerfilActivity : AppCompatActivity() {
                 {
                     Toast.makeText(this@PerfilActivity, response.code().toString(), Toast.LENGTH_LONG).show()
                 }
+            }
+        })
+    }
+
+    fun config(componente: View){
+        var idGamer = intent.extras?.getString("currentUser")
+        var usuario = intent.extras?.getString("usuario")
+        val telaConfig = Intent(this@PerfilActivity, ConfigurationActivity::class.java)
+        telaConfig.putExtra("currentUser", idGamer)
+        telaConfig.putExtra("usuario", usuario)
+        startActivity(telaConfig)
+    }
+
+    fun logoff(componente: View){
+
+
+        ApiConnectionUtils().logoffService().logoff().enqueue(object: Callback<Void> {
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+
+                Toast.makeText(this@PerfilActivity, "Erro ao executar comando", Toast.LENGTH_SHORT).show()
+
+            }
+
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+
+                if(response.code() == 200) {
+                    var preferencias = getPreferences(Context.MODE_PRIVATE)
+                    preferencias.edit().remove("usuario").commit()
+                    preferencias.edit().remove("login").commit()
+                    preferencias.edit().remove("senha").commit()
+                    preferencias.edit().remove("currentUser").commit()
+
+                    val telaLogin = Intent(this@PerfilActivity, MainActivity::class.java)
+                    startActivity(telaLogin)
+                }else{
+                    Toast.makeText(this@PerfilActivity, response.code().toString(), Toast.LENGTH_SHORT).show()
+                }
+
             }
         })
     }

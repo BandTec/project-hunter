@@ -16,4 +16,6 @@ interface MatchesService {
     @POST("/partida")
     fun createMatch(@Body partida:NovaPartidaModel) : Call<Void>
 
+    @PUT("/partida/{id}")
+    fun updateMatch(@Path("id") id:Int, @Body partida:NovaPartidaModel) : Call<Void>
 }

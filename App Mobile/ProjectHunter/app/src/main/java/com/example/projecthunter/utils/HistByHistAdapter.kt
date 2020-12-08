@@ -47,7 +47,7 @@ class HistByHistAdapter(var posts: MutableList<PartidaModel>): RecyclerView.Adap
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         holder as ViewHolder
         holder.taxaJogo.text = posts[position].winner.toString()
-        if(posts[position].winner){
+        if(posts[position].winner!!){
             holder.taxaJogo.text = "Vitória"
             holder.taxaJogo.setTextColor(Color.parseColor("#00FF00"))
         }else{

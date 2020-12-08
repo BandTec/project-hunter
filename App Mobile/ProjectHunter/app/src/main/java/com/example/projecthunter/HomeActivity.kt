@@ -15,6 +15,7 @@ import com.example.projecthunter.utils.ApiConnectionUtils
 import com.example.projecthunter.utils.NewMatchAdapter
 import com.example.projecthunter.utils.PostsAdapter
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.fragment_header.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -41,16 +42,22 @@ class HomeActivity : AppCompatActivity(), PostsAdapter.ClickEventHandler {
             id = idGamer.toInt()
         }
 
+        iv_busca.setOnClickListener{
+            var idGamer = intent.extras?.getString("currentUser")
+            var usuario = intent.extras?.getString("usuario")
+            val telaBusca = Intent(this@HomeActivity, SearchActivity::class.java)
+            telaBusca.putExtra("currentUser", idGamer)
+            telaBusca.putExtra("usuario", usuario)
+            startActivity(telaBusca)
+        }
+
     }
 
     @SuppressLint("WrongConstant")
     fun criarCardsAlternativo(partida:List<PartidaModel>?, idGamer: Int){
         try{
-
-
-
             posts2 = partida as MutableList<PartidaModel>
-            posts2.add(PartidaModel(1,1,
+            posts2.add(PartidaModel(0,1,
                 JogoModel(1, "1", 1, "null"),
                 EquipeModel(1, "null", "null"),
                 UserModel(null, "null", "null", "null", "null",
@@ -78,7 +85,9 @@ class HomeActivity : AppCompatActivity(), PostsAdapter.ClickEventHandler {
 
                 if(response.code() == 200) {
                     response?.body()?.let {
-                        criarCardsAlternativo(response.body(), idGamer)
+                        criarCardsAlternativo(response.body()
+                        , idGamer)
+
                     }
                 }else{
                     Toast.makeText(this@HomeActivity, response.code().toString(), Toast.LENGTH_LONG).show()
@@ -105,6 +114,16 @@ class HomeActivity : AppCompatActivity(), PostsAdapter.ClickEventHandler {
         telaPerfil.putExtra("currentUser", idGamer)
         telaPerfil.putExtra("usuario", usuario)
         startActivity(telaPerfil)
+    }
+
+
+    fun todasEquipes(componente:View){
+        var idGamer = intent.extras?.getString("currentUser")
+        var usuario = intent.extras?.getString("usuario")
+        val telaAllTeams = Intent(this@HomeActivity, AllTeamsActivity::class.java)
+        telaAllTeams.putExtra("currentUser", idGamer)
+        telaAllTeams.putExtra("usuario", usuario)
+        startActivity(telaAllTeams)
     }
 
 
