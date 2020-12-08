@@ -23,12 +23,9 @@ import java.lang.Exception
 
 class HomeActivity : AppCompatActivity(), PostsAdapter.ClickEventHandler {
 
-    var nomeJogo = mutableListOf<String>()
-    var papel = mutableListOf<String>()
-    var dataJogo = mutableListOf<String>()
-    var horaJogo = mutableListOf<String>()
-    val posts: ArrayList<String> = ArrayList()
+
     var posts2 = mutableListOf<PartidaModel>()
+    var id: Int? = null
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +38,7 @@ class HomeActivity : AppCompatActivity(), PostsAdapter.ClickEventHandler {
 
         if (idGamer != null) {
             partidas(idGamer.toInt())
-
+            id = idGamer.toInt()
         }
 
     }
@@ -110,6 +107,7 @@ class HomeActivity : AppCompatActivity(), PostsAdapter.ClickEventHandler {
         startActivity(telaPerfil)
     }
 
+
     fun logoff(componente: View){
 
 
@@ -138,6 +136,10 @@ class HomeActivity : AppCompatActivity(), PostsAdapter.ClickEventHandler {
 
             }
         })
+    }
+
+    fun reload(componente: View){
+        id?.let { partidas(it) }
     }
 
     @SuppressLint("ResourceType")

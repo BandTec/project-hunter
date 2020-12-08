@@ -25,7 +25,9 @@ import kotlinx.android.synthetic.main.fragment_image_profile.*
 import java.util.*
 
 
-class ProfileAdapter(val posts: MutableList<List<GamerInfoJogoModel>>, val posts2: MutableList<List<GamerInfoEquipeModel>>, val posts3: MutableList<List<PartidaModel>>, val id:Int): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class TeamAdapter(val posts: MutableList<List<EquipeJogoModel>>, val posts2: MutableList<List<EquipeGamerModel>>, val posts3: MutableList<List<PartidaModel>>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+
 
 
     internal val VIEW_TYPE_ONE = 1
@@ -46,7 +48,7 @@ class ProfileAdapter(val posts: MutableList<List<GamerInfoJogoModel>>, val posts
         return if (viewType == VIEW_TYPE_ONE) {
             ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.games_post, parent, false))
         }else if (viewType == VIEW_TYPE_TWO) {
-            ViewHolder2(LayoutInflater.from(parent.context).inflate(R.layout.equipes_post, parent, false))
+            ViewHolder2(LayoutInflater.from(parent.context).inflate(R.layout.gamers_post, parent, false))
         }else{
             ViewHolder3(LayoutInflater.from(parent.context).inflate(R.layout.hist_vitorias_post, parent, false))
         }
@@ -68,15 +70,15 @@ class ProfileAdapter(val posts: MutableList<List<GamerInfoJogoModel>>, val posts
                 holder as ViewHolder
 
                 holder.rv.layoutManager = LinearLayoutManager(null, OrientationHelper.VERTICAL, false)
-                holder.rv.adapter = GameByGameAdapter(it as MutableList<GamerInfoJogoModel>)
+                holder.rv.adapter = GameByGameTeamAdapter(it as MutableList<EquipeJogoModel>)
             }
         }
-       else if(position == 1) {
+        else if(position == 1) {
             posts2.forEach {
                 holder as ViewHolder2
 
                 holder.rv.layoutManager = LinearLayoutManager(null, OrientationHelper.VERTICAL, false)
-                holder.rv.adapter = TeamByTeamAdapter(it as MutableList<GamerInfoEquipeModel>, id)
+                holder.rv.adapter = GamerByGamerAdapter(it as MutableList<EquipeGamerModel>)
             }
         }else{
             posts3.forEach {
@@ -106,7 +108,7 @@ class ProfileAdapter(val posts: MutableList<List<GamerInfoJogoModel>>, val posts
     }
 
     class ViewHolder2(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val rv: RecyclerView = itemView.findViewById(R.id.rv_equipes)
+        val rv: RecyclerView = itemView.findViewById(R.id.rv_players)
     }
 
     class ViewHolder3(itemView: View) : RecyclerView.ViewHolder(itemView){

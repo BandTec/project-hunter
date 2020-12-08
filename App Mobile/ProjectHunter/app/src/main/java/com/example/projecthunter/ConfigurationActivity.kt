@@ -171,7 +171,7 @@ class ConfigurationActivity : AppCompatActivity() {
                     loadingView.dismiss()
                     val telaHome = Intent(this@ConfigurationActivity, HomeActivity::class.java)
                     Toast.makeText(this@ConfigurationActivity, "Usuário Atualizado", Toast.LENGTH_SHORT).show()
-                    telaHome.putExtra("currentUser", idGamer)
+                    telaHome.putExtra("currentUser", idGamer.toString())
                     startActivity(telaHome)
                 }else{
                     Toast.makeText(this@ConfigurationActivity, "Erro ao efetuar a atualização!", Toast.LENGTH_SHORT).show()

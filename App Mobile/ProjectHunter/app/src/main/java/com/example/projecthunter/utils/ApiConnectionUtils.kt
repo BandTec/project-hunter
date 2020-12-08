@@ -44,4 +44,11 @@ class ApiConnectionUtils {
     fun matchesService() : MatchesService{
         return getRetrofitInstance().create(MatchesService::class.java)
     }
+
+    fun profileService(): ProfileInfoService{
+        return getRetrofitInstance().create(ProfileInfoService::class.java)
+    }
+    fun teamService(): EquipeService{
+        return getRetrofitInstance().create(EquipeService::class.java)
+    }
 }
