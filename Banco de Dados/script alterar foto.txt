@@ -1,0 +1,87 @@
+select * from equipe
+
+select * from gamer
+
+Equipe
+
+update equipe set fotoEquipe = 'https://i.imgur.com/yF6NJTg.png' where idEquipe = 44
+update equipe set nomeEquipe = 'The Real Mages' where idEquipe = 47
+update equipe set fotoEquipe = 'https://i.imgur.com/qfghq3Z.png' where idEquipe = 45
+update equipe set nomeEquipe = 'FFire TTeam' where idEquipe = 47
+update equipe set fotoEquipe = 'https://i.imgur.com/Z1nXn7n.png' where idEquipe = 46
+update equipe set nomeEquipe = 'Knight Warriors' where idEquipe = 47
+update equipe set fotoEquipe = 'https://i.imgur.com/CntL6yD.png' where idEquipe = 47
+update equipe set nomeEquipe = 'Virtual Gaming' where idEquipe = 47
+update equipe set fotoEquipe = 'https://i.imgur.com/l2Uuqm8.png' where idEquipe = 3
+update equipe set fotoEquipe = 'https://i.imgur.com/pWqUJm8.png' where idEquipe = 1
+update equipe set fotoEquipe = 'https://i.imgur.com/XcuRdsA.png' where idEquipe = 2
+update equipe set fotoEquipe = 'https://i.imgur.com/4dVYCWg.png' where idEquipe = 5
+update equipe set fotoEquipe = 'https://i.imgur.com/p380OM1.png' where idEquipe = 7
+update equipe set fotoEquipe = 'https://i.imgur.com/rq60sM2.png' where idEquipe = 8
+update equipe set fotoEquipe = 'https://i.imgur.com/rH5cvJj.png' where idEquipe = 48
+update equipe set fotoEquipe = 'https://i.imgur.com/rH5cvJj.png' where idEquipe = 49
+update equipe set fotoEquipe = 'https://i.imgur.com/rH5cvJj.png' where idEquipe = 50
+update equipe set fotoEquipe = 'https://i.imgur.com/rH5cvJj.png' where idEquipe = 60
+update equipe set fotoEquipe = 'https://i.imgur.com/rH5cvJj.png' where idEquipe = 65
+
+Gamer
+
+update gamer set fotoGamer = 'https://i.imgur.com/mSqp93b.png' where idGamer = 84
+update gamer set fotoGamer = 'https://i.imgur.com/3J8xWs6.png' where idGamer = 13
+update gamer set fotoGamer = 'https://i.imgur.com/i8KDDbN.png' where idGamer = 34
+update gamer set fotoGamer = 'https://i.imgur.com/hNXB4fY.png' where idGamer = 11
+update gamer set fotoGamer = 'https://i.imgur.com/wIf67K4.png' where idGamer = 1
+update gamer set fotoGamer = 'https://i.imgur.com/Lyq4ysV.png' where idGamer = 2
+update gamer set fotoGamer = 'https://i.imgur.com/DyAQBo1.png' where idGamer = 3
+update gamer set fotoGamer = 'https://i.imgur.com/UMUlZ6K.png' where idGamer = 4
+update gamer set fotoGamer = 'https://i.imgur.com/1XQljmm.png' where idGamer = 5
+update gamer set fotoGamer = 'https://i.imgur.com/6gD5YtQ.png' where idGamer = 6
+update gamer set fotoGamer = 'https://i.imgur.com/SWAnutx.png' where idGamer = 7
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 8
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 9
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 10
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 12
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 14
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 15
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 16
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 38
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 42
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 49
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 53
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 54
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 55
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 56
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 59
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 60
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 61
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 62
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 63
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 64
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 65
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 66
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 67
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 69
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 70
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 71
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 72
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 73
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 74
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 75
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 76
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 77
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 78
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 79
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 80
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 81
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 82
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 83
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 85
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 86
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 87
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 88
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 89
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 90
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 91
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 92
+update gamer set fotoGamer = 'https://i.imgur.com/rH5cvJj.png' where idGamer = 93
+
