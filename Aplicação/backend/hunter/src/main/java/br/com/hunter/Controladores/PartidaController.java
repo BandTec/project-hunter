@@ -120,6 +120,7 @@ public class PartidaController {
         return lista.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(lista);
     }
 
+    @Transactional
     @DeleteMapping( "/{id}" )
     public ResponseEntity excluir(@PathVariable("id") int id) {
         if (repository.existsById(id)) {
@@ -174,7 +175,7 @@ public class PartidaController {
     public ResponseEntity atualizar(
             @PathVariable("id") int id, @RequestBody Partida PartidaAlterado ) {
         if(repository.existsById(id)) {
-            PartidaAlterado.setIdPartida(id);
+            PartidaAlterado.setIdPK(id);
             repository.save(PartidaAlterado);
             return ResponseEntity.ok().build();
         } else {
